@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 16&nbsp; Multiple regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./16-regression.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./17-multiple-regression.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multiple regression</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programming basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-intro-to-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-loading-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Starting with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Intro to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Correlations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-t-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">t-tests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-missing-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-factorial-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-multiple-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a-installing-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing <code>R</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a1-updating-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Updating packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a2-additional-learning-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Additional Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a3-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#mulregression-a1" id="toc-mulregression-a1" class="nav-link active" data-scroll-target="#mulregression-a1"><span class="header-section-number">16.1</span> Activity 1: Set-up</a></li>
+  <li><a href="#mulregression-a2" id="toc-mulregression-a2" class="nav-link" data-scroll-target="#mulregression-a2"><span class="header-section-number">16.2</span> Activity 2: Look at the data</a></li>
+  <li><a href="#mulregression-a3" id="toc-mulregression-a3" class="nav-link" data-scroll-target="#mulregression-a3"><span class="header-section-number">16.3</span> Activity 3: Compute the well-being score for each respondent</a></li>
+  <li><a href="#mulregression-a4" id="toc-mulregression-a4" class="nav-link" data-scroll-target="#mulregression-a4"><span class="header-section-number">16.4</span> Activity 4: Visualise the relationship</a></li>
+  <li><a href="#mulregression-a5" id="toc-mulregression-a5" class="nav-link" data-scroll-target="#mulregression-a5"><span class="header-section-number">16.5</span> Activity 5: Smartphone and well-being for boys and girls</a></li>
+  <li><a href="#mulregression-a6" id="toc-mulregression-a6" class="nav-link" data-scroll-target="#mulregression-a6"><span class="header-section-number">16.6</span> Activity 6: Mean-centering variables</a></li>
+  <li><a href="#mulregression-a7" id="toc-mulregression-a7" class="nav-link" data-scroll-target="#mulregression-a7"><span class="header-section-number">16.7</span> Activity 7: Visualise the relationship</a></li>
+  <li><a href="#mulregression-a8" id="toc-mulregression-a8" class="nav-link" data-scroll-target="#mulregression-a8"><span class="header-section-number">16.8</span> Activity 8: Running the regression</a></li>
+  <li><a href="#mulregression-a9" id="toc-mulregression-a9" class="nav-link" data-scroll-target="#mulregression-a9"><span class="header-section-number">16.9</span> Activity 9: Assumption checking</a></li>
+  <li><a href="#mulregression-a10" id="toc-mulregression-a10" class="nav-link" data-scroll-target="#mulregression-a10"><span class="header-section-number">16.10</span> Activity 10: Power and effect size</a></li>
+  <li><a href="#mulregression-a11" id="toc-mulregression-a11" class="nav-link" data-scroll-target="#mulregression-a11"><span class="header-section-number">16.11</span> Activity 11: Write-up</a></li>
+  <li><a href="#mulregression-fin" id="toc-mulregression-fin" class="nav-link" data-scroll-target="#mulregression-fin"><span class="header-section-number">16.12</span> Finished!</a></li>
+  <li>
+<a href="#mulregression-sols" id="toc-mulregression-sols" class="nav-link" data-scroll-target="#mulregression-sols"><span class="header-section-number">16.13</span> Activity solutions</a>
+  <ul class="collapse">
+<li><a href="#mulregression-a3sol" id="toc-mulregression-a3sol" class="nav-link" data-scroll-target="#mulregression-a3sol"><span class="header-section-number">16.13.1</span> Activity 3</a></li>
+  <li><a href="#mulregression-a5sol" id="toc-mulregression-a5sol" class="nav-link" data-scroll-target="#mulregression-a5sol"><span class="header-section-number">16.13.2</span> Activity 5</a></li>
+  <li><a href="#mulregression-a6sol" id="toc-mulregression-a6sol" class="nav-link" data-scroll-target="#mulregression-a6sol"><span class="header-section-number">16.13.3</span> Activity 6</a></li>
+  <li><a href="#mulregression-a7sol" id="toc-mulregression-a7sol" class="nav-link" data-scroll-target="#mulregression-a7sol"><span class="header-section-number">16.13.4</span> Activity 7</a></li>
+  <li><a href="#mulregression-a8sol" id="toc-mulregression-a8sol" class="nav-link" data-scroll-target="#mulregression-a8sol"><span class="header-section-number">16.13.5</span> Activity 8</a></li>
+  <li><a href="#mulregression-a9sol" id="toc-mulregression-a9sol" class="nav-link" data-scroll-target="#mulregression-a9sol"><span class="header-section-number">16.13.6</span> Activity 9</a></li>
+  <li><a href="#mulregression-a10sol" id="toc-mulregression-a10sol" class="nav-link" data-scroll-target="#mulregression-a10sol"><span class="header-section-number">16.13.7</span> Activity 10</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multiple regression</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>There is currently much debate (and hype) surrounding smartphones and their effects on well-being, especially with regard to children and teenagers. We’ll be looking at data from this recent study of English adolescents:</p>
+<blockquote class="blockquote">
+<p>Przybylski, A. &amp; Weinstein, N. (2017). A Large-Scale Test of the Goldilocks Hypothesis. <em>Psychological Science</em>, <em>28</em>, 204–215.</p>
+</blockquote>
+<p>This was a large-scale study that found support for the “Goldilocks” hypothesis among adolescents: that there is a “just right” amount of screen time, such that any amount more or less than this amount is associated with lower well-being. This was a huge survey study: the data contain responses from over 120,000 participants!</p>
+<p>Fortunately, the authors made the data from this study openly available, which allows us to dig deeper into their results. In this exercise, we will look at whether the relationship between screen time and well-being is modulated by participants’ (self-reported) gender.</p>
+<p>The dependent measure used in the study was the <a href="https://warwick.ac.uk/fac/med/research/platform/wemwbs/">Warwick-Edinburgh Mental Well-Being Scale (WEMWBS)</a>. This is a 14-item scale with 5 response categories, summed together to form a single score ranging from 14-70.</p>
+<p>At <a href="https://osf.io/82ybd/">Przybylski &amp; Weinstein’s page for this study on the Open Science Framework</a>, you can find the <a href="https://osf.io/82ybd/">participant survey</a> which asks a large number of additional questions (see page 14 for the WEMWBS questions and pages 4-5 for the questions about screen time). Within the same page you can also find the <a href="https://osf.io/82ybd/">raw data</a>; however, for the purpose of this exercise, you will be using local pre-processed copies of the data which we will provide.</p>
+<p>Przybylski and Weinstein looked at multiple measures of screen time, but we will be focusing on smartphone use. They found that decrements in well-being started to appear when respondents reported more than one hour of weekly smartphone use. Our question: Does the negative association between hours of use and well-being (beyond the one-hour point) differ for boys and girls?</p>
+<p>Note that in this analysis, we have:</p>
+<ul>
+<li><p>a continuous<span class="math inline">\(^*\)</span> DV, well-being;</p></li>
+<li><p>a continuous<span class="math inline">\(^*\)</span> predictor, screen time;</p></li>
+<li><p>a categorical predictor, gender.</p></li>
+</ul>
+<p><span class="math inline">\(^*\)</span>these variables are only quasi-continuous, inasmuch as only discrete values are possible. However, there are a sufficient number of discrete categories that we can treat them as effectively continuous.</p>
+<p>We want to estimate two slopes relating screen time to well-being, one for girls and one for boys, and then statistically compare these slopes. So this problem seems simultaneously like a situation where you would run a regression (to estimate the slopes) but also one where you would need a t-test (to compare two groups).</p>
+<p>But the expressive power of regression allows us to do this all within a single model. As the <a href="http://deevybee.blogspot.com/2017/11/anova-t-tests-and-regression-different.html">Bishop blog showed</a>, <em>an independent groups t-test is just a special case of ordinary regression with a single categorical predictor; ANOVA is just a special case of regression where all predictors are categorical.</em> So although we can express any ANOVA design using regression, the converse is not true: we cannot express every regression design in ANOVA. Regression allows us to have any combination of continuous and categorical predictors in the model. The only inconvenience with running ANOVA models as regression models is that you have to take care in how you numerically code the categorical predictors.</p>
+<section id="mulregression-a1" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="mulregression-a1">
+<span class="header-section-number">16.1</span> Activity 1: Set-up</h2>
+<ul>
+<li>Open R Studio and set the working directory to your chapter folder. Ensure the environment is clear.<br>
+</li>
+<li>Open a new R Markdown document and save it in your working directory. Call the file “Multiple Regression”.<br>
+</li>
+<li>Download <a href="wellbeing.csv" download="">wellbeing.csv</a>, <a href="participant_info.csv" download="">participant_info.csv</a> and <a href="screen_time.csv" download="">screen_time.csv</a> and save them in your Chapter folder. Make sure that you do not change the file names at all.<br>
+</li>
+<li>If you’re on the server, avoid a number of issues by restarting the session - click <code>Session</code> - <code>Restart R</code>
+</li>
+<li>Delete the default R Markdown welcome text and insert a new code chunk that loads <code>pwr</code>, <code>see</code>, <code>performance</code>, <code>report</code>, and <code>tidyverse</code> using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function.</li>
+<li>Load the CSV datasets into variables called <code>pinfo</code>, <code>wellbeing</code> and <code>screen</code> using <code>read_csv()</code>.</li>
+</ul></section><section id="mulregression-a2" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="mulregression-a2">
+<span class="header-section-number">16.2</span> Activity 2: Look at the data</h2>
+<p>Take a look at the resulting tibbles <code>pinfo</code>, <code>wellbeing</code>, and <code>screen</code>. The <code>wellbeing</code> tibble has information from the WEMWBS questionnaire; <code>screen</code> has information about screen time use on weekends (variables ending with <code>we</code>) and weekdays (variables ending with <code>wk</code>) for four types of activities: using a computer (variables starting with <code>Comph</code>; Q10 on the survey), playing video games (variables starting with <code>Comp</code>; Q9 on the survey), using a smartphone (variables starting with <code>Smart</code>; Q11 on the survey) and watching TV (variables starting with <code>Watch</code>; Q8 on the survey). If you want more information about these variables, look at the items 8-11 on pages 4-5 of the the <a href="https://osf.io/82ybd/">PDF version of the survey on the OSF website</a>.</p>
+<ul>
+<li><p>The variable corresponding to <em>gender</em> is located in the table named <select class="webex-select"><option value="blank"></option>
+<option value="answer">pinfo</option>
+<option value="">wellbeing</option>
+<option value="">screen</option></select> and this variable is called <input class="webex-solveme nospaces" size="6" data-answer="[&quot;male&quot;]">.</p></li>
+<li><p>The WEMWBS data is in <select class="webex-select"><option value="blank"></option>
+<option value="">long</option>
+<option value="answer">wide</option></select> format, and contains observations from <input class="webex-solveme nospaces" size="10" data-answer="[&quot;102580&quot;,&quot;102,580&quot;]"> participants on <input class="webex-solveme nospaces" size="2" data-answer="[&quot;15&quot;]"> items.</p></li>
+<li><p>Individual participants in this dataset are identified by the variable named <input class="webex-solveme nospaces" size="9" data-answer="[&quot;Serial&quot;]"> [be sure to type the name <em>exactly</em>, including capitalization]. This variable will allow us to link information across the three tables.</p></li>
+<li><p>Run <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on the three data-sets. Are there any missing data points? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select></p></li>
+</ul></section><section id="mulregression-a3" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="mulregression-a3">
+<span class="header-section-number">16.3</span> Activity 3: Compute the well-being score for each respondent</h2>
+<p>The WEMWBS well-being score is simply the <em>sum</em> of all the items.</p>
+<ul>
+<li>Write the code to create a new table called <code>wemwbs</code>, with two variables: <code>Serial</code> (the participant ID), and <code>tot_wellbeing</code>, the total WEMWBS score.</li>
+</ul>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>“pivot” the table from wide to long</li>
+</ul>
+</div>
+<div class="webex-solution">
+<button>
+Another Hint
+</button>
+<ul>
+<li>
+<code>group_by()</code>; <code>summarise(tot_wellbeing = ...)</code>
+</li>
+</ul>
+</div>
+<p><strong>Sanity check:</strong> Verify for yourself that the scores all fall in the 14-70 range. Przybylski and Weinstein reported a mean of 47.52 with a standard deviation of 9.55. Can you reproduce these values?</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>
+<code>summarise()</code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>
+</li>
+</ul>
+</div>
+<p><br></p>
+<ul>
+<li>Now visualise the distribution of <code>tot_wellbeing</code> in a histogram using ggplot2.</li>
+</ul>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li><code>geom_histogram()</code></li>
+</ul>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggplot</span>(wemwbs, <span class="fu">aes</span>(tot_wellbeing)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="17-multiple-regression_files/figure-html/wemwbs_histogram-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>The distribution of well-being scores is <select class="webex-select"><option value="blank"></option>
+<option value="">symmetric</option>
+<option value="answer">negatively skewed</option>
+<option value="">positively skewed</option></select>.</p>
+</section><section id="mulregression-a4" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="mulregression-a4">
+<span class="header-section-number">16.4</span> Activity 4: Visualise the relationship</h2>
+<p>Let’s take a quick look at the relationship between screen time (for the four different technologies) and measures of well-being. Here is code to do this.</p>
+<ul>
+<li>Run the below code and try and explain in words what each line of code is doing (remember, pronounce <code>%&gt;%</code> as “and then”). You may find it easier to look at each of the tables that are produced.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>screen_long <span class="ot">&lt;-</span> screen <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">"var"</span>, <span class="at">values_to =</span> <span class="st">"hours"</span>, <span class="sc">-</span>Serial) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">separate</span>(var, <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"day"</span>), <span class="st">"_"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>screen2 <span class="ot">&lt;-</span> screen_long <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(variable,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>               <span class="st">"Watch"</span> <span class="ot">=</span> <span class="st">"Watching TV"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>               <span class="st">"Comp"</span> <span class="ot">=</span> <span class="st">"Playing Video Games"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>               <span class="st">"Comph"</span> <span class="ot">=</span> <span class="st">"Using Computers"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>               <span class="st">"Smart"</span> <span class="ot">=</span> <span class="st">"Using Smartphone"</span>),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>     <span class="at">day =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(day,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>              <span class="st">"wk"</span> <span class="ot">=</span> <span class="st">"Weekday"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13"></a>              <span class="st">"we"</span> <span class="ot">=</span> <span class="st">"Weekend"</span>))</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a>dat_means <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(wemwbs, screen2, <span class="st">"Serial"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">group_by</span>(variable, day, hours) <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">summarise</span>(<span class="at">mean_wellbeing =</span> <span class="fu">mean</span>(tot_wellbeing))</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="fu">ggplot</span>(dat_means, <span class="fu">aes</span>(hours, mean_wellbeing, <span class="at">linetype =</span> day)) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="17-multiple-regression_files/figure-html/combined-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Relationship between wellbeing and screentime usage by technology and weekday</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The graph makes it evident that smartphone use of more than 1 hour per day is associated with increasingly negative well-being. Note that we have combined the tables using an <code>inner_join()</code>, such that we only include data for which we have observations across the <code>wemwbs</code> and <code>screen2</code> tables.</p>
+<p>In the next step, we are going to focus in on the smartphone/well-being relationship.</p>
+</section><section id="mulregression-a5" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="mulregression-a5">
+<span class="header-section-number">16.5</span> Activity 5: Smartphone and well-being for boys and girls</h2>
+<p>For this analysis, we are going to collapse weekday and weekend use for smartphones.</p>
+<ul>
+<li>Create a new table, <code>smarttot</code>, that has the that has mean number of hours per day of smartphone use for each participant, averaged over weekends/weekdays.</li>
+<li>You will need to filter the dataset to only include smartphone use and not other technologies.</li>
+<li>You will also need to group the results by the participant ID (i.e., <code>serial</code>).</li>
+<li>The final data-set should have two variables: <code>Serial</code> (the participant) and <code>tothours</code>.</li>
+<li>You will need to use the data-set <code>screen2</code> to do this.</li>
+</ul>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> then <code>group_by()</code> then <code>summarise()</code>
+</li>
+</ul>
+</div>
+<ul>
+<li>Next, create a new tibble called <code>smart_wb</code> that only includes (filters) participants from <code>smarttot</code> who used a smartphone for more than one hour per day each week, and then combine (join) this table with the information in <code>wemwbs</code> and <code>pinfo</code>.**</li>
+</ul>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> then <code>inner_join()</code> then another <code>inner_join()</code>
+</li>
+</ul>
+</div>
+</section><section id="mulregression-a6" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="mulregression-a6">
+<span class="header-section-number">16.6</span> Activity 6: Mean-centering variables</h2>
+<p>As discussed in the lecture, When you have continuous variables in a regression, it is often sensible to transform them by <em>mean centering</em>. You mean center a predictor <code>X</code> simply by subtracting the mean (<code>X_centered = X - mean(X)</code>). This has two useful consequences:</p>
+<ul>
+<li><p>the model intercept reflects the prediction for <span class="math inline">\(Y\)</span> at the mean value of the predictor variable, rather than at the zero value of the unscaled variable;</p></li>
+<li><p>if there are interactions in the model, any lower-order effects can be given the same interpretation as they receive in ANOVA (main effects, rather than simple effects).</p></li>
+</ul>
+<p>For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0).</p>
+<ul>
+<li>Use <code>mutate</code> to add two new variables to <code>smart_wb</code>: <code>tothours_c</code>, calculated as a mean-centered version of the <code>tothours</code> predictor; and <code>male_c</code>, recoded as -.5 for female and .5 for male.</li>
+<li>To create <code>male_c</code> you will need to use <code>if_else(male == 1, .5, -.5)</code> You can read this code as “if the variable <code>male</code> equals 1, recode it as .5, if not, recode it as -.5”.</li>
+<li>Finally, recode <code>male</code> and <code>male_c</code> as factors, so that R knows not to treat them as a real numbers.</li>
+</ul></section><section id="mulregression-a7" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="mulregression-a7">
+<span class="header-section-number">16.7</span> Activity 7: Visualise the relationship</h2>
+<ul>
+<li>Reverse-engineer the below plot. Calculate mean well-being scores for each combination of <code>male</code> and <code>tothours</code>, and then create a scatterplot plot that includes separate regression lines for each gender.</li>
+<li>You may find it useful to refer to the Visualisation chapter.</li>
+</ul>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>
+<code>group_by()</code> both variables then <code>summarise()</code>
+</li>
+<li><code>colour = variable_you_want_different_colours_for</code></li>
+</ul>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="17-multiple-regression_files/figure-html/plots-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Relationship between mean wellbeing and smartphone use by gender</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Write an interpretation of the above plot in plain English.</p>
+<div class="webex-solution">
+<button>
+Possible solution
+</button>
+<p>Girls show lower overall well-being compared to boys. In addition, the slope for girls appears more negative than that for boys; the one for boys appears relatively flat. This suggests that the negative association between well-being and smartphone use is stronger for girls.</p>
+</div>
+</section><section id="mulregression-a8" class="level2" data-number="16.8"><h2 data-number="16.8" class="anchored" data-anchor-id="mulregression-a8">
+<span class="header-section-number">16.8</span> Activity 8: Running the regression</h2>
+<p>Now we’re going to see if there is statistical support for our above interpretation of the graph.</p>
+<p>For the data in <code>smart_wb</code>, use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to calculate the multiple regression model:</p>
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + e_i\)</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(Y_i\)</span> is the well-being score for participant <span class="math inline">\(i\)</span>;</li>
+<li>
+<span class="math inline">\(X_{1i}\)</span> is the mean-centered smartphone use variable for participant <span class="math inline">\(i\)</span>;</li>
+<li>
+<span class="math inline">\(X_{2i}\)</span> is gender (-.5 = female, .5 = male);</li>
+<li>
+<span class="math inline">\(X_{3i}\)</span> is the interaction between smartphone use and gender (<span class="math inline">\(= X_{1i} \times X_{2i}\)</span>)</li>
+</ul>
+<p>Then use <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to view the results and store this in an object called <code>mod_summary()</code>.</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<ul>
+<li>R formulas look like this: <code>y ~ a + b + a:b</code> where <code>a:b</code> means interaction</li>
+</ul>
+</div>
+<ul>
+<li><p>The interaction between smartphone use and gender is shown by the variable <select class="webex-select"><option value="blank"></option>
+<option value="">thours_c</option>
+<option value="">male_c</option>
+<option value="answer">thours_c:male_c</option></select>, and this interaction was <select class="webex-select"><option value="blank"></option>
+<option value="answer">significant</option>
+<option value="">nonsignificant</option></select> at the <span class="math inline">\(\alpha = .05\)</span> level.</p></li>
+<li><p>To 2 decimal places, what proportion of the variance in well-being scores does the overall model explain? <input class="webex-solveme nospaces" size="4" data-answer="[&quot;9.38&quot;]"></p></li>
+<li><p>The p-value for the overall model fit is <code>&lt; 2.2e-16</code>. Is this significant? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select></p></li>
+<li><p>What is the most reasonable interpretation of these results? <select class="webex-select"><option value="blank"></option>
+<option value="">smartphone use harms girls more than boys</option>
+<option value="">smartphone use harms boys more than girls</option>
+<option value="">there is no evidence for gender differences in the relationship between smartphone use and well-being</option>
+<option value="answer">smartphone use was more negatively associated with wellbeing for girls than for boys</option></select></p></li>
+</ul></section><section id="mulregression-a9" class="level2" data-number="16.9"><h2 data-number="16.9" class="anchored" data-anchor-id="mulregression-a9">
+<span class="header-section-number">16.9</span> Activity 9: Assumption checking</h2>
+<p>Now it’s time to test those pesky assumptions. The assumptions for multiple regression are the same as simple regression but there is one additional assumption, that of multicollinearity, the idea that predictor variables should not be too highly correlated.</p>
+<ol type="1">
+<li>The outcome/DV is a interval/ratio level data</li>
+<li>The predictor variable is interval/ratio or categorical (with two levels)</li>
+<li>All values of the outcome variable are independent (i.e., each score should come from a different participant)</li>
+<li>The predictors have non-zero variance</li>
+<li>The relationship between outcome and predictor is linear</li>
+<li>The residuals should be normally distributed</li>
+<li>There should be homoscedasticity (homogeneity of variance, but for the residuals)</li>
+<li>Multicollinearity: predictor variables should not be too highly correlated</li>
+</ol>
+<p>From the work we’ve done so far we know that assumptions 1 - 4 are met and we can use the functions from the <code>performance</code> package again to check the rest, like we did with the simple linear regression chapter.</p>
+<p>One difference from when we used <code>check_model()</code> previously is that rather than just letting it run all the tests it wants, we’re going to specify which tests, to stop it throwing an error. A word of warning - these assumptions tests will take longer than usual to run, because it’s such a big dataset. The first line of code will run the assumption tests and save it to an object, calling the object name will then display the plots.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>assumptions <span class="ot">&lt;-</span> <span class="fu">check_model</span>(mod, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"vif"</span>, <span class="st">"qq"</span>, <span class="st">"normality"</span>, <span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>assumptions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="17-multiple-regression_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Assumption plots</figcaption></figure>
+</div>
+</div>
+</div>
+<p>For assumption 5, linearity, we already know from looking at the scatterplot that the relationship is linear, but the residual plot also confirms this.</p>
+<p>For assumption 6, normality of residuals, again the residuals look good in both plots and this provides an excellent example of why it’s often better to visualise than rely on statistics because if we use <code>check_normality()</code> which calls the Shapiro-Wilk test:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">check_normality</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
+</div>
+</div>
+<p>It tells us that the residuals are not normal, despite the fact that the plots look almost perfect. And that’s because with large sample sizes, any deviation from perfect normality can be flagged as non-normal.</p>
+<p>For assumption 7, homoscedasticity, the plot is missing the reference line - fun fact, this took us several days of our lives and asking for help on Twitter to figure out. The reason the line isn’t there is because the dataset is so large that is creates a memory issue so we need to create the plot ourselves using code the developers of the package <code>see</code> provided to us on Twitter. The default code would try to draw confidence intervals around the line which is what causes the memory issue, this code removes that with <code>se = FALSE</code>.</p>
+<p>Please note that with most datasets you wouldn’t have to do this extra step, but it’s a good example that when it comes to programming, it doesn’t matter how long you’ve been doing it, there will always be a problem you haven’t come across and that asking for help is part of the process.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(assumptions<span class="sc">$</span>HOMOGENEITY, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">geom_point2</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="fu">stat_smooth</span>(</span>
+<span id="cb7-4"><a href="#cb7-4"></a>      <span class="at">method =</span> <span class="st">"loess"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>      <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>      <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>    ) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="fu">labs</span>(</span>
+<span id="cb7-9"><a href="#cb7-9"></a>      <span class="at">title =</span> <span class="st">"Homogeneity of Variance"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>      <span class="at">subtitle =</span> <span class="st">"Reference line should be flat and horizontal"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11"></a>      <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sqrt</span>(<span class="st">"|Std. residuals|"</span>)),</span>
+<span id="cb7-12"><a href="#cb7-12"></a>      <span class="at">x =</span> <span class="st">"Fitted values"</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="17-multiple-regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Adjusted homogeneity plot that will produce reference line</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Again like normality, the plot isn’t perfect but it is pretty good and another example of why visualisation is better than running statistical tests as we see the same significant result if we run:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">check_homogeneity</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Variances differ between groups (Bartlett Test, p = 0.000).</code></pre>
+</div>
+</div>
+<p>For assumption 8, linearity, again the plot looks fine, and we could also have used the grouped scatterplots above to look at this.</p>
+<p>Finally, for assumption 9, multicollinearity, the plot also indicates no issues but we can also test this statistically using <code>check_collinearity()</code>.</p>
+<p>Essentially, this function estimates how much the variance of a coefficient is “inflated” because of linear dependence with other predictors, i.e., that a predictor isn’t actually adding any unique variance to the model, it’s just really strongly related to other predictors. <a href="https://statisticalhorizons.com/multicollinearity">You can read more about this here</a>. Thankfully, VIF is not affected by large samples like the other tests.</p>
+<p>There are various rules of thumb, but most converge on a VIF of above 2 - 2.5 for any one predictor being problematic.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">check_collinearity</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 16%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">VIF</th>
+<th style="text-align: right;">VIF_CI_low</th>
+<th style="text-align: right;">VIF_CI_high</th>
+<th style="text-align: right;">SE_factor</th>
+<th style="text-align: right;">Tolerance</th>
+<th style="text-align: right;">Tolerance_CI_low</th>
+<th style="text-align: right;">Tolerance_CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">thours_c</td>
+<td style="text-align: right;">1.721968</td>
+<td style="text-align: right;">1.704219</td>
+<td style="text-align: right;">1.740165</td>
+<td style="text-align: right;">1.312238</td>
+<td style="text-align: right;">0.5807308</td>
+<td style="text-align: right;">0.5746582</td>
+<td style="text-align: right;">0.5867789</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">male_c</td>
+<td style="text-align: right;">1.035552</td>
+<td style="text-align: right;">1.028488</td>
+<td style="text-align: right;">1.044369</td>
+<td style="text-align: right;">1.017621</td>
+<td style="text-align: right;">0.9656682</td>
+<td style="text-align: right;">0.9575159</td>
+<td style="text-align: right;">0.9723014</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">thours_c:male_c</td>
+<td style="text-align: right;">1.716349</td>
+<td style="text-align: right;">1.698683</td>
+<td style="text-align: right;">1.734463</td>
+<td style="text-align: right;">1.310095</td>
+<td style="text-align: right;">0.5826319</td>
+<td style="text-align: right;">0.5765474</td>
+<td style="text-align: right;">0.5886915</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="mulregression-a10" class="level2" data-number="16.10"><h2 data-number="16.10" class="anchored" data-anchor-id="mulregression-a10">
+<span class="header-section-number">16.10</span> Activity 10: Power and effect size</h2>
+<p>Finally, we’ll calculate power and effect size as usual.</p>
+<ul>
+<li>Using the code from Power and Effect Size calculate the minimum effect size we could reliably observe given our sample size and design but for 99% power. Report this to 2 decimal places <input class="webex-solveme nospaces" size="0.00" data-answer="[&quot;.00&quot;]">
+</li>
+</ul>
+<ul>
+<li>What is the observed effect size for the study to 2 decimal places? <input class="webex-solveme nospaces" size="0.10" data-answer="[&quot;.10&quot;]"><br>
+</li>
+<li>Is the study sufficiently powered? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select>
+</li>
+</ul></section><section id="mulregression-a11" class="level2" data-number="16.11"><h2 data-number="16.11" class="anchored" data-anchor-id="mulregression-a11">
+<span class="header-section-number">16.11</span> Activity 11: Write-up</h2>
+<p>Same as the simple regression, we can use inline coding or the <code>report()</code> function to help with the write-up. First, copy and paste the below code into <strong>white-space</strong> and then knit the document. Note that the p-values are entered manually because of the APA <code>p &lt; .001</code> formatting.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>All continuous predictors were mean<span class="sc">-</span>centered and deviation coding was used <span class="cf">for</span> categorical predictors. The results of the regression indicated that the model significantly predicted course <span class="fu">engagement</span> (<span class="fu">F</span>(<span class="st">`</span><span class="at">r mod_summary$fstatistic[2]</span><span class="st">`</span>, <span class="st">`</span><span class="at">r mod_summary$fstatistic[3] %&gt;% round(2)</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r mod_summary$fstatistic[1] %&gt;% round(2)</span><span class="st">`</span>, p <span class="sc">&lt;</span> .<span class="dv">001</span>, Adjusted <span class="at">R2 =</span> <span class="st">`</span><span class="at">r mod_summary$adj.r.squared %&gt;% round(2)</span><span class="st">`</span>, f<span class="sc">^</span><span class="dv">2</span><span class="sc">^</span> <span class="er">=</span> .<span class="dv">63</span>), accounting <span class="cf">for</span> <span class="st">`</span><span class="at">r (mod_summary$adj.r.squared %&gt;% round(2))*100</span><span class="st">`</span><span class="sc">% of the variance. Total screen time was a significant negative predictor of wellbeing scores (β = `r mod$coefficients[2] %</span><span class="er">&gt;</span><span class="sc">% round(2)`, p &lt; .001, as was gender (β = `r mod$coefficients[3] %</span><span class="er">&gt;</span><span class="sc">% round(2)`, p &lt; .001, with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screentime and gender (β = `r mod$coefficients[4] %</span><span class="er">&gt;</span>% <span class="fu">round</span>(<span class="dv">2</span>)<span class="st">`</span><span class="at">, p &lt; .001), smartphone use was more negatively associated with wellbeing for girls than for boys. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted course engagement (F(3, 7.1029^{4}) = 2450.89, p &lt; .001, Adjusted R2 = 0.09, f2 = .63), accounting for 9% of the variance. Total screen time was a significant negative predictor of well-being scores (β = -0.77, p &lt; .001, as was gender (β = 5.14, p &lt; .001, with girls having lower well-being scores than boys. Importantly, there was a significant interaction between screen time and gender (β = 0.45, p &lt; .001), smartphone use was more negatively associated with well-being for girls than for boys.</p>
+</blockquote>
+<p>Now, we can use <code>report()</code> to produce an automated summary. Again, it would need some editing but may be useful to aid interpretation and reporting.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">report</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>We fitted a linear model (estimated using OLS) to predict tot_wellbeing with
+thours_c and male_c (formula: tot_wellbeing ~ thours_c * male_c). The model
+explains a statistically significant and weak proportion of variance (R2 =
+0.09, F(3, 71029) = 2450.89, p &lt; .001, adj. R2 = 0.09). The model's intercept,
+corresponding to thours_c = 0 and male_c = -0.5, is at 44.87 (95% CI [44.78,
+44.96], t(71029) = 1001.87, p &lt; .001). Within this model:
+
+  - The effect of thours c is statistically significant and negative (beta =
+-0.77, 95% CI [-0.82, -0.73], t(71029) = -32.96, p &lt; .001; Std. beta = -0.15,
+95% CI [-0.16, -0.15])
+  - The effect of male c [0.5] is statistically significant and positive (beta =
+5.14, 95% CI [5.00, 5.28], t(71029) = 72.25, p &lt; .001; Std. beta = 0.54, 95% CI
+[0.52, 0.55])
+  - The effect of thours c × male c [0.5] is statistically significant and
+positive (beta = 0.45, 95% CI [0.38, 0.52], t(71029) = 12.24, p &lt; .001; Std.
+beta = 0.09, 95% CI [0.08, 0.11])
+
+Standardized parameters were obtained by fitting the model on a standardized
+version of the dataset. 95% Confidence Intervals (CIs) and p-values were
+computed using a Wald t-distribution approximation.</code></pre>
+</div>
+</div>
+</section><section id="mulregression-fin" class="level2" data-number="16.12"><h2 data-number="16.12" class="anchored" data-anchor-id="mulregression-fin">
+<span class="header-section-number">16.12</span> Finished!</h2>
+<p>And you’re done! Not just with this week but with the R component of RM2! The progress that you have made is truly astonishing. Even if you struggled with R and haven’t quite understood every single line of code we’ve shown, what you’re capable of with data wrangling and visualisation alone makes you some of the most highly competitive psychology graduates in the world.</p>
+<p>Regardless of whether you continue with quantitative methods and using R, remember the more important critical skills that you have learned as part of this process. The next time you see a dataset or you see data being talked about in the news, think about all work that was put into getting the data into the final format. More importantly, think about all the decisions that the researcher needed to make along the way and how that might have affected the outcome.</p>
+<p><img src="https://media.giphy.com/media/ujGfBmVppmgEg/giphy.gif" class="img-fluid"></p>
+</section><section id="mulregression-sols" class="level2" data-number="16.13"><h2 data-number="16.13" class="anchored" data-anchor-id="mulregression-sols">
+<span class="header-section-number">16.13</span> Activity solutions</h2>
+<section id="mulregression-a3sol" class="level3" data-number="16.13.1"><h3 data-number="16.13.1" class="anchored" data-anchor-id="mulregression-a3sol">
+<span class="header-section-number">16.13.1</span> Activity 3</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>wemwbs <span class="ot">&lt;-</span> wellbeing <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">"var"</span>, <span class="at">values_to =</span> <span class="st">"score"</span>, <span class="sc">-</span>Serial) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">group_by</span>(Serial) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">summarise</span>(<span class="at">tot_wellbeing =</span> <span class="fu">sum</span>(score))</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co"># sanity check values</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a>wemwbs <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(tot_wellbeing),</span>
+<span id="cb14-9"><a href="#cb14-9"></a>                     <span class="at">sd =</span> <span class="fu">sd</span>(tot_wellbeing),</span>
+<span id="cb14-10"><a href="#cb14-10"></a>                     <span class="at">min =</span> <span class="fu">min</span>(tot_wellbeing), </span>
+<span id="cb14-11"><a href="#cb14-11"></a>                     <span class="at">max =</span> <span class="fu">max</span>(tot_wellbeing))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a5sol" class="level3" data-number="16.13.2"><h3 data-number="16.13.2" class="anchored" data-anchor-id="mulregression-a5sol">
+<span class="header-section-number">16.13.2</span> Activity 5</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>smarttot <span class="ot">&lt;-</span> screen2 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Using Smartphone"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">group_by</span>(Serial) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">summarise</span>(<span class="at">tothours =</span> <span class="fu">mean</span>(hours))</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>smart_wb <span class="ot">&lt;-</span> smarttot <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">filter</span>(tothours <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">inner_join</span>(wemwbs, <span class="st">"Serial"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">inner_join</span>(pinfo, <span class="st">"Serial"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a6sol" class="level3" data-number="16.13.3"><h3 data-number="16.13.3" class="anchored" data-anchor-id="mulregression-a6sol">
+<span class="header-section-number">16.13.3</span> Activity 6</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>smart_wb <span class="ot">&lt;-</span> smarttot <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">filter</span>(tothours <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">inner_join</span>(wemwbs, <span class="st">"Serial"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">inner_join</span>(pinfo, <span class="st">"Serial"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">mutate</span>(<span class="at">thours_c =</span> tothours <span class="sc">-</span> <span class="fu">mean</span>(tothours),</span>
+<span id="cb16-6"><a href="#cb16-6"></a>         <span class="at">male_c =</span> <span class="fu">ifelse</span>(male <span class="sc">==</span> <span class="dv">1</span>, .<span class="dv">5</span>, <span class="sc">-</span>.<span class="dv">5</span>),</span>
+<span id="cb16-7"><a href="#cb16-7"></a>         <span class="at">male_c =</span> <span class="fu">as.factor</span>(male_c),</span>
+<span id="cb16-8"><a href="#cb16-8"></a>         <span class="at">male =</span> <span class="fu">as.factor</span>(male))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a7sol" class="level3" data-number="16.13.4"><h3 data-number="16.13.4" class="anchored" data-anchor-id="mulregression-a7sol">
+<span class="header-section-number">16.13.4</span> Activity 7</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>smart_wb_gen <span class="ot">&lt;-</span> smart_wb <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">group_by</span>(tothours, male) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_wellbeing =</span> <span class="fu">mean</span>(tot_wellbeing))</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="fu">ggplot</span>(smart_wb_gen, <span class="fu">aes</span>(tothours, mean_wellbeing, <span class="at">color =</span> male)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Gender"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>))<span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Total hours smartphone use"</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Mean well-being score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a8sol" class="level3" data-number="16.13.5"><h3 data-number="16.13.5" class="anchored" data-anchor-id="mulregression-a8sol">
+<span class="header-section-number">16.13.5</span> Activity 8</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tot_wellbeing <span class="sc">~</span> thours_c <span class="sc">*</span> male_c, smart_wb)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># alternatively: </span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># mod &lt;- lm(tot_wellbeing ~ thours_c + male_c + thours_c:male_c, smart_wb)</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a>mod_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a9sol" class="level3" data-number="16.13.6"><h3 data-number="16.13.6" class="anchored" data-anchor-id="mulregression-a9sol">
+<span class="header-section-number">16.13.6</span> Activity 9</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">qqPlot</span>(mod<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="mulregression-a10sol" class="level3" data-number="16.13.7"><h3 data-number="16.13.7" class="anchored" data-anchor-id="mulregression-a10sol">
+<span class="header-section-number">16.13.7</span> Activity 10</h3>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">3</span>, <span class="at">v =</span> <span class="dv">71029</span>, <span class="at">f2 =</span> <span class="cn">NULL</span>, <span class="at">sig.level =</span> .<span class="dv">05</span>, <span class="at">power =</span> .<span class="dv">99</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>f2 <span class="ot">&lt;-</span> mod_summary<span class="sc">$</span>adj.r.squared<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> mod_summary<span class="sc">$</span>adj.r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./16-regression.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./appendix-a-installing-r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing <code>R</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

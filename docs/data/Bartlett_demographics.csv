@@ -1,0 +1,206 @@
+participant_private_id,consent_given,age,cigarettes_per_week,smoke_everyday,past_four_weeks,age_started_smoking,country_of_origin,cpd,ethnicity,gender,last_cigarette,level_education,technical_issues,FTND_1,FTND_2,FTND_3,FTND_4,FTND_5,FTND_6
+631737,1,46,Yes,Yes,Yes,12,United Kingdom,6,White / Caucasian,Female,60,Graduated University / College,No,2,0,1,0,0,0
+631738,1,54,Yes,Yes,Yes,17,Germany,5,White / Caucasian,Female,780,Graduated University / College,No,0,0,0,0,0,0
+631741,1,23,Yes,Yes,Yes,17,Poland,10,Mixed / multiple ethnic groups,Male,90,Graduated Secondary school / High school / equivalent,No,0,0,1,1,0,0
+631739,1,34,Yes,Yes,Yes,16,Australia,20,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,3,0,1,1,1,1
+631749,1,38,Yes,Yes,Yes,15,Spain,10,White / Caucasian,Female,60,Some University / College,No,3,0,1,0,1,0
+631746,1,19,Yes,Yes,Yes,16,Estonia,1,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,1,1,1,0
+631750,1,25,Yes,Yes,Yes,22,Italy,6,White / Caucasian,Female,10,Graduated University / College,No,1,0,1,1,0,0
+631748,1,21,Yes,Yes,Yes,11,United Kingdom,15,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,2,1,0,0,1,1
+631759,1,28,Yes,Yes,Yes,18,Mexico,12,Mixed / multiple ethnic groups,Male,30,Graduated University / College,No,1,0,1,0,1,1
+631766,1,35,Yes,Yes,Yes,15,United Kingdom,20,White / Caucasian,Female,0,Graduated Secondary school / High school / equivalent,No,3,0,1,0,1,1
+631767,1,47,Yes,Yes,Yes,18,Estonia,20,White / Caucasian,Male,10,Graduated University / College,No,2,1,1,1,1,1
+631754,1,45,Yes,Yes,Yes,19,Spain,15,White / Caucasian,Male,30,Graduated Secondary school / High school / equivalent,No,2,1,0,1,0,1
+631769,1,52,Yes,Yes,Yes,20,United Kingdom,20,White / Caucasian,Female,20,Less than Secondary school / High school / equivalent,No,2,0,1,1,1,1
+631768,1,34,Yes,Yes,Yes,19,United Kingdom,5,White / Caucasian,Female,10,Graduated University / College,No,1,1,0,0,1,0
+631770,1,44,Yes,Yes,Yes,12,United Kingdom,10,White / Caucasian,Female,60,Postgraduate (masters or doctorate),No,2,0,1,1,0,0
+631773,1,20,Yes,Yes,Yes,18,Hungary,3,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,0,0,0,1,0,0
+631780,1,45,Yes,Yes,Yes,19,Poland,20,White / Caucasian,Male,60,Some University / College,Yes,1,1,1,1,1,1
+631802,1,29,Yes,Yes,Yes,18,United Kingdom,14,White / Caucasian,Female,60,Some University / College,No,1,0,1,1,1,1
+631820,1,30,Yes,Yes,Yes,15,Romania,20,White / Caucasian,Male,20,Some University / College,Yes,1,0,0,0,0,1
+631832,1,33,Yes,Yes,Yes,16,United Kingdom,25,White / Caucasian,Male,10,Some University / College,No,2,1,1,1,0,2
+633890,1,31,Yes,Yes,Yes,15,United Kingdom,10,White / Caucasian,Female,20,Graduated Secondary school / High school / equivalent,No,2,0,0,0,0,0
+633892,1,33,Yes,Yes,Yes,21,United Kingdom,15,White / Caucasian,Male,5,Graduated University / College,Yes,2,1,1,1,1,1
+633898,1,26,Yes,Yes,Yes,20,Ireland,7,White / Caucasian,Female,30,Some University / College,No,1,0,0,0,1,0
+633910,1,26,Yes,Yes,Yes,19,Ireland,3,White / Caucasian,Male,660,Some University / College,No,0,0,1,0,1,0
+633918,1,29,No,Yes,Yes,18,Spain,10,White / Caucasian,Female,60,Graduated University / College,No,1,0,0,0,0,0
+633915,1,49,No,Yes,Yes,14,Bulgaria,20,White / Caucasian,Female,120,Graduated University / College,No,3,1,0,0,0,1
+633920,1,24,Yes,Yes,Yes,22,Poland,5,White / Caucasian,Male,180,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0
+633925,1,29,Yes,Yes,Yes,18,Slovenia,7,White / Caucasian,Female,30,Graduated University / College,Yes,0,0,0,0,0,0
+633928,1,31,Yes,Yes,Yes,22,Spanish,8,White / Caucasian,Male,90,Graduated University / College,No,1,0,0,1,1,0
+633936,1,31,No,Yes,Yes,27,Portugal,4,White / Caucasian,Female,720,Graduated University / College,No,0,0,0,1,0,0
+633934,1,28,Yes,Yes,Yes,18,United Kingdom,15,White / Caucasian,Female,20,Some University / College,No,2,0,1,1,1,1
+633940,1,29,Yes,No,Yes,25,Portugal,3,White / Caucasian,Female,1440,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+633938,1,39,Yes,Yes,Yes,13,Portugal,20,White / Caucasian,Male,5,Graduated Secondary school / High school / equivalent,Yes,1,0,0,0,1,1
+633941,1,25,Yes,Yes,Yes,15,Italy,12,White / Caucasian,Female,5,Postgraduate (masters or doctorate),No,0,0,0,0,0,1
+633947,1,41,Yes,Yes,Yes,25,Portugal,15,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,2,1,0,0,0,1
+633943,1,35,Yes,Yes,Yes,19,United Kingdom,6,White / Caucasian,Female,15,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+633950,1,33,Yes,No,Yes,17,Estonia,3,White / Caucasian,Male,300,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+633946,1,28,Yes,Yes,Yes,16,Italy,4,White / Caucasian,Male,180,Graduated Secondary school / High school / equivalent,No,1,0,1,1,1,0
+633945,1,58,Yes,Yes,Yes,14,Italy,15,White / Caucasian,Male,5,Graduated Secondary school / High school / equivalent,No,2,0,1,0,0,1
+633942,1,43,Yes,Yes,Yes,14,United States,NA,White / Caucasian,Male,45,Graduated University / College,No,3,0,1,0,0,NA
+633949,1,21,Yes,Yes,Yes,16,Italy,20,White / Caucasian,Male,60,Some University / College,No,2,0,0,0,1,1
+633951,1,32,Yes,Yes,Yes,20,Poland,15,White / Caucasian,Female,45,Graduated Secondary school / High school / equivalent,No,2,1,1,1,0,1
+633956,1,45,Yes,Yes,Yes,15,United Kingdom,15,White / Caucasian,Male,30,Graduated University / College,Yes,3,0,1,1,1,1
+633953,1,53,Yes,Yes,Yes,13,Italy,20,White / Caucasian,Male,3,Graduated Secondary school / High school / equivalent,No,3,1,0,0,0,1
+633959,1,36,Yes,Yes,Yes,20,Greece,10,White / Caucasian,Male,30,Postgraduate (masters or doctorate),No,2,0,1,1,1,0
+633960,1,39,Yes,Yes,Yes,17,Poland,30,White / Caucasian,Male,10,Graduated Secondary school / High school / equivalent,No,3,1,1,1,1,2
+633948,1,34,Yes,Yes,Yes,15,Poland,20,White / Caucasian,Male,NA,Graduated University / College,No,2,1,1,1,1,1
+633944,1,42,Yes,Yes,Yes,15,Poland,10,White / Caucasian,Female,480,Graduated University / College,No,0,0,1,0,0,0
+633954,1,28,Yes,Yes,Yes,18,Poland,10,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0
+633962,1,33,Yes,Yes,Yes,16,Poland,11,White / Caucasian,Female,15,Graduated University / College,No,2,1,1,0,1,1
+633955,1,25,Yes,Yes,Yes,20,Portugal,5,White / Caucasian,Male,NA,Graduated University / College,No,0,0,0,0,0,0
+633958,1,24,Yes,Yes,Yes,17,Hungary,9,White / Caucasian,Male,60,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+633965,1,52,Yes,Yes,Yes,25,Spain,20,White / Caucasian,Female,5,Graduated University / College,No,2,0,1,1,1,1
+633957,1,39,Yes,Yes,Yes,29,Poland,20,White / Caucasian,Male,30,Some University / College,No,2,0,0,0,0,1
+633967,1,31,Yes,Yes,Yes,16,United Kingdom,2,White / Caucasian,Female,660,Graduated University / College,No,0,0,0,0,0,0
+633969,1,40,Yes,Yes,Yes,20,Hungary,15,White / Caucasian,Male,5,Graduated University / College,No,1,1,1,0,0,1
+633964,1,37,Yes,Yes,Yes,19,Greece,5,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+634036,1,35,Yes,Yes,Yes,24,USA,5,White / Caucasian,Male,60,Graduated University / College,No,2,0,1,1,0,0
+634047,1,50,Yes,Yes,Yes,14,United Kingdom,20,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,2,1,0,1,1,1
+634066,1,40,Yes,Yes,Yes,15,United Kingdom,15,White / Caucasian,Female,37,Some University / College,No,1,0,1,1,0,1
+650581,1,44,Yes,Yes,Yes,20,Romania,15,White / Caucasian,Female,5,Graduated University / College,No,3,0,0,0,1,1
+650602,1,29,Yes,Yes,Yes,19,Canada,10,White / Caucasian,Female,30,Graduated University / College,No,2,0,1,0,0,0
+650611,1,34,Yes,Yes,Yes,18,USA,7,Black / African / Caribbean / Black British,Female,30,Some University / College,No,1,0,0,0,0,0
+650608,1,32,Yes,Yes,Yes,16,United Kingdom,20,White / Caucasian,Male,1,Graduated Secondary school / High school / equivalent,No,0,0,0,1,1,1
+650628,1,45,Yes,Yes,Yes,18,The Netherlands,3,White / Caucasian,Male,7,Graduated University / College,No,0,0,1,1,1,0
+650634,1,22,Yes,Yes,Yes,16,Portugal,6,White / Caucasian,Male,1290,Postgraduate (masters or doctorate),No,1,0,0,0,0,0
+650623,1,18,Yes,Yes,Yes,17,Czech Republic,5,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0
+650635,1,25,Yes,Yes,Yes,18,Portugal,10,White / Caucasian,Male,5,Some University / College,No,2,0,1,0,0,0
+650640,1,34,Yes,Yes,Yes,16,Poland,10,White / Caucasian,Male,60,Postgraduate (masters or doctorate),No,1,0,1,0,1,0
+650642,1,22,Yes,Yes,Yes,16,Poland,5,White / Caucasian,Female,60,Some University / College,No,2,0,1,0,1,0
+650639,1,40,Yes,Yes,Yes,16,Bulgaria,25,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,2,1,0,0,1,2
+650641,1,29,Yes,Yes,Yes,22,Latvia,10,White / Caucasian,Male,5,Graduated University / College,No,0,0,1,1,0,0
+650645,1,23,Yes,Yes,Yes,19,Sweden,3,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,1,0,1,1,1,0
+650665,1,25,Yes,Yes,Yes,18,Portugal,6,White / Caucasian,Male,720,Some University / College,No,2,0,1,0,0,0
+650795,1,19,Yes,Yes,Yes,17,United Kingdom,2,White / Caucasian,Female,3060,Some University / College,No,0,0,0,0,0,0
+659312,1,27,Yes,No,Yes,15,United Kingdom,5,White / Caucasian,Female,10,Graduated University / College,No,0,0,0,0,0,0
+659314,1,21,Yes,Yes,Yes,17,Poland,2,Mixed / multiple ethnic groups,Male,NA,Some University / College,No,0,0,0,0,0,0
+659313,1,42,No,No,Yes,20,Spain,1,White / Caucasian,Female,5040,Some University / College,No,0,0,0,0,0,0
+659316,1,25,Yes,No,Yes,14,Denmark,0,White / Caucasian,Male,5040,Some University / College,No,0,0,0,0,0,0
+659315,1,41,Yes,Yes,Yes,17,Italy,3,White / Caucasian,Female,NA,Some University / College,Yes,0,0,0,0,0,0
+659320,1,20,Yes,Yes,Yes,18,Poland,4,White / Caucasian,Male,10,Graduated Secondary school / High school / equivalent,Yes,1,0,1,0,0,0
+659319,1,30,Yes,Yes,Yes,17,Israel,8,Other (please specify),Female,60,Graduated Secondary school / High school / equivalent,No,1,0,1,1,0,0
+659324,1,39,Yes,Yes,Yes,23,Poland,6,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,1,0,0,0
+659329,1,21,Yes,No,Yes,17,Portugal,1,White / Caucasian,Male,2880,Graduated University / College,No,0,0,0,0,0,0
+659327,1,25,Yes,Yes,Yes,21,Turkey,1,Arab,Male,720,Graduated University / College,No,0,0,0,0,0,0
+659481,1,37,Yes,Yes,Yes,19,USA,5,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+659482,1,29,No,No,No,19,USA,4,White / Caucasian,Male,720,Some University / College,No,0,1,1,1,0,0
+659483,1,38,Yes,Yes,Yes,14,Italy,5,White / Caucasian,Male,30,Graduated Secondary school / High school / equivalent,No,2,0,1,0,0,0
+659480,1,34,Yes,Yes,Yes,20,United Kingdom,4,White / Caucasian,Male,35,Graduated University / College,No,1,0,0,0,0,0
+659488,1,27,Yes,Yes,Yes,22,Hungary,2,White / Caucasian,Female,900,Graduated University / College,No,0,0,0,0,0,0
+659484,1,30,Yes,No,Yes,16,Germany,1,White / Caucasian,Male,3600,Graduated University / College,No,0,0,0,0,0,0
+659489,1,19,Yes,No,Yes,18,Italy,1,White / Caucasian,Male,60,Some University / College,No,0,0,0,0,0,0
+659485,1,25,Yes,Yes,Yes,15,Italy,7,White / Caucasian,Male,10,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0
+659486,1,52,Yes,Yes,Yes,16,United Kingdom,4,White / Caucasian,Female,450,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+659479,1,36,Yes,Yes,Yes,16,Spain,2,Other (please specify),Female,980,Graduated University / College,No,0,0,0,0,0,0
+660554,1,27,Yes,Yes,Yes,16,Latvia,10,White / Caucasian,Male,5,Graduated University / College,No,1,0,0,0,0,0
+660553,1,26,Yes,No,Yes,22,Estonia,1,White / Caucasian,Female,2160,Graduated University / College,No,0,0,0,0,0,0
+660557,1,20,Yes,Yes,Yes,17,Poland,4,White / Caucasian,Male,660,Less than Secondary school / High school / equivalent,No,0,0,1,0,0,0
+660558,1,19,Yes,Yes,Yes,15,Italy,1,White / Caucasian,Male,1440,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+660559,1,20,Yes,Yes,Yes,19,Poland,15,White / Caucasian,Male,60,Less than Secondary school / High school / equivalent,No,1,0,0,0,0,1
+660560,1,37,Yes,No,Yes,28,Finland,1,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+660561,1,29,Yes,No,Yes,15,Greece,1,White / Caucasian,Female,900,Postgraduate (masters or doctorate),No,1,0,1,0,0,0
+660562,1,25,Yes,No,Yes,18,Italy,1,White / Caucasian,Male,10080,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+660563,1,21,No,No,Yes,19,Switzerland,0,White / Caucasian,Male,4320,Some University / College,No,0,0,0,0,0,0
+660564,1,49,Yes,Yes,Yes,16,Spain,8,White / Caucasian,Female,1440,Some University / College,No,0,0,1,1,0,0
+660565,1,19,Yes,Yes,Yes,17,Portugal,5,White / Caucasian,Female,1560,Some University / College,No,0,0,1,0,0,0
+660567,1,24,Yes,Yes,Yes,23,Australia,1,White / Caucasian,Male,1440,Some University / College,No,0,1,1,1,1,0
+660566,1,23,Yes,Yes,Yes,18,Greece,2,Mixed / multiple ethnic groups,Male,300,Graduated University / College,No,0,0,0,0,0,0
+660571,1,19,Yes,No,Yes,don't smoke regularly,Portugal,1,White / Caucasian,Male,2160,Some University / College,No,0,0,0,0,0,0
+660573,1,19,Yes,Yes,Yes,17,The Netherlands,1,White / Caucasian,Male,720,Some University / College,No,0,0,0,0,0,0
+660574,1,35,Yes,Yes,Yes,17,Hungary,20,White / Caucasian,Female,30,Graduated University / College,No,2,1,1,0,1,1
+660572,1,50,Yes,No,Yes,15,United Kingdom,1,White / Caucasian,Male,8640,Some University / College,No,0,0,0,1,0,0
+660575,1,21,No,No,Yes,16,Germany,1,White / Caucasian,Male,1440,Graduated Secondary school / High school / equivalent,Yes,0,0,0,0,0,0
+660578,1,21,No,No,No,16,Romania,1,White / Caucasian,Female,10080,Some University / College,No,0,0,0,0,0,0
+660579,1,23,Yes,No,Yes,17,United Kingdom,3,White / Caucasian,Female,60,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+660580,1,20,No,No,No,16,USA,1,Mixed / multiple ethnic groups,Male,0,Some University / College,No,3,0,0,0,0,0
+660583,1,39,Yes,No,Yes,28,United Kingdom,2,White / Caucasian,Male,2400,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+660585,1,26,Yes,No,Yes,16,United Kingdom,1,White / Caucasian,Female,660,Graduated University / College,No,0,0,0,0,0,0
+660586,1,44,Yes,Yes,Yes,16,United Kingdom,8,White / Caucasian,Male,60,Graduated Secondary school / High school / equivalent,No,1,0,1,0,0,0
+660582,1,42,No,No,No,17,United Kingdom,0,White / Caucasian,Female,3 years 1 month 18 days  10 hours,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695000,1,23,Yes,Yes,Yes,13,Italy,10,White / Caucasian,Male,7200,Some University / College,No,2,0,1,0,0,0
+695003,1,27,Yes,No,Yes,15,Italy,1,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0
+695006,1,27,Yes,No,Yes,22,Hungary,2,White / Caucasian,Female,1440,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695010,1,23,Yes,No,No,16,United Kingdom,When i smoked 7-15,White / Caucasian,Female,100 days ago exactly,Graduated University / College,No,1,1,0,0,1,NA
+695009,1,30,Yes,Yes,Yes,21,Greece,5,White / Caucasian,Male,10,Some University / College,No,0,0,1,0,0,0
+695013,1,18,Yes,Yes,Yes,17,Portugal,2,Other (please specify),Male,120,Some University / College,No,0,0,0,0,0,0
+695015,1,28,Yes,No,Yes,27,Poland,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0
+695016,1,27,Yes,Yes,Yes,12,Italy,6,White / Caucasian,Female,180,Some University / College,No,0,1,1,1,0,0
+695018,1,32,Yes,Yes,Yes,16,Canada,3,White / Caucasian,Female,10,Postgraduate (masters or doctorate),No,1,1,1,1,1,0
+695017,1,29,Yes,Yes,Yes,20,Portugal,NA,White / Caucasian,Female,5760,Postgraduate (masters or doctorate),No,0,0,0,0,0,NA
+695020,1,22,Yes,No,Yes,15,Italy,1,White / Caucasian,Female,8640,Some University / College,Yes,0,0,0,0,0,0
+695021,1,31,Yes,Yes,Yes,17,Poland,6,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,1,1,1,0
+695024,1,37,Yes,No,Yes,26,Hong Kong,1,Chinese,Female,9300,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695025,1,33,Yes,Yes,No,16,Poland,2,White / Caucasian,Male,600,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695030,1,49,Yes,No,No,16,Portugal,2,White / Caucasian,Male,90 days,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+695029,1,26,Yes,No,Yes,16,Ireland,1,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0
+695028,1,37,Yes,Yes,Yes,35,Poland,3,White / Caucasian,Female,120,Postgraduate (masters or doctorate),No,1,0,0,1,0,0
+695022,1,23,Yes,No,Yes,18,Portugal,2,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0
+695037,1,30,Yes,No,Yes,14,Italy,1,White / Caucasian,Male,Exclude,Graduated University / College,Yes,0,0,1,0,0,0
+695035,1,22,Yes,Yes,Yes,14,Austria,3,White / Caucasian,Female,1440,Graduated University / College,No,0,0,0,0,0,0
+695055,1,28,Yes,Yes,Yes,17,France,2,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0
+695075,1,27,No,No,Yes,22,Belgium,3,White / Caucasian,Male,11520,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695091,1,38,Yes,No,Yes,20,United Kingdom,10,White / Caucasian,Male,720,Postgraduate (masters or doctorate),No,0,0,1,0,0,0
+695092,1,23,Yes,No,Yes,19,United Kingdom,1,White / Caucasian,Male,2880,Graduated University / College,No,0,0,0,0,0,0
+695096,1,33,Yes,Yes,Yes,22,Poland,7,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0
+695102,1,26,Yes,Yes,Yes,21,United Kingdom,4,White / Caucasian,Female,5,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+695105,1,43,Yes,Yes,Yes,21,United Kingdom,1,White / Caucasian,Female,1440,Graduated University / College,No,1,1,1,1,0,0
+695149,1,29,Yes,No,No,21,United Kingdom,0,White / Caucasian,Male,Exclude,Graduated University / College,No,0,0,0,0,0,0
+695372,1,30,No,No,No,18,USA,0,White / Caucasian,Male,Exclude,Graduated University / College,No,1,0,1,0,0,0
+695486,1,21,Yes,Yes,Yes,16,United Kingdom,2,White / Caucasian,Female,10080,Graduated University / College,No,0,0,0,0,0,0
+730154,1,31,Yes,No,Yes,25,Italy,1,White / Caucasian,Female,4320,Graduated University / College,Yes,0,0,1,0,0,0
+730164,1,34,Yes,No,Yes,17,Poland,1,White / Caucasian,Female,4320,Some University / College,No,0,0,0,0,0,0
+730172,1,29,Yes,Yes,Yes,18,Spain,6,White / Caucasian,Male,600,Some University / College,No,0,0,0,0,0,0
+730179,1,24,Yes,No,Yes,19,Poland,1,White / Caucasian,Male,2880,Graduated Secondary school / High school / equivalent,No,0,1,0,0,0,0
+730182,1,27,No,No,Yes,19,Poland,2,White / Caucasian,Male,5760,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+730183,1,37,Yes,No,Yes,18,United Kingdom,2,White / Caucasian,Female,1380,Graduated University / College,No,0,0,0,0,0,0
+730186,1,27,Yes,No,Yes,18,United Kingdom,2,White / Caucasian,Female,180,Some University / College,No,0,0,1,1,0,0
+730191,1,29,Yes,No,Yes,17,United Kingdom,1,Mixed / multiple ethnic groups,Female,6480,Graduated University / College,No,0,0,0,0,0,0
+730190,1,28,No,No,Yes,19,Poland,2,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0
+730189,1,50,Yes,No,Yes,24,Poland,4,White / Caucasian,Female,600,Graduated University / College,No,1,0,0,0,0,0
+730194,1,31,Yes,No,Yes,15,Italy,5,White / Caucasian,Male,1440,Postgraduate (masters or doctorate),No,0,0,1,0,1,0
+730198,1,24,Yes,No,Yes,19,United Kingdom,10,White / Caucasian,Male,2880,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+730199,1,47,Yes,No,Yes,15,United Kingdom,2,White / Caucasian,Male,Exclude,Some University / College,No,0,0,0,0,0,0
+730201,1,43,No,No,Yes,16,Spain,2,White / Caucasian,Male,7200,Graduated University / College,No,0,0,0,0,0,0
+730206,1,26,Yes,No,Yes,18,United Kingdom,3,White / Caucasian,Female,1080,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+730207,1,19,Yes,No,Yes,18,Poland,2,White / Caucasian,Male,60,Some University / College,No,2,0,1,1,0,0
+730209,1,26,Yes,Yes,Yes,25,United Kingdom,NA,White / Caucasian,Female,180,Graduated University / College,No,0,0,0,0,0,NA
+730210,1,22,Yes,No,Yes,18,Greece,3,White / Caucasian,Male,7200,Some University / College,No,0,0,0,0,0,0
+730213,1,27,Yes,Yes,Yes,22,Portugal,5,White / Caucasian,Male,660,Graduated University / College,No,2,0,0,0,0,0
+730218,1,37,Yes,Yes,Yes,21,United Kingdom,15,White / Caucasian,Female,5,Graduated University / College,Yes,2,0,0,0,1,1
+730221,1,18,Yes,No,Yes,17,USA,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0
+730217,1,33,Yes,No,Yes,18,Poland,2,White / Caucasian,Male,1440,Postgraduate (masters or doctorate),No,1,1,1,1,1,0
+730219,1,18,Yes,No,Yes,17,Poland,1,White / Caucasian,Male,4320,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+730224,1,27,Yes,Yes,Yes,19,United Kingdom,3,White / Caucasian,Female,1440,Graduated University / College,No,0,0,0,0,0,0
+730225,1,29,No,No,Yes,18,United Kingdom,2,White / Caucasian,Male,9720,Graduated University / College,Yes,0,0,0,0,0,0
+730226,1,18,Yes,No,No,14,United Kingdom,1,White / Caucasian,Female,Exclude,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+730228,1,21,Yes,Yes,Yes,17,Portugal,10,White / Caucasian,Male,30,Some University / College,No,1,0,0,0,0,0
+730231,1,20,Yes,Yes,Yes,19,Spain,1,White / Caucasian,Male,48,Graduated University / College,No,0,1,0,0,0,0
+730306,1,23,Yes,No,Yes,15,United Kingdom,1,White / Caucasian,Male,7200,Graduated University / College,No,0,0,0,0,0,0
+730307,1,40,Yes,Yes,Yes,18,United Kingdom,10,White / Caucasian,Male,Exclude,Some University / College,No,0,0,1,0,1,0
+759207,1,21,Yes,Yes,Yes,17,Latvia,2,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,1,1,1,1,0
+759208,1,31,Yes,Yes,Yes,18,Mexico,1,White / Caucasian,Male,1440,Some University / College,Yes,0,0,0,0,0,0
+759212,1,30,Yes,No,Yes,16,Mexico,1,Mixed / multiple ethnic groups,Male,5400,Some University / College,No,0,0,0,0,0,0
+759219,1,25,Yes,No,Yes,16,Portugal,1,White / Caucasian,Female,1620,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+759216,1,25,Yes,No,Yes,12,Estonia,17,White / Caucasian,Male,20,Graduated Secondary school / High school / equivalent,No,2,1,1,1,1,1
+759220,1,21,Yes,No,Yes,17,Slovenia,5,Other (please specify),Female,600,Some University / College,No,0,0,0,0,0,0
+759225,1,29,Yes,Yes,Yes,14,Mexico,1,Other (please specify),Male,960,Graduated University / College,No,0,0,0,0,0,0
+759229,1,30,Yes,No,Yes,26,Hungary,1,White / Caucasian,Male,10080,Graduated University / College,No,0,0,0,0,0,0
+759227,1,56,Yes,Yes,Yes,20,Italy,8,White / Caucasian,Female,120,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+759230,1,23,Yes,No,Yes,16,Mexico,4,White / Caucasian,Male,840,Graduated University / College,No,0,0,1,0,0,0
+759233,1,44,Yes,Yes,Yes,14,United Kingdom,10,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,3,1,0,1,0,0
+759238,1,22,Yes,No,Yes,14,Poland,NA,White / Caucasian,Female,120,Graduated University / College,Yes,0,0,1,0,0,NA
+759243,1,30,Yes,No,Yes,19,Italy,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0
+759245,1,19,Yes,No,Yes,18,United Kingdom,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0
+759246,1,28,Yes,Yes,Yes,21,Poland,10,White / Caucasian,Male,5,Postgraduate (masters or doctorate),No,0,0,1,1,1,0
+759236,1,28,Yes,No,Yes,17,Poland,5,White / Caucasian,Male,14400,Less than Secondary school / High school / equivalent,No,2,0,0,1,0,0
+759247,1,48,Yes,No,Yes,16,USA,1,White / Caucasian,Female,5760,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+759345,1,29,Yes,No,Yes,22,United Kingdom,1,White / Caucasian,Male,4320,Graduated University / College,No,0,0,0,0,0,0
+759353,1,24,Yes,No,Yes,17,United Kingdom,2,White / Caucasian,Male,8640,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+759359,1,36,Yes,No,Yes,13,USA,3,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0
+759672,1,33,No,No,Yes,16,USA,0,Other (please specify),Male,Exclude,Some University / College,No,0,0,0,0,0,0
+759673,1,28,Yes,No,Yes,14,United Kingdom,1,White / Caucasian,Female,1 day,Less than Secondary school / High school / equivalent,No,0,0,0,0,0,0
+759675,1,42,Yes,No,Yes,21,United Kingdom,1,White / Caucasian,Male,17880,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0
+759676,1,27,Yes,No,Yes,22,Italy,5,White / Caucasian,Male,7200,Postgraduate (masters or doctorate),No,0,0,0,0,0,0
+759678,1,20,No,No,No,18,USA,0,White / Caucasian,Male,Exclude,Some University / College,No,0,0,0,0,0,0

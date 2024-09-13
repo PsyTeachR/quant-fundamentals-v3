@@ -1,0 +1,784 @@
+# Regression with one continuous predictor
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE, 
+                      echo = TRUE)
+
+```
+
+```{r echo=FALSE}
+library(patchwork)
+library(car)
+library(correlation)
+library(report)
+library(psych)
+library(tidyverse)
+mh <- read_csv("MillerHadenData.csv")
+results <- correlation(data = mh, select = "IQ", select2 = "Abil",  method = "pearson", alternative = "two.sided")
+results2 <- cor.test(~ IQ + Abil, data = mh,  method = "pearson", alternative = "two.sided")
+```
+
+So far in this book we have been building your skills and knowledge on data wrangling and you now have the basis for a lot of the work you will do in research. You may think that the tasks we ask you to do will get harder as this course progresses but that isn't true. The hardest part of working with data is at the very beginning, trying to learn the new terminology, figuring out how to load in data and wrangle it into the format you need. And whilst it may feel like you have not yet covered a lot, it is really worth reflecting on just how far you've come in a short time..
+
+Finally, there are two main types of correlations that people tend to think of (though there are more):
+
+* Pearson's product-moment correlation (often shortened to the `r glossary("Pearson", def = "a standardised measure of the linear relationship between two variables")` correlation) and symbolised by **r**
+* Spearman's rank correlation coefficient (often shortened to the `r glossary("Spearman", def = "a standardised measure of the relationship between two variables that does not assume a linear relationship. Note that the relationship can be linear but it is not required.")` correlation) and symbolised by **rho** or sometimes $r_s$ or sometimes $\rho$
+
+We will talk a little bit about these two correlations in the work we do today. And we shall begin now!
+
+**Chapter Intended Learning Outcomes (ILOs)**
+
+By the end of this chapter, you will be able to: 
+
+- ILO1.
+
+## Chapter preparation
+
+### Introduction to the data set 
+
+For this chapter, we are using open data from @dawtry_why_2015. The abstract of their article is:
+
+> The present studies provide evidence that social-sampling processes lead wealthier people to oppose redistribution policies. In samples of American Internet users, wealthier participants reported higher levels of wealth in their social circles (Studies 1a and 1b). This was associated, in turn, with estimates of higher mean wealth in the wider U.S. population, greater perceived fairness of the economic status quo, and opposition to redistribution policies. Furthermore, results from a large-scale, nationally representative New Zealand survey revealed that low levels of neighborhood-level socioeconomic deprivation?an objective index of wealth within participants' social circles mediated the relation between income and satisfaction with the economic status quo (Study 2). These findings held controlling for relevant variables, including political orientation and perceived self-interest. Social-structural inequalities appear to combine with social-sampling processes to shape the different political attitudes of wealthier and poorer people.
+
+In summary...Study 1A for us. 
+
+They predicted...
+
+### Organising your files and project for the chapter
+
+Before we can get started, you need to organise your files and project for the chapter, so your working directory is in order.
+
+1. In your folder for research methods and the book `ResearchMethods1_2/Quant_Fundamentals`, create a new folder called `Chapter_08_regression_continuous`. Within `Chapter_07_dataviz`, create two new folders called `data` and `figures`.
+
+2. Create an R Project for `Chapter_08_regression_continuous` as an existing directory for your chapter folder. This should now be your working directory.
+
+3. Create a new R Markdown document and give it a sensible title describing the chapter, such as `08 Correlations and Regression`. Delete everything below line 10 so you have a blank file to work with and save the file in your `Chapter_08_regression_continuous` folder. 
+
+4. We are working with a new data set, so please save the following data file: [Dawtry_2015.csv](data/Dawtry_2015.csv). Right click the link and select "save link as", or clicking the link will save the files to your Downloads. Make sure that you save the file as ".csv". Save or copy the file to your `data/` folder within `Chapter_08_regression_continuous`.
+
+You are now ready to start working on the chapter! 
+
+### Activity 1 - Read and wrangle the data
+
+```{r echo=FALSE}
+# Load the tidyverse package below
+library(tidyverse)
+
+# Load the data file
+# This should be the Dawtry_2015.csv file 
+dawtry_data <- read_csv("data/Dawtry_2015.csv")
+
+# Reverse code redist2 and redist4
+dawtry_data <- dawtry_data %>%
+  mutate(redist2_R = 7 - redist2,
+         redist4_R = 7 - redist4)
+
+# calculate mean fairness and satisfaction score  
+fairness_satisfaction <- dawtry_data %>% 
+  pivot_longer(cols = fairness:satisfaction, 
+               names_to = "Items", 
+               values_to = "Response") %>% 
+  group_by(PS) %>% 
+  summarise(fairness_satisfaction = mean(Response)) %>% 
+  ungroup()
+
+# calculate mean wealth redistribution score  
+redistribution <- dawtry_data %>% 
+  pivot_longer(cols = c(redist1, redist2_R, redist3, redist4_R), 
+               names_to = "Items", 
+               values_to = "Response") %>% 
+  group_by(PS) %>% 
+  summarise(redistribution = mean(Response)) %>% 
+  ungroup()
+
+# join data and select columns for focus
+dawtry_clean <- dawtry_data %>% 
+  inner_join(fairness_satisfaction, by = "PS") %>% 
+  inner_join(redistribution, by = "PS") %>% 
+  select(PS, Household_Income:redistribution)
+```
+
+
+As the first activity, try and test yourself by completing the following task list to practice your data wrangling skills. Create an object called `dawtry_data` to be consistent with the tasks below. If you want to focus on correlations and regression, then you can just type the code in the solution. 
+
+::: {.callout-tip}
+#### Try this
+
+To wrangle the data, complete the following tasks: 
+
+1. Load the <pkg>tidyverse</pkg> package. 
+
+2. Read the data file `data/Dawtry_2015.csv` to the object name `dawtry_data`.
+
+3. Reverse code two items: `redist2` and `redist4` to create two new variables `redist2_R` and `redist4_R`
+
+4. Summarise the data to calculate the mean `fairness_satisfaction` score, by taking the mean of two items: `fairness` and `satisfaction`. 
+
+5. Summarise the data to calculate the mean `redistribution` score, by taking the mean of four items: `redist1`, `redist2_R`, `redist3`, and `redist4_R`.
+
+6. Create a new object called `dawtry_clean` by joining `dawtry_data` with your two new variables `fairness_satisfaction` and `redistribution`. 
+
+7. Decrease the number of columns in `dawtry_clean` by selecting `PS`, and selecting all the columns between `Household_Income` and `redistribution`. 
+
+Your data should looks like this to be ready to analyse:
+
+```{r echo=FALSE}
+glimpse(dawtry_clean)
+```
+
+:::
+
+::: {.callout-caution collapse="true"}
+#### Show me the solution
+You should have the following in a code chunk: 
+
+```{r eval=FALSE}
+# Load the tidyverse package below
+library(tidyverse)
+
+# Load the data file
+# This should be the Dawtry_2015.csv file 
+dawtry_data <- read_csv("data/Dawtry_2015.csv")
+
+# Reverse code redist2 and redist4
+dawtry_data <- dawtry_data %>%
+  mutate(redist2_R = 7 - redist2,
+         redist4_R = 7 - redist4)
+
+# calculate mean fairness and satisfaction score  
+fairness_satisfaction <- dawtry_data %>% 
+  pivot_longer(cols = fairness:satisfaction, 
+               names_to = "Items", 
+               values_to = "Response") %>% 
+  group_by(PS) %>% 
+  summarise(fairness_satisfaction = mean(Response)) %>% 
+  ungroup()
+
+# calculate mean wealth redistribution score  
+redistribution <- dawtry_data %>% 
+  pivot_longer(cols = c(redist1, redist2_R, redist3, redist4_R), 
+               names_to = "Items", 
+               values_to = "Response") %>% 
+  group_by(PS) %>% 
+  summarise(redistribution = mean(Response)) %>% 
+  ungroup()
+
+# join data and select columns for focus
+dawtry_clean <- dawtry_data %>% 
+  inner_join(fairness_satisfaction, by = "PS") %>% 
+  inner_join(redistribution, by = "PS") %>% 
+  select(PS, Household_Income:redistribution)
+```
+
+:::
+
+### Activity 2 - Explore the data
+
+::: {.callout-tip}
+#### Try this
+After the wrangling steps, try and explore `dawtry_clean` to see what variables you are working with. For example, opening the data object as a tab to scroll around, explore with `glimpse()`, or try plotting some of the individual variables using a histogram. 
+:::
+
+In `zhang_data`, we have the following variables:
+
+| Variable       |       Type                       |           Description          |
+|:--------------:|:---------------------------------|:-------------------------------|
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+|  | `r typeof()`| Participant gender |
+
+We will use this data set to demonstrate correlations and regression when you have one continuous predictor. 
+
+## Set-up the Data
+
+As always, the first activity is about getting ourselves ready to analyse the data so try out the steps and if you need help, consult the earlier chapters.
+
+#### Activity 1: Set-up {#corr-a1}
+
+* Open RStudio and set the working directory to your chapter folder. Ensure the environment is clear.
+    * If you're using the Rserver, avoid a number of issues by restarting the session - click `Session` - `Restart R`
+* Open a new R Markdown document and save it in your working directory. Call the file "Correlations".     
+* Download <a href="MillerHadenData.csv" download>MillerHadenData.csv</a> and save it in your folder. Make sure that you do not change the file name at all.  
+    * If you prefer you can download the data in a [zip folder by clicking here](data/chpt9/PsyTeachR_FQA_Chpt9-data.zip){target="_blank"}
+    * Remember not to change the file names at all and that `data.csv` is not the same as `data (1).csv`.
+* Delete the default R Markdown welcome text and insert a new code chunk that loads the following packages, in this specific order, using the `library()` function. Remember the solutions if needed.
+  * Load the packages in this order, `car`,`correlation`, `report`, `psych`, and `tidyverse`
+  * we have not used four of these packages before so you will likely need to install them using `install.packages()`. Remember though that you should only do this on your own machine and only in the console window. If you are using the RServer you will not need to install them.
+* Finally, load the data into an object named `mh` using `read_csv()`. 
+
+`r hide("Additional Hints")`
+```{r, echo = FALSE, results = 'asis'}
+cat("
+
+* Each package requires using the `library()` function each time. For example, `library(car)`, `libary(correlation)`, etc, etc.
+* mh <- read_csv(\"What_is_your_datafile_called.csv\")
+
+")
+```
+`r unhide()`
+
+#### Activity 2: Look at your data {#corr-a2}
+
+Excellent! If you have loaded in the data correctly then you should be able to have a look at it through one of the various methods we have looked at already.
+
+* Look at your data using the `head()` function and you should see the following:
+
+```{r chp9-show-head, echo=FALSE}
+head(mh)
+```
+
+As you can see, we have five columns and they are: 
+
+* the participant number (`Participant`), 
+* Reading Ability score (`Abil`), 
+* Intelligence score (`IQ`), 
+* the number of minutes spent reading at Home per week (`Home`), 
+* and the number of minutes spent watching TV per week (`TV`). 
+
+Here we will we will focus on Reading Ability and IQ but for further practice you can look at other relationships in your free time.  
+
+A probable `r glossary("hypothesis")` for today could be that as Reading Ability increases so does Intelligence (remember there is no causality here). Or phrasing the `r glossary("alternative hypothesis")` ($H_1$) more formally, we hypothesise that the reading ability of school children, as measured through a standardized test, and intelligence, again measured through a standardized test, show a positive relationship. This is the hypothesis we will test today but remember that we could always state the `r glossary("null hypothesis")` ($H_0$) that there is no relationship between reading ability and IQ.
+
+## Assumptions of the test
+
+Now before running an analysis we should check the `r glossary("assumptions")` of the test, where the assumptions are checks that the data must pass before we can use certain tests. The assumptions change on the test and you should only use a given test based on how well the data meets the assumptions of the test. In short, the Pearson correlation and the Spearman correlation have different assumptions and we need to check our data to see which test to use.
+
+#### Activity 3: Assumptions {#corr-a3}
+
+For correlations, the main assumptions we need to check are:
+
+1. Is the data interval, ratio, or ordinal?
+2. Is there a data point for each participant on both variables?
+3. Is the data `r glossary("normal distribution", display = "normally distributed")` in both variables?
+4. Does the relationship between variables appear linear?
+5. Does the spread have `r glossary("homoscedasticity")`?
+
+We will look at each of these assumptions in turn to see which correlation we should use.
+
+**Assumption 1: Level of Measurement**
+
+If we want to run a Pearson correlation then we need interval or ratio data; Spearman correlations can run with ordinal, interval or ratio data. What type of data do we have?  
+
+* The type of data in this analysis is most probably `r mcq(c("ratio", answer = "interval","ordinal", "nominal"))` as the data is `r mcq(c(answer = "continuous","discrete"))` and there is unlikely to be a true zero
+
+`r hide("Hints on data type")`
+```{r, echo = FALSE, results = 'asis'}
+cat("
+* Are the variables continuous? 
+* Is the difference between 1 and 2 on the scale equal to the difference between 2 and 3?
+")
+```
+`r unhide()`  
+
+**Assumption 2: Pairs of Data**
+
+Great! So the data looks at least interval and continuous. Next, all correlations must have a data point for each participant in the two variables being correlated. This should make sense as to why - you can't correlate against an empty cell! So now go check that you have a data point in both columns for each participant. 
+
+**Note:** You can check for missing data by visual inspection - literally using your eyes. A missing data point will show as a NA, which is short for not applicable, not available, or no answer. An alternative would be to use the `is.na()` function. This can be really handy when you have lots of data and visual inspection would just take too long. If for example you ran the following code:
+
+```{r chpt9-na, eval=FALSE}
+is.na(mh)
+```
+
+If you look at the output from that function, each FALSE tells you that there is a data-point in that cell. That is because `is.na()` asks is that cell a NA; is it empty. If the cell was empty then it would come back as TRUE. As all cells have data in them, they are all showing as FALSE. If you wanted to ask the opposite question, is their data in this cell, then you would write !is.na() which is read as "is not NA". Remember, the exclamation mark ! turns the question into the opposite.
+
+However you have looked at the data, it looks like that everyone has data in all the columns but let's test our skills a little whilst we are here.  Answer the following questions:
+
+1. How is missing data represented in a tibble? `r mcq(c("an empty cell", answer = "NA","a large number", "don't know"))`
+2. Which code would leave you with just the participants who were missing Reading Ability data in mh: 
+`r mcq(c("filter(mh, is.na(Ability)", answer = "filter(mh, is.na(Abil)", "filter(mh, !is.na(Ability)", "filter(mh, !is.na(Abil)"))`
+3. Which code would leave you with just the participants who were not missing Reading Ability data in mh: `r mcq(c("filter(mh, is.na(Ability)", "filter(mh, is.na(Abil)", "filter(mh, !is.na(Ability)", answer = "filter(mh, !is.na(Abil)"))`
+
+`r hide("Hints on removing missing data points")`
+```{r, echo = FALSE, results = 'asis'}
+cat("
+* `filter(dat, is.na(variable))` versus `filter(dat, !is.na(variable))`
+")
+```
+`r unhide()`  
+
+**Assumption 3-5: Normality, linearity, homoscedasticity**
+
+Brilliant! We know our data type and we know we have no missing data. The remaining assumptions are all best checked through visualisations. You can use histograms and QQ-plots to check that the data (`Abil` and `IQ`) are both normally distributed, and you can use a scatterplot of `IQ` as a function of `Abil` to check whether the relationship is linear, with homoscedasticity, and without outliers. An alternative would be to use z-scores to check for outliers with the cut-off usually being set at around $\pm2.5SD$ or $\pm3SD$. You could do this using the mutate function (e.g. `mutate(z = (X - mean(X))/SD(X))`), but today we will just use visual checks.
+
+We will now ask you to create a few figures and then we will look at them together, as a whole, to answer some questions about these last assumptions.
+
+**Histograms for Normality**
+
+* Type the below code in a new code chunk and run it to create a histogram for `Abil`.
+
+```{r abil-hist-evalf, eval=FALSE}
+ggplot(data = mh, aes(x = Abil)) +
+  geom_histogram()
+```
+
+This code should look very similar to the code you used to create a bar plot in Chapter 7. We have specified that we want to display `Abil` on the x-axis and that the shape we want to produce is a histogram, hence `geom_histogram()`. Just like `geom_bar()`, you do not need to specify the y-axis because if it's a histogram, it's always a count. The figure should look as shown here.
+
+```{r abil-hist, warning=FALSE, message=FALSE, echo = FALSE, fig.cap="Histogram of Abil"}
+ggplot(data = mh, aes(x = Abil)) +
+  geom_histogram()
+```
+
+* Now, in a new code chunk, write and run code to produce a histogram for the variable `IQ`. Remember the solutions are at the end of the chapter.
+
+**Q-Q Plots for Normality**
+
+As we said we will look at the figures in a minute but first we need a few more plots. One being the `r glossary("Q-Q plot")` which allows us to check normality. The Q-Q plot require us to use the package `car` rather than `ggplot2`. You can make Q-Q plots in `ggplot2` but they aren't as useful, however, the code is still very simple.
+
+* In a new code chunk, type and run the below code to create a Q-Q plot for `Abil`.
+
+```{r qq-abil-false, eval=FALSE}
+qqPlot(x = mh$Abil)
+```
+
+This code looks a little different to code you've used up until this point as it comes from Base R. It uses the notation `object$variable` so our x variable could be read as "use the variable `Abil` from the object `mh`. And the figure will look like this:
+
+```{r qq-abil, echo = FALSE, fig.cap="Q-Q plot for Abil"}
+qqPlot(x = mh$Abil)
+```
+
+The Q-Q plot includes a **confidence envelope** (the blue dotted lines) around the data with  the understanding that if your data points fall within these dotted lines then you can assume normality. The `ggplot2` version of Q-Q plots make it more difficult to add on this confidence envelope, which is why we're using a different package. `qqPlot()` will also print the IDs of the most extreme data points. In this case, the 4th and 15th data point in `Abil` are flagged, although because they fall within the confidence envelope, they don't appear problematic. This also explains why you might see a message stating `## [1] 15 4`. The 15th and 4th value are worth considering!
+
+* Now, in a new code chunk, write and run code to create a Q-Q plot for `IQ`.
+
+
+**Information: Normality of the residuals**
+
+One thing to note before we move on is that, in terms of normality, it is in fact the normality of the `r glossary("residual", display = "residuals")` that matters, where the residuals are the difference between the individual data points and the `r glossary("line of best fit")`. However, to fully understand this we need to cover more information first as introducing that concept at this stage would be confusing. One approach the field can use however is that if the data is normally distributed then it is highly likely that the residuals will also be normally distributed. We will look at residuals in the next chapter, but here we will instead use the normality of the raw data as a proxy for the normality of the residuals.
+
+**Scatterplots for linearity and homoscedasticity**
+
+Finally, in order to assess linearity and homoscedasticity, we can create a scatterplot using `ggplot2`.
+
+* In a new code chunk, copy and run the below code to create a scatterplot of the relationship between IQ and Ability.
+
+```{r chp9-scat, eval=FALSE}
+ggplot(data = mh, aes(x = Abil, y = IQ)) +
+  geom_point()+
+  geom_smooth(method = lm)
+```
+
+The `ggplot2` code is very similar to what you have already encountered with the bar chart and violin-boxplot. 
+
+* The first line of data sets up the base of the plot and we specify that we wish to display `Abil` on the x-axis, `IQ` on the y-axis, and use the dataset `mh`. 
+* The first geom, `geom_point()`, adds in the data points, 
+* the second geom, `geom_smooth`, adds in the line of best fit. The shaded area around the line is a **confidence interval** around the data. This can be turned off by setting `se = FALSE` as an additional argument.
+
+The figure should look as follows:
+
+```{r, echo=FALSE, fig.cap="Scatterplot of scores", warning=FALSE}
+ggplot(data = mh, aes(x = Abil, y = IQ)) +
+  geom_point()+
+  geom_smooth(method = lm)
+```
+
+**Note:** Do not worry if you see a message stating `## geom_smooth() using formula 'y ~ x'`. This is just letting you know how it is plotting the line of best fit (the blue line)
+
+* Now, remembering that `ggplot2` works on layers and that you can customise each layer, edit the above code to add in a layer of `scale_x_continuous()` that changes the label `Abil` to `Reading Ability`.
+
+**Checking the assumptions**
+
+Now that we have all the figures we need we should be able to check the assumptions. Try to answer the following questions, based on the above visualisations:
+
+* Is the assumption of normality met for both variables? `r mcq(c(answer = "Yes", "No"))`
+* Is the assumption of linearity met? `r mcq(c(answer = "Yes", "No"))`
+* Is the assumption of homoscedasticity met? `r mcq(c(answer = "Yes", "No"))`
+* Based on the above, which correlation method would you use? `r mcq(c(answer = "Pearson", "Spearman"))`
+
+`r hide("Explain these answers")`
+```{r, echo = FALSE, results='asis'}
+cat("When assessing assumptions through the use of visualisations your decision will always be a judgement call. In this dataset, we only have data from 25 participants therefore it is very unlikely we would ever observe perfect normality and linearity in this dataset. It is likely that a researcher would assume that this data is approximately normal, that there is no evidence of a non-linear relationship, and that the spread of data points around the line is relatively even. Many students become fixated with needing a 'perfect' dataset that follows an exactly normal distribution. This is unlikely to ever happen with real data - learn to trust your instincts!
+
+Finally, as the data is interval, continuous, normally distributed, and the relationship is linear and the assumption of homoscedasticity has been met, we would use a Pearson correlation.
+    ")
+```
+`r unhide()`
+
+## Descriptives of the Correlation
+
+Now that we have checked our assumptions and have confirmed we will use the Pearson correlation, the next step is descriptives. A key thing to keep in mind is that the `r glossary("scatterplot")` is actually the descriptive of the correlation. Meaning that in an article, or in a report, you would not only use the scatterplot to determine which type of correlation to use but also to describe the potential relationship in regards to your hypothesis. So you would always expect to see a scatterplot in the write-up of this type of analysis. 
+
+#### Activity 4: Descriptive statistics {#corr-a4}
+
+* Looking at the scatterplot, spend a couple of minutes thinking about and describing the relationship between Ability and IQ in terms of your hypothesis. Remember this is a descriptive analysis at this stage, so nothing is confirmed. Does the relationship appear to be as we predicted in our hypothesis? A discussion is in the solutions at the end of the chapter.
+
+`r hide("Hints on discussing descriptives")`
+```{r, echo = FALSE, results='asis'}
+cat("
+* Hint 1: We hypothesised that reading ability and intelligence were positively correlated. Is that what you see in the scatterplot?
+* Hint 2: Keep in mind it is subjective at this stage.
+* Hint 3: Remember to only talk about a relationship and not a prediction. This is correlational work, not regression.
+* Hint 4: Can you say something about both the strength (weak, medium, strong) and the direction (positive, negative)?
+
+")
+```
+`r unhide()`
+
+In addition to the scatterplot, it can sometimes be relevant to include means and standard deviations of scales in a correlation. It is not always relevant but, as an example, if you were measuring something like anxiety, or stress, or IQ, it can be informative to include this information to help demonstrate how your sample compares to population norms. As such we will calculate some descriptives here as it is also good practice of our data-wrangling skills.
+
+* In a new code chunk, write and run code to calculate the mean score and standard deviation for `Abil` and `IQ` using `summarise()` and store the output of this function in an object called `descriptives`
+  * Name the output of the calculations `Abil_mean`, `Abil_SD`, `IQ_mean`, and `IQ_SD`. Make sure to use these exact spellings otherwise later activities won't work.
+  * **hint:** We have already seen how to calculate the `mean()`, the `median()`, the number of people (with `n()`), and the `sum()` within the `summarise()` function. Other descriptives such as the `sd()`, the `min()` and the `max()` can also be calculated in a similar way to using `mean()` and `median()`.
+
+If you have performed this correctly, when you view `descriptives` should look similar to this:  
+
+```{r descriptives, echo = FALSE}
+
+descriptives <- summarise(mh, 
+                          Abil_mean = mean(Abil),
+                          Abil_SD = sd(Abil),
+                          IQ_mean = mean(IQ),
+                          IQ_SD = sd(IQ))
+
+descriptives%>%
+  knitr::kable(align = 'c', digits = 2)
+
+abm <- descriptives %>% pull(Abil_mean)
+iqm <- descriptives %>% pull(IQ_mean)
+iqsd <- descriptives %>% pull(IQ_SD)
+
+```
+
+Answer the following questions to confirm your understanding of the output:
+
+* What is the mean of Reading Ability? `r mcq(c(abm-1,abm+1, answer = abm))`
+* What is the mean of IQ? `r mcq(c(iqm-1,answer = iqm, iqm+1))`
+* If the population norm mean of IQ is 100, how comparable is your sample to the population? `r mcq(c(answer = "the same", "very different"))`
+
+## Inferentials of the correlation
+
+Excellent! So we have checked our assumptions and our descriptives. Our data looks consistent with population norms and the scatterplot would suggest a positive relationship between the two variables. Finally we will run the correlation! 
+
+There are often many different functions that can be used to achieve the same thing and we're actually going to show you two ways of running a correlation as some people prefer one approach over the other because of the data type the results come in and how easy it is to work with that output.
+
+#### Activity 5: Run the correlation {#corr-a5}
+
+First, we'll use the `correlation()` function from the `correlation` package. Remember that for help on any function you can type e.g., `?correlation` in the console window.  The `correlation()` function requires:
+
+* The name of the data set you are using
+* The name of the first variable you want to select for the correlation
+* The name of the second variable you want to select for the correlation
+* The type of correlation you want to run: e.g. `pearson`, `spearman`
+* The type of NHST tail you want to run: e.g. `"less"`,`"greater"`, `"two.sided"`
+
+For example, if your data is stored in `dat` and you want to do a two-sided pearson correlation of the variables (columns) `X` and `Y`, then you would do:
+
+```{r cor_example, eval = FALSE}
+correlation(data = dat, 
+            select = "X", 
+            select2 = "Y",  
+            method = "pearson", 
+            alternative = "two.sided")
+```
+
+Here we are wanting to run a Pearson correlation with a two-sided alternative.
+
+* In a new code chunk, using the information about `correlation()` above, type and run a Pearson correlation between IQ and Ability and store the output in an object called `results`.
+* View the output by typing `View(results)` in the console window
+
+The second method is to use `cor.test()` which is a **`Base R`** function and uses similar code as `correlation()` except for how the variables are specified. `cor.test()` use the same `object$variable` syntax we saw in `qqPlot()`:
+
+* In a new code chunk, type and run the below code and then view the output by typing `results2` in the console. 
+  * not that we have specified `x = mh$IQ` meaning that the first variable, x, is the column `IQ` in the object `mh`. 
+
+```{r}
+results2 <-  cor.test(x = mh$IQ, 
+                      y = mh$Abil, 
+                      method = "pearson", 
+                      alternative = "two.sided")
+```
+
+Look at how the output differs from `results`. We'll come back to why we've shown you two ways shortly.
+
+## Interpreting output and writing up
+
+Excellent work. As you can see, running the correlation is actually really quick, and the hard work was checking the assumptions and some data-wrangling. You should now have a tibble called `results` that gives you the output of the correlation between Reading Ability and IQ for the school children measured in Miller and Haden (2013) Chapter 11. All that is left to do now is interpret the output and write it up. 
+
+#### Activity 6: Interpreting the correlation {#corr-a6}
+
+Look at `results` and then answer the following questions:
+
+1. What is the value of Pearson's *r* to 2 decimal places? `r fitb(c(".45", "0.45"), width = 20, ignore_ws = TRUE)`
+2. The direction of the relationship between Ability and IQ is: `r mcq(c(answer = "positive", "negative","no relationship"))`
+3. The strength of the relationship between Ability and IQ is: `r mcq(c("strong", answer = "medium", "weak"))`
+4. Assuming $\alpha = .05$ the relationship between Ability and IQ is: `r mcq(c(answer = "significant", "not significant"))`
+5. The alternative hypothesis was that the reading ability of school children, as measured through a standardized test, and intelligence, again through a standardized test, are positively correlated. Based on the results we can say that the alternative hypothesis: `r mcq(c(answer = "is accepted", "is rejected", "is proven", "is not proven"))` 
+
+`r hide("Explain these answers")`
+```{r, echo = FALSE, results = 'asis'}
+cat("
+1. The test statistic, in this case the r value, is usually labelled as the `estimate`.
+2. If Y increases as X increases then the relationship is positive. If Y increases as X decreases then the relationship is negative. If there is no change in Y as X changes then there is no relationship
+3. Depending on the field most correlation values greater than .5 would be strong; .3 to .5 as medium, and .1 to .3 as small. 
+4. The field standard says less than .05 is significant and our p-value is less than .05.
+5. The alternative hypothesis can only be accepted or rejected, never proven. In this case, our results matched our alternative hypothesis and therefore it is accepted. Remember that the null hypothesis on the other hand can only be rejected or retained.
+")
+```
+`r unhide()`  
+
+#### Activity 7: Write-up {#corr-a7}
+
+Now we have interpreted the output we would want to write it up. Copy and paste the below **exactly** into **white space** in your R Markdown document and then knit the file. 
+
+```{r, eval = FALSE}
+As shown in Figure 7.5, there appeared to be a positive relationship between Reading Ability (M = `r round(pluck(descriptives$Abil_mean),2)`, SD = `r round(pluck(descriptives$Abil_SD),2)`) and IQ (M = `r round(pluck(descriptives$IQ_mean),2)`, SD = `r round(pluck(descriptives$IQ_SD),2)`), in line with the alternative hypothesis. A Pearson correlation found a significant, medium positive correlation between the two variables (r (`r results$df_error`) = `r round(results$r, 2)`, *p* = `r round(results$p, 3)`) and the alternative hypothesis is therefore accepted. 
+```
+
+When you knit the code, assuming you have done all of the above tasks correctly, the code you pasted will transform into a readable passage as follows:
+
+As shown in Figure 7.5, there appeared to be a positive relationship between Reading Ability (M = `r round(pluck(descriptives$Abil_mean),2)`, SD = `r round(pluck(descriptives$Abil_SD),2)`) and IQ (M = `r round(pluck(descriptives$IQ_mean),2)`, SD = `r round(pluck(descriptives$IQ_SD),2)`), in line with the alternative hypothesis. A Pearson correlation found a significant, medium positive correlation between the two variables (r (`r results$df_error`) = `r round(results$r, 2)`, *p* = `r round(results$p, 3)`) and the alternative hypothesis is therefore accepted. 
+
+So you get a fairly ok start of a write-up. It isn't perfect but it is a good start. For instance, the r-value should not have the first 0 and just be r = .xx. Likewise, the p-value should not have the first 0 either. So you will always have to do a bit of tidying up.
+
+**Note:** Remember that a relationship is said to be `r glossary("significant")` if the p-value of the relationship is lower than the accepted level (normally called `r glossary("alpha")` and set at $\alpha = .05$). Alternatively, a relationship that has a p-value higher than the accepted level is said to be `r glossary("non significant")`
+
+**But why two approaches**
+
+The reason that we have shown you two methods of performing correlations is because of the way each outputs the results. `correlation()` produces a tibble which means it is very easy to work with and pull out values or join to another table as needed because it is already in tidyverse format. `cor.test()` on the other hand produces a `list` type object, which is a harder to work with. However, the output of `cor.test()` also happens to work with functions from the `report` package, `report()` and `report_table()` that give you an automatic report of the analyses. For example, `report()` presents a fixed write-up of the correlation with all the available information. For correlations, this is perhaps less than useful, however, for more complex statistics this reporting function can really help when learning about data and output, and so we're introducing it now. `report()` doesn't currently work with the output of `correlation()` which is why we showed you both ways. Run the below in your console window and you will see what we mean - you will probably get an error. 
+
+```{r report, eval = FALSE}
+report(results2)
+```
+
+**Note:** The write-up that comes out of report should not be considered as something to copy and paste into a report. It is a means of just obtaining an overview quickly to help you confirm your own thinking. There are issues again with the presentation of numbers and writing, and additional info that isn't needed. Basically, use these functions and approaches to start you off in your writing, but not as your write-up.
+
+## Multiple Correlations
+
+Finally, to round off this chapter, we want to briefly show you about running multiple correlations at one. Above we ran one correlation. However, when you have lots of variables in a dataset, to get a quick overview of patterns, you might want to run all the correlations at the same time or create a matrix of scatterplots at the one time. You can do this with functions from the `psych` and `correlation` packages (`cor.test()` only works for one correlation at a time). We will use the Miller and Haden data here again which you should still have in a tibble called `mh`. 
+
+#### Activity 8: Scatterplot matrix {#corr-a8}
+
+* In a new code chunk, type and run the following code. The `pairs.panels())` function comes from the `psych` library and creates a matrix of scatterplots, with the histograms, and correlation coefficients which you can then use to give you an overview of all the relationships at the one time. So it is useful for checking assumptions in one place.
+
+```{r pairs, fig.cap = "Scatterplot matrix"}
+pairs.panels(mh)
+```
+
+Notice something wrong? `pairs.panels()` will create plots for **all** variables in your data (as will `correlation()` below). This means that it has correlated the Participant ID number as well, which is totally meaningless.
+
+Instead, we can use pipes to help us out here. The code below:
+
+* Takes the dataset `mh` and then;
+* Uses `select()` to get rid of the `Participant` column and then;
+* Pipes the remaining data into the `pairs.panels()` function
+* The additional arguments:
+  * `ellipses = FALSE` turns off the [correlation ellipses](https://analyse-it.com/docs/user-guide/multivariate/scatter-plot#:~:text=If%20the%20association%20is%20a,more%20the%20variables%20are%20uncorrelated.){target="_blank"}, 
+  * `lm = TRUE` use a linear line of best fit, 
+  * `method = "pearson", specifies a Pearson correlation.
+
+There are additional arguments to adjust the plot `pairs.panel` creates that you can look up in the help documentation if you are interested.
+
+```{r pairs-pipesq, eval=FALSE}
+mh %>%
+  select(-Participant) %>%
+  pairs.panels(ellipses = FALSE, 
+               lm = TRUE, 
+               method = "pearson")
+```
+
+Which produces:
+
+```{r pairs-pipes, echo=FALSE, fig.cap="Adjusted scatterplot matrix"}
+mh %>%
+  select(-Participant) %>%
+  pairs.panels(ellipses = FALSE, 
+               lm = TRUE, 
+               method = "pearson")
+```
+
+#### Activity 9: Running multiple correlations {#corr-a9}
+
+To perform multiple correlations in one go, we will again use the `correlation()` function. package. Rather than specifying two variables to correlation, you can also provide a data frame that has multiple variables  and it will run all possible correlations between the variables. Similar to above, we want to remove the `Participant` column before we do this.   
+
+* `method` controls which correlation is computed, the default is `pearson` but if you needed to run the non-parametric version you could change this to `spearman`.  
+* `p_adjust` is the reason we are using the `correlation` package. In the lectures we discussed the problem of `r glossary("multiple comparisons")` - the idea that if you run lots and lots of tests your false positive rate will increase and the probability of finding a significant result increase. 
+  * This argument applies a correction to the p-value that adjusts for the number of correlations you have performed. There are several different methods which you can look up in the help documentation, but here we are setting `r glossary("bonferroni")`. The default setting is actually the less `r glossary("conservative analysis")` `r glossary("Holm-Bonferroni")` and you can read about why some might chose that instead in the help function by typing `?correlation` in the console window.
+* **Note:** Because you're running multiple correlations and some may be positive and some may be negative, there is no option to specify a one or two-tailed test.   
+
+* Run the below code to calculate then view the correlation results
+
+```{r corrresults, results='hide'}
+corr_results <- mh %>%
+  select(-Participant) %>%
+  correlation(method = "pearson", 
+              p_adjust = "bonferroni")
+
+corr_results
+```
+
+Which produces the following output:
+
+```{r}
+knitr::kable(corr_results)
+```
+
+`corr_results` is a tibble that lists the results of each correlation with its corresponding statistics. Look through the table and then answer the following questions:
+
+1. Is the correlation between `Abil` and `Home` positive or negative? `r mcq(c(answer = "Positive", "Negative"))`
+2. This means that as `Abil` scores increase, `Home` scores will `r mcq(c(answer = "Increase", "Decrease"))`
+3. What is the strongest positive correlation? `r mcq(c("Abil * IQ", answer = "Abil * Home", "Abil * TV"))`
+4. What is the strongest negative correlation? `r mcq(c("Abil * TV", "IQ * TV", answer = "Home * TV"))`
+5. Is the correlation between `Abil` and `IQ` significant? `r mcq(c("Yes", answer = "No"))`
+6. Is the correlation between `Abil` and `Home` significant? `r mcq(c(answer = "Yes", "No"))`
+7. How would you describe the strength of the correlation between `Home` and `TV`? `r mcq(c("Weak", "Medium", answer = "Strong"))`
+8. Think back to the lecture. Why are we not calculating an effect size?
+
+`r hide("Explain these answers")`
+```{r, echo = FALSE, results='asis'}
+
+cat("1. Negative correlations are denoted by a negative r value.  
+    2. Positive correlations mean that as one score goes up so does the other, negative correlations mean that as one score goes up the other goes down.  
+    3 & 4. Remember that correlations take values from -1 - 1 and that the nearer to one in either direction the stronger the correlation (i.e., an r value of 0 would demonstrate a lack of any relationship.  
+    5 & 6. The traditional cut-off for significance is .05. Anything below .05 is considered significant. Be careful to pay attention to decimal places.  
+    7. Cohen's guidelines recommend weak = 1. - .3, medium = .3 - .5, strong > .5.  
+    8. Because r is an effect size.")
+```
+`r unhide()`  
+
+Nice work! So it can be really easy to run a lot of correlations at once. However, you need to remember about what is appropriate in research. You should not just wildly run every correlation you can and then write up your favourite. PreRegistration of ideas, or Registered Reports, helps reduce Questionable Research Practices, and this is just another example of where setting out in advance, what you plan to do, will prevent bad practice!
+
+## Finished! {#corr-fin}
+
+Excellent work today! You can now add running, interpreting and writing up correlations to the list of knowledge and skills in your research methods toolbox. Remember that actually a lot of the work is in the preparation of the data and really running the correlation is just one more function. It might be worthwhile repeating the first few activities with two other variables to test your understanding. If you have any questions, please post them on Teams.
+
+## Test Yourself
+
+```{r hidetest, echo = FALSE}
+hide1 <- correlation(data = mh, 
+                       select = "IQ", 
+                       select2 = "Home",  
+                       method = "pearson", 
+                       alternative = "two.sided")
+
+rv <- hide1 %>% pull(r) %>% round(3)
+tv <- hide1 %>% pull(t) %>% round(3)
+pv <- hide1 %>% pull(p) %>% round(3)
+civ <- hide1 %>% pull(CI_high) %>% round(3)
+dfv <- hide1 %>% pull(df_error) %>% round(3)
+nv <- hide1 %>% pull(n_Obs) %>% round(3)
+
+```
+
+
+Look at this code and answer the following questions:
+
+```{r test1, eval = FALSE}
+results <- correlation(data = mh, 
+                       select = "IQ", 
+                       select2 = "Home",  
+                       method = "pearson", 
+                       alternative = "two.sided")
+```
+
+1. What would this analysis show? `r longmcq(sample(c(answer = "the relationship between IQ and the time spent reading at home","the relationship between IQ and the time spent watching TV at home","the relationship between IQ and Reading Ability","the effect of IQ on time spent reading at Home")))`
+2. What type of correlation analysis is it? `r longmcq(sample(c(answer = "two-tailed pearson analysis", "one-tailed pearson analysis", "one-tailed spearman analysis", "two-tailed spearman analysis")))`
+
+Now try running the code and then answering the following questions.
+
+3. To three decimal places, what is the r-value of the correlation between IQ and the time spent reading at Home? `r longmcq(sample(c(answer = rv, tv, civ, pv)))`
+
+4. To three decimal places, what is the p-value of the correlation between IQ and the time spent reading at Home? `r longmcq(sample(c(answer = pv, tv, civ, rv)))`
+
+5. What is the degrees of freedom of the correlation between IQ and the time spent reading at Home? `r longmcq(sample(c(answer = dfv, tv, civ, nv)))`
+
+`r hide("Explain these answers")`
+```{r, echo = FALSE, results='asis'}
+
+cat("
+
+This analysis is a two-tailed pearson correlation looking at the relationship between IQ and the amount of time spent reading at home. You can tell this from the two variables in the code being IQ and Home, and the code stating pearson, and two-sided (another name for two-tailed). If you run the analysis you will find that the result would be r(23) = .202, p = .334.
+
+")
+```
+`r unhide()`
+
+## Activity solutions {#corr-sols}
+
+Below you will find the solutions to the above questions. Only look at them after giving the questions a good try and trying to find help on Google or Teams about any issues.
+
+#### Activity 1 {#corr-a1sol}
+
+```{r eval=FALSE}
+library(car)
+library(correlation)
+library(report)
+library(psych)
+library(tidyverse)
+mh <- read_csv("MillerHadenData.csv")
+```
+  
+#### Activity 3 {#corr-a3sol}
+
+**The histogram of IQ**
+
+```{r, eval = FALSE}
+ggplot(data = mh, aes(x = IQ)) +
+  geom_histogram()
+```
+
+**The qqPlot of IQ**
+
+```{r}
+qqPlot(x = mh$IQ)
+```
+
+**The scatterplot**
+
+```{r}
+ggplot(data = mh, aes(x = Abil, y = IQ)) +
+  geom_point()+
+  geom_smooth(method = lm)+
+  scale_x_continuous(name = "Reading Ability")
+```
+
+#### Activity 4 {#corr-a4sol}
+
+**The scatterplot**
+
+Based on the scatterplot we might suggest that as reading ability scores increase, IQ scores also increase and as such it would appear that our data is inline with our hypothesis that the two variables are positively correlated. This appears to be a medium strength relationship.
+
+**The means and standard deviations**
+
+```{r}
+descriptives <- summarise(mh, 
+                          Abil_mean = mean(Abil),
+                          Abil_SD = sd(Abil),
+                          IQ_mean = mean(IQ),
+                          IQ_SD = sd(IQ))
+
+descriptives
+```
+
+#### Activity 5 {#corr-a5sol}
+
+**The correlation using `correlation()`**
+
+```{r}
+results <- correlation(data = mh, 
+                       select = "IQ", 
+                       select2 = "Abil",  
+                       method = "pearson", 
+                       alternative = "two.sided")
+
+results
+```
+
+## Words from this Chapter
+
+Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the [PsyTeachR Glossary](https://psyteachr.github.io/glossary/){target="_blank"}. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.
+
+```{r gloss, echo=FALSE, results='asis'}
+glossary_table()
+```
+
+That is end of this chapter. Be sure to look again at anything you were unsure about and make some notes to help develop your own knowledge and skills. It would be good to write yourself some questions about what you are unsure of and see if you can answer them later or speak to someone about them. Good work today!

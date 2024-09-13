@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 10&nbsp; t-tests</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./11-power.html" rel="next">
+<link href="./09-correlation.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-t-tests.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-tests</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Programming basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-intro-to-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-loading-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Starting with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Intro to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-t-tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-tests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-missing-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-factorial-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webexercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Webexercises</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#between-subjects-t-tests-two-sample" id="toc-between-subjects-t-tests-two-sample" class="nav-link active" data-scroll-target="#between-subjects-t-tests-two-sample"><span class="header-section-number">10.1</span> Between-Subjects t-tests (two-sample)</a>
+  <ul class="collapse">
+<li><a href="#data-and-descriptives" id="toc-data-and-descriptives" class="nav-link" data-scroll-target="#data-and-descriptives"><span class="header-section-number">10.1.1</span> Data and Descriptives</a></li>
+  <li><a href="#visualising-two-groups" id="toc-visualising-two-groups" class="nav-link" data-scroll-target="#visualising-two-groups"><span class="header-section-number">10.1.2</span> Visualising two groups</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">10.1.3</span> Assumptions</a></li>
+  <li><a href="#inferential-analysis" id="toc-inferential-analysis" class="nav-link" data-scroll-target="#inferential-analysis"><span class="header-section-number">10.1.4</span> Inferential analysis</a></li>
+  <li><a href="#effect-size" id="toc-effect-size" class="nav-link" data-scroll-target="#effect-size"><span class="header-section-number">10.1.5</span> Effect Size</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">10.1.6</span> Interpretation</a></li>
+  <li><a href="#write-up" id="toc-write-up" class="nav-link" data-scroll-target="#write-up"><span class="header-section-number">10.1.7</span> Write-Up</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#within-subjects-paired-samples" id="toc-within-subjects-paired-samples" class="nav-link" data-scroll-target="#within-subjects-paired-samples"><span class="header-section-number">10.2</span> Within-subjects (paired-samples)</a>
+  <ul class="collapse">
+<li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">10.2.1</span> The Data</a></li>
+  <li><a href="#assumptions-1" id="toc-assumptions-1" class="nav-link" data-scroll-target="#assumptions-1"><span class="header-section-number">10.2.2</span> Assumptions</a></li>
+  <li><a href="#descriptives" id="toc-descriptives" class="nav-link" data-scroll-target="#descriptives"><span class="header-section-number">10.2.3</span> Descriptives</a></li>
+  <li><a href="#inferential-analysis-1" id="toc-inferential-analysis-1" class="nav-link" data-scroll-target="#inferential-analysis-1"><span class="header-section-number">10.2.4</span> Inferential Analysis</a></li>
+  <li><a href="#write-up-and-interpretation" id="toc-write-up-and-interpretation" class="nav-link" data-scroll-target="#write-up-and-interpretation"><span class="header-section-number">10.2.5</span> Write-Up and Interpretation</a></li>
+  </ul>
+</li>
+  <li><a href="#ttest-fin" id="toc-ttest-fin" class="nav-link" data-scroll-target="#ttest-fin"><span class="header-section-number">10.3</span> Finished!</a></li>
+  <li><a href="#ttest-sols" id="toc-ttest-sols" class="nav-link" data-scroll-target="#ttest-sols"><span class="header-section-number">10.4</span> Activity solutions</a></li>
+  <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">10.5</span> Words from this Chapter</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-tests</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Experiments where you compare results from two conditions or two groups are very common within Psychology as often we want to know if there is an effect of a given variable. One of the really confusing things however about research design is that there are many names for the same type of design. To clarify:</p>
+<ul>
+<li>
+<a class="glossary">One-sample<span class="def"></span></a> are used to study one group of people against a known norm or criterion - for example, comparing the mean IQ of a sample against a known population norm such as an IQ of 100.</li>
+<li>Independent-samples and <a class="glossary">between-subjects<span class="def"></span></a> designs mean the same thing - different participants in different conditions.</li>
+<li>In contrast, <a class="glossary">within-subjects<span class="def"></span></a>, dependent-samples, paired-samples, and repeated-measures all tend to mean the same participants in all conditions</li>
+<li>Matched-pairs design means different people in different conditions but you have matched participants across the conditions so that they are effectively the same person (e.g.&nbsp;age, IQ, Social Economic Status, etc)</li>
+<li>
+<a class="glossary">Mixed-design<span class="def"></span></a> is when there is a combination of within-subjects and between-subjects designs in the one experiment. For example, say you are looking at attractiveness and dominance of male and female faces. Everyone might see both male and female faces (within) but half of the participants do ratings of attractiveness and half of the participants do ratings of trustworthiness (between).</li>
+</ul>
+<p>To get a better understanding of how some of these tests run we will look at running an example of a between-subjects t-test and a within-subjects t-test through a series of activities. Remember that the solutions are at the bottom of the page if you are stuck, and please do ask questions on the forums.</p>
+<section id="between-subjects-t-tests-two-sample" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="between-subjects-t-tests-two-sample">
+<span class="header-section-number">10.1</span> Between-Subjects t-tests (two-sample)</h2>
+<p>We will begin by looking at the between-subjects t-test which is used for comparing the outcome in two groups of different people. Here we will be using data from Schroeder and Epley (2015) on the perception of people from their job applications. You can take a look at the Psychological Science article here, <a href="https://doi.org/10.1177/0956797615572906" target="_blank">Schroeder, J. and Epley, N. (2015). The sound of intellect: Speech reveals a thoughtful mind, increasing a job candidate’s appeal. Psychological Science, 26, 277–891.</a>, if you like but it is not essential for completing the activities. The abstract from this article explains more about the different experiments conducted, and we will be specifically looking at the data set from Experiment 4, based on information from the <a href="https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities" target="_blank">Open Stats Lab</a>. The abstract reads:</p>
+<blockquote class="blockquote">
+<p>A person’s mental capacities, such as intellect, cannot be observed directly and so are instead inferred from indirect cues. We predicted that a person’s intellect would be conveyed most strongly through a cue closely tied to actual thinking: his or her voice. Hypothetical employers (Experiments 1-3b) and professional recruiters (Experiment 4) watched, listened to, or read job candidates’ pitches about why they should be hired. These evaluators (the employers) rated a candidate as more competent, thoughtful, and intelligent when they heard a pitch rather than read it and, as a result, had a more favourable impression of the candidate and were more interested in hiring the candidate. Adding voice to written pitches, by having trained actors (Experiment 3a) or untrained adults (Experiment 3b) read them, produced the same results. Adding visual cues to audio pitches did not alter evaluations of the candidates. For conveying one’s intellect, it is important that one’s voice, quite literally, be heard.</p>
+</blockquote>
+<p>To summarise, 39 professional recruiters from Fortune 500 companies evaluated job pitches of M.B.A. candidates from the University of Chicago Booth School of Business. The methods and results appear on pages 887-889 of the article if you want to look at them specifically for more details and the original data, in <strong>wide</strong> format, can be found at the <a href="https://drive.google.com/open?id=0Bz-rhZ21ShvOei1MM24xNndnQ00" target="_blank">Open Stats Lab</a> website for later self-directed learning. Today however, we will be working with a modified version in “tidy” format which can be downloaded below and what we plan to do is reproduce the results from the article on Pg 887.</p>
+<section id="data-and-descriptives" class="level3" data-number="10.1.1"><h3 data-number="10.1.1" class="anchored" data-anchor-id="data-and-descriptives">
+<span class="header-section-number">10.1.1</span> Data and Descriptives</h3>
+<p>As always, the first activity is about getting ourselves ready to analyse the data so try out the steps and if you need help, consult the earlier chapters.</p>
+<section id="ttest-a1" class="level4" data-number="10.1.1.1"><h4 data-number="10.1.1.1" class="anchored" data-anchor-id="ttest-a1">
+<span class="header-section-number">10.1.1.1</span> Activity 1: Set-up</h4>
+<ul>
+<li>Open RStudio and set the working directory to your chapter folder. Ensure the environment is clear.
+<ul>
+<li>If you’re using the Rserver, avoid a number of issues by restarting the session - click <code>Session</code> - <code>Restart R</code>
+</li>
+</ul>
+</li>
+<li>Open a new R Markdown document and save it in your working directory. Call the file “ttests”.<br>
+</li>
+<li>Download <a href="evaluators.csv" download="">evaluators.csv</a> and <a href="ratings.csv" download="">ratings.csv</a> and save them in your t-test folder. Make sure that you do not change the file names at all.
+<ul>
+<li>If you prefer you can download the data in a <a href="data/chpt10/PsyTeachR_FQA_Chpt10-data-between.zip" target="_blank">zip folder by clicking here</a>
+</li>
+<li>Remember not to change the file names at all and that <code>data.csv</code> is not the same as <code>data (1).csv</code>.</li>
+</ul>
+</li>
+<li>Delete the default R Markdown welcome text and insert a new code chunk that loads the following packages, in this specific order, using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. Remember the solutions if needed.
+<ul>
+<li>Load the packages in this order, <code>Hmisc</code>, <code>broom</code>, <code>car</code>,<code>effectsize</code>, <code>report</code>, and <code>tidyverse</code>
+</li>
+<li>again we have not used some of these packages so you will likely need to install some of them using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. Remember though that you should only do this on your own machine and only in the console window. If you are using the RServer you will not need to install them.</li>
+</ul>
+</li>
+<li>Finally, load the data held in <code>evaluators.csv</code> as a tibble into an object named <code>evaluators</code> using <code>read_csv()</code>.</li>
+</ul>
+<p>Remember to have a look at your data to help you understand the structure and the layout of the data. You can do this in whatever way you prefer.</p>
+<p>Now that we have our data, and have explored it, there is a few things we can do to make working with it a bit easier. If you look at the data, and in particular the <code>sex</code> column, you will see it is actually coded as <a class="glossary">numeric<span class="def"></span></a> but we will want to treat it as <a class="glossary">categorical<span class="def"></span></a>. Secondly, it can be tricky to work with 1s and 2s when you mean people, so we can “recode” the variables into labels that are easier to work with. That is what we will do here using a combination of <code>mutate()</code>, which we already know, and the <code>recode()</code> function from the <code>dplyr</code> package that is loaded in as part of the <code>tidyverse</code>, and the <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> function from <code>base</code>. Converting categorical data to factors will make it easier to work with in visualisations and analysis.</p>
+</section><section id="ttest-a2" class="level4" data-number="10.1.1.2"><h4 data-number="10.1.1.2" class="anchored" data-anchor-id="ttest-a2">
+<span class="header-section-number">10.1.1.2</span> Activity 2: Explore the dataset</h4>
+<p>In a new code chunk, copy the code below and see if you can follow it.</p>
+<ul>
+<li>First we use <code>mutate()</code> and <code>recode()</code> to recode <code>sex</code> into a new variable called <code>sex_labels</code> so that <code>1</code> = <code>male</code> and <code>2</code> = <code>female</code>.
+<ul>
+<li>Be careful using <code>recode()</code> as there are multiple functions in different packages called with the same name so it is better to use the <code>package::function()</code> approach and specify <code><a href="https://dplyr.tidyverse.org/reference/recode.html">dplyr::recode()</a></code> to get the right one.</li>
+</ul>
+</li>
+<li>Then we use <code>mutate()</code> and <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> to overwrite <code>sex_labels</code> and <code>condition</code> as factors.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>evaluators <span class="ot">&lt;-</span> evaluators <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">mutate</span>(<span class="at">sex_labels =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(sex, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"male"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"female"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3"></a>         <span class="at">sex_labels =</span> <span class="fu">as.factor</span>(sex_labels),</span>
+<span id="cb1-4"><a href="#cb1-4"></a>         <span class="at">condition =</span> <span class="fu">as.factor</span>(condition))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now see if you can create a count of the different sex labels to answer the following question. One approach would be <code>group_by() %&gt;% count()</code> but what would you group by? Maybe store this tibble in an object called <code>eval_counts</code>.</p>
+<ul>
+<li>How many participants were noted as being female: <input class="webex-solveme nospaces" size="2" data-answer="[&quot;30&quot;]">
+</li>
+<li>How many participants were noted as being male: <input class="webex-solveme nospaces" size="1" data-answer="[&quot;4&quot;]">
+</li>
+<li>How many data points are missing for <code>sex</code>? <input class="webex-solveme nospaces" size="1" data-answer="[&quot;5&quot;]">
+</li>
+</ul></section><section id="ttest-a3" class="level4" data-number="10.1.1.3"><h4 data-number="10.1.1.3" class="anchored" data-anchor-id="ttest-a3">
+<span class="header-section-number">10.1.1.3</span> Activity 3: Ratings</h4>
+<p>Excellent work. Our evaluator data is ready to work with and we are now going to calculate what is called an “overall intellect rating” given by each evaluator, calculated by averaging the ratings of <code>competent</code>, <code>thoughtful</code> and <code>intelligent</code> from each evaluator; held within <code>ratings.csv</code>. This overall rating will measure how intellectual the evaluators thought candidates were, depending on whether or not the evaluators <strong>read</strong> or <strong>listened</strong> to the candidates’ resume pitches. <strong>Note</strong>, however, we are not looking at ratings to individual candidates; we are looking at overall ratings for each evaluator. This is a bit confusing but makes sense if you stop to think about it a little. What we are interested in is how the medium they received the resume impacted their rating of the candidate. Once we have done that, we will then combine the overall intellect rating with the overall impression ratings and overall hire ratings for each evaluator, with the end goal of having a tibble called <code>ratings2</code> - which has the following structure:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">eval_id</th>
+<th style="text-align: left;">Category</th>
+<th style="text-align: right;">Rating</th>
+<th style="text-align: left;">condition</th>
+<th style="text-align: left;">sex_labels</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">hire</td>
+<td style="text-align: right;">6.000</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">impression</td>
+<td style="text-align: right;">7.000</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">intellect</td>
+<td style="text-align: right;">6.000</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">hire</td>
+<td style="text-align: right;">4.000</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">impression</td>
+<td style="text-align: right;">4.667</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">intellect</td>
+<td style="text-align: right;">5.667</td>
+<td style="text-align: left;">listened</td>
+<td style="text-align: left;">female</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The following steps describe how to create the above tibble and it would be good practice to try this out yourself. Look at the table and think what do I need? The trick when doing data analysis and data wrangling is to first think about what you want to achieve - the end goal - and then think about what functions you need to use to get there. The solution is hidden just below the stpes of course if you want to look at it. Let’s look at the steps. Steps 1, 2 and 3 calculate the new overall <code>intellect</code> rating. Steps 4 and 5 combine this rating to all other information.</p>
+<ol type="1">
+<li><p>Load the data found in <code>ratings.csv</code> as a tibble into an object called <code>ratings</code>. (e.g.&nbsp;read the csv)</p></li>
+<li><p><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> only the relevant variables (<strong>thoughtful</strong>, <strong>competent</strong>, <strong>intelligent</strong>) into a new tibble stored in an objected called something useful (we will call ours <code>iratings</code>), and then calculate a mean <code>Rating</code> for each evaluator (e.g.&nbsp;group_by &amp; summarise).</p></li>
+<li><p>Add on a new column called <code>Category</code> where every entry is the word <code>intellect</code>. This tells us that every number in this tibble is an intellect rating. (e.g.&nbsp;mutate)</p></li>
+<li><p>Now create a new tibble called <code>ratings2</code> and filter into it just the “impression” and “hire” ratings from the original <code>ratings</code> tibble.</p></li>
+<li><p>Next, bind this tibble with the tibble you created in step 3 to bring together the intellect, impression, and hire ratings, in <code>ratings2</code>. (e.g.&nbsp;<code>bind_rows(object1, object2)</code>)</p></li>
+<li><p>Join <code>ratings2</code> with the <code>evaluator</code> tibble that we created in Task 1 (e.g.&nbsp;<code>inner_join()</code>). Keep only the necessary columns as shown above (e.g.&nbsp;<code>select()</code>) and arrange by Evaluator and Category (e.g.&nbsp;<code>arrange()</code>).</p></li>
+</ol>
+<div class="webex-solution">
+<button>
+Our approach to this
+</button>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># 1. load in the data</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>ratings <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"book/ratings.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># 2. first step: pull out the ratings associated with intellect</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>iratings <span class="ot">&lt;-</span> ratings <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">filter</span>(Category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"competent"</span>, <span class="st">"thoughtful"</span>, <span class="st">"intelligent"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># second step: calculate means for each evaluator</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>imeans <span class="ot">&lt;-</span> iratings <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">group_by</span>(eval_id) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">summarise</span>(<span class="at">Rating =</span> <span class="fu">mean</span>(Rating))</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># 3. add Category variable </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># this way we can combine with 'impression' and 'hire' into a single table, very useful!</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>imeans2 <span class="ot">&lt;-</span> imeans <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="fu">mutate</span>(<span class="at">Category =</span> <span class="st">"intellect"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co"># 4., 5. &amp; 6. combine into a single table</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>ratings2 <span class="ot">&lt;-</span> ratings <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="fu">filter</span>(Category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"impression"</span>, <span class="st">"hire"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="fu">bind_rows</span>(imeans2) <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="fu">inner_join</span>(evaluators, <span class="st">"eval_id"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>sex) <span class="sc">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="fu">arrange</span>(eval_id, Category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li>Finally, calculate the n, mean and SD for each condition and category to help with reporting the descriptive statistics.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>group_means <span class="ot">&lt;-</span> ratings2 <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">group_by</span>(condition, Category) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">m =</span> <span class="fu">mean</span>(Rating), <span class="at">sd =</span> <span class="fu">sd</span>(Rating))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'condition'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+</section></section><section id="visualising-two-groups" class="level3" data-number="10.1.2"><h3 data-number="10.1.2" class="anchored" data-anchor-id="visualising-two-groups">
+<span class="header-section-number">10.1.2</span> Visualising two groups</h3>
+<p>Brilliant! Now that we have our data in a workable fashion, we are going to start looking at some visualisations and making figures. You should <strong>always</strong> visualise your data before you run a statistical analysis. Visualisations serve as part of the descriptive measures and they help you interpret the results of the test but they also give you an understanding of the spread of your data as part of the test assumptions. For data with a categorical IV, we are going to look at using the violin-boxplots that we saw in the introduction to visualisation chapter. In the past people would have tended to use barplots but as <a href="https://link.springer.com/article/10.3758/s13423-012-0247-5" target="_blank">Newman and Scholl (2012)</a> point out, barplots are misleading to viewers about how the underlying data actually looks. You can read that paper if you like, for more info, but hopefully by the end of this section you will see why violin-boxplots are more informative.</p>
+<section id="ttest-a4" class="level4" data-number="10.1.2.1"><h4 data-number="10.1.2.1" class="anchored" data-anchor-id="ttest-a4">
+<span class="header-section-number">10.1.2.1</span> Activity 4: Visualisation</h4>
+<p>We will visualise the intellect ratings for the listened and the read conditions. The code we will use to create our figure is as follows with the explanation below. Put this code in a new code chunk and run it.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>ratings2 <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">filter</span>(Category <span class="sc">==</span> <span class="st">"intellect"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> Rating)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> condition), <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"pointrange"</span>, <span class="at">fun.data =</span> <span class="st">"mean_cl_normal"</span>)  <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Condition"</span>, <span class="at">y =</span> <span class="st">"Rating Score"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> .<span class="dv">1</span>, <span class="at">width =</span> .<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first part of the code uses a pipe to filter the data to just the intellect rating:</p>
+<ul>
+<li>
+<code>ratings %&gt;% filter(Category == "intellect)</code> is the same as <code>filter(ratings, Category == "intellect")</code>
+</li>
+<li>this code also reflects nicely the difference between pipes (<code>%&gt;%</code>) used in wrangling and the <code>+</code> used in the visualisations with ggplot. Notice that we switch from pipes to plus when we start adding layers to our visualisation.</li>
+</ul>
+<p>The main parts of the code to create the violin-boxplot above are:</p>
+<ul>
+<li>ggplot() which creates our base layer and sets our data and our x and y axes.</li>
+<li>
+<code>geom_violin()</code> which creates the density plot. The reason it is called a violin plot is because if your data are normally distributed it should look something like a violin.<br>
+</li>
+<li>
+<code>geom_boxplot()</code> which creates the boxplot, showing the median and inter-quartile range (see <a href="https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51" target="_blank">here</a> if you would like more information). The boxplot can also give you a good idea if the data are skewed - the median line should be in the middle of the box. The more the median is moved towards one of th extremities of the box, the more your data is likely to be skewed.<br>
+</li>
+<li>
+<code>geom_jitter()</code> can be used to show individual data points in your dataset and you can change the width and height of the jitter. Note that this uses a randomised method to display the points so you will get a different output each time you run it.</li>
+<li>And finally, we will use <code>stat_summary()</code> for displaying the mean and confidence intervals. Within this function, <code>fun.data</code> specifies the a summary function that gives us the summary of the data we want to plot, in this case, <code>mean_cl_normal</code> which will calculate the mean plus the upper and lower confidence interval limits. You could also specify <code>mean_se</code> here if you wanted standard error. Finally, <code>geom</code> specifies what shape or plot we want to use to display the summary, in this case we want a <code>pointrange</code> (literally a point (the mean) with a range (the CI)).</li>
+</ul>
+<p>The figure will look like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/plot1a-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Violin-boxplot of the evaluator data</figcaption></figure>
+</div>
+</div>
+</div>
+<p>An alternative version would be this shown below. Perhaps compare the two codes and see if you can see what makes the differences:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ratings2 <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">filter</span>(Category <span class="sc">==</span> <span class="st">"intellect"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> Rating)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> condition), <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"pointrange"</span>, <span class="at">fun.data =</span> <span class="st">"mean_cl_normal"</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Condition"</span>, <span class="at">y =</span> <span class="st">"Rating Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/plot2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Violin-boxplot of the evaluator data</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Try to answer the following question:</p>
+<ul>
+<li>In which condition did the evaluators give the higher ratings overall? <select class="webex-select"><option value="blank"></option>
+<option value="answer">listened</option>
+<option value="">read</option></select>
+</li>
+<li>Would the descriptives (means, sds, figure) be inline with the hypothesis that evaluators favour resumes they have listened to more than resumes they have read? <select class="webex-select"><option value="blank"></option>
+<option value="answer">yes</option>
+<option value="">no</option></select>
+</li>
+</ul>
+<p>Nice and informative figure huh? It gives a good representation of the data in the two conditions, clearly showing the spread and the centre points. If you compare this to Figure 7 in the original paper you see the difference. We actually get much more information with our approach. We even get a sense that maybe the data is questionable on whether it is skewed or not, but more on that below.</p>
+<p>The code is really useful as well so you know it is here if you want to use it again. But maybe have a play with the code to try out things to see what happens. For instance:</p>
+<ul>
+<li>Try setting <code>trim = TRUE</code>, <code>show.legend = FALSE</code>, and/or altering the value of <code>width</code> to see what these arguments do.</li>
+<li>change the <code>Category == "intellect"</code> to <code>Category == "hire"</code> or <code>Category == "impression"</code> to create visualisations of the other conditions.</li>
+</ul></section></section><section id="assumptions" class="level3" data-number="10.1.3"><h3 data-number="10.1.3" class="anchored" data-anchor-id="assumptions">
+<span class="header-section-number">10.1.3</span> Assumptions</h3>
+<p>Great. We have visualised our data as well and we have been able to make some descriptive analysis about what is going on. Now we want to get ready to run the actual analysis. But one final thing we are going to decide is which t-test? But hang on you say, didn’t we decide that? We are going to run a between-subjects t-test! Right? Yes! But, and you know what we are about to say, there is more than one between-subjects t-test you can run. The two common ones are:</p>
+<ul>
+<li>Student’s between-subjects t-test</li>
+<li>Welch’s between-subjects t-test</li>
+</ul>
+<p>We are going to recommend that, at least when doing the analysis by code, you should use Welch’s between-subjects t-test for the reasons explained in this paper by <a href="https://www.rips-irsp.com/article/10.5334/irsp.82/" target="_blank">Delarce et al,m (2017)</a> Now you don’t have to read that paper but effectively, the Welch’s between-subjects t-test is better at maintaining the false positive rate of your test (<span class="math inline">\(\alpha\)</span>, usually set at <span class="math inline">\(\alpha\)</span> = .05) at the requested level. So we will show you how to run a Welch’s t-test here.</p>
+<p>The assumptions for a Welch’s between-subjects t-test are:</p>
+<ol type="1">
+<li>The data are continuous, i.e.&nbsp;interval/ratio</li>
+<li>The data are independent</li>
+<li>The residuals are normally distributed for each group</li>
+</ol>
+<p>We know that 1 and 2 are true from the design of the experiment, the measures used, and by looking at the data. To test assumption 3, we can create a Q-Q plots of the <strong>residuals</strong>. For a between-subject t-test the residuals are the difference between the mean of each group and each data point. E.g., if the mean of group A is 10 and a participant in group A scores 12, the residual for that participant is 2.</p>
+<ul>
+<li>Thinking back to your lectures, if you ran a Student’s t-test instead of a Welch t-test, what would the 4th assumption be? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Homogeneity of variance</option>
+<option value="">Homoscedascity</option>
+<option value="">Nominal data</option></select>
+</li>
+</ul>
+<section id="ttest-a5" class="level4" data-number="10.1.3.1"><h4 data-number="10.1.3.1" class="anchored" data-anchor-id="ttest-a5">
+<span class="header-section-number">10.1.3.1</span> Activity 5: Assumptions</h4>
+<ul>
+<li>Run the below code to calculate then plot the residuals for the “listened” condition on “intellect” ratings.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>listened_intellect_residuals <span class="ot">&lt;-</span> ratings2 <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(condition <span class="sc">==</span> <span class="st">"listened"</span>, Category <span class="sc">==</span> <span class="st">"intellect"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">mutate</span>(<span class="at">group_resid =</span> Rating <span class="sc">-</span> <span class="fu">mean</span>(Rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">select</span>(group_resid)</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">qqPlot</span>(listened_intellect_residuals<span class="sc">$</span>group_resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Run the below code to calculate then plot the residuals for the “read” condition on “intellect” ratings.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>read_intellect_residuals <span class="ot">&lt;-</span> ratings2 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(condition <span class="sc">==</span> <span class="st">"read"</span>, Category <span class="sc">==</span> <span class="st">"intellect"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">mutate</span>(<span class="at">group_resid =</span> Rating <span class="sc">-</span> <span class="fu">mean</span>(Rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">select</span>(group_resid)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">qqPlot</span>(read_intellect_residuals<span class="sc">$</span>group_resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we then look at our plots we get something that looks like this for the listened condition:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/qqplot3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Residual plots of listened condition. Each circle represents an indivudal rater. If data is normally distributed then it should fall close to or on the diagonal line.</figcaption></figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6 8</code></pre>
+</div>
+</div>
+<p>And something like this for the read condition.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/qqplot4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Residual plots of read intellect condition. Each circle represents an indivudal rater. If data is normally distributed then it should fall close to or on the diagonal line.</figcaption></figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11 18</code></pre>
+</div>
+</div>
+<p>What you are looking for is for the data to fall close to the diagonal line. Looking at the plots, maybe we could suggest that the “listened” condition is not so great as there is some data points moving away from the line at the far ends. The “read” condition seems a bit better, at least subjectively! There will always be some deviation from the diagonal line but at perhaps most of the data in both plots is relatively close to their respective diagonal lines.</p>
+<p>But in addition to the Q-Q plots we can also run a test on the residuals known as the <strong>Shapiro-Wilk</strong> test. The Shapiro-Wilk’s test has the alternative hypothesis that the data is significantly different from normal. As such, if you find a significant result using the test then the interpretation is that your data is not normal. If you find a non-significant finding then the interpretation is that your data is not significantly different from normal. One technical point is that the test doesn’t actually say your data is normal either but just that it is not significantly different from normal. Again, remember that assumptions have a degree of subjectivity to them. We use the <code>shapiro.wilk()</code> function from the base package to run the Shapiro-Wilk’s test.</p>
+<ul>
+<li>In a new code chunk, run both lines of code below and look at their output.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> listened_intellect_residuals<span class="sc">$</span>group_resid)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> read_intellect_residuals<span class="sc">$</span>group_resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try to answer the following questions:</p>
+<ul>
+<li>According to the Shapiro-Wilk’s test, is the data normally distributed for the listened condition? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select>
+</li>
+<li>According to the Shapiro-Wilk’s test, is the data normally distributed for the read condition? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select>
+</li>
+</ul>
+<p>So as you can see, the p-value for the listened condition is p = .174, and the p-value for the read condition is p = .445. So here we are in an interesting position that often happens. The figures for “listened” is a bit unclear, but the figure for “read” looks ok and both tests show a non-significant difference from normality. What do we do? Well we combine our knowledge of our data to make a reasoned decision. In this situation the majority of our information is pointing to the data being normal. However, there are known issues with the Shapiro-Wilks test when there are small sample sizes so we must always take results like this with some caution. It is never a good idea to run a small sample such as this and so in reality we might want to design a study that has larger sample groups. All that said, here it would not be unreasonable to take the assumption of normality as being held.</p>
+<div class="cell" data-layout-align="center" type="info">
+<div class="info">
+<p>
+For info though, here are some options if you are convinced your data is nor normal.
+</p>
+<ol style="list-style-type: decimal">
+<li>
+Transform your data to try and normalise the distribution. We won’t cover this but if you’d like to know more, <a href="https://www.researchgate.net/profile/Jason_Osborne2/publication/200152356_Notes_on_the_Use_of_Data_Transformations/links/0deec5295f1eb10df8000000.pdf">this page</a> is a good start. Not usually recommended these days but some still use it.
+</li>
+<li>
+Use a non-parametric test. The non-parametric equivalent of the independent t-test is the Mann-Whitney and the equivalent of the paired-samples t-test is the Wilcoxon signed-ranks test. Though more modern permutation tests are better. Again we won’t cover these here but useful to know if you read them in a paper.
+</li>
+<li>
+Do nothing. <a href="https://www.rips-irsp.com/articles/10.5334/irsp.82/">Delacre, Lakens &amp; Leys, 2017</a> argue that with a large enough sample (&gt;30), the Welch test is robust to deviations from assumptions. With very large samples normality is even less of an issue, so design studies with large samples.
+</li>
+</ol>
+</div>
+</div>
+</section></section><section id="inferential-analysis" class="level3" data-number="10.1.4"><h3 data-number="10.1.4" class="anchored" data-anchor-id="inferential-analysis">
+<span class="header-section-number">10.1.4</span> Inferential analysis</h3>
+<p>Now that we have checked our assumptions and our data seems to fit our Welch’s t-test we can go ahead and run the test. We are going to conduct t-tests for the Intellect, Hire and Impression ratings separately; each time comparing evaluators’ overall ratings for the listened group versus overall ratings for the read group to see if there was a significant difference between the two conditions: i.e.&nbsp;did the evaluators who <strong>listened</strong> to pitches give a significant higher or lower rating than evaluators that <strong>read</strong> pitches.</p>
+<section id="ttest-a6" class="level4" data-number="10.1.4.1"><h4 data-number="10.1.4.1" class="anchored" data-anchor-id="ttest-a6">
+<span class="header-section-number">10.1.4.1</span> Activity 6: Running the t-test</h4>
+<ul>
+<li>First, create separate objects for the intellect, hire, and impression data using <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>. We have completed intellect object for you so you should replace the NULLs in the below code to create one for <code>hire</code> and <code>impression</code>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>intellect <span class="ot">&lt;-</span> <span class="fu">filter</span>(ratings2, Category <span class="sc">==</span> <span class="st">"intellect"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>hire <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>impression <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And we are finally ready to run the t-test. It is funny right, as you may have realised by now, most of the work in analysis involves the set-up and getting the data ready, running the tests is generally just one more function. To conduct the t-test we will use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function from <code>base</code> which takes the following format called the <strong>formula syntax</strong>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">t.test</span>(DV_column_name <span class="sc">~</span> IV_column_name, </span>
+<span id="cb13-2"><a href="#cb13-2"></a>       <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>       <span class="at">data =</span> my_object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>
+<code>~</code> is called a tilde. It can be read as ‘by’ as in “analyse the DV by the IV”.<br>
+</li>
+<li>The variable on the left of the tilde is the dependent or outcome variable, <code>DV_column_name</code>.</li>
+<li>The variable(s) on the right of the tilde is the independent or predictor variable, <code>IV_column_name</code>.<br>
+</li>
+<li>and <code>paired = FALSE</code> indicates that we do not want to run a paired-samples test and that our data is from a between-subjects design.</li>
+</ul>
+<p>So let’s run our first test:</p>
+<ul>
+<li>In a new code chunk, type and run the below code, and thenview the output by typing <code>intellect_t</code> in the console.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>intellect_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(Rating <span class="sc">~</span> condition, </span>
+<span id="cb14-2"><a href="#cb14-2"></a>                      <span class="at">paired =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb14-3"><a href="#cb14-3"></a>                      <span class="at">data =</span> intellect,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>                      <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similar to when we used <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> for correlations, the output of <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> is a list type object which can make it harder to work with. This time, we are going to show you how to use the function <code>tidy()</code> from the <code>broom</code> package to convert the output to a tidyverse format.</p>
+<ul>
+<li>Run the below code. You can read it as “take what is in the object <code>intellect_t</code> and try to tidy it into a tibble”.<br>
+</li>
+<li>View the object by clicking on <code>results_intellect</code> in the environment.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>results_intellect <span class="ot">&lt;-</span> intellect_t <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you will see, <code>results_intellect</code> is now in a nice tibble format that makes it easy to extract individual values. It is worth looking at the values with the below explanations:</p>
+<ul>
+<li>
+<code>estimate</code> is the difference between the two means (alphabetically entered as mean 1 minus mean 2)</li>
+<li>
+<code>estimate1</code> is the mean of group 1</li>
+<li>
+<code>estimate2</code> is the mean of group 2<br>
+</li>
+<li>
+<code>statistic</code> is the t-statistic<br>
+</li>
+<li>
+<code>p.value</code> is the p-value<br>
+</li>
+<li>
+<code>parameter</code> is the degrees of freedom<br>
+</li>
+<li>
+<code>con.low</code> and <code>conf.high</code> are the confidence interval of the <code>estimate</code>
+</li>
+<li>
+<code>method</code> is the type of test, Welch’s, Student’s, paired, or one-sample</li>
+<li>
+<code>alternative</code> is whether the test was one or two-tailed</li>
+</ul>
+<p>And now that we know how to run the test and tidy it, try the below:</p>
+<ul>
+<li>Complete the code below in a new code chunk by replacing the NULLs to run the t-tests for the hire and impression ratings, don’t tidy them yet.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>hire_t <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>impression_t <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>And now tidy the data into the respective objects - <code>hire_t</code> into <code>results_hire</code>, etc.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>results_hire <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>results_impression <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Be sure to look at each of your tests and see what the outcome of each was. To make that easier, we are going join all the results of the t-tests together using <code>bind_rows()</code> - which we can do because all the tibbles have the same column names after we passed them through <code>tidy()</code>.</p>
+<ul>
+<li>Copy and run the below code. First, it specifies all of the individual tibbles you want to join and gives them a label (hire, impression, intellect), and then you specify what the ID column should be named (test).</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="at">hire =</span> results_hire, </span>
+<span id="cb18-2"><a href="#cb18-2"></a>                     <span class="at">impression =</span> results_impression, </span>
+<span id="cb18-3"><a href="#cb18-3"></a>                     <span class="at">intellect =</span> results_intellect, </span>
+<span id="cb18-4"><a href="#cb18-4"></a>                     <span class="at">.id =</span> <span class="st">"test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which produces the below:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 18%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: center;">test</th>
+<th style="text-align: center;">estimate</th>
+<th style="text-align: center;">estimate1</th>
+<th style="text-align: center;">estimate2</th>
+<th style="text-align: center;">statistic</th>
+<th style="text-align: center;">p.value</th>
+<th style="text-align: center;">parameter</th>
+<th style="text-align: center;">conf.low</th>
+<th style="text-align: center;">conf.high</th>
+<th style="text-align: center;">method</th>
+<th style="text-align: center;">alternative</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">hire</td>
+<td style="text-align: center;">1.825397</td>
+<td style="text-align: center;">4.714286</td>
+<td style="text-align: center;">2.888889</td>
+<td style="text-align: center;">2.639949</td>
+<td style="text-align: center;">0.0120842</td>
+<td style="text-align: center;">36.85591</td>
+<td style="text-align: center;">0.4241979</td>
+<td style="text-align: center;">3.226596</td>
+<td style="text-align: center;">Welch Two Sample t-test</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">impression</td>
+<td style="text-align: center;">1.894333</td>
+<td style="text-align: center;">5.968333</td>
+<td style="text-align: center;">4.074000</td>
+<td style="text-align: center;">2.817175</td>
+<td style="text-align: center;">0.0080329</td>
+<td style="text-align: center;">33.80061</td>
+<td style="text-align: center;">0.5275086</td>
+<td style="text-align: center;">3.261158</td>
+<td style="text-align: center;">Welch Two Sample t-test</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">intellect</td>
+<td style="text-align: center;">1.986722</td>
+<td style="text-align: center;">5.635000</td>
+<td style="text-align: center;">3.648278</td>
+<td style="text-align: center;">3.478555</td>
+<td style="text-align: center;">0.0014210</td>
+<td style="text-align: center;">33.43481</td>
+<td style="text-align: center;">0.8253146</td>
+<td style="text-align: center;">3.148130</td>
+<td style="text-align: center;">Welch Two Sample t-test</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>And looking along the line at the p-values we might have some significant differences. However, we have to remember to consider multiple comparisons.</p>
+</section><section id="ttest-a7" class="level4" data-number="10.1.4.2"><h4 data-number="10.1.4.2" class="anchored" data-anchor-id="ttest-a7">
+<span class="header-section-number">10.1.4.2</span> Activity 7: Correcting for multiple comparisons</h4>
+<p>Because we have run three t-tests, we are actually increasing our false positive rate due to what is called familywise error - essentially, instead of a false positive rate of .05, we would have a false positive rate of 1-(1-.05)^3 = 0.142625, where the “3” in the formula is the number of tests we ran. To correct for this we can apply the multiple comparison correction just like we did with correlations when we ran a lot of correlations. So, we’re going to add on a column to our <code>results</code> tibble that shows the adjusted p-values using <code>p.adj()</code> and <code>mutate()</code>.</p>
+<ul>
+<li>Type and run the below code in a new code chunk and have a look at the output.
+<ul>
+<li>inside the <code><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust()</a></code>, <code>p.value</code> says what column the p-values are in, and <code>bonferroni</code> says what adjustment to use.</li>
+</ul>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>results_adj <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">mutate</span>(<span class="at">p.adjusted =</span> <span class="fu">p.adjust</span>(<span class="at">p =</span> p.value, </span>
+<span id="cb19-3"><a href="#cb19-3"></a>                               <span class="at">method =</span> <span class="st">"bonferroni"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Looking at the adjusted p-values, try to answer the following questions:</p>
+<ul>
+<li>Listened is significantly more preferred in the <code>hire</code> condition after adjusting for multiple comparisons? <select class="webex-select"><option value="blank"></option>
+<option value="answer">TRUE</option>
+<option value="">FALSE</option></select>
+</li>
+<li>Listened is significantly more preferred in the <code>impression</code> condition after adjusting for multiple comparisons? <select class="webex-select"><option value="blank"></option>
+<option value="answer">TRUE</option>
+<option value="">FALSE</option></select>
+</li>
+<li>Listened is significantly more preferred in the <code>intellect</code> condition after adjusting for multiple comparisons? <select class="webex-select"><option value="blank"></option>
+<option value="answer">TRUE</option>
+<option value="">FALSE</option></select>
+</li>
+</ul></section></section><section id="effect-size" class="level3" data-number="10.1.5"><h3 data-number="10.1.5" class="anchored" data-anchor-id="effect-size">
+<span class="header-section-number">10.1.5</span> Effect Size</h3>
+<p>As you can see, even after correcting for multiple comparisons, our effects are still significant and we have maintained our false positive rate. But one more thing we can add is the effect size. Remember that some effects are significant and large, some are significant and medium, and some are significant and small. The effect size tells us the magnitude of the effect size in a way we can compare across studies - it is said to be a standardised - and the common effect size for a t-test is called Cohen’s D.</p>
+<section id="ttest-a8" class="level4" data-number="10.1.5.1"><h4 data-number="10.1.5.1" class="anchored" data-anchor-id="ttest-a8">
+<span class="header-section-number">10.1.5.1</span> Activity 8: Effect size</h4>
+<p>Whilst Cohen’s D is relatively straightforward by hand, here we will use the function <code>cohens_d()</code> from the <code>effectsize</code> package. The code is similar to the syntax for <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>.</p>
+<ul>
+<li>The code to run the Cohen’s D for intellect has been completed below.
+<ul>
+<li>The first argument should specify the formula, using the same syntax as <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>, that is <code>dv ~ iv</code>.</li>
+<li>
+<code>pooled_sd</code> should be <code>FALSE</code> if you ran a Welch test where the variances are not assumed to be equal and <code>TRUE</code> if you ran a regular Student’s t-test.</li>
+</ul>
+</li>
+<li>Run and complete the code below by replacing the NULLs to calculate the effect sizes for hire and impression</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>intellect_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(Rating <span class="sc">~</span> condition, </span>
+<span id="cb20-2"><a href="#cb20-2"></a>                      <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb20-3"><a href="#cb20-3"></a>                      <span class="at">data =</span> intellect)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>hire_d <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>impression_d <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="interpretation" class="level3" data-number="10.1.6"><h3 data-number="10.1.6" class="anchored" data-anchor-id="interpretation">
+<span class="header-section-number">10.1.6</span> Interpretation</h3>
+<p>Great Work! But let’s take a second to recap on our understanding of the data.</p>
+<section id="ttest-a9" class="level4" data-number="10.1.6.1"><h4 data-number="10.1.6.1" class="anchored" data-anchor-id="ttest-a9">
+<span class="header-section-number">10.1.6.1</span> Activity 9: Interpreting the results</h4>
+<ul>
+<li>
+<p>Were your results for <code>hire</code> significant? Enter the mean estimates and t-test results (means and t-value to 2 decimal places, p-value to 3 decimal places). Use the adjusted p-values:</p>
+<ul>
+<li><p>Mean <code>estimate1</code> (listened condition) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;4.71&quot;]"></p></li>
+<li><p>Mean <code>estimate2</code> (read condition) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.89&quot;]"></p></li>
+<li><p>t(<input class="webex-solveme nospaces" size="5" data-answer="[&quot;36.86&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.64&quot;]">, p = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;0.036&quot;,&quot;.036&quot;]"></p></li>
+</ul>
+</li>
+<li>
+<p>Were your results for <code>impression</code> significant? Enter the mean estimates and t-test results (means and t-value to 2 decimal places, p-value to 3 decimal places):</p>
+<ul>
+<li><p>Mean<code>estimate1</code> (listened condition) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.97&quot;]"></p></li>
+<li><p>Mean <code>estimate2</code> (read condition) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;4.07&quot;]"></p></li>
+<li><p>t(<input class="webex-solveme nospaces" size="5" data-answer="[&quot;33.80&quot;,&quot;33.8&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.82&quot;]">, p = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;0.024&quot;,&quot;.024&quot;]"></p></li>
+</ul>
+</li>
+<li><p>According to Cohen’s (1988) guidelines, the effect sizes for all three tests are <select class="webex-select"><option value="blank"></option>
+<option value="">Small</option>
+<option value="">Medium</option>
+<option value="answer">Large</option></select></p></li>
+</ul></section></section><section id="write-up" class="level3" data-number="10.1.7"><h3 data-number="10.1.7" class="anchored" data-anchor-id="write-up">
+<span class="header-section-number">10.1.7</span> Write-Up</h3>
+<p>And then finally on the between-subjects t-test, we should look at the write up.</p>
+<section id="ttest-a10" class="level4" data-number="10.1.7.1"><h4 data-number="10.1.7.1" class="anchored" data-anchor-id="ttest-a10">
+<span class="header-section-number">10.1.7.1</span> Activity 10: Write-up</h4>
+<p>If you refer back to the original paper on pg 887, you can see, for example, that the authors wrote:</p>
+<p><strong>In particular, the recruiters believed that the job candidates had greater intellect—were more competent, thoughtful, and intelligent—when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91), t(37) = 3.53, p &lt; .01, 95% CI of the difference = [0.85, 3.13], d = 1.16.</strong></p>
+<p>If we were to compare our findings, we would have something like the below:</p>
+<p><strong>A bonferroni-corrected Welch t-test found that recruiters rated job candidates as more intellectual when they listened to resumes (M = 5.64, SD = 1.61) than when they read resumes (M = 3.65, SD = 1.91), t(33.43) = 3.48, p = 0.004, 95% CI of the difference = [0.83, 3.15], d = 1.12.</strong></p>
+<p>You can create this same paragraph, using code, by copying and pasting the below <strong>exactly</strong> into <strong>white space</strong> in your R Markdown document and then knitting the file.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>A bonferroni<span class="sc">-</span>corrected Welch t<span class="sc">-</span>test found that recruiters rated job candidates as more intellectual when they listened to <span class="fu">resumes</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r results_intellect$estimate1%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r round(group_means$sd[3], 2)</span><span class="st">`</span>) than when they read <span class="fu">resumes</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r results_intellect$estimate2%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r round(group_means$sd[6], 2)</span><span class="st">`</span>), <span class="fu">t</span>(<span class="st">`</span><span class="at">r round(results_intellect$parameter, 2)</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r round(results_adj$statistic[3],2)</span><span class="st">`</span>, p <span class="ot">=</span> <span class="st">`</span><span class="at">r results_adj$p.adjusted[3] %&gt;% round(3)</span><span class="st">`</span>, <span class="dv">95</span>% CI of the difference <span class="ot">=</span> [<span class="st">`</span><span class="at">r round(results_intellect$conf.low, 2)</span><span class="st">`</span>, <span class="st">`</span><span class="at">r round(results_intellect$conf.high, 2)</span><span class="st">`</span>], d <span class="ot">=</span> <span class="st">`</span><span class="at">r round(intellect_d$Cohens_d,2)</span><span class="st">`</span>. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that we haven’t replicated the analysis exactly - the authors of this paper conducted Student’s t-test whilst we have conducted Welch tests and we’ve also applied a multiple comparison correction. But you can look at the two examples and see the difference. It would also be worthwhile trying your own write-up of the two remaining conditions before moving on to within-subjects t-tests.</p>
+</section></section></section><section id="within-subjects-paired-samples" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="within-subjects-paired-samples">
+<span class="header-section-number">10.2</span> Within-subjects (paired-samples)</h2>
+<p>For the final activity we will run a paired-samples t-test for a within-subject design but we will go through this one more quickly and just point out the differences to the above. For this example we will again draw from the <a href="https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities">Open Stats Lab</a> and look at data from the data in <a href="https://journals.sagepub.com/stoken/default+domain/d5HcBHg85XamSXGdYqYN/full">Mehr, S. A., Song. L. A., &amp; Spelke, E. S. (2016). For 5-month-old infants, melodies are social. Psychological Science, 27, 486-501.</a>{target = “_blank”}.</p>
+<p>The premis of the paper is that parents often sing to their children and, even as infants, children listen to and look at their parents while they are sung to. The authors sought to explore the psychological function that music has for parents and infants, by examining the research question that particular melodies may convey important social information to infants. More specifically, that common knowledge of songs and melodies convey information about social affiliation. The authors argue that melodies are shared within social groups. Whereas children growing up in one culture may be exposed to certain songs as infants (e.g., “Rock-a-bye Baby”), children growing up in other cultures (or even other groups within a culture) may be exposed to different songs. Thus, when a novel person (someone who the infant has never seen before) sings a familiar song, it may signal to the infant that this new person is a member of their social group.</p>
+<p>To test this the researchers recruited 32 infants and their parents to take part in the following experiment. During their first visit to the lab, the parents were taught a new lullaby (one that neither they nor their infants had heard before). The experimenters asked the parents to sing the new lullaby to their child every day for the next 1-2 weeks. Following this 1-2 week exposure period, the parents and their infant returned to the lab to complete the experimental portion of the study. Infants were first shown a screen with side-by-side videos of two unfamiliar people, each of whom were silently smiling and looking at the infant. The researchers recorded the looking behaviour (or gaze) of the infants during this ‘baseline’ phase. Next, one by one, the two unfamiliar people on the screen sang either the lullaby that the parents learned or a different lullaby (that had the same lyrics and rhythm, but a different melody). Finally, the infants saw the same silent video used at baseline, and the researchers again recorded the looking behaviour of the infants during this ‘test’ phase. For more details on the experiment’s methods, please refer to Mehr et al.&nbsp;(2016) Experiment 1.</p>
+<section id="the-data" class="level3" data-number="10.2.1"><h3 data-number="10.2.1" class="anchored" data-anchor-id="the-data">
+<span class="header-section-number">10.2.1</span> The Data</h3>
+<section id="ttest-a11" class="level4" data-number="10.2.1.1"><h4 data-number="10.2.1.1" class="anchored" data-anchor-id="ttest-a11">
+<span class="header-section-number">10.2.1.1</span> Activity 11: Getting the data ready</h4>
+<ul>
+<li>First, download <a href="Mehr Song and Spelke 2016 Experiment 1.csv" download="">Mehr Song and Spelke 2016 Experiment 1.csv</a> by clicking on the link and putting it into your working directory.
+<ul>
+<li>again if easier you can download the data as <a href="data/chpt10/PsyTeachR_FQA_Chpt10-data-between.zip">a zip file by clicking this link</a>.</li>
+</ul>
+</li>
+<li>Next, type and run the below code in a new code chunk. The code loads in the data and then does some wrangling to get the data into a working format:
+<ul>
+<li>it filters so we just have the first experiment from the paper</li>
+<li>selects the id and the preferential looking time of babies at the baseline stage and at the test stage.</li>
+<li>finally it renames the two preferential looking time columns to have names that are easier to work with using the <code>rename()</code> function.</li>
+</ul>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>gaze <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Mehr Song and Spelke 2016 Experiment 1.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">filter</span>(exp1 <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">select</span>(id,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>         Baseline_Proportion_Gaze_to_Singer,</span>
+<span id="cb22-5"><a href="#cb22-5"></a>         Test_Proportion_Gaze_to_Singer) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">rename</span>(<span class="at">baseline =</span> Baseline_Proportion_Gaze_to_Singer,</span>
+<span id="cb22-7"><a href="#cb22-7"></a>         <span class="at">test =</span> Test_Proportion_Gaze_to_Singer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="assumptions-1" class="level3" data-number="10.2.2"><h3 data-number="10.2.2" class="anchored" data-anchor-id="assumptions-1">
+<span class="header-section-number">10.2.2</span> Assumptions</h3>
+<p>So now that we have our data ready to work with, and be sure to look at it to get an understanding of the data, we want to consider the assumptions of the within-subjects t-test.</p>
+<p>The assumptions for this t-test are a little different (although very similar) to the between-subjects t-tests above. They are</p>
+<ol type="1">
+<li>The data is continuous, i.e.&nbsp;interval/ratio</li>
+<li>All participants should appear in both conditions/groups.</li>
+<li>The residuals are normally distributed.</li>
+</ol>
+<p>Aside from the data being paired rather than independent, i.e.&nbsp;it is the same participants in two conditions, rather than two groups of people in different conditions, the key difference is that for the within-subjects test, the data is actually determined as the difference between the scores in the two conditions for each participant. So for example, say participant one scores 10 in condition 1 and 7 in condition 2, then there data is actually 3, and you do that for all participants. So it isn’t looking at what they scored in either condition by itself, but what was the difference between conditions. And it is that data that must be continuous and that the residuals must be normally distributed for.</p>
+<section id="ttest-a12" class="level4" data-number="10.2.2.1"><h4 data-number="10.2.2.1" class="anchored" data-anchor-id="ttest-a12">
+<span class="header-section-number">10.2.2.1</span> Activity 12: Assumptions</h4>
+<ul>
+<li>Type and run the below code to first calculate the difference scores (<code>diff</code>) and then the residuals (<code>group_resid</code>).</li>
+<li>next it plots the Q-Q plot of the residuals before carrying out a Shapiro-Wilk’s test on the residuals</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>gaze_residual <span class="ot">&lt;-</span> gaze <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> baseline <span class="sc">-</span> test) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">mutate</span>(<span class="at">group_resid =</span> diff <span class="sc">-</span> <span class="fu">mean</span>(diff))</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="fu">qqPlot</span>(gaze_residual<span class="sc">$</span>group_resid)</span>
+<span id="cb23-6"><a href="#cb23-6"></a></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="fu">shapiro.test</span>(gaze_residual<span class="sc">$</span>group_resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And if we look at the plot we see:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22 29</code></pre>
+</div>
+</div>
+<p>and the Shapiro-Wilk’s suggests:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  gaze_residual$group_resid
+W = 0.97818, p-value = 0.7451</code></pre>
+</div>
+</div>
+<p>Now as we saw above, with the Q-Q plot we want the data to fall approximately on the diagonal line, and with the Shapiro-Wilks test we are looking for a non-significant finding. Based on those two tests, we can therefor say that our data meets the assumption of normality and so we can proceed.</p>
+</section></section><section id="descriptives" class="level3" data-number="10.2.3"><h3 data-number="10.2.3" class="anchored" data-anchor-id="descriptives">
+<span class="header-section-number">10.2.3</span> Descriptives</h3>
+<p>Now we are going to look at some descriptives. It made sense to keep the data in wide-form until this point to make it easy to calculate a column for the difference score, but now we will transform it to tidy data so that we can easily create descriptives and plot the data using <code>tidyverse</code> tools.</p>
+<section id="ttest-a13" class="level4" data-number="10.2.3.1"><h4 data-number="10.2.3.1" class="anchored" data-anchor-id="ttest-a13">
+<span class="header-section-number">10.2.3.1</span> Activity 13: Descriptives and visualisations</h4>
+<ul>
+<li>Type and run the below code to gather the data using pivot_longer().</li>
+<li>Next create a violin-boxplot of the data using your knowledge (and code) from Activity 4 above.</li>
+<li>Finally, create a descriptives table that contains the n, the mean, and the standard deviation of each condition.
+<ul>
+<li>If you prefer, you could actually work on the difference scores instead of the two different conditions. Whilst we analyse the difference, people plot either the difference or the two conditions as descriptives.</li>
+</ul>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>gaze_tidy <span class="ot">&lt;-</span> gaze <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">"time"</span>, </span>
+<span id="cb26-3"><a href="#cb26-3"></a>               <span class="at">values_to =</span> <span class="st">"looking"</span>, </span>
+<span id="cb26-4"><a href="#cb26-4"></a>               <span class="at">cols =</span> <span class="fu">c</span>(baseline, test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you have done this step correctly, you should see a plot that looks like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="10-t-tests_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Preferential Looking time for infants at baseline stage (left) and test stage (right).</figcaption></figure>
+</div>
+</div>
+</div>
+<p>And the descriptives:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">time</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_looking</th>
+<th style="text-align: right;">sd_looking</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">baseline</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0.5210967</td>
+<td style="text-align: right;">0.1769651</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0.5934912</td>
+<td style="text-align: right;">0.1786884</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Again you could look at the differences and if you know how you could plot the confidence interval of the difference, but it is not essential here. But looking at what you have done it would be worth spending a few minutes to try and predict the outcome of the t-test if the null hypothesis is that there is no difference in preferential looking time in babies between the baseline and test conditions.</p>
+</section></section><section id="inferential-analysis-1" class="level3" data-number="10.2.4"><h3 data-number="10.2.4" class="anchored" data-anchor-id="inferential-analysis-1">
+<span class="header-section-number">10.2.4</span> Inferential Analysis</h3>
+<p>Which brings us on to running the t-test and the effect size. The code is almost identical to the independent code with two differences:</p>
+<ol type="1">
+<li>In <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> you should specify <code>paired = TRUE</code> rather than <code>FALSE</code>
+</li>
+<li>In <code>cohens_d()</code> you should specify <code>method = paired</code> rather than <code>pooled_sd</code>
+</li>
+</ol>
+<section id="ttest-a14" class="level4" data-number="10.2.4.1"><h4 data-number="10.2.4.1" class="anchored" data-anchor-id="ttest-a14">
+<span class="header-section-number">10.2.4.1</span> Activity 14: Paired-samples t-test</h4>
+<ul>
+<li>Now have a go at running the within-subjects t-test based on your knowledge. The data you need is in <code>gaze_tidy()</code>. Store the output of the t-test as a tibble in the object <code>gaze_test</code>
+<ul>
+<li>i.e.&nbsp;pipe the output of the t-test into `tidy() in the one line of code.</li>
+</ul>
+</li>
+<li>calculate the Cohen’s D for the t-test and store it in <code>gaze_d</code>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>gaze_test <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>gaze_d <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And if you have done that correctly, you should see in <code>gaze_test</code> something like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 13%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">parameter</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+<th style="text-align: left;">method</th>
+<th style="text-align: left;">alternative</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">-0.0723946</td>
+<td style="text-align: right;">-2.41643</td>
+<td style="text-align: right;">0.0217529</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">-0.133497</td>
+<td style="text-align: right;">-0.0112922</td>
+<td style="text-align: left;">Paired t-test</td>
+<td style="text-align: left;">two.sided</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</section></section><section id="write-up-and-interpretation" class="level3" data-number="10.2.5"><h3 data-number="10.2.5" class="anchored" data-anchor-id="write-up-and-interpretation">
+<span class="header-section-number">10.2.5</span> Write-Up and Interpretation</h3>
+<p>Looking at the output of the test, it is actually very similar to the between-subjects t-test, with one exception. Rather than providing the means of both conditions, there is a single <code>estimate</code>. This is the mean <em>difference</em> score between the two conditions and if you had calculated the descriptives on the <code>diff</code> we created above you would get the same answer.</p>
+<ul>
+<li>
+<p>Enter the mean estimates and t-test results (means and t-value to 2 decimal places, p-value to 3 decimal places):</p>
+<ul>
+<li><p>Mean <code>estimate</code> = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;-0.07&quot;,&quot;0.07&quot;]"></p></li>
+<li><p>t(<input class="webex-solveme nospaces" size="2" data-answer="[&quot;31&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.42&quot;]">, p = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;0.022&quot;,&quot;.022&quot;]"></p></li>
+</ul>
+</li>
+</ul>
+<section id="ttest-a15" class="level4" data-number="10.2.5.1"><h4 data-number="10.2.5.1" class="anchored" data-anchor-id="ttest-a15">
+<span class="header-section-number">10.2.5.1</span> Activity 15: Write-up</h4>
+<p>Now have a go at summarising this finding in a sentence using the standard APA formatting. We have hidden our version just below for you to look at when you have had a go.</p>
+<div class="webex-solution">
+<button>
+Show our write-up
+</button>
+<div class="cell" data-layout-align="center">
+<p>At test stage (M = .59, SD = .18), infants showed a significantly longer preferential looking time to the singer of the familiar melody than they had shown the same singer at baseline (M = .52, SD = .18), t(31) = 2.42, p = .022, d = .41.</p>
+<p>Alternatively:</p>
+<p>At test stage, infants showed a significantly longer preferential looking time to the singer of the familiar melody than they had shown the same singer at baseline (Mean Difference = 0.07, SD = 0.17), t(31) = 2.42, p = .022, d = .41.</p>
+</div>
+</div>
+</section></section></section><section id="ttest-fin" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="ttest-fin">
+<span class="header-section-number">10.3</span> Finished!</h2>
+<p>That was a long chapter but hopefully you will see that it really is true that the hardest part is the set-up and the data wrangling. As we’ve said before, you don’t need to memorise lines of code - you just need to remember where to find examples and to understand which bits of them you need to change. Play around with the examples we have given you and see what changing the values does. There is no specific Test Yourself section for this chapter but make sure you check your understanding of the different sections before moving on.</p>
+</section><section id="ttest-sols" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="ttest-sols">
+<span class="header-section-number">10.4</span> Activity solutions</h2>
+<p>Below you will find the solutions to the above questions. Only look at them after giving the questions a good try and trying to find help on Google or Teams about any issues.</p>
+<section id="ttest-a1sol" class="level4" data-number="10.4.0.1"><h4 data-number="10.4.0.1" class="anchored" data-anchor-id="ttest-a1sol">
+<span class="header-section-number">10.4.0.1</span> Activity 1</h4>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">library</span>(car)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="fu">library</span>(report)</span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-6"><a href="#cb28-6"></a>evaluators <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"evaluators.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ttest-a2sol" class="level4" data-number="10.4.0.2"><h4 data-number="10.4.0.2" class="anchored" data-anchor-id="ttest-a2sol">
+<span class="header-section-number">10.4.0.2</span> Activity 2</h4>
+<p>This was our code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>evaluators <span class="ot">&lt;-</span> evaluators <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">mutate</span>(<span class="at">sex_labels =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(sex, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"male"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"female"</span>),</span>
+<span id="cb29-3"><a href="#cb29-3"></a>         <span class="at">sex_labels =</span> <span class="fu">as.factor</span>(sex_labels),</span>
+<span id="cb29-4"><a href="#cb29-4"></a>         <span class="at">condition =</span> <span class="fu">as.factor</span>(condition))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and you could summarise as below to give an output:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>eval_counts <span class="ot">&lt;-</span> <span class="fu">group_by</span>(evaluators, sex_labels) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ttest-a6sol" class="level4" data-number="10.4.0.3"><h4 data-number="10.4.0.3" class="anchored" data-anchor-id="ttest-a6sol">
+<span class="header-section-number">10.4.0.3</span> Activity 6</h4>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>intellect <span class="ot">&lt;-</span> <span class="fu">filter</span>(ratings2, Category <span class="sc">==</span> <span class="st">"intellect"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a>hire <span class="ot">&lt;-</span> <span class="fu">filter</span>(ratings2, Category <span class="sc">==</span> <span class="st">"hire"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3"></a>impression <span class="ot">&lt;-</span> <span class="fu">filter</span>(ratings2, Category <span class="sc">==</span> <span class="st">"impression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ttest-a8sol" class="level4" data-number="10.4.0.4"><h4 data-number="10.4.0.4" class="anchored" data-anchor-id="ttest-a8sol">
+<span class="header-section-number">10.4.0.4</span> Activity 8</h4>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>intellect_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(Rating <span class="sc">~</span> condition, </span>
+<span id="cb32-2"><a href="#cb32-2"></a>                      <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb32-3"><a href="#cb32-3"></a>                      <span class="at">data =</span> intellect)</span>
+<span id="cb32-4"><a href="#cb32-4"></a>hire_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(Rating <span class="sc">~</span> condition, </span>
+<span id="cb32-5"><a href="#cb32-5"></a>                      <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb32-6"><a href="#cb32-6"></a>                      <span class="at">data =</span> hire)</span>
+<span id="cb32-7"><a href="#cb32-7"></a>impression_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(Rating <span class="sc">~</span> condition, </span>
+<span id="cb32-8"><a href="#cb32-8"></a>                      <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb32-9"><a href="#cb32-9"></a>                      <span class="at">data =</span> impression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ttest-a13sol" class="level4" data-number="10.4.0.5"><h4 data-number="10.4.0.5" class="anchored" data-anchor-id="ttest-a13sol">
+<span class="header-section-number">10.4.0.5</span> Activity 13</h4>
+<p>For the plot:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">ggplot</span>(gaze_tidy, <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> looking)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> time), <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"pointrange"</span>, <span class="at">fun.data =</span> <span class="st">"mean_cl_normal"</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Experimental Stage"</span>, </span>
+<span id="cb33-6"><a href="#cb33-6"></a>       <span class="at">y =</span> <span class="st">"Preferential Looking Time (Proportion)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the descriptives:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>desc <span class="ot">&lt;-</span> gaze_tidy <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb34-4"><a href="#cb34-4"></a>            <span class="at">mean_looking =</span> <span class="fu">mean</span>(looking), </span>
+<span id="cb34-5"><a href="#cb34-5"></a>            <span class="at">sd_looking =</span> <span class="fu">sd</span>(looking))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ttest-a14sol" class="level4" data-number="10.4.0.6"><h4 data-number="10.4.0.6" class="anchored" data-anchor-id="ttest-a14sol">
+<span class="header-section-number">10.4.0.6</span> Activity 14</h4>
+<p>For the t-test:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>gaze_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(looking <span class="sc">~</span> time, </span>
+<span id="cb35-2"><a href="#cb35-2"></a>                    <span class="at">paired =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb35-3"><a href="#cb35-3"></a>                    <span class="at">data =</span> gaze_tidy) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the Cohen’s D:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>gaze_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(looking <span class="sc">~</span> time, </span>
+<span id="cb36-2"><a href="#cb36-2"></a>                   <span class="at">method =</span> <span class="st">"paired"</span>, </span>
+<span id="cb36-3"><a href="#cb36-3"></a>                   <span class="at">data =</span> gaze_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="words-from-this-chapter" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="words-from-this-chapter">
+<span class="header-section-number">10.5</span> Words from this Chapter</h2>
+<p>Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">between subjects</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">categorical</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mixed design</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">One-sample</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">within subjects</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>That is end of this chapter. Be sure to look again at anything you were unsure about and make some notes to help develop your own knowledge and skills. It would be good to write yourself some questions about what you are unsure of and see if you can answer them later or speak to someone about them. Good work today!</p>
+
+
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./09-correlation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./11-power.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power and Effect Sizes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

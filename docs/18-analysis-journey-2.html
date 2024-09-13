@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 16&nbsp; Analysis Journey 2: Simple Linear Regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./17-analysis-journey-1.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./18-analysis-journey-2.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to programming with R/R Studio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-starting-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-intro-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3: Pivots and Pipes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-more-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Scatterplots, boxplots, and violin-boxplots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-lm-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression with one continuous predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-lm-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regression with one categorical predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-screening-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-factorial-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multiple Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-analysis-journeys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Analysis Journeys</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-analysis-journey-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Analysis Journey 1: Data Wrangling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-analysis-journey-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a2-additional-learning-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Additional Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a3-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#task-preparation" id="toc-task-preparation" class="nav-link active" data-scroll-target="#task-preparation"><span class="header-section-number">16.1</span> Task preparation</a>
+  <ul class="collapse">
+<li><a href="#introduction-to-the-data-set" id="toc-introduction-to-the-data-set" class="nav-link" data-scroll-target="#introduction-to-the-data-set"><span class="header-section-number">16.1.1</span> Introduction to the data set</a></li>
+  <li><a href="#organising-your-files-and-project-for-the-task" id="toc-organising-your-files-and-project-for-the-task" class="nav-link" data-scroll-target="#organising-your-files-and-project-for-the-task"><span class="header-section-number">16.1.2</span> Organising your files and project for the task</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">16.2</span> Overview</a>
+  <ul class="collapse">
+<li><a href="#load-tidyverse-and-read-the-data-file" id="toc-load-tidyverse-and-read-the-data-file" class="nav-link" data-scroll-target="#load-tidyverse-and-read-the-data-file"><span class="header-section-number">16.2.1</span> Load <pkg>tidyverse</pkg> and read the data file</a></li>
+  <li><a href="#explore-evans_data" id="toc-explore-evans_data" class="nav-link" data-scroll-target="#explore-evans_data"><span class="header-section-number">16.2.2</span> Explore <code>evans_data</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#wrangling" id="toc-wrangling" class="nav-link" data-scroll-target="#wrangling"><span class="header-section-number">16.3</span> Wrangling</a>
+  <ul class="collapse">
+<li><a href="#task-list" id="toc-task-list" class="nav-link" data-scroll-target="#task-list"><span class="header-section-number">16.3.1</span> Task list</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">16.3.2</span> Solution</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#summarisingvisualising" id="toc-summarisingvisualising" class="nav-link" data-scroll-target="#summarisingvisualising"><span class="header-section-number">16.4</span> Summarising/visualising</a>
+  <ul class="collapse">
+<li><a href="#demographics" id="toc-demographics" class="nav-link" data-scroll-target="#demographics"><span class="header-section-number">16.4.1</span> Demographics</a></li>
+  <li><a href="#wellbeing-measures" id="toc-wellbeing-measures" class="nav-link" data-scroll-target="#wellbeing-measures"><span class="header-section-number">16.4.2</span> Wellbeing measures</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#analysing" id="toc-analysing" class="nav-link" data-scroll-target="#analysing"><span class="header-section-number">16.5</span> Analysing</a>
+  <ul class="collapse">
+<li><a href="#hypothesis-1" id="toc-hypothesis-1" class="nav-link" data-scroll-target="#hypothesis-1"><span class="header-section-number">16.5.1</span> Hypothesis 1</a></li>
+  <li><a href="#hypothesis-2" id="toc-hypothesis-2" class="nav-link" data-scroll-target="#hypothesis-2"><span class="header-section-number">16.5.2</span> Hypothesis 2</a></li>
+  <li><a href="#hypothesis-3" id="toc-hypothesis-3" class="nav-link" data-scroll-target="#hypothesis-3"><span class="header-section-number">16.5.3</span> Hypothesis 3</a></li>
+  </ul>
+</li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">16.6</span> Conclusion</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/18-analysis-journey-2.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/18-analysis-journey-2.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="journey-02-wrangling" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Welcome to the second data analysis journey. We have designed these chapters as a bridge between the structured learning in the core chapters and your assessments. We present you with a new data set, show you what the end product should look like, and see if you can apply your data wrangling, visualisation, and/or analysis skills to get there.</p>
+<p>As you gain independence, this is the crucial skill. Data analysis is all about seeing the data you have available to you and identifying what the end product needs to be to apply your visualisation and analysis techniques. You can then mentally (or physically) create a checklist of tasks to work backwards to get there. There might be a lot of trial and error as you try one thing, it does not quite work, so you go back and try something else. If you get stuck though, we have a range of hints and task lists you can unhide, then the solution to check your attempts against.</p>
+<p>In this second data analysis journey, we focus on inferential statistics after some data wrangling to apply all the skills you developed from Chapter 1 to Chapter 9.</p>
+<section id="task-preparation" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="task-preparation">
+<span class="header-section-number">16.1</span> Task preparation</h2>
+<section id="introduction-to-the-data-set" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="introduction-to-the-data-set">
+<span class="header-section-number">16.1.1</span> Introduction to the data set</h3>
+<p>For this task, we are using open data from <span class="citation" data-cites="binfet_importance_2022">Binfet et al. (<a href="references.html#ref-binfet_importance_2022" role="doc-biblioref">2022</a>)</span>, where the authors used the data set to write a separate article on repurposing it for statistics education <span class="citation" data-cites="evans_repurposing_2023">(<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">Evans et al., 2023</a>)</span>, inspiring us to use it in the chapter here. The abstract of their article is:</p>
+<blockquote class="blockquote">
+<p>Researchers have claimed that canine-assisted interventions (CAIs) contribute significantly to bolstering participants’ wellbeing, yet the mechanisms within interactions have received little empirical attention. The aim of this study was to assess the impact of client–canine contact on wellbeing outcomes in a sample of 284 undergraduate college students (77% female; 21% male, 2% non-binary). Participants self-selected to participate and were randomly assigned to one of two canine interaction treatment conditions (touch or no touch) or to a handler-only condition with no therapy dog present. To assess self-reports of wellbeing, measures of flourishing, positive and negative affect, social connectedness, happiness, integration into the campus community, stress, homesickness, and loneliness were administered. Exploratory analyses were conducted to assess whether these wellbeing measures could be considered as measuring a unidimensional construct. This included both reliability analysis and exploratory factor analysis. Based on the results of these analyses we created a composite measure using participant scores on a latent factor. We then conducted the tests of the four hypotheses using these factor scores. Results indicate that participants across all conditions experienced enhanced wellbeing on several measures; however, only those in the direct contact condition reported significant improvements on all measures of wellbeing. Additionally, direct interactions with therapy dogs through touch elicited greater wellbeing benefits than did no touch/indirect interactions or interactions with only a dog handler. Similarly, analyses using scores on the wellbeing factor indicated significant improvement in wellbeing across all conditions (handler-only, <em>d</em>=0.18, <em>p</em>=0.041; indirect, <em>d</em>=0.38, <em>p</em>&lt;0.001; direct, <em>d</em>=0.78, <em>p</em>&lt;0.001), with more benefit when a dog was present (<em>d</em>=0.20, <em>p</em>&lt;0.001), and the most benefit coming from physical contact with the dog (<em>d</em>=0.13, <em>p</em>=0.002). The findings hold implications for post-secondary wellbeing programs as well as the organization and delivery of CAIs.</p>
+</blockquote>
+<p>In summary, they were interested in the effect of therapy dogs on well-being in undergraduate students. Participants were randomly allocated to one of three groups:</p>
+<ol type="1">
+<li><p>Canine interaction touching the dogs (Direct).</p></li>
+<li><p>Canine interaction not touching the dogs (Indirect).</p></li>
+<li><p>Handler-only with no dogs present (Control).</p></li>
+</ol>
+<p>They measured 9 outcomes before and after the intervention including social connectedness, stress, and loneliness. For this journey chapter, we will focus on a constrained set of variables and analyses so it does not take forever, but the process would apply to all the outcomes. The authors posed three hypotheses which we will test after some data wrangling:</p>
+<ol type="1">
+<li><p>All treatment groups would have significantly higher measures of well-being and lower measures of ill-being after treatment.</p></li>
+<li><p>The treatment groups that interact with dogs would have significantly higher measures of well-being and lower measures of ill-being compared to the handler-only treatment.</p></li>
+<li><p>Direct contact with a therapy dog would yield greater benefits than indirect contact treatment.</p></li>
+</ol></section><section id="organising-your-files-and-project-for-the-task" class="level3" data-number="16.1.2"><h3 data-number="16.1.2" class="anchored" data-anchor-id="organising-your-files-and-project-for-the-task">
+<span class="header-section-number">16.1.2</span> Organising your files and project for the task</h3>
+<p>Before we can get started, you need to organise your files and project for the task, so your working directory is in order.</p>
+<ol type="1">
+<li><p>In your folder for research methods and the book <code>ResearchMethods1_2/Quant_Fundamentals</code>, create a new folder for the data analysis journey called <code>Journey_02_regression</code>. Within <code>Journey_02_regression</code>, create two new folders called <code>data</code> and <code>figures</code>.</p></li>
+<li><p>Create an R Project for <code>Journey_02_regression</code> as an existing directory for your chapter folder. This should now be your working directory.</p></li>
+<li><p>Create a new R Markdown document and give it a sensible title describing the chapter, such as <code>Analysis Journey 2 - Simple Linear Regression</code>. Delete everything below line 10 so you have a blank file to work with and save the file in your <code>Journey_02_regression</code> folder.</p></li>
+<li><p>We are working with a new data set, so please save the following data file: <a href="data/Evans_2023_raw.csv">Evans_2023_raw.csv</a>. Right click the link and select “save link as”, or clicking the link will save the files to your Downloads. Make sure that you save the file as “.csv”. Save or copy the file to your <code>data/</code> folder within <code>Journey_02_regression</code>.</p></li>
+</ol>
+<p>You are now ready to start working on the task!</p>
+</section></section><section id="overview" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">16.2</span> Overview</h2>
+<section id="load-tidyverse-and-read-the-data-file" class="level3" data-number="16.2.1"><h3 data-number="16.2.1" class="anchored" data-anchor-id="load-tidyverse-and-read-the-data-file">
+<span class="header-section-number">16.2.1</span> Load <pkg>tidyverse</pkg> and read the data file</h3>
+<p>Before we explore what wrangling we need to do, complete the following task list and check the solution if you are stuck.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following steps:</p>
+<ol type="1">
+<li><p>Load the <pkg>tidyverse</pkg> package.</p></li>
+<li><p>Read the data file <code>data/Evans_2023_raw.csv</code> to the object name <code>evans_data</code>.</p></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load the relevant packages</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Read the Evans_2023_raw.csv file </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>evans_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Evans_2023_raw.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="explore-evans_data" class="level3" data-number="16.2.2"><h3 data-number="16.2.2" class="anchored" data-anchor-id="explore-evans_data">
+<span class="header-section-number">16.2.2</span> Explore <code>evans_data</code>
+</h3>
+<p>In <code>evans_data</code>, we have the participant ID (<code>RID</code>), several demographic variables, and pre- and post-test items for stress, loneliness, and social connectedness. There are 88 variables which would take up loads of space, so we are just showing a preview of the first 20 here. If you use <code>glimpse()</code>, you will see all 88.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 284
+Columns: 20
+$ RID             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ GroupAssignment &lt;chr&gt; "Control", "Direct", "Indirect", "Control", "Direct", …
+$ Age_Yrs         &lt;dbl&gt; 21, 19, 18, 18, 19, 20, 26, 17, 21, 22, 19, 20, 19, 19…
+$ Year_of_Study   &lt;dbl&gt; 3, 1, 1, 1, 1, 2, 2, 1, 3, 4, 2, 2, 2, 2, 3, 1, 1, 1, …
+$ Live_Pets       &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, NA, 2, 2, 1,…
+$ Consumer_BARK   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, …
+$ S1_1            &lt;dbl&gt; 2, 2, 4, 2, 3, 4, 4, 3, 2, 2, 3, 2, 3, 4, 3, 2, 4, 2, …
+$ L1_1            &lt;dbl&gt; 3, 3, 3, 4, 2, 4, 3, 2, 3, 4, 3, 3, 4, 4, 4, 2, 3, 4, …
+$ L1_2            &lt;dbl&gt; 3, 2, 3, 2, 3, 3, 2, 3, 4, 1, 3, 3, 2, 3, 1, 4, 3, 2, …
+$ L1_3            &lt;dbl&gt; 4, 3, 2, 2, 3, 3, 1, 3, 3, 1, 2, 2, 1, 3, 1, 3, 3, 1, …
+$ L1_4            &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 4, 1, 2, 3, 2, 3, 2, 4, 3, 2, …
+$ L1_5            &lt;dbl&gt; 2, 4, 3, 4, 4, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 2, 3, 4, …
+$ L1_6            &lt;dbl&gt; 3, 3, 4, 4, 3, 2, 3, 3, 3, 4, 3, 3, 4, 3, 4, 2, 2, 4, …
+$ L1_7            &lt;dbl&gt; 1, 2, 2, 1, 2, 2, 4, 2, 2, 1, 3, 2, 3, 2, 2, 2, 3, 3, …
+$ L1_8            &lt;dbl&gt; 2, 2, 3, 3, 2, 3, 2, 3, 3, 2, 3, 2, 2, 3, 2, 4, 3, 2, …
+$ L1_9            &lt;dbl&gt; 3, 4, 3, 3, 3, 3, 3, 3, 2, 4, 3, 3, 4, 4, 4, 3, 2, 3, …
+$ L1_10           &lt;dbl&gt; 4, 3, 3, 4, 2, 2, 3, 3, 3, 4, 4, 3, 4, 4, 4, 2, 2, 3, …
+$ L1_11           &lt;dbl&gt; 3, 2, 2, 2, 4, 3, 4, 2, 2, 1, 3, 2, 2, 2, 2, 4, 3, 2, …
+$ L1_12           &lt;dbl&gt; 1, 2, 2, 1, 4, 3, 2, 2, 1, 1, 2, 2, 1, 2, 2, 1, 3, 1, …
+$ L1_13           &lt;dbl&gt; 3, 1, 2, 2, 4, 3, 3, 3, 4, 1, 3, 4, 2, 2, 2, 4, 3, 2, …</code></pre>
+</div>
+</div>
+<p>The columns (variables) we have in the data set are:</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 41%">
+<col style="width: 39%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: center;">Variable</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">RID</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Participant ID number.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GroupAssignment</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">Randomly allocated study group: Control, Indirect, Direct.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Age_Yrs</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Age in years.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Year_of_Study</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Participant’s year in college: First (1), Second (2), Third (3), Fourth (4), Fifth or more (5).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Live_Pets</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Does the participant have a pet back at home: Pet back home (1), no pet back home (2).</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Consumer_BARK</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Is the participant a low (1), medium (2), or high (3) consumer of the BARK program - the therapy dog service.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">S1_1</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Stress scale pre-test, 1 item, 1 (not at all stressed) to 5 (very stressed).</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">L1_1 to L1_20</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Loneliness scale pre-test, 20 items, 1 (never) to 4 (often).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SC1_1 to SC1_20</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Social connectedness scale pre-test, 20 items, 1 (strongly disagree) to 6 (strongly agree).</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S2_1</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Stress scale post-test, 1 item.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">L2_1 to L2_20</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Loneliness scale post-test, 20 items.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SC2_1 to SC2_20</td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;">Social connectedness scale post-test, 20 items, 1 (strongly disagree) to 6 (strongly agree).</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now we have introduced the data set, explore them using different methods we introduced. For example, opening the data object as a tab to scroll around, explore with <code>glimpse()</code>, or even try plotting some of the individual variables to see what they look like.</p>
+</div>
+</div>
+</section></section><section id="wrangling" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="wrangling">
+<span class="header-section-number">16.3</span> Wrangling</h2>
+<p>We are going to show you a preview of the starting data set and the end product we are aiming for. For the raw data, we have limited this to the first 20 rows again just so it does not take up the whole page, but if you use <code>glimpse()</code> you will see all 88 variables.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Raw data</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Wrangled data</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 284
+Columns: 20
+$ RID             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ GroupAssignment &lt;chr&gt; "Control", "Direct", "Indirect", "Control", "Direct", …
+$ Age_Yrs         &lt;dbl&gt; 21, 19, 18, 18, 19, 20, 26, 17, 21, 22, 19, 20, 19, 19…
+$ Year_of_Study   &lt;dbl&gt; 3, 1, 1, 1, 1, 2, 2, 1, 3, 4, 2, 2, 2, 2, 3, 1, 1, 1, …
+$ Live_Pets       &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, NA, 2, 2, 1,…
+$ Consumer_BARK   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, …
+$ S1_1            &lt;dbl&gt; 2, 2, 4, 2, 3, 4, 4, 3, 2, 2, 3, 2, 3, 4, 3, 2, 4, 2, …
+$ L1_1            &lt;dbl&gt; 3, 3, 3, 4, 2, 4, 3, 2, 3, 4, 3, 3, 4, 4, 4, 2, 3, 4, …
+$ L1_2            &lt;dbl&gt; 3, 2, 3, 2, 3, 3, 2, 3, 4, 1, 3, 3, 2, 3, 1, 4, 3, 2, …
+$ L1_3            &lt;dbl&gt; 4, 3, 2, 2, 3, 3, 1, 3, 3, 1, 2, 2, 1, 3, 1, 3, 3, 1, …
+$ L1_4            &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 4, 1, 2, 3, 2, 3, 2, 4, 3, 2, …
+$ L1_5            &lt;dbl&gt; 2, 4, 3, 4, 4, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 2, 3, 4, …
+$ L1_6            &lt;dbl&gt; 3, 3, 4, 4, 3, 2, 3, 3, 3, 4, 3, 3, 4, 3, 4, 2, 2, 4, …
+$ L1_7            &lt;dbl&gt; 1, 2, 2, 1, 2, 2, 4, 2, 2, 1, 3, 2, 3, 2, 2, 2, 3, 3, …
+$ L1_8            &lt;dbl&gt; 2, 2, 3, 3, 2, 3, 2, 3, 3, 2, 3, 2, 2, 3, 2, 4, 3, 2, …
+$ L1_9            &lt;dbl&gt; 3, 4, 3, 3, 3, 3, 3, 3, 2, 4, 3, 3, 4, 4, 4, 3, 2, 3, …
+$ L1_10           &lt;dbl&gt; 4, 3, 3, 4, 2, 2, 3, 3, 3, 4, 4, 3, 4, 4, 4, 2, 2, 3, …
+$ L1_11           &lt;dbl&gt; 3, 2, 2, 2, 4, 3, 4, 2, 2, 1, 3, 2, 2, 2, 2, 4, 3, 2, …
+$ L1_12           &lt;dbl&gt; 1, 2, 2, 1, 4, 3, 2, 2, 1, 1, 2, 2, 1, 2, 2, 1, 3, 1, …
+$ L1_13           &lt;dbl&gt; 3, 1, 2, 2, 4, 3, 3, 3, 4, 1, 3, 4, 2, 2, 2, 4, 3, 2, …</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 284
+Columns: 12
+$ RID             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ GroupAssignment &lt;chr&gt; "Control", "Direct", "Indirect", "Control", "Direct", …
+$ Age_Yrs         &lt;dbl&gt; 21, 19, 18, 18, 19, 20, 26, 17, 21, 22, 19, 20, 19, 19…
+$ Year_of_Study   &lt;dbl&gt; 3, 1, 1, 1, 1, 2, 2, 1, 3, 4, 2, 2, 2, 2, 3, 1, 1, 1, …
+$ Live_Pets       &lt;chr&gt; "Does not have a pet back home", "Does not have a pet …
+$ Consumer_BARK   &lt;chr&gt; "Low", "Low", "Low", "Low", "Low", "Low", "Low", "Low"…
+$ stress_pre      &lt;dbl&gt; 2, 2, 4, 2, 3, 4, 4, 3, 2, 2, 3, 2, 3, 4, 3, 2, 4, 2, …
+$ stress_post     &lt;dbl&gt; 2, 1, 3, 2, 4, 4, 3, 2, 2, 1, 2, 2, 1, 2, 4, 2, 2, 1, …
+$ lonely_pre      &lt;dbl&gt; 2.25, 1.90, 2.25, 1.75, 2.85, 2.70, 2.40, 2.25, 2.55, …
+$ lonely_post     &lt;dbl&gt; 1.70, 1.60, 2.25, 2.05, 2.70, 2.40, 2.25, 2.00, 2.55, …
+$ social_pre      &lt;dbl&gt; 3.90, 5.15, 4.10, 4.65, 3.65, 4.35, 4.75, 4.60, 4.20, …
+$ social_post     &lt;dbl&gt; 3.800000, 5.263158, 4.150000, 5.100000, 3.600000, 4.65…</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before we give you a task list, try and switch between the raw data and the wrangled data. Make a list of all the differences you can see between the two data objects.</p>
+<ol type="1">
+<li><p>Do the values of variables change from numbers? How might you recode them using the code book above?</p></li>
+<li><p>Looking at the codebook, are some variables the same but renamed?</p></li>
+<li><p>Looking at the codebook, have we calculated the mean of all the items for a scale?</p></li>
+</ol>
+<p>Try and wrangle the data based on all the differences you notice to create a new object <code>evans_wide</code>.</p>
+<p>For one hint, unless you read the original paper, there are a bunch of items that first need reverse coding you would not know about:</p>
+<ul>
+<li><p>Loneliness pre-test: L1_1, L1_5, L1_6, L1_9, L1_10, L1_15, L1_16, L1_19, L1_20.</p></li>
+<li><p>Loneliness post-test: L2_1, L2_5, L2_6, L2_9, L2_10, L2_15, L2_16, L2_19, L2_20.</p></li>
+<li><p>Social connectedness pre-test: SC1_3, SC1_6, SC1_7, SC1_9, SC1_11, SC1_13, SC1_15, SC1_17, SC1_18, SC1_20.</p></li>
+<li><p>Social connectedness post-test: SC2_3, SC2_6, SC2_7, SC2_9, SC2_11, SC2_13, SC2_15, SC2_17, SC2_18, SC2_20.</p></li>
+</ul>
+<p>When you get as far as you can, check the task list which explains all the steps we applied, but not how to do them. Then, you can check the solution for our code.</p>
+</div>
+</div>
+<section id="task-list" class="level3" data-number="16.3.1"><h3 data-number="16.3.1" class="anchored" data-anchor-id="task-list">
+<span class="header-section-number">16.3.1</span> Task list</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the task list
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>These are all the steps we applied to create the wrangled data object:</p>
+<ol type="1">
+<li><p>Recode <code>Live_Pets</code> to the two labels outlined in the code book.</p></li>
+<li><p>Recode <code>Consumer_BARK</code> to the three labels outlined in the code book.</p></li>
+<li><p>Reverse code the loneliness and social connectedness items outlined above. Think of previous examples where we explained reverse coding for how you can do this efficiently.</p></li>
+</ol>
+<p>As one extra piece of advice if you do not want to recode 40 variables one by one, there is a more advanced function you can use within <code>mutate()</code>. The function <code>across()</code> lets you apply a function or calculation to several columns at once. For example, if we wanted to reverse score items on a 4-point scale, it would look like the following:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(column1, column2...), </span>
+<span id="cb5-2"><a href="#cb5-2"></a>              <span class="at">.fns =</span> <span class="sc">~</span> <span class="dv">5</span> <span class="sc">-</span> .x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In <code>.cols</code>, we enter all the columns we want to apply the function to.</p>
+<p>In <code>.fns</code> after the <code>=</code>, we add the function we want to apply to all the columns we selected. The code is a little awkward as we have a tilde <code>~</code>, here the calculation we want to apply, and <code>.x</code> in place of the column name. You could summarise it as: for all the columns I select, subtract each value from 5. Once you get used to the format, <code>across()</code> is really helpful when you want to do the same thing to multiple columns.</p>
+<ol start="4" type="1">
+<li><p>After reverse coding the items, calculate the subscale mean scores for loneliness and social connectedness. You must do this twice per scale, as we have the 20 items for the pre-test and 20 items for the post-test per scale.</p></li>
+<li><p>If you calculated the subscale mean scores individually, join them back to the <code>evans_clean</code> object you mutated.</p></li>
+<li>
+<p>Select the following columns:</p>
+<ul>
+<li><p><code>RID</code> to <code>Consumer_BARK</code>.</p></li>
+<li><p>Rename <code>S1_1</code> to <code>stress_pre</code>.</p></li>
+<li><p>Rename <code>S2_1</code> to <code>stress_post</code>.</p></li>
+<li><p>Select your four subscale mean score variables.</p></li>
+</ul>
+</li>
+</ol>
+<p>Remember: If it’s easier for you to complete steps with longer but accurate code, there is nothing wrong with that. You recognise ways to make your code more efficient over time.</p>
+</div>
+</div>
+</div>
+</section><section id="solution" class="level3" data-number="16.3.2"><h3 data-number="16.3.2" class="anchored" data-anchor-id="solution">
+<span class="header-section-number">16.3.2</span> Solution</h3>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is the code we used to create the new object <code>evans_wide</code> using the original object <code>evans_data</code>. As long as you get the same end result, the exact code is not important. In coding, there are multiple ways of getting to the same end result. Maybe you found a more efficient way to complete some of the steps compared to us. Maybe your code was a little longer. As long as it worked, that is the most important thing.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Initial cleaning step to recode pets and BARK</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># then reverse code a bunch of items </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>evans_clean <span class="ot">&lt;-</span> evans_data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">mutate</span>(<span class="at">Live_Pets =</span> <span class="fu">case_match</span>(Live_Pets,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                                <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Has a pet back home"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                                <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Does not have a pet back home"</span>),</span>
+<span id="cb6-7"><a href="#cb6-7"></a>         <span class="at">Consumer_BARK =</span> <span class="fu">case_match</span>(Consumer_BARK,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>                                    <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>                                    <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>                                    <span class="dv">3</span> <span class="sc">~</span> <span class="st">"High"</span>),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>         <span class="co"># across works with mutate to apply the same function to several columns</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>         <span class="co"># So, take all the loneliness items to reverse code, then subtract them from 5</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(L1_1, L1_5, L1_6, L1_9, L1_10, L1_15, L1_16, L1_19, L1_20,</span>
+<span id="cb6-14"><a href="#cb6-14"></a>                          L2_1, L2_5, L2_6, L2_9, L2_10, L2_15, L2_16, L2_19, L2_20),</span>
+<span id="cb6-15"><a href="#cb6-15"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="dv">5</span> <span class="sc">-</span> .x),</span>
+<span id="cb6-16"><a href="#cb6-16"></a>         <span class="co"># take all the connectedness items to reverse code, then subtract them from 7</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>         <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(SC1_3, SC1_6, SC1_7, SC1_9, SC1_11, SC1_13, SC1_15, SC1_17, SC1_18, SC1_20, </span>
+<span id="cb6-18"><a href="#cb6-18"></a>                          SC2_3, SC2_6, SC2_7, SC2_9, SC2_11, SC2_13, SC2_15, SC2_17, SC2_18, SC2_20),</span>
+<span id="cb6-19"><a href="#cb6-19"></a>                <span class="at">.fns =</span> <span class="sc">~</span> <span class="dv">7</span> <span class="sc">-</span> .x))</span>
+<span id="cb6-20"><a href="#cb6-20"></a></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co"># There are more elegant ways around this, but for each set, </span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co"># take the 20 items, group by participant ID, and calculate the mean, ignoring missing values</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a>lonely_pre <span class="ot">&lt;-</span> evans_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-24"><a href="#cb6-24"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> L1_1<span class="sc">:</span>L1_20, </span>
+<span id="cb6-25"><a href="#cb6-25"></a>               <span class="at">names_to =</span> <span class="st">"Item"</span>, </span>
+<span id="cb6-26"><a href="#cb6-26"></a>               <span class="at">values_to =</span> <span class="st">"Response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-27"><a href="#cb6-27"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-28"><a href="#cb6-28"></a>  <span class="fu">summarise</span>(<span class="at">lonely_pre =</span> <span class="fu">mean</span>(Response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co"># Same thing for post scores</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a>lonely_post <span class="ot">&lt;-</span> evans_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-32"><a href="#cb6-32"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> L2_1<span class="sc">:</span>L2_20, </span>
+<span id="cb6-33"><a href="#cb6-33"></a>               <span class="at">names_to =</span> <span class="st">"Item"</span>, </span>
+<span id="cb6-34"><a href="#cb6-34"></a>               <span class="at">values_to =</span> <span class="st">"Response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-35"><a href="#cb6-35"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-36"><a href="#cb6-36"></a>  <span class="fu">summarise</span>(<span class="at">lonely_post =</span> <span class="fu">mean</span>(Response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-37"><a href="#cb6-37"></a></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co"># take the 20 items, group by participant ID, and calculate the mean, ignoring missing values</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a>social_pre <span class="ot">&lt;-</span> evans_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-40"><a href="#cb6-40"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> SC1_1<span class="sc">:</span>SC1_20, </span>
+<span id="cb6-41"><a href="#cb6-41"></a>               <span class="at">names_to =</span> <span class="st">"Item"</span>, </span>
+<span id="cb6-42"><a href="#cb6-42"></a>               <span class="at">values_to =</span> <span class="st">"Response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-43"><a href="#cb6-43"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-44"><a href="#cb6-44"></a>  <span class="fu">summarise</span>(<span class="at">social_pre =</span> <span class="fu">mean</span>(Response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-45"><a href="#cb6-45"></a></span>
+<span id="cb6-46"><a href="#cb6-46"></a><span class="co"># Same thing for post scores</span></span>
+<span id="cb6-47"><a href="#cb6-47"></a>social_post <span class="ot">&lt;-</span> evans_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-48"><a href="#cb6-48"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> SC2_1<span class="sc">:</span>SC2_20, </span>
+<span id="cb6-49"><a href="#cb6-49"></a>               <span class="at">names_to =</span> <span class="st">"Item"</span>, </span>
+<span id="cb6-50"><a href="#cb6-50"></a>               <span class="at">values_to =</span> <span class="st">"Response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-51"><a href="#cb6-51"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-52"><a href="#cb6-52"></a>  <span class="fu">summarise</span>(<span class="at">social_post =</span> <span class="fu">mean</span>(Response, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-53"><a href="#cb6-53"></a></span>
+<span id="cb6-54"><a href="#cb6-54"></a><span class="co"># join all four summary values to main data</span></span>
+<span id="cb6-55"><a href="#cb6-55"></a><span class="co"># select just the key variables we need</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a><span class="co"># rename the two stress items</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a>evans_wide <span class="ot">&lt;-</span> evans_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-58"><a href="#cb6-58"></a>  <span class="fu">inner_join</span>(lonely_pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-59"><a href="#cb6-59"></a>  <span class="fu">inner_join</span>(lonely_post) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-60"><a href="#cb6-60"></a>  <span class="fu">inner_join</span>(social_pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-61"><a href="#cb6-61"></a>  <span class="fu">inner_join</span>(social_post) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-62"><a href="#cb6-62"></a>  <span class="fu">select</span>(RID<span class="sc">:</span>Consumer_BARK, </span>
+<span id="cb6-63"><a href="#cb6-63"></a>         <span class="at">stress_pre =</span> S1_1, </span>
+<span id="cb6-64"><a href="#cb6-64"></a>         <span class="at">stress_post =</span> S2_1, </span>
+<span id="cb6-65"><a href="#cb6-65"></a>         lonely_pre<span class="sc">:</span>social_post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="summarisingvisualising" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="summarisingvisualising">
+<span class="header-section-number">16.4</span> Summarising/visualising</h2>
+<p>You should now have an object called <code>evans_wide</code> containing 12 variables. If you struggled completing the wrangling steps, you can copy the code from the solution to follow along from this point. In this section, we will calculate some summary statistics and plot the data to see what we can learn. We present you with a list of questions to answer using your wrangling and visualisation skills, interspersed with the solutions to check if you are stuck.</p>
+<section id="demographics" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="demographics">
+<span class="header-section-number">16.4.1</span> Demographics</h3>
+<p>For demographics, we will recreate some values from Table 1 from <span class="citation" data-cites="binfet_importance_2022">Binfet et al. (<a href="references.html#ref-binfet_importance_2022" role="doc-biblioref">2022</a>)</span>.</p>
+<ol type="1">
+<li>
+<p>How many participants were in each group for <code>GroupAssignment</code>?</p>
+<ul>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;94&quot;]"> Control</p></li>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]"> Direct</p></li>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]"> Indirect</p></li>
+</ul>
+</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This nicely reproduces their values.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">count</span>(GroupAssignment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">GroupAssignment</th>
+<th style="text-align: right;">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: right;">95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: right;">95</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>
+<p>To 2 decimals, what was the mean and standard deviation age per group?</p>
+<ul>
+<li><p>Control: <em>M</em> = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;19.95&quot;]">, <em>SD</em> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.89&quot;]">.</p></li>
+<li><p>Direct: <em>M</em> = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;19.77&quot;]">, <em>SD</em> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;1.94&quot;]">.</p></li>
+<li><p>Indirect: <em>M</em> = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;19.95&quot;]">, <em>SD</em> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.23&quot;]">.</p></li>
+</ul>
+</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Weirdly, this reproduces the standard deviations from Table 1, but not the means.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">group_by</span>(GroupAssignment) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_age =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Age_Yrs), <span class="dv">2</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>            <span class="at">sd_age =</span> <span class="fu">round</span>(<span class="fu">sd</span>(Age_Yrs), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">GroupAssignment</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">19.95</td>
+<td style="text-align: right;">2.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: right;">19.77</td>
+<td style="text-align: right;">1.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: right;">19.95</td>
+<td style="text-align: right;">2.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>
+<p>How many participants in each group have a pet at home?</p>
+<ul>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;21&quot;]"> Control</p></li>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;30&quot;]"> Direct</p></li>
+<li><p><input class="webex-solveme nospaces" size="2" data-answer="[&quot;34&quot;]"> Indirect</p></li>
+</ul>
+</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This nicely reproduces their values.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">count</span>(GroupAssignment, Live_Pets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">GroupAssignment</th>
+<th style="text-align: left;">Live_Pets</th>
+<th style="text-align: right;">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Does not have a pet back home</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Has a pet back home</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">Does not have a pet back home</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">Has a pet back home</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">Does not have a pet back home</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">Has a pet back home</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>This is not part of their article, but one interesting question might be how many people have a pet at home (<code>Live_Pets</code>) against how frequently they use the BARK program (<code>Consumer_BARK</code>). Try and recreate the following bar plot to visualise this as close as possible. We have intentionally used some features we have not covered in the data visualisation chapters to get you problem solving. For one hint though, we used option D for the viridis colour scheme.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="18-analysis-journey-2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The new features we hoped you found independently were:</p>
+<ul>
+<li><p>Setting the factor order to show <code>Consumer_BARK</code> as low, medium, then high.</p></li>
+<li><p>Set <code>position = "dodge"</code> to avoid the stacked bar chart.</p></li>
+<li><p>Edited the legend title by using the <code>name</code> argument in the <code>scale_fill</code> layer.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">drop_na</span>(Live_Pets, Consumer_BARK) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">mutate</span>(<span class="at">Consumer_BARK =</span> <span class="fu">factor</span>(Consumer_BARK, </span>
+<span id="cb10-4"><a href="#cb10-4"></a>                                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Live_Pets, <span class="at">fill =</span> Consumer_BARK)) <span class="sc">+</span> </span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Pets in Home"</span>, </span>
+<span id="cb10-8"><a href="#cb10-8"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span> </span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"D"</span>, </span>
+<span id="cb10-10"><a href="#cb10-10"></a>                       <span class="at">name =</span> <span class="st">"BARK Program User"</span>) <span class="sc">+</span> </span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="wellbeing-measures" class="level3" data-number="16.4.2"><h3 data-number="16.4.2" class="anchored" data-anchor-id="wellbeing-measures">
+<span class="header-section-number">16.4.2</span> Wellbeing measures</h3>
+<p>For wellbeing and ill-being measures, we will recreate some values from Table 2 from <span class="citation" data-cites="binfet_importance_2022">Binfet et al. (<a href="references.html#ref-binfet_importance_2022" role="doc-biblioref">2022</a>)</span>.</p>
+<ol start="5" type="1">
+<li>
+<p>If you calculate the mean and standard deviation of each variable per group, answer the following questions:</p>
+<ul>
+<li><p>Which group has the lowest post-test stress value? <select class="webex-select"><option value="blank"></option>
+<option value="">Control</option>
+<option value="answer">Direct</option>
+<option value="">Indirect</option></select></p></li>
+<li><p>Which group has the lowest post-test loneliness value? <select class="webex-select"><option value="blank"></option>
+<option value="">Indirect</option>
+<option value="answer">Direct</option>
+<option value="">Control</option></select></p></li>
+<li><p>Which group has the lowest post-test social connectedness value? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Indirect</option>
+<option value="">Control</option>
+<option value="">Direct</option></select></p></li>
+</ul>
+</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This table calculates the mean and standard score for each variable per group. You can use this to answer the questions above.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> stress_pre<span class="sc">:</span>social_post, </span>
+<span id="cb11-3"><a href="#cb11-3"></a>               <span class="at">names_to =</span> <span class="st">"Variable"</span>, </span>
+<span id="cb11-4"><a href="#cb11-4"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">group_by</span>(GroupAssignment, Variable) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">summarise</span>(<span class="at">mean_score =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Value), <span class="dv">2</span>), </span>
+<span id="cb11-7"><a href="#cb11-7"></a>            <span class="at">sd_score =</span> <span class="fu">round</span>(<span class="fu">sd</span>(Value), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'GroupAssignment'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">GroupAssignment</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">mean_score</th>
+<th style="text-align: right;">sd_score</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">lonely_post</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">0.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">lonely_pre</td>
+<td style="text-align: right;">2.02</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">social_post</td>
+<td style="text-align: right;">4.49</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">social_pre</td>
+<td style="text-align: right;">4.47</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">stress_post</td>
+<td style="text-align: right;">2.76</td>
+<td style="text-align: right;">1.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">stress_pre</td>
+<td style="text-align: right;">3.27</td>
+<td style="text-align: right;">1.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">lonely_post</td>
+<td style="text-align: right;">1.82</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">lonely_pre</td>
+<td style="text-align: right;">2.05</td>
+<td style="text-align: right;">0.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">social_post</td>
+<td style="text-align: right;">4.64</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">social_pre</td>
+<td style="text-align: right;">4.42</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">stress_post</td>
+<td style="text-align: right;">1.84</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: left;">stress_pre</td>
+<td style="text-align: right;">3.15</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">lonely_post</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">0.52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">lonely_pre</td>
+<td style="text-align: right;">2.06</td>
+<td style="text-align: right;">0.48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">social_post</td>
+<td style="text-align: right;">4.50</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">social_pre</td>
+<td style="text-align: right;">4.37</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">stress_post</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indirect</td>
+<td style="text-align: left;">stress_pre</td>
+<td style="text-align: right;">3.21</td>
+<td style="text-align: right;">0.90</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Create a scatterplot of the relationship between post-test social connectedness and loneliness. The relationship between the two variables is <select class="webex-select"><option value="blank"></option>
+<option value="answer">negative</option>
+<option value="">positive</option></select>, meaning that as social connectedness increases, we expect loneliness to <select class="webex-select"><option value="blank"></option>
+<option value="">increase</option>
+<option value="answer">decrease</option></select>.</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The code here creates a scatterplot for the relationship between post-test social connectedness and loneliness.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lonely_post, <span class="at">y =</span> social_post)) <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Loneliness Post-test"</span>, <span class="at">y =</span> <span class="st">"Social Connectedness Post-test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="18-analysis-journey-2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>As we start to think about inferential statistics, we can plot the difference between pre- and post-test for each group. For this question, try and recreate the boxplot to visualise stress. Hint: think about if you need to restructure the data, and how you can present the conditions in the appropriate order.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="18-analysis-journey-2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are two key steps before you can plot the data. First, you need to restructure the data to long form to get one variable for pre- and post-test. Second, post comes before pre due to alphabetical order, so you need to create a factor to specify the order here.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> stress_pre<span class="sc">:</span>stress_post, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>               <span class="at">names_to =</span> <span class="st">"Stress"</span>, </span>
+<span id="cb15-4"><a href="#cb15-4"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">mutate</span>(<span class="at">Stress =</span> <span class="fu">factor</span>(Stress,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"stress_pre"</span>, <span class="st">"stress_post"</span>), </span>
+<span id="cb15-7"><a href="#cb15-7"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pre-test"</span>, <span class="st">"Post-test"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GroupAssignment, <span class="at">y =</span> Value, <span class="at">fill =</span> Stress)) <span class="sc">+</span> </span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Group Assignment"</span>, <span class="at">y =</span> <span class="st">"Stress Scale"</span>) <span class="sc">+</span> </span>
+<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>, </span>
+<span id="cb15-12"><a href="#cb15-12"></a>                       <span class="at">name =</span> <span class="st">"Time"</span>) <span class="sc">+</span> </span>
+<span id="cb15-13"><a href="#cb15-13"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>Try and recreate the violin-boxplot to visualise loneliness. Hint: remember how to align the different elements from Chapter 7.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="18-analysis-journey-2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The same hints apply as question 7 as you need to restructure the data and create a new factor order so pre comes before post. As we have two grouping variables, we must specify a constant position dodge value so it does not plot weird.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># specify as an object, so we only change it in one place</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>dodge_value <span class="ot">&lt;-</span> <span class="fl">0.9</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> lonely_pre<span class="sc">:</span>lonely_post, </span>
+<span id="cb16-6"><a href="#cb16-6"></a>               <span class="at">names_to =</span> <span class="st">"Lonely"</span>, </span>
+<span id="cb16-7"><a href="#cb16-7"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-8"><a href="#cb16-8"></a>   <span class="fu">mutate</span>(<span class="at">Lonely =</span> <span class="fu">factor</span>(Lonely,</span>
+<span id="cb16-9"><a href="#cb16-9"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"lonely_pre"</span>, <span class="st">"lonely_post"</span>), </span>
+<span id="cb16-10"><a href="#cb16-10"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pre-test"</span>, <span class="st">"Post-test"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-11"><a href="#cb16-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GroupAssignment, <span class="at">y =</span> Value, <span class="at">fill =</span> Lonely)) <span class="sc">+</span> </span>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb16-13"><a href="#cb16-13"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.2</span>, </span>
+<span id="cb16-14"><a href="#cb16-14"></a>               <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>               <span class="at">fatten =</span> <span class="cn">NULL</span>,</span>
+<span id="cb16-16"><a href="#cb16-16"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span> </span>
+<span id="cb16-17"><a href="#cb16-17"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, </span>
+<span id="cb16-18"><a href="#cb16-18"></a>               <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb16-19"><a href="#cb16-19"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">"mean_cl_boot"</span>, </span>
+<span id="cb16-21"><a href="#cb16-21"></a>               <span class="at">geom =</span> <span class="st">"errorbar"</span>, </span>
+<span id="cb16-22"><a href="#cb16-22"></a>               <span class="at">width =</span> .<span class="dv">1</span>,</span>
+<span id="cb16-23"><a href="#cb16-23"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>, </span>
+<span id="cb16-25"><a href="#cb16-25"></a>                       <span class="at">name =</span> <span class="st">"Time"</span>) <span class="sc">+</span> </span>
+<span id="cb16-26"><a href="#cb16-26"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Group Assignment"</span>, <span class="at">y =</span> <span class="st">"Loneliness Scale"</span>) <span class="sc">+</span> </span>
+<span id="cb16-27"><a href="#cb16-27"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="analysing" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="analysing">
+<span class="header-section-number">16.5</span> Analysing</h2>
+<p>Finally, we turn to analysis for inferential statistics. In <span class="citation" data-cites="evans_repurposing_2023">Evans et al. (<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">2023</a>)</span>, they organise the analyses from <span class="citation" data-cites="binfet_importance_2022">Binfet et al. (<a href="references.html#ref-binfet_importance_2022" role="doc-biblioref">2022</a>)</span> into three hypotheses. You have not covered all the skills in Research Methods 1 to reproduce their analyses exactly, so we will work around an adapted set based on what we currently expect of you.</p>
+<p>We present each analysis as an overview so you can think about what techniques from Chapters 8 and 9 would address it, give you instructions on what analysis we have in mind if you need guidance, then present the solution. We focus on one outcome per hypothesis, but once you are confident you are applying and interpreting the appropriate techniques, why not try the other outcomes yourself?</p>
+<section id="hypothesis-1" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="hypothesis-1">
+<span class="header-section-number">16.5.1</span> Hypothesis 1</h3>
+<ol start="9" type="1">
+<li>Hypothesis 1 is that each treatment group will increase measures of well-being (social connectedness) and decrease measures of ill-being (stress and loneliness). For this question, we focus on stress, so we expected stress to decrease.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are two ways you could approach this. Either as the whole sample, or like <span class="citation" data-cites="evans_repurposing_2023">Evans et al. (<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">2023</a>)</span> present to focus on each group separately. Think about what techniques from Chapters 8 and 9 would let you test the hypothesis that each treatment group will decrease stress at post-test compared to pre-test.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the task list
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the solution below, we are focusing on the whole sample to test whether everyone decreased stress in post-test, but you could approach it by separating the data into the three groups and then testing for the difference per group.</p>
+<p>To test whether an outcome decreases between conditions in the same participants, we need a model suitable for a within-subjects design. In Chapter 9, we covered in <a href="09-lm-categorical.html#09-bonus">the bonus section</a> how to test the difference in conditions either through a paired samples-test or linear model with fixed intercept on the difference score.</p>
+<ol type="1">
+<li><p>Calculate the difference between stress pre- and post-test.</p></li>
+<li><p>Fit a linear model on the difference score with a fixed intercept and no predictor.</p></li>
+<li><p>Look at the intercept, is it positive or negative? If you calculated pre-test minus post-test, you would be looking for a postive difference as we expect lower stress at post-test. For hypothesis testing, is the <em>p</em>-value lower than alpha?</p></li>
+<li><p>What is the effect size? How much did stress change from pre-test to post-test? What is the confidence interval around the effect size?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In the code below, we first calculate a difference score by substracting stress post-test from stress pre-test.</p>
+<p>We then fit a linear model on this difference score and add a fixed intercept as we have no predictor.</p>
+<p>Consistent with hypothesis 1, stress was lower at post-test compared to pre-test across all participants. On average, participants decreased their stress score by 0.83 points (<span class="math inline">\(b_0\)</span> = 0.83, 95% CI = [0.72, 0.95], <em>p</em> &lt; .001).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>evans_wide <span class="ot">&lt;-</span> evans_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">mutate</span>(<span class="at">stress_diff =</span> stress_pre <span class="sc">-</span> stress_post)</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a>lm_stress <span class="ot">&lt;-</span> <span class="fu">lm</span>(stress_diff <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb17-5"><a href="#cb17-5"></a>                <span class="at">data =</span> evans_wide)</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="fu">summary</span>(lm_stress)</span>
+<span id="cb17-8"><a href="#cb17-8"></a></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="fu">confint</span>(lm_stress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = stress_diff ~ 1, data = evans_wide)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.8345 -0.8345  0.1655  0.1655  3.1655 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.83451    0.05657   14.75   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9534 on 283 degrees of freedom
+
+                2.5 %    97.5 %
+(Intercept) 0.7231517 0.9458623</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="hypothesis-2" class="level3" data-number="16.5.2"><h3 data-number="16.5.2" class="anchored" data-anchor-id="hypothesis-2">
+<span class="header-section-number">16.5.2</span> Hypothesis 2</h3>
+<ol start="10" type="1">
+<li>In Hypothesis 2, we predict that the direct and indirect contact groups will have higher well-being and lower ill-being measures compared to the control group. For this question, we focus on social connectedness at post-test for a measure of well-being, so we expect higher scores in the direct and indirect groups.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Think about what techniques from Chapters 8 and 9 would let you test the hypothesis that the direct and indirect groups both increase social connectedness at post-test compared to the control group. Think of how you could focus on two groups at a time per analysis.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the task list
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the solution below, we apply two tests. We focus on the direct and control groups by filtering out indirect, then we focus on indirect and control by filtering out direct.</p>
+<p>To test the difference between two groups on one outcome, we need a model suitable for a between-subjects design. In Chapter 9, we covered <a href="09-lm-categorical.html#09-categorical">linear regression with one categorical predictor</a> how to test the difference in an outcome between two groups.</p>
+<ol type="1">
+<li><p>Fit a linear model on the outcome social connectedness post-test with a categorical predictor of group. You will need to fit two models, one where you filter out the indirect group and one where you filter out the direct group.</p></li>
+<li><p>Look at the intercept, what is the predicted value for the reference group? Look at the slope, what is the estimated change to the target group? For hypothesis 2, is the direct/indirect group higher on social connectedness compared to control? For hypothesis testing, is the <em>p</em>-value lower than alpha?</p></li>
+<li><p>What is the effect size? How much did the two groups differ on social connectedness? What is the confidence interval around the effect size?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In the code below, we first fit a linear model on social connectedness post-test and focus on the direct and control groups. There are different ways you could ignore the indirect group, but here we filter the data as we pass the data to the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function.</p>
+<p>The direct group increased social connectedness post-test on average 0.15 points compared to the control group, but the difference was not statistically significant (<span class="math inline">\(b_1\)</span> = 0.15, 95% CI = [-0.09, 0.39], <em>p</em> = .207).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>lm_direct <span class="ot">&lt;-</span> <span class="fu">lm</span>(social_post <span class="sc">~</span> GroupAssignment, </span>
+<span id="cb19-2"><a href="#cb19-2"></a>                 <span class="at">data =</span> <span class="fu">filter</span>(evans_wide,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>                               GroupAssignment <span class="sc">!=</span> <span class="st">"Indirect"</span>))</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="fu">summary</span>(lm_direct)</span>
+<span id="cb19-6"><a href="#cb19-6"></a></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="fu">confint</span>(lm_direct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = social_post ~ GroupAssignment, data = filter(evans_wide, 
+    GroupAssignment != "Indirect"))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2940 -0.5905  0.1338  0.6560  1.3560 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            4.49054    0.08596  52.239   &lt;2e-16 ***
+GroupAssignmentDirect  0.15349    0.12125   1.266    0.207    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8334 on 187 degrees of freedom
+Multiple R-squared:  0.008497,  Adjusted R-squared:  0.003195 
+F-statistic: 1.603 on 1 and 187 DF,  p-value: 0.2071
+
+                            2.5 %    97.5 %
+(Intercept)            4.32096331 4.6601179
+GroupAssignmentDirect -0.08569829 0.3926749</code></pre>
+</div>
+</div>
+<p>The indirect group increased social connectedness post-test compared to the control group, but the difference was very small and not statistically significant (<span class="math inline">\(b_1\)</span> = 0.01, 95% CI = [-0.23, 0.25], <em>p</em> = .936).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>lm_indirect <span class="ot">&lt;-</span> <span class="fu">lm</span>(social_post <span class="sc">~</span> GroupAssignment, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>                 <span class="at">data =</span> <span class="fu">filter</span>(evans_wide,</span>
+<span id="cb21-3"><a href="#cb21-3"></a>                               GroupAssignment <span class="sc">!=</span> <span class="st">"Direct"</span>))</span>
+<span id="cb21-4"><a href="#cb21-4"></a></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="fu">summary</span>(lm_indirect)</span>
+<span id="cb21-6"><a href="#cb21-6"></a></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="fu">confint</span>(lm_indirect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = social_post ~ GroupAssignment, data = filter(evans_wide, 
+    GroupAssignment != "Direct"))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.70037 -0.59054  0.05946  0.64963  1.34963 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             4.490541   0.087155   51.52   &lt;2e-16 ***
+GroupAssignmentIndirect 0.009833   0.122931    0.08    0.936    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.845 on 187 degrees of freedom
+Multiple R-squared:  3.422e-05, Adjusted R-squared:  -0.005313 
+F-statistic: 0.006398 on 1 and 187 DF,  p-value: 0.9363
+
+                             2.5 %    97.5 %
+(Intercept)              4.3186067 4.6624745
+GroupAssignmentIndirect -0.2326772 0.2523439</code></pre>
+</div>
+</div>
+<p>In <span class="citation" data-cites="evans_repurposing_2023">Evans et al. (<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">2023</a>)</span>, the direct vs control comparison is significant, but they approached the analysis differently using a technique you will not learn until Research Methods 2. They control for pre-test scores by using it as an additional predictor, but you have not learnt about multiple regression yet.</p>
+</div>
+</div>
+</div>
+</section><section id="hypothesis-3" class="level3" data-number="16.5.3"><h3 data-number="16.5.3" class="anchored" data-anchor-id="hypothesis-3">
+<span class="header-section-number">16.5.3</span> Hypothesis 3</h3>
+<ol start="11" type="1">
+<li>Finally, the third hypothesis focuses on the difference between the two contact groups. They predict that the direct contact group will lead to higher well-being and lower ill-being compared to the indirect contact group. For this question, we focus on loneliness post-test for a measure of ill-being, so we expect lower scores in the direct group.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Think about what techniques from Chapters 8 and 9 would let you test the hypothesis that the direct group decreases loneliness at post-test compared to the indirect group.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the task list
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For this analysis, we focus on the final combination of groups, this time ignoring the control group.</p>
+<p>To test the difference between two groups on one outcome, we need a model suitable for a between-subjects design. In Chapter 9, we covered <a href="09-lm-categorical.html#09-categorical">linear regression with one categorical predictor</a> how to test the difference in an outcome between two groups.</p>
+<ol type="1">
+<li><p>Fit a linear model on the outcome loneliness post-test with a categorical predictor of group. Filter the data to just focus on the direct and indirect contact groups.</p></li>
+<li><p>Look at the intercept, what is the predicted value for the reference group? Look at the slope, what is the estimated change to the target group? For hypothesis 3, is the direct group lower on loneliness compared to indirect? For hypothesis testing, is the <em>p</em>-value lower than alpha?</p></li>
+<li><p>What is the effect size? How much did the two groups differ on loneliness? What is the confidence interval around the effect size?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In the code below, we first fit a linear model on loneliness post-test and focus on the direct and indirect groups. There are different ways you could ignore the indirect group, but here we filter the data as we pass the data to the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function.</p>
+<p>The direct group decreased loneliness post-test on average 0.14 points compared to the indirect group, but the difference was not statistically significant (<span class="math inline">\(b_1\)</span> = 0.14, 95% CI = [-0.01, 0.29], <em>p</em> = .060).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>lm_contact <span class="ot">&lt;-</span> <span class="fu">lm</span>(lonely_post <span class="sc">~</span> GroupAssignment, </span>
+<span id="cb23-2"><a href="#cb23-2"></a>                 <span class="at">data =</span> <span class="fu">filter</span>(evans_wide,</span>
+<span id="cb23-3"><a href="#cb23-3"></a>                               GroupAssignment <span class="sc">!=</span> <span class="st">"Control"</span>))</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="fu">summary</span>(lm_contact)</span>
+<span id="cb23-6"><a href="#cb23-6"></a></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="fu">confint</span>(lm_contact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lonely_post ~ GroupAssignment, data = filter(evans_wide, 
+    GroupAssignment != "Control"))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.96457 -0.42130 -0.06457  0.32645  1.58543 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              1.82355    0.05267  34.625   &lt;2e-16 ***
+GroupAssignmentIndirect  0.14102    0.07448   1.893   0.0598 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5133 on 188 degrees of freedom
+Multiple R-squared:  0.01871,   Adjusted R-squared:  0.01349 
+F-statistic: 3.585 on 1 and 188 DF,  p-value: 0.05983
+
+                               2.5 %    97.5 %
+(Intercept)              1.719655160 1.9274363
+GroupAssignmentIndirect -0.005898489 0.2879484</code></pre>
+</div>
+</div>
+<p>Like hypothesis 2, <span class="citation" data-cites="evans_repurposing_2023">Evans et al. (<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">2023</a>)</span> report the direct vs indirect comparison as significant, but they approached the analysis differently using a technique you will not learn until Research Methods 2. They control for pre-test scores by using it as an additional predictor, but you have not learnt about multiple regression yet.</p>
+</div>
+</div>
+</div>
+</section></section><section id="conclusion" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="conclusion">
+<span class="header-section-number">16.6</span> Conclusion</h2>
+<p>Well done! Hopefully you recognised how far your skills have come to be able to do this independently, regardless of how many hints you needed. We are really starting to pile the skills up you have learnt so far, from simply using R Markdown files, to wrangling data, to visualising data, to finally applying modelling techniques for your inferential statistics.</p>
+<p>If you are curious, you can read <span class="citation" data-cites="evans_repurposing_2023">Evans et al. (<a href="references.html#ref-evans_repurposing_2023" role="doc-biblioref">2023</a>)</span> to see how they walk through wrangling and analysing the data. Some of the techniques we do not cover in Research Methods 1, but they have some great features like highlighting common student mistakes.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-binfet_importance_2022" class="csl-entry" role="listitem">
+Binfet, J.-T., Green, F. L. L., &amp; Draper, Z. A. (2022). The <span>Importance</span> of <span>Client</span>–<span>Canine</span> <span>Contact</span> in <span>Canine</span>-<span>Assisted</span> <span>Interventions</span>: <span>A</span> <span>Randomized</span> <span>Controlled</span> <span>Trial</span>. <em>Anthrozoös</em>, <em>35</em>(1), 1–22. <a href="https://doi.org/10.1080/08927936.2021.1944558">https://doi.org/10.1080/08927936.2021.1944558</a>
+</div>
+<div id="ref-evans_repurposing_2023" class="csl-entry" role="listitem">
+Evans, C., Cipolli, W., Draper, Z. A., &amp; Binfet, J.-T. (2023). Repurposing a <span>Peer</span>-<span>Reviewed</span> <span>Publication</span> to <span>Engage</span> <span>Students</span> in <span>Statistics</span>: <span>An</span> <span>Illustration</span> of <span>Study</span> <span>Design</span>, <span>Data</span> <span>Collection</span>, and <span>Analysis</span>. <em>Journal of Statistics and Data Science Education</em>, <em>0</em>(0), 1–21. <a href="https://doi.org/10.1080/26939169.2023.2238018">https://doi.org/10.1080/26939169.2023.2238018</a>
+</div>
+</div>
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./17-analysis-journey-1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Analysis Journey 1: Data Wrangling</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

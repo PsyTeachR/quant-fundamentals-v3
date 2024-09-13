@@ -1,0 +1,25 @@
+/* edit this file to add custom styles */
+
+.inline-figure { border: none; }
+.quarto-cover-image { display: block; }
+/* named colours */
+:root {
+  --pink: #983E82;
+  --orange: #E2A458;
+  --yellow: #F5DC70;
+  --green: #59935B;
+  --blue: #467AAC;
+  --purple: #61589C;
+}
+
+/* rainbow borders */
+body {
+  margin-top: 18px;
+  box-shadow:
+    0 -3px 0 0px var(--purple),
+    0 -6px 0 0px var(--blue),
+    0 -9px 0 0px var(--green),
+    0 -12px 0 0px var(--yellow),
+    0 -15px 0 0px var(--orange),
+    0 -18px 0 0px var(--pink);
+}

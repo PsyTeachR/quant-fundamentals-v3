@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 13&nbsp; Factorial ANOVA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./14-multiple-regression.html" rel="next">
+<link href="./12-anova.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-factorial-anova.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to programming with R/R Studio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-starting-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-intro-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3: Pivots and Pipes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-more-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Scatterplots, boxplots, and violin-boxplots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-lm-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression with one continuous predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-lm-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regression with one categorical predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-screening-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-factorial-anova.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multiple Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-analysis-journeys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Analysis Journeys</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-analysis-journey-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Analysis Journey 1: Data Wrangling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-analysis-journey-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a2-additional-learning-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Additional Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a3-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#chapter-preparation" id="toc-chapter-preparation" class="nav-link active" data-scroll-target="#chapter-preparation"><span class="header-section-number">13.1</span> Chapter preparation</a>
+  <ul class="collapse">
+<li><a href="#introduction-to-the-data-set" id="toc-introduction-to-the-data-set" class="nav-link" data-scroll-target="#introduction-to-the-data-set"><span class="header-section-number">13.1.1</span> Introduction to the data set</a></li>
+  <li><a href="#organising-your-files-and-project-for-the-chapter" id="toc-organising-your-files-and-project-for-the-chapter" class="nav-link" data-scroll-target="#organising-your-files-and-project-for-the-chapter"><span class="header-section-number">13.1.2</span> Organising your files and project for the chapter</a></li>
+  <li><a href="#activity-1---load-the-packages-and-read-the-data" id="toc-activity-1---load-the-packages-and-read-the-data" class="nav-link" data-scroll-target="#activity-1---load-the-packages-and-read-the-data"><span class="header-section-number">13.1.3</span> Activity 1 - Load the packages and read the data</a></li>
+  <li><a href="#factorial-a2" id="toc-factorial-a2" class="nav-link" data-scroll-target="#factorial-a2"><span class="header-section-number">13.1.4</span> Activity 2 - Calculate descriptive statistics</a></li>
+  <li><a href="#factorial-a3" id="toc-factorial-a3" class="nav-link" data-scroll-target="#factorial-a3"><span class="header-section-number">13.1.5</span> Activity 3 - Create a violin-boxplot</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#factorial-a5" id="toc-factorial-a5" class="nav-link" data-scroll-target="#factorial-a5"><span class="header-section-number">13.2</span> Factorial ANOVA</a>
+  <ul class="collapse">
+<li><a href="#activity-4---using-the-aov_ez-function." id="toc-activity-4---using-the-aov_ez-function." class="nav-link" data-scroll-target="#activity-4---using-the-aov_ez-function."><span class="header-section-number">13.2.1</span> Activity 4 - Using the <code>aov_ez()</code> function.</a></li>
+  <li><a href="#factorial-a5" id="toc-factorial-a5" class="nav-link" data-scroll-target="#factorial-a5"><span class="header-section-number">13.2.2</span> Activity 5 - Checking assumptions for factorial ANOVA</a></li>
+  <li><a href="#factorial-a6" id="toc-factorial-a6" class="nav-link" data-scroll-target="#factorial-a6"><span class="header-section-number">13.2.3</span> Activity 6 - Post-hoc tests</a></li>
+  <li><a href="#factorial-a7" id="toc-factorial-a7" class="nav-link" data-scroll-target="#factorial-a7"><span class="header-section-number">13.2.4</span> Activity 7 - Creating an interaction plot</a></li>
+  </ul>
+</li>
+  <li><a href="#factorial-a8" id="toc-factorial-a8" class="nav-link" data-scroll-target="#factorial-a8"><span class="header-section-number">13.3</span> Reporting the results of your factorial ANOVA</a></li>
+  <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">13.4</span> End of Chapter</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/13-factorial-anova.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/13-factorial-anova.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>In the previous chapter, you learnt how to conduct and interpret a one-way ANOVA in R. These are flexible models where you have one independent variable (IV) with three or more levels. They get you a long way but sometimes your research question and design calls for multiple IVs or factors.</p>
+<p>In this chapter, we extend the ANOVA framework to include two or more IVs/factors and their interaction. We will show you how to run a factorial ANOVA using the <pkg>afex</pkg> package and break down interactions through post-hoc tests using the <pkg>emmeans</pkg> package. Visualising your data is particularly important for understanding interactions, so we put a lot of emphasis on data visualisation through violin-boxplots and interaction plots.</p>
+<p><strong>Chapter Intended Learning Outcomes (ILOs)</strong></p>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li><p>Apply and interpret a factorial ANOVA.</p></li>
+<li><p>Break down the results of a factorial ANOVA using post-hocs tests and apply a correction for multiple comparisons.</p></li>
+<li><p>Check statistical assumptions for factorial ANOVA through your understanding of the design and diagnostic plots.</p></li>
+<li><p>Visualise the results of a factorial ANOVA through an interaction plot.</p></li>
+</ul>
+<section id="chapter-preparation" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="chapter-preparation">
+<span class="header-section-number">13.1</span> Chapter preparation</h2>
+<section id="introduction-to-the-data-set" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="introduction-to-the-data-set">
+<span class="header-section-number">13.1.1</span> Introduction to the data set</h3>
+<p>For this chapter, we are using open data from experiment 3 in <span class="citation" data-cites="zhang_present_2014">Zhang et al. (<a href="references.html#ref-zhang_present_2014" role="doc-biblioref">2014</a>)</span> which you might remember from Chapter 7. Now you have developed your inferential skills, we can return to reproduce their analyses. The abstract of their article is:</p>
+<blockquote class="blockquote">
+<p>Although documenting everyday activities may seem trivial, four studies reveal that creating records of the present generates unexpected benefits by allowing future rediscoveries. In Study 1, we used a time-capsule paradigm to show that individuals underestimate the extent to which rediscovering experiences from the past will be curiosity provoking and interesting in the future. In Studies 2 and 3, we found that people are particularly likely to underestimate the pleasure of rediscovering ordinary, mundane experiences, as opposed to extraordinary experiences. Finally, Study 4 demonstrates that underestimating the pleasure of rediscovery leads to time-inconsistent choices: Individuals forgo opportunities to document the present but then prefer rediscovering those moments in the future to engaging in an alternative fun activity. Underestimating the value of rediscovery is linked to people’s erroneous faith in their memory of everyday events. By documenting the present, people provide themselves with the opportunity to rediscover mundane moments that may otherwise have been forgotten.</p>
+</blockquote>
+<p>In summary, they were interested in whether people could predict how interested they would be in rediscovering past experiences. They call it a “time capsule” effect, where people store photos or messages to remind themselves of past events in the future. They predicted participants in the ordinary group would underestimate their future feelings (i.e., there would be a bigger difference between time 1 and time 2 measures) compared to participants in the extraordinary group.</p>
+<p>Now we are focusing on the analysis rather than just visualisation, we can describe the experiment as a 2 x 2 mixed design. The first IV is time (time1, time2) and is within-subjects. The second IV is type of event (ordinary vs.&nbsp;extraordinary) and is a between-subjects factor. We will then use interest as a DV for a composite measure which took the mean of items on interest, meaningfulness, and enjoyment</p>
+</section><section id="organising-your-files-and-project-for-the-chapter" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="organising-your-files-and-project-for-the-chapter">
+<span class="header-section-number">13.1.2</span> Organising your files and project for the chapter</h3>
+<p>Before we can get started, you need to organise your files and project for the chapter, so your working directory is in order.</p>
+<ol type="1">
+<li><p>In your folder for research methods and the book <code>ResearchMethods1_2/Quant_Fundamentals</code>, create a new folder called <code>Chapter_13_F_ANOVA</code>. Within <code>Chapter_13_F_ANOVA</code>, create two new folders called <code>data</code> and <code>figures</code>.</p></li>
+<li><p>Create an R Project for <code>Chapter_13_F_ANOVA</code> as an existing directory for your chapter folder. This should now be your working directory.</p></li>
+<li><p>Create a new R Markdown document and give it a sensible title describing the chapter, such as <code>13 Factorial ANOVA</code>. Delete everything below line 10 so you have a blank file to work with and save the file in your <code>Chapter_13_F_ANOVA</code> folder.</p></li>
+<li><p>If you must download the data again, please save the following file: <a href="data/Zhang_2014.csv">Zhang_2014.csv</a>. Right click the link and select “save link as”, or clicking the link will save the files to your Downloads. Make sure that you save the file as “.csv”. Save or copy the file to your <code>data/</code> folder within <code>Chapter_13_F_ANOVA</code>.</p></li>
+</ol>
+<p>You are now ready to start working on the chapter!</p>
+</section><section id="activity-1---load-the-packages-and-read-the-data" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="activity-1---load-the-packages-and-read-the-data">
+<span class="header-section-number">13.1.3</span> Activity 1 - Load the packages and read the data</h3>
+<p>We already worked on the data wrangling in Chapter 7, so please type or copy and paste the following code to prepare for the chapter.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load the packages below</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#library("rcompanion")</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#library("car")</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(afex)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Load the data file</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># This should be the Zhang_2014.csv file </span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>zhang_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Zhang_2014.csv"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Wrangle the data for plotting. </span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># select and rename key variables</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># mutate to add participant ID and recode</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>zhang_wide <span class="ot">&lt;-</span> zhang_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="fu">select</span>(Gender, </span>
+<span id="cb1-20"><a href="#cb1-20"></a>         Age, </span>
+<span id="cb1-21"><a href="#cb1-21"></a>         Condition, </span>
+<span id="cb1-22"><a href="#cb1-22"></a>         <span class="at">time1_interest =</span> T1_Predicted_Interest_Composite, </span>
+<span id="cb1-23"><a href="#cb1-23"></a>         <span class="at">time2_interest =</span> T2_Actual_Interest_Composite) <span class="sc">%&gt;%</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">mutate</span>(<span class="at">participant_ID =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb1-25"><a href="#cb1-25"></a>         <span class="at">Condition =</span> <span class="fu">case_match</span>(Condition, </span>
+<span id="cb1-26"><a href="#cb1-26"></a>                            <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Ordinary"</span>, </span>
+<span id="cb1-27"><a href="#cb1-27"></a>                            <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Extraordinary"</span>))</span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a>zhang_long <span class="ot">&lt;-</span> zhang_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> time1_interest<span class="sc">:</span>time2_interest,</span>
+<span id="cb1-31"><a href="#cb1-31"></a>               <span class="at">names_to =</span> <span class="st">"Time"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32"></a>               <span class="at">values_to =</span> <span class="st">"Interest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For different functions, we need the data in wide- or long-format, so we have two versions of the data prepared for the chapter. Pay careful attention to when you need one version or the other.</p>
+</section><section id="factorial-a2" class="level3" data-number="13.1.4"><h3 data-number="13.1.4" class="anchored" data-anchor-id="factorial-a2">
+<span class="header-section-number">13.1.4</span> Activity 2 - Calculate descriptive statistics</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before we start on the inferential statistics, one key part of understanding your data and reporting for context in a report is calculating descriptive statistics like the mean and standard deviation.</p>
+<p>For the combination of <code>Condition</code> and <code>Time</code>, calculate the mean and standard deviation of <code>Interest</code>. We will need this at the end of the chapter, so save your results to the object name <code>zhang_descriptives</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>zhang_descriptives <span class="ot">&lt;-</span> zhang_long <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">group_by</span>(Condition, Time) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Interest, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>            <span class="at">sd =</span> <span class="fu">round</span>(<span class="fu">sd</span>(Interest, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Condition'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>zhang_descriptives</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Time</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extraordinary</td>
+<td style="text-align: left;">time1_interest</td>
+<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">1.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Extraordinary</td>
+<td style="text-align: left;">time2_interest</td>
+<td style="text-align: right;">4.65</td>
+<td style="text-align: right;">1.14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ordinary</td>
+<td style="text-align: left;">time1_interest</td>
+<td style="text-align: right;">4.04</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ordinary</td>
+<td style="text-align: left;">time2_interest</td>
+<td style="text-align: right;">4.73</td>
+<td style="text-align: right;">1.24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="factorial-a3" class="level3" data-number="13.1.5"><h3 data-number="13.1.5" class="anchored" data-anchor-id="factorial-a3">
+<span class="header-section-number">13.1.5</span> Activity 3 - Create a violin-boxplot</h3>
+<p>To communicate your findings, it is also important to visualise your data. Initially, this might be a quick boxplot for exploratory data analysis, but something like a violin-boxplot would be great for communicating your findings in a report.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try and recreate the following violin-boxplot that you learnt how to create in Chapter 7. The finer details like the colour scheme are not important, but see how many features you can recreate before checking the code.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="13-factorial-anova_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># specify as an object, so we only change it in one place</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>dodge_value <span class="ot">&lt;-</span> <span class="fl">0.9</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>zhang_long <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">case_match</span>(Time,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>                           <span class="st">"time1_interest"</span> <span class="sc">~</span> <span class="st">"Time 1"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>                           <span class="st">"time2_interest"</span> <span class="sc">~</span> <span class="st">"Time 2"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Interest, <span class="at">x =</span> Condition, <span class="at">fill =</span> Time)) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.2</span>, </span>
+<span id="cb5-11"><a href="#cb5-11"></a>               <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>               <span class="at">fatten =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span> </span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, </span>
+<span id="cb5-15"><a href="#cb5-15"></a>               <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">"mean_cl_boot"</span>, </span>
+<span id="cb5-18"><a href="#cb5-18"></a>               <span class="at">geom =</span> <span class="st">"errorbar"</span>, </span>
+<span id="cb5-19"><a href="#cb5-19"></a>               <span class="at">width =</span> .<span class="dv">1</span>,</span>
+<span id="cb5-20"><a href="#cb5-20"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_value)) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>) <span class="sc">+</span> </span>
+<span id="cb5-22"><a href="#cb5-22"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Interest score (1-7)"</span>, </span>
+<span id="cb5-23"><a href="#cb5-23"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
+<span id="cb5-24"><a href="#cb5-24"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="factorial-a5" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="factorial-a5">
+<span class="header-section-number">13.2</span> Factorial ANOVA</h2>
+<p>To run the factorial ANOVA, we will be using the <pkg>afex</pkg> package again. Remember that you must specify both IVs, one of which is between-subjects and the other is within-subjects. Look up the help documentation for <code>aov_ez</code> if you need further information.</p>
+<section id="activity-4---using-the-aov_ez-function." class="level3" data-number="13.2.1"><h3 data-number="13.2.1" class="anchored" data-anchor-id="activity-4---using-the-aov_ez-function.">
+<span class="header-section-number">13.2.1</span> Activity 4 - Using the <code>aov_ez()</code> function.</h3>
+<p>Before we show you the code, try and complete the following skeleton version first. Think about what variable in the data corresponds to each argument.</p>
+<p>Save the ANOVA model to an object called <code>mod_factorial</code> to be consistent with explanations below. For making it easier to report the results later, pull out the <code>mod_factorial$anova_table</code> component and apply the <code>tidy()</code> function from <pkg>broom</pkg> as a second step.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>mod_factorial <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"NULL"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>               <span class="at">data =</span> <span class="cn">NULL</span>, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>               <span class="at">between =</span> <span class="st">"NULL"</span>, </span>
+<span id="cb6-4"><a href="#cb6-4"></a>               <span class="at">within =</span> <span class="st">"NULL"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>               <span class="at">dv =</span> <span class="st">"NULL"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6"></a>               <span class="at">type =</span> <span class="dv">3</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>               <span class="at">es =</span> <span class="st">"NULL"</span>) </span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>factorial_output <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>mod_factorial <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"participant_ID"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>               <span class="at">data =</span> zhang_long, </span>
+<span id="cb7-3"><a href="#cb7-3"></a>               <span class="at">between =</span> <span class="st">"Condition"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>               <span class="at">within =</span> <span class="st">"Time"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>               <span class="at">dv =</span> <span class="st">"Interest"</span>, </span>
+<span id="cb7-6"><a href="#cb7-6"></a>               <span class="at">type =</span> <span class="dv">3</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>               <span class="at">include_aov =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>               <span class="at">es =</span> <span class="st">"pes"</span>) </span>
+<span id="cb7-9"><a href="#cb7-9"></a></span>
+<span id="cb7-10"><a href="#cb7-10"></a>factorial_output <span class="ot">&lt;-</span> mod_factorial<span class="sc">$</span>anova_table <span class="sc">%&gt;%</span> </span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can look at the results of the factorial ANOVA by printing the object.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>mod_factorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type 3 tests)
+
+Response: Interest
+          Effect     df  MSE         F  ges p.value
+1      Condition 1, 128 2.05      0.46 .003    .498
+2           Time 1, 128 0.61 25.88 *** .044   &lt;.001
+3 Condition:Time 1, 128 0.61    4.44 * .008    .037
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Look at the results. Remember the pre-class information about how to read <em>p</em>-values in scientific notation.</p>
+<ul>
+<li><p>Is the main effect of Condition significant? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select></p></li>
+<li><p>Is the main effect of Time significant? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select></p></li>
+<li><p>Is the two-way interaction significant? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select></p></li>
+</ul></section><section id="factorial-a5" class="level3" data-number="13.2.2"><h3 data-number="13.2.2" class="anchored" data-anchor-id="factorial-a5">
+<span class="header-section-number">13.2.2</span> Activity 5 - Checking assumptions for factorial ANOVA</h3>
+<p>The assumptions for a factorial ANOVA are the same as the one-way ANOVA.</p>
+<ol type="1">
+<li><p>The DV is interval or ratio data.</p></li>
+<li><p>The observations should be independent.</p></li>
+<li><p>The residuals should be normally distributed.</p></li>
+<li><p>There should be homogeneity of variance between the groups.</p></li>
+</ol>
+<p>As before, we know assumption 2 is met from the design of the study. Assumption 1 throws up an interesting issue which is the problem of ordinal data. Ordinal data are the kind of data that come from Likert scales and are very common in psychology. The problem is that ordinal data are not interval or ratio data, there’s a fixed number of integer values they can take (the values of the Likert scale) and you cannot claim that the distance between the values is equal (is the difference between strongly agree and agree the same as the difference between agree and neutral?).</p>
+<p>Technically, we should not use an ANOVA to analyse ordinal data - <em>but almost everyone does</em>. Many people argue that if you take the average of multiple Likert scale items, you can interpret the data as if they are interval and they can be normally distributed. Other people argue you should use non-parametric methods or more complex models such as ordinal regression for this type of data, but it is beyond the scope of what we cover in this course (if you are super interested, there is a PsyTeachR book for another course - <a href="https://bartlettje.github.io/statsresdesign/introduction-to-generalised-linear-models.html" target="_blank">Statistics and Research Design</a> - which covers ordinal regression). Whichever route you choose, you should understand the data you have and you should be able to justify your decision.</p>
+<p>To test assumption 3, you can run <code>check_model()</code> from <pkg>performance</pkg> on the model object (<code>mod_factorial</code>). Unless you add the argument <code>re_formula = NA</code>, you get a little warning saying the function does it anyway. The background of this argument is beyond the scope of this course, but expressed as a linear model, a mixed ANOVA looks like something called a mixed-effects model, so this argument is saying that there is not a formula for it, since we did not have one.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">check_model</span>(mod_factorial, </span>
+<span id="cb10-2"><a href="#cb10-2"></a>            <span class="at">re_formula =</span> <span class="cn">NA</span>) <span class="co"># Specify or you get a warning </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="13-factorial-anova_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Does it look like we have any obvious problems with normality here? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select></p>
+<p>The one annoying thing here is we do not get a diagnostic plot for checking homogeneity of variance / homoscedasticity. We can create our own using the lm component of the model object (<code>mod_factorial$lm</code>), but it takes a few steps. In the code below:</p>
+<ul>
+<li><p>We first isolate the standardised residuals of the model object. We must convert it to a data frame and rename the two columns.</p></li>
+<li><p>We combine the residuals with the wide version of the data.</p></li>
+<li><p>We pivot the data longer so all the residuals are in one column and create a new variable to take the square root of the absolute residuals. This recreates how the diagnostic plots you saw in Chapters 8, 9, and 12 look.</p></li>
+<li><p>Finally, we plot the standardised residuals and add a line to join the means of each group. If the line is roughly flat, we support homoscedasticity. If the line angles up or down substantially, then this points to signs of heteroscedasticity.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Isolate standardised residuals as a data frame</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>residuals <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rstandard</span>(mod_factorial<span class="sc">$</span>lm)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">select</span>(<span class="at">residuals_time1 =</span> time1_interest,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>         <span class="at">residuals_time2 =</span> time2_interest)</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># add residuals to the wide version of the data, so we have the groups</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>zhang_wide <span class="ot">&lt;-</span> zhang_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">bind_cols</span>(residuals)</span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># Pivot longer and calculate the square root of absolute standardised residuals</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>residuals_long <span class="ot">&lt;-</span> zhang_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> residuals_time1<span class="sc">:</span>residuals_time2, </span>
+<span id="cb11-13"><a href="#cb11-13"></a>               <span class="at">names_to =</span> <span class="st">"Time"</span>, </span>
+<span id="cb11-14"><a href="#cb11-14"></a>               <span class="at">values_to =</span> <span class="st">"Residuals"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="fu">mutate</span>(<span class="at">std_residuals =</span> <span class="fu">sqrt</span>(<span class="fu">abs</span>(Residuals)))</span>
+<span id="cb11-16"><a href="#cb11-16"></a></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co"># Plot the residuals</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a>residuals_long <span class="sc">%&gt;%</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a>  <span class="co"># we need groups as numbers for the line to plot </span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>  <span class="fu">mutate</span>(<span class="at">Condition =</span> <span class="fu">case_match</span>(Condition,</span>
+<span id="cb11-21"><a href="#cb11-21"></a>                                <span class="st">"Ordinary"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb11-22"><a href="#cb11-22"></a>                                <span class="st">"Extraordinary"</span> <span class="sc">~</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-23"><a href="#cb11-23"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Condition, <span class="at">y =</span> std_residuals)) <span class="sc">+</span> </span>
+<span id="cb11-24"><a href="#cb11-24"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb11-25"><a href="#cb11-25"></a>  <span class="co"># add line joining the mean of residuals per group</span></span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"line"</span>, </span>
+<span id="cb11-27"><a href="#cb11-27"></a>               <span class="at">fun =</span> mean, </span>
+<span id="cb11-28"><a href="#cb11-28"></a>               <span class="at">color =</span> <span class="st">"blue"</span>, </span>
+<span id="cb11-29"><a href="#cb11-29"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb11-30"><a href="#cb11-30"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Condition"</span>, <span class="at">y =</span> <span class="st">"Standardised Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="13-factorial-anova_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Does it look like we have any obvious problems with homoscedasticity here? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select></p>
+</section><section id="factorial-a6" class="level3" data-number="13.2.3"><h3 data-number="13.2.3" class="anchored" data-anchor-id="factorial-a6">
+<span class="header-section-number">13.2.3</span> Activity 6 - Post-hoc tests</h3>
+<p>Because the interaction is significant, we should follow this up with post-hoc tests using <code>emmeans()</code> to determine which comparisons are significant. If the overall interaction is not significant, you should not conduct additional tests.</p>
+<p><code>emmeans()</code> requires you to specify the <code>aov</code> object, and then the factors you want to contrast. For an interaction, we use the notation <code>pairwise ~ IV1 | IV2</code> and you specify which multiple comparison correction you want to apply.</p>
+<p>Run the below code and view the results.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># run the tests</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>posthoc_factorial <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod_factorial, </span>
+<span id="cb12-3"><a href="#cb12-3"></a>                             pairwise <span class="sc">~</span> Time <span class="sc">|</span> Condition, </span>
+<span id="cb12-4"><a href="#cb12-4"></a>                             <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>posthoc_factorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$emmeans
+Condition = Extraordinary:
+ Time           emmean    SE  df lower.CL upper.CL
+ time1_interest   4.36 0.137 128     4.09     4.63
+ time2_interest   4.65 0.147 128     4.36     4.94
+
+Condition = Ordinary:
+ Time           emmean    SE  df lower.CL upper.CL
+ time1_interest   4.04 0.139 128     3.76     4.31
+ time2_interest   4.73 0.149 128     4.44     5.03
+
+Confidence level used: 0.95 
+
+$contrasts
+Condition = Extraordinary:
+ contrast                        estimate    SE  df t.ratio p.value
+ time1_interest - time2_interest   -0.288 0.136 128  -2.123  0.0357
+
+Condition = Ordinary:
+ contrast                        estimate    SE  df t.ratio p.value
+ time1_interest - time2_interest   -0.695 0.138 128  -5.049  &lt;.0001</code></pre>
+</div>
+</div>
+<p>In the output, we first get the estimated marginal means for the combination of IVs. We then get the contrasts we requested. This looks at the difference in levels of the first IV for each level of the second IV.</p>
+<p>You can use <code>tidy()</code> to tidy up the output of the contrasts and save it into a tibble which makes it easier to use in inline code later.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># tidy up the output of the tests</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>contrasts_factorial <span class="ot">&lt;-</span> posthoc_factorial<span class="sc">$</span>contrasts <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">tidy</span>()</span>
+<span id="cb14-4"><a href="#cb14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5"></a>contrasts_factorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 4%">
+<col style="width: 29%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: right;">null.value</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extraordinary</td>
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">time1_interest - time2_interest</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.2878788</td>
+<td style="text-align: right;">0.1356011</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-2.122983</td>
+<td style="text-align: right;">0.0356806</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ordinary</td>
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">time1_interest - time2_interest</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.6953125</td>
+<td style="text-align: right;">0.1377035</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-5.049343</td>
+<td style="text-align: right;">0.0000015</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Note that because there are two IVs/factors, we could also reverse the order. Above, we get the results contrasting time 1 and time 2 for each event condition. Instead, we could look at the difference between ordinary and extraordinary events at each time point.</p>
+<p>Run the code below and compare the output to <code>contrast_factorial</code>. Look at how the contrasts are expressed subtly different when you switch the order. Think carefully about your research question and hypotheses for which way around is the most informative.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>posthoc_factorial2 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod_factorial, </span>
+<span id="cb15-2"><a href="#cb15-2"></a>                             pairwise <span class="sc">~</span> Condition <span class="sc">|</span> Time, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>                             <span class="at">adjust =</span> <span class="st">"bonferroni"</span>) </span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a>posthoc_factorial2</span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a>contrasts_factorial2 <span class="ot">&lt;-</span> posthoc_factorial2<span class="sc">$</span>contrasts <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">tidy</span>()</span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a>contrasts_factorial2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$emmeans
+Time = time1_interest:
+ Condition     emmean    SE  df lower.CL upper.CL
+ Extraordinary   4.36 0.137 128     4.09     4.63
+ Ordinary        4.04 0.139 128     3.76     4.31
+
+Time = time2_interest:
+ Condition     emmean    SE  df lower.CL upper.CL
+ Extraordinary   4.65 0.147 128     4.36     4.94
+ Ordinary        4.73 0.149 128     4.44     5.03
+
+Confidence level used: 0.95 
+
+$contrasts
+Time = time1_interest:
+ contrast                 estimate    SE  df t.ratio p.value
+ Extraordinary - Ordinary   0.3246 0.195 128   1.661  0.0992
+
+Time = time2_interest:
+ contrast                 estimate    SE  df t.ratio p.value
+ Extraordinary - Ordinary  -0.0829 0.209 128  -0.397  0.6923</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 23%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Time</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: right;">null.value</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">time1_interest</td>
+<td style="text-align: left;">Condition</td>
+<td style="text-align: left;">Extraordinary - Ordinary</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.3245739</td>
+<td style="text-align: right;">0.1954025</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">1.6610529</td>
+<td style="text-align: right;">0.0991504</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">time2_interest</td>
+<td style="text-align: left;">Condition</td>
+<td style="text-align: left;">Extraordinary - Ordinary</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.0828598</td>
+<td style="text-align: right;">0.2088845</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-0.3966778</td>
+<td style="text-align: right;">0.6922656</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Because our main effects (condition and time) only have two levels, we do not need to do any post-hoc tests to determine which conditions differ from each other, however, if one of our factors had three levels then we could use <code>emmeans()</code> to calculate the contrast for the main effects, like we did for the one-way ANOVA.</p>
+<p>Finally, to calculate standardised effect sizes for the pairwise comparisons, we again need to do this individually using <code>cohens_d()</code> from <pkg>effectsize</pkg>.</p>
+<p>As we have a mixed design, we must follow a slightly different process for each comparison. Cohen’s d has a different calculation for between-subjects and within-subjects contrasts, so we must express it differently. For the first comparison, we are interested in the difference between time 1 and time 2 for each group, so this represents a within-subjects comparison.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># time 1 vs time 2 for Extraordinary group</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>d_extraordinary <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(<span class="at">x =</span> <span class="st">"time1_interest"</span>, </span>
+<span id="cb17-3"><a href="#cb17-3"></a>                            <span class="at">y =</span> <span class="st">"time2_interest"</span>, </span>
+<span id="cb17-4"><a href="#cb17-4"></a>                            <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-5"><a href="#cb17-5"></a>                            <span class="at">data =</span> <span class="fu">filter</span>(zhang_wide, </span>
+<span id="cb17-6"><a href="#cb17-6"></a>                                          Condition <span class="sc">==</span> <span class="st">"Extraordinary"</span>))</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># time 1 vs time 2 for Ordinary group</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>d_ordinary <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(<span class="at">x =</span> <span class="st">"time1_interest"</span>, </span>
+<span id="cb17-9"><a href="#cb17-9"></a>                       <span class="at">y =</span> <span class="st">"time2_interest"</span>, </span>
+<span id="cb17-10"><a href="#cb17-10"></a>                       <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-11"><a href="#cb17-11"></a>                       <span class="at">data =</span> <span class="fu">filter</span>(zhang_wide, </span>
+<span id="cb17-12"><a href="#cb17-12"></a>                                     Condition <span class="sc">==</span> <span class="st">"Ordinary"</span>))</span>
+<span id="cb17-13"><a href="#cb17-13"></a></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co"># bind together the two contrasts</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a>Condition_ds <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(d_extraordinary, </span>
+<span id="cb17-16"><a href="#cb17-16"></a>                          d_ordinary)</span>
+<span id="cb17-17"><a href="#cb17-17"></a></span>
+<span id="cb17-18"><a href="#cb17-18"></a><span class="co"># add the contrasts to the emmeans tidy table</span></span>
+<span id="cb17-19"><a href="#cb17-19"></a>contrasts_factorial <span class="ot">&lt;-</span> contrasts_factorial <span class="sc">%&gt;%</span></span>
+<span id="cb17-20"><a href="#cb17-20"></a>  <span class="fu">bind_cols</span>(Condition_ds)</span>
+<span id="cb17-21"><a href="#cb17-21"></a></span>
+<span id="cb17-22"><a href="#cb17-22"></a>contrasts_factorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 22%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: right;">null.value</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">Cohens_d</th>
+<th style="text-align: right;">CI</th>
+<th style="text-align: right;">CI_low</th>
+<th style="text-align: right;">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extraordinary</td>
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">time1_interest - time2_interest</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.2878788</td>
+<td style="text-align: right;">0.1356011</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-2.122983</td>
+<td style="text-align: right;">0.0356806</td>
+<td style="text-align: right;">-0.3086922</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.554559</td>
+<td style="text-align: right;">-0.0605597</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ordinary</td>
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">time1_interest - time2_interest</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.6953125</td>
+<td style="text-align: right;">0.1377035</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-5.049343</td>
+<td style="text-align: right;">0.0000015</td>
+<td style="text-align: right;">-0.5552045</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.816696</td>
+<td style="text-align: right;">-0.2898832</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>For the second comparison, we are interested in the difference between ordinary and extraordinary at each time point, so this represents a between-subjects comparison.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Extraordinary vs ordinary at time 1</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>d_time1 <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(time1_interest <span class="sc">~</span> Condition,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>                       <span class="at">data =</span> zhang_wide)</span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co"># Extraordinary vs ordinary at time 2</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>d_time2 <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(time2_interest <span class="sc">~</span> Condition,</span>
+<span id="cb18-7"><a href="#cb18-7"></a>                       <span class="at">data =</span> zhang_wide)</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co"># bind the two contrasts together</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a>Time_ds <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(d_time1,</span>
+<span id="cb18-11"><a href="#cb18-11"></a>                     d_time2)</span>
+<span id="cb18-12"><a href="#cb18-12"></a></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co"># add the contrasts to the emmeans tidy table</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>contrasts_factorial2 <span class="ot">&lt;-</span> contrasts_factorial2 <span class="sc">%&gt;%</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a>  <span class="fu">bind_cols</span>(Time_ds)</span>
+<span id="cb18-16"><a href="#cb18-16"></a></span>
+<span id="cb18-17"><a href="#cb18-17"></a>contrasts_factorial2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 17%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 6%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Time</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: right;">null.value</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">Cohens_d</th>
+<th style="text-align: right;">CI</th>
+<th style="text-align: right;">CI_low</th>
+<th style="text-align: right;">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">time1_interest</td>
+<td style="text-align: left;">Condition</td>
+<td style="text-align: left;">Extraordinary - Ordinary</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.3245739</td>
+<td style="text-align: right;">0.1954025</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">1.6610529</td>
+<td style="text-align: right;">0.0991504</td>
+<td style="text-align: right;">0.2914024</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.0548458</td>
+<td style="text-align: right;">0.6365251</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">time2_interest</td>
+<td style="text-align: left;">Condition</td>
+<td style="text-align: left;">Extraordinary - Ordinary</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.0828598</td>
+<td style="text-align: right;">0.2088845</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">-0.3966778</td>
+<td style="text-align: right;">0.6922656</td>
+<td style="text-align: right;">-0.0695901</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">-0.4134010</td>
+<td style="text-align: right;">0.2744922</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="factorial-a7" class="level3" data-number="13.2.4"><h3 data-number="13.2.4" class="anchored" data-anchor-id="factorial-a7">
+<span class="header-section-number">13.2.4</span> Activity 7 - Creating an interaction plot</h3>
+<p>When you have a factorial design, one powerful way of visualising the data is through an interaction plot. This is essentially a line graph where the x-axis has one IV and separate lines for a second IV. However, once you have the factorial ANOVA model, you can add confidence intervals to the plot to visualise uncertainty. <pkg>afex</pkg> has it’s own function called <code>afex_plot()</code> which you can use with the model object you created.</p>
+<p>In the code below, there are a few key argument to highlight:</p>
+<ul>
+<li><p><code>object</code> is the <pkg>afex</pkg> model you created.</p></li>
+<li><p><code>x</code> is the variable you want on the x-axis.</p></li>
+<li><p><code>trace</code> is the variable you want to plot as separate lines.</p></li>
+<li><p><code>error</code> controls whether the error bars show confidence intervals for between-subjects or within-subjects. In a mixed design, these have different properties, so you must think about which you want to plot and highlight to the reader.</p></li>
+<li><p><code>factor_levels</code> lets you edit the levels of factors you plot, such as renaming or reordering them. You add each factor into a list but check the documentation and vignettes for other options.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">afex_plot</span>(<span class="at">object =</span> mod_factorial, </span>
+<span id="cb19-2"><a href="#cb19-2"></a>          <span class="at">x =</span> <span class="st">"Condition"</span>, </span>
+<span id="cb19-3"><a href="#cb19-3"></a>          <span class="at">trace =</span> <span class="st">"Time"</span>, </span>
+<span id="cb19-4"><a href="#cb19-4"></a>          <span class="at">error =</span> <span class="st">"between"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5"></a>          <span class="at">factor_levels =</span> <span class="fu">list</span>(<span class="at">Time =</span> <span class="fu">c</span>(<span class="st">"Time 1"</span>, <span class="st">"Time 2"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="13-factorial-anova_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>One handy feature about this function is it uses <pkg>ggplot2</pkg> in the background, so you can add layers to the initial function like other plots that you have created.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">afex_plot</span>(mod_factorial, </span>
+<span id="cb20-2"><a href="#cb20-2"></a>          <span class="at">x =</span> <span class="st">"Condition"</span>, </span>
+<span id="cb20-3"><a href="#cb20-3"></a>          <span class="at">trace =</span> <span class="st">"Time"</span>, </span>
+<span id="cb20-4"><a href="#cb20-4"></a>          <span class="at">error =</span> <span class="st">"between"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5"></a>          <span class="at">factor_levels =</span> <span class="fu">list</span>(<span class="at">Time =</span> <span class="fu">c</span>(<span class="st">"Time 1"</span>, <span class="st">"Time 2"</span>))) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="13-factorial-anova_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since <code>afex_plot()</code> uses <pkg>ggplot2</pkg>, you can use <code>ggsave()</code> to save your plots and insert them into your work.</p>
+</div>
+</div>
+</section></section><section id="factorial-a8" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="factorial-a8">
+<span class="header-section-number">13.3</span> Reporting the results of your factorial ANOVA</h2>
+<p>Now you have all your values, we can work on the write-up of your results.</p>
+<p>In the in-line code demonstration below, we manually entered <em>p</em>-values where they are &lt; .001. There is a way to get R to produce this formatting but it’s overly complicated for our purposes in this course. If you want to push yourself, look up the <a href="https://github.com/crsh/papaja" target="_blank">papaja</a> package for creating reproducible manuscripts.</p>
+<p>The values of partial eta-squared do not match between our analysis and those reported in the paper. We have not figured out why this is yet, so if you know, please get in touch!</p>
+<p>We have also replaced the simple effects in the main paper with our pairwise comparisons.</p>
+<p>Copy and paste the text and inline code below into <strong>white-space</strong> in your R Markdown document. If you saved all the descriptives, model, and contrasts using the same object names as us, this should knit.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>We conducted the same repeated measures ANOVA with interest as the dependent measure and again found a main effect of time, <span class="fu">F</span>(<span class="st">`</span><span class="at">r factorial_output$num.Df[2]</span><span class="st">`</span>, <span class="st">`</span><span class="at">r factorial_output$den.Df[2]</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r factorial_output$statistic[2] %&gt;% round(2)</span><span class="st">`</span>, p <span class="sc">&lt;</span> .<span class="dv">001</span>, ηp2 <span class="ot">=</span> <span class="st">`</span><span class="at">r factorial_output$ges[2] %&gt;% round(3)</span><span class="st">`</span>; anticipated interest at Time <span class="dv">1</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[1] %&gt;% round(2)</span><span class="st">`</span>), SD <span class="ot">=</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[1]%&gt;% round(2)</span><span class="st">`</span><span class="er">))</span> was lower than actual interest at Time <span class="dv">2</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[2]%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[2]%&gt;% round(2)</span><span class="st">`</span>). We also observed an interaction between time and type of experience, <span class="fu">F</span>(<span class="st">`</span><span class="at">r factorial_output$num.Df[3]</span><span class="st">`</span>, <span class="st">`</span><span class="at">r factorial_output$den.Df[3]</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r factorial_output$statistic[3] %&gt;% round(3)</span><span class="st">`</span>, p <span class="ot">=</span> <span class="st">`</span><span class="at">r factorial_output$p.value[3] %&gt;% round(2)</span><span class="st">`</span>, ηp2 <span class="ot">=</span> <span class="st">`</span><span class="at">r factorial_output$ges[3] %&gt;% round(3)</span><span class="st">`</span>. Pairwise comparisons revealed that <span class="cf">for</span> ordinary events, predicted interest at Time <span class="dv">1</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[3]%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[3]%&gt;% round(2)</span><span class="st">`</span>) was lower than experienced interest at Time <span class="dv">2</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[4]%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[4]%&gt;% round(2)</span><span class="st">`</span>), <span class="fu">t</span>(<span class="st">`</span><span class="at">r contrasts_factorial$df[2]%&gt;% round(2)</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r contrasts_factorial$statistic[2]%&gt;% round(2)</span><span class="st">`</span>, p <span class="sc">&lt;</span> .<span class="dv">001</span>, d <span class="ot">=</span> <span class="st">`</span><span class="at">r contrasts_factorial$Cohens_d[2]%&gt;% round(2)</span><span class="st">`</span>. Although predicted interest <span class="cf">for</span> extraordinary events at Time <span class="dv">1</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[1]%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[1]%&gt;% round(2)</span><span class="st">`</span>) was lower than experienced interest at Time <span class="dv">2</span> (<span class="at">M =</span> <span class="st">`</span><span class="at">r zhang_descriptives$mean[2]%&gt;% round(2)</span><span class="st">`</span>, <span class="at">SD =</span> <span class="st">`</span><span class="at">r zhang_descriptives$sd[2]%&gt;% round(2)</span><span class="st">`</span>), <span class="fu">t</span>(<span class="st">`</span><span class="at">r contrasts_factorial$df[1]%&gt;% round(2)</span><span class="st">`</span>) <span class="ot">=</span> <span class="st">`</span><span class="at">r contrasts_factorial$statistic[1]%&gt;% round(2)</span><span class="st">`</span>, p <span class="sc">&lt;</span> .<span class="dv">001</span>, d <span class="ot">=</span> <span class="st">`</span><span class="at">r contrasts_factorial$Cohens_d[1]%&gt;% round(2)</span><span class="st">`</span>, the magnitude of underestimation was smaller than <span class="cf">for</span> ordinary events.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>We conducted the same repeated measures ANOVA with interest as the dependent measure and again found a main effect of time, F(1, 128) = 25.88, p &lt; .001, ηp2 = 0.044; anticipated interest at Time 1 (M = 4.36), SD = 1.13)) was lower than actual interest at Time 2 (M = 4.65, SD = 1.14). We also observed an interaction between time and type of experience, F(1, 128) = 4.445, p = 0.04, ηp2 = 0.008. Pairwise comparisons revealed that for ordinary events, predicted interest at Time 1 (M = 4.04, SD = 1.09) was lower than experienced interest at Time 2 (M = 4.73, SD = 1.24), t(128) = -5.05, p &lt; .001, d = -0.56. Although predicted interest for extraordinary events at Time 1 (M = 4.36, SD = 1.13) was lower than experienced interest at Time 2 (M = 4.65, SD = 1.14), t(128) = -2.12, p &lt; .001, d = -0.31, the magnitude of underestimation was smaller than for ordinary events.</p>
+</blockquote>
+</section><section id="end-of-chapter" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="end-of-chapter">
+<span class="header-section-number">13.4</span> End of Chapter</h2>
+<p>Well done, you have now covered the ANOVA section of the course to learn how to express experimental designs into statistical models. ANOVA and factorial ANOVA are incredibly flexible tools where you can start to combine multiple independent variables. You might have between-subject factors, within-subject factors, or a combination of the two in a mixed design. The most important thing to keep in mind is your research question, hypothesis, and design come first. Factorial ANOVA can get arbitrarily more complicated but try and avoid the temptation to create complex models just because you can. You do not get extra points for complication, it is better to think about which model will let you address your research question.</p>
+<p>In the next chapter, we finish the core chapters on the final extension of the general linear model we cover in this course. In Research Methods 1, you learnt about simple linear regression when you only have one predictor. In multiple linear regression, you can add two or more predictors, and even the interaction between predictors.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-zhang_present_2014" class="csl-entry" role="listitem">
+Zhang, T., Kim, T., Brooks, A. W., Gino, F., &amp; Norton, M. I. (2014). A <span>“<span>Present</span>”</span> for the <span>Future</span>: <span>The</span> <span>Unexpected</span> <span>Value</span> of <span>Rediscovery</span>. <em>Psychological Science</em>, <em>25</em>(10), 1851–1860. <a href="https://doi.org/10.1177/0956797614542274">https://doi.org/10.1177/0956797614542274</a>
+</div>
+</div>
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./12-anova.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./14-multiple-regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multiple Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

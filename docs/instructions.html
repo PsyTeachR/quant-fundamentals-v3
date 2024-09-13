@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Book Description">
+<title>Fundamentals of Quantitative Analysis - 1&nbsp; How to Use this Book</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./webexercises.html" rel="next">
+<link href="./index.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./instructions.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to Use this Book</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Fundamentals-of-Quantitative-Analysis.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Fundamentals-of-Quantitative-Analysis.epub">
+              <i class="bi bi-bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+</div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./instructions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to Use this Book</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webexercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Webexercises</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#sec-setup" id="toc-sec-setup" class="nav-link active" data-scroll-target="#sec-setup"><span class="header-section-number">1.1</span> Setup</a>
+  <ul class="collapse">
+<li><a href="#install-booktem" id="toc-install-booktem" class="nav-link" data-scroll-target="#install-booktem"><span class="header-section-number">1.1.1</span> Install booktem</a></li>
+  <li><a href="#quarto-options" id="toc-quarto-options" class="nav-link" data-scroll-target="#quarto-options"><span class="header-section-number">1.1.2</span> Quarto Options</a></li>
+  <li><a href="#sec-crossrefs" id="toc-sec-crossrefs" class="nav-link" data-scroll-target="#sec-crossrefs"><span class="header-section-number">1.1.3</span> Crossrefs</a></li>
+  <li><a href="#sec-refs" id="toc-sec-refs" class="nav-link" data-scroll-target="#sec-refs"><span class="header-section-number">1.1.4</span> References</a></li>
+  <li><a href="#sec-snippets" id="toc-sec-snippets" class="nav-link" data-scroll-target="#sec-snippets"><span class="header-section-number">1.1.5</span> Snippets</a></li>
+  <li><a href="#customize" id="toc-customize" class="nav-link" data-scroll-target="#customize"><span class="header-section-number">1.1.6</span> Customize</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-layout" id="toc-sec-layout" class="nav-link" data-scroll-target="#sec-layout"><span class="header-section-number">1.2</span> Layout</a>
+  <ul class="collapse">
+<li><a href="#sec-conventions" id="toc-sec-conventions" class="nav-link" data-scroll-target="#sec-conventions"><span class="header-section-number">1.2.1</span> Conventions</a></li>
+  <li><a href="#sec-figures" id="toc-sec-figures" class="nav-link" data-scroll-target="#sec-figures"><span class="header-section-number">1.2.2</span> Figures</a></li>
+  <li><a href="#sec-tables" id="toc-sec-tables" class="nav-link" data-scroll-target="#sec-tables"><span class="header-section-number">1.2.3</span> Tables</a></li>
+  <li><a href="#sec-callout" id="toc-sec-callout" class="nav-link" data-scroll-target="#sec-callout"><span class="header-section-number">1.2.4</span> Callout boxes</a></li>
+  <li><a href="#sec-code-output" id="toc-sec-code-output" class="nav-link" data-scroll-target="#sec-code-output"><span class="header-section-number">1.2.5</span> Code and Output</a></li>
+  <li><a href="#sec-fonts" id="toc-sec-fonts" class="nav-link" data-scroll-target="#sec-fonts"><span class="header-section-number">1.2.6</span> Fonts</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-extras" id="toc-sec-extras" class="nav-link" data-scroll-target="#sec-extras"><span class="header-section-number">1.3</span> Extras</a>
+  <ul class="collapse">
+<li><a href="#sec-glossary" id="toc-sec-glossary" class="nav-link" data-scroll-target="#sec-glossary"><span class="header-section-number">1.3.1</span> Glossary</a></li>
+  <li><a href="#fontawesome" id="toc-fontawesome" class="nav-link" data-scroll-target="#fontawesome"><span class="header-section-number">1.3.2</span> FontAwesome</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-instructions" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to Use this Book</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="sec-setup" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="sec-setup">
+<span class="header-section-number">1.1</span> Setup</h2>
+<section id="install-booktem" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="install-booktem">
+<span class="header-section-number">1.1.1</span> Install booktem</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"debruine/booktem"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="quarto-options" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="quarto-options">
+<span class="header-section-number">1.1.2</span> Quarto Options</h3>
+<p>The file <code>_quarto.yml</code> contains various options that you can set to change the format and look of your book.</p>
+<section id="language-options" class="level4" data-number="1.1.2.1"><h4 data-number="1.1.2.1" class="anchored" data-anchor-id="language-options">
+<span class="header-section-number">1.1.2.1</span> Language Options</h4>
+<p>There is some default text for things like the “authors” list and “table of contents” that might need translations. Set the <code>lang</code> key to the 2-letter language code for your language.</p>
+<p>You can make a <a href="https://quarto.org/docs/authoring/language.html#custom-translations">custom translation</a> by translating the values in the <code>include/_language.yml</code> file.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> en</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># language: include/_language.yml</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="project-options" class="level4" data-number="1.1.2.2"><h4 data-number="1.1.2.2" class="anchored" data-anchor-id="project-options">
+<span class="header-section-number">1.1.2.2</span> Project Options</h4>
+<p>The <code>project</code> key defines the inputs and outputs for the book (<a href="https://quarto.org/docs/reference/projects/books.html#project">quarto reference</a>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+project key
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> book</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">output-dir</span><span class="kw">:</span><span class="at"> docs</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span><span class="at"> resources </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>The <code>output-dir</code> key defines the directory where the rendered web files will be saved. This is set to <code>docs</code> in order to be compatible with <a href="https://pages.github.com/">GitHub Pages</a>, but you can change this if you are working with a different repository that expects the web files to be in a different directory.</p>
+<p>The <code>resources</code> key specifies a directory that is copied verbatim to the output directory. This is where you should put, for example, data files that you want to make accessible online (sometimes they don’t automatically copy over when linked).</p>
+</section><section id="book-options" class="level4" data-number="1.1.2.3"><h4 data-number="1.1.2.3" class="anchored" data-anchor-id="book-options">
+<span class="header-section-number">1.1.2.3</span> Book Options</h4>
+<p>The <code>book</code> key defines options that affect the look and function of the book (<a href="https://quarto.org/docs/reference/projects/books.html#section">quarto reference</a>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+book key
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">book</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Book</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">  </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">  </span><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">  </span><span class="fu">doi</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">  </span><span class="fu">license</span><span class="kw">:</span><span class="at"> CC-BY 4.0</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="at">  </span><span class="fu">cover-image</span><span class="kw">:</span><span class="at"> images/logos/logo.png</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> images/logos/logo.png</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="fu">favicon</span><span class="kw">:</span><span class="at"> images/logos/logo.png</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="fu">cookie-consent</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="fu">google-analytics</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="at">  </span><span class="fu">page-navigation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="at">  </span><span class="fu">search</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">  # comments:</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">  #   hypothesis:</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">  #     theme: clean</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">  #     openSidebar: false</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="at">  </span><span class="fu">downloads</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="at">  </span><span class="fu">sharing</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="at">    </span><span class="fu">search</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> floating</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="at">    </span><span class="fu">background</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="at">    </span><span class="fu">foreground</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="at">    </span><span class="fu">border</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="at">    </span><span class="fu">alignment</span><span class="kw">:</span><span class="at"> left</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="at">    </span><span class="fu">collapse-level</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="at">    </span><span class="fu">pinned</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="at">    </span><span class="fu">header</span><span class="kw">:</span><span class="at"> </span><span class="st">""</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="at">    </span><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">""</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="at">  </span><span class="fu">margin-header</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="at">  </span><span class="fu">chapters</span><span class="kw">:</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="at">  </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="at">  </span><span class="kw">-</span><span class="at"> instructions.qmd</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="at">  </span><span class="fu">appendices</span><span class="kw">:</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="at">  </span><span class="kw">-</span><span class="at"> references.qmd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section><section id="html-options" class="level4" data-number="1.1.2.4"><h4 data-number="1.1.2.4" class="anchored" data-anchor-id="html-options">
+<span class="header-section-number">1.1.2.4</span> html Options</h4>
+<p>The <code>format</code> key defines options for specific formats, such as html or pdf. We’ll only be using html here (<a href="https://quarto.org/docs/reference/formats/html.html#format-options">quarto reference</a>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+format:html key
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="at">      </span><span class="fu">light</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> flatly</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">      </span><span class="kw">-</span><span class="at"> include/light.scss</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">      </span><span class="fu">dark</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> darkly</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">      </span><span class="kw">-</span><span class="at"> include/dark.scss</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> https://use.fontawesome.com/releases/v5.13.0/css/all.css</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="at">    </span><span class="kw">-</span><span class="at"> include/booktem.css</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="at">    </span><span class="kw">-</span><span class="at"> include/glossary.css</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="at">    </span><span class="kw">-</span><span class="at"> include/style.css</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="at">    </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> kable</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="at">    </span><span class="fu">code-link</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="at">    </span><span class="fu">code-line-numbers</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="at">    </span><span class="fu">code-overflow</span><span class="kw">:</span><span class="at"> wrap</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="at">    </span><span class="fu">code-copy</span><span class="kw">:</span><span class="at"> hover</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="at">    </span><span class="fu">highlight-style</span><span class="kw">:</span><span class="at"> a11y</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="at">    </span><span class="fu">monofont</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="at">    </span><span class="fu">include-after-body</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">include/script.js</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section></section><section id="sec-crossrefs" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="sec-crossrefs">
+<span class="header-section-number">1.1.3</span> Crossrefs</h3>
+<p>Section links must start with <code>sec-</code> and look like this: <a href="#sec-snippets"><span>Section&nbsp;1.1.5</span></a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">## Section Title {#sec-section-title}</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>Internal links look like this: @sec-section-title</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Figure links must start with <code>fig-</code> and look like this: <a href="#fig-poisson">Figure&nbsp;<span>1.1</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-poisson" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="instructions_files/figure-html/fig-poisson-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;1.1: A histogram of a Poisson distribution with lambda = 3</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Table links must start with <code>tbl-</code> and look like this: <a href="#tbl-authors">Table&nbsp;<span>1.1</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<div id="tbl-authors" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;1.1: The authors of this book</caption>
+<thead><tr class="header">
+<th style="text-align: left;">first_name</th>
+<th style="text-align: left;">last_name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lisa</td>
+<td style="text-align: left;">DeBruine</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Daniël</td>
+<td style="text-align: left;">Lakens</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p>See the <a href="https://quarto.org/docs/books/book-crossrefs.html" target="_blank">quarto documentation</a> for more information.</p>
+</section><section id="sec-refs" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="sec-refs">
+<span class="header-section-number">1.1.4</span> References</h3>
+<p>Zotero export - keep updated</p>
+</section><section id="sec-snippets" class="level3" data-number="1.1.5"><h3 data-number="1.1.5" class="anchored" data-anchor-id="sec-snippets">
+<span class="header-section-number">1.1.5</span> Snippets</h3>
+<p>Snippets in RStudio provide shortcuts to syntax. For example, in an RMarkdown document, type “r” and shift-tab to expand a code chunk.</p>
+<p>You can add your own snippets. Under the <strong><code>Tools</code></strong> menu, choose <strong><code>Edit Code Snippets...</code></strong> and paste the following text into the end of the appropriate sections.</p>
+<section id="markdown" class="level4" data-number="1.1.5.1"><h4 data-number="1.1.5.1" class="anchored" data-anchor-id="markdown">
+<span class="header-section-number">1.1.5.1</span> Markdown</h4>
+<pre><code>snippet gls
+    r glossary("${1:term}")
+    
+snippet gls2
+    r glossary("${1:term}", "${2:display}")
+    
+snippet h1
+    # ${1:title} {#sec-${2:ref}}
+    
+snippet h2
+    ## ${1:title} {#sec-${2:ref}}
+    
+snippet h3
+    ### ${1:title} {#sec-${2:ref}}
+    
+snippet h4
+    #### ${1:title} {#sec-${2:ref}}
+    
+snippet h5
+    ##### ${1:title} {#sec-${2:ref}}</code></pre>
+</section></section><section id="customize" class="level3" data-number="1.1.6"><h3 data-number="1.1.6" class="anchored" data-anchor-id="customize">
+<span class="header-section-number">1.1.6</span> Customize</h3>
+<section id="page-footer" class="level4" data-number="1.1.6.1"><h4 data-number="1.1.6.1" class="anchored" data-anchor-id="page-footer">
+<span class="header-section-number">1.1.6.1</span> Page Footer</h4>
+<p>The default footer includes license YEAR, author, and github and twitter icons, but you can customize this in the _quarto.yml file under <code>page-footer:</code>. See the <a href="https://quarto.org/docs/reference/projects/websites.html#footer">quarto documentation</a> for more options. See the available icons at <a href="https://icons.getbootstrap.com/" class="uri">https://icons.getbootstrap.com/</a>.</p>
+</section></section></section><section id="sec-layout" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="sec-layout">
+<span class="header-section-number">1.2</span> Layout</h2>
+<section id="sec-conventions" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="sec-conventions">
+<span class="header-section-number">1.2.1</span> Conventions</h3>
+<p>This book will use the following conventions:</p>
+<ul>
+<li>Code: <code>list(number = 1, letter = "A")</code>
+</li>
+<li>File paths: <path>data/sales.csv</path>
+</li>
+<li>Menu/interface options: <if>Tools &gt; Global Options… &gt; Pane Layout</if>
+</li>
+<li>R Packages: <pkg>tidyverse</pkg>
+</li>
+<li>Glossary items: <a class="glossary">alpha<span class="def">The threshold chosen in Neyman-Pearson hypothesis testing to distinguish test results that lead to the decision to reject the null hypothesis, or not, based on the desired upper bound of the Type 1 error rate. An alpha level of 5% it most commonly used, but other alpha levels can be used as long as they are determined and preregistered by the researcher before the data is analyzed.</span></a>
+</li>
+<li>Citations: <span class="citation" data-cites="usethis">Wickham et al. (<a href="references.html#ref-usethis" role="doc-biblioref">2022</a>)</span>
+</li>
+<li>Internal links: <a href="#sec-conventions"><span>Section&nbsp;1.2.1</span></a>
+</li>
+<li>External links: <a href="https://mastering-shiny.org/" target="_blank">Mastering Shiny</a>
+</li>
+<li>Mac-specific: <mac>Cmd-Shift-F10</mac>
+</li>
+<li>Windows-specific: <pc>Ctl-Shift-F10</pc>
+</li>
+</ul>
+<p>A list of mac and windows <a href="https://support.posit.co/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE">keyboard shortcuts</a>.</p>
+</section><section id="sec-figures" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="sec-figures">
+<span class="header-section-number">1.2.2</span> Figures</h3>
+<p>It is best practice to set a custom ggplot theme, then each subsequent plot will use that theme. You can put this code in <path>R/my_setup.R</path> after loading <pkg>ggplot2</pkg>.</p>
+<p>Start with a built-in theme and then add any tweaks with the <code>theme()</code> function.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>my_theme <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4"></a>            <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"red"</span>, </span>
+<span id="cb8-5"><a href="#cb8-5"></a>                                                  <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6"></a>                                                  <span class="at">size =</span> <span class="dv">5</span>),</span>
+<span id="cb8-7"><a href="#cb8-7"></a>                  <span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">theme_set</span>(my_theme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-fig.asp="1">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(popdensity, percollege)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population Density"</span>, <span class="at">y =</span> <span class="st">"Percent College Educated"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-diamonds" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="instructions_files/figure-html/fig-diamonds-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;1.2: Demographic information of midwest counties from 2000 US census</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="sec-tables" class="level3" data-number="1.2.3"><h3 data-number="1.2.3" class="anchored" data-anchor-id="sec-tables">
+<span class="header-section-number">1.2.3</span> Tables</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">head</span>(beaver1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<caption>Beavers </caption>
+<thead><tr class="header">
+<th style="text-align: right;">day</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">temp</th>
+<th style="text-align: right;">activ</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">840</td>
+<td style="text-align: right;">36.33</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">850</td>
+<td style="text-align: right;">36.34</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">900</td>
+<td style="text-align: right;">36.35</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">910</td>
+<td style="text-align: right;">36.42</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">920</td>
+<td style="text-align: right;">36.55</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">346</td>
+<td style="text-align: right;">930</td>
+<td style="text-align: right;">36.69</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-callout" class="level3" data-number="1.2.4"><h3 data-number="1.2.4" class="anchored" data-anchor-id="sec-callout">
+<span class="header-section-number">1.2.4</span> Callout boxes</h3>
+<p>See the <a href="https://quarto.org/docs/authoring/callouts.html">quarto reference</a> for more options.]{.aside}</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>.callout-note: Informational asides.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to expand
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>colapse = “true”: Expanded!</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>.callout-tip: Tips</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>.callout-warning: Notes to warn you about something.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>.callout-caution: Notes about things that could cause serious errors.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>.callout-important: Notes about things that are important.</p>
+</div>
+</div>
+</section><section id="sec-code-output" class="level3" data-number="1.2.5"><h3 data-number="1.2.5" class="anchored" data-anchor-id="sec-code-output">
+<span class="header-section-number">1.2.5</span> Code and Output</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># code chunks</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">paste</span>(<span class="st">"Code"</span>, <span class="st">"Output"</span>, <span class="dv">1</span>, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Code Output 1"</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Filename or header</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># code chunks with filename</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-verbatim="r, fig.width = 2, fig.height = 2">
+<div class="verbatim">
+<pre class="sourceCode r code-with-copy"><code class="sourceCode R">```{r, fig.width = 2, fig.height = 2}</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># code chunks with visible headers</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="dv">100000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="sourceCode r code-with-copy"><code class="sourceCode R">```</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+</div>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">## Markdown Example</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="ss">* </span>Inline code: <span class="in">`r nrow(iris)`</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="ss">* </span>*Italics*</span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="ss">* </span>**Bold**</span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Linked text</span><span class="co">](https://psyteachr.github.io)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="sec-fonts" class="level3" data-number="1.2.6"><h3 data-number="1.2.6" class="anchored" data-anchor-id="sec-fonts">
+<span class="header-section-number">1.2.6</span> Fonts</h3>
+</section></section><section id="sec-extras" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="sec-extras">
+<span class="header-section-number">1.3</span> Extras</h2>
+<section id="sec-glossary" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="sec-glossary">
+<span class="header-section-number">1.3.1</span> Glossary</h3>
+<p>Books are set up with lightweight glossary functions from the <a href="https://debruine.github.io/glossary/">glossary</a> package.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># code in R/my_setup.R to initialise the glossary on each page</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">library</span>(glossary)</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">glossary_path</span>(<span class="st">"include/glossary.yml"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="fu">glossary_popup</span>(<span class="st">"click"</span>) <span class="co"># "click", "hover" or "none"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Edit the file <code>glossary.yml</code> with your glossary terms like this:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">alpha</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  The threshold chosen in Neyman-Pearson hypothesis testing to distinguish test results that lead to the decision to reject the null hypothesis, or not, based on the desired upper bound of the Type 1 error rate. An alpha level of 5% it most commonly used, but other alpha levels can be used as long as they are determined and preregistered by the researcher before the data is analyzed.</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">p-value</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>  The probability of the observed data, or more extreme data, if the null hypothesis is true. The lower the p-value, the higher the test statistic, and less likely it is to observe the data if the null hypothesis is true.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Look up a term from the glossary file with <code>glossary("alpha")</code>: <a class="glossary">alpha<span class="def">The threshold chosen in Neyman-Pearson hypothesis testing to distinguish test results that lead to the decision to reject the null hypothesis, or not, based on the desired upper bound of the Type 1 error rate. An alpha level of 5% it most commonly used, but other alpha levels can be used as long as they are determined and preregistered by the researcher before the data is analyzed.</span></a></p>
+<p>Display a different value for the term with <code>glossary("alpha", "$\\alpha$")</code>: <a class="glossary"><span class="math inline">\(\alpha\)</span><span class="def">The threshold chosen in Neyman-Pearson hypothesis testing to distinguish test results that lead to the decision to reject the null hypothesis, or not, based on the desired upper bound of the Type 1 error rate. An alpha level of 5% it most commonly used, but other alpha levels can be used as long as they are determined and preregistered by the researcher before the data is analyzed.</span></a></p>
+<p>Use an inline definition instead of the glossary file with <code>glossary("beta", def = "The second letter of the Greek alphabet")</code>: <a class="glossary">beta<span class="def">The second letter of the Greek alphabet</span></a></p>
+<p>Just show the definition with <code>glossary("p-value", show = "def")</code>: The probability of the observed data, or more extreme data, if the null hypothesis is true. The lower the p-value, the higher the test statistic, and less likely it is to observe the data if the null hypothesis is true.</p>
+<p>Show the table of terms defined on this page with <code>glossary_table()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">alpha</td>
+<td style="text-align: left;">The threshold chosen in Neyman-Pearson hypothesis testing to distinguish test results that lead to the decision to reject the null hypothesis, or not, based on the desired upper bound of the Type 1 error rate. An alpha level of 5% it most commonly used, but other alpha levels can be used as long as they are determined and preregistered by the researcher before the data is analyzed.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">beta</td>
+<td style="text-align: left;">The second letter of the Greek alphabet</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">p-value</td>
+<td style="text-align: left;">The probability of the observed data, or more extreme data, if the null hypothesis is true. The lower the p-value, the higher the test statistic, and less likely it is to observe the data if the null hypothesis is true.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="fontawesome" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="fontawesome">
+<span class="header-section-number">1.3.2</span> FontAwesome</h3>
+<p>The <a href="https://github.com/quarto-ext/fontawesome">fontAwesome quarto extension</a> allows you to use the <a href="https://fontawesome.com/search?m=free">free icons</a> with syntax like:</p>
+<pre><code>{{&lt; fa dragon &gt;}}
+{{&lt; fa brands github size = 5x title="(github logo)" &gt;}}</code></pre>
+<p>To install it, just run this code in the Terminal pane of RStudio (not the Console pane).</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1"></a><span class="ex">quarto</span> install extension quarto-ext/fontawesome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-usethis" class="csl-entry" role="listitem">
+Wickham, H., Bryan, J., &amp; Barrett, M. (2022). <em>Usethis: Automate package and project setup</em>. <a href="https://CRAN.R-project.org/package=usethis">https://CRAN.R-project.org/package=usethis</a>
+</div>
+</div>
+</section></section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./webexercises.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Webexercises</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

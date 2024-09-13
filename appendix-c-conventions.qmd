@@ -1,0 +1,84 @@
+# Conventions
+
+This book will use the following conventions:
+
+* Generic code: `list(number = 1, letter = "A")`
+* Highlighted code: `r hl(dplyr::slice_max())`
+* File paths: `r path("data/sales.csv")`
+* R Packages: <pkg>tidyverse</pkg> <pkg></pkg>
+* Functions: `r hl(paste())`
+* Strings: `r hl("psyTeachR")`
+* Numbers: `r hl(100)`, `r hl(3.14)`
+* Logical values: `r hl(TRUE)`, `r hl(FALSE)`
+* Glossary items: `r glossary("ordinal")`
+* Citations: @R-tidyverse
+* Internal links: Chapter\ \@ref(intro)
+* External links: [R for Data Science](https://r4ds.had.co.nz/){target="_blank"}
+* Menu/interface options: **`New File...`**
+* Quiz question: I am going to learn a lot: `r torf(TRUE)`
+
+```{block, webex.hide="Hidden Solutions"}
+You found it!
+```
+
+::: {.callout-note}
+These boxes have little interesting - but not critical - bits of information. 
+:::
+
+::: {.callout-important}
+These boxes warn you about something important in R / R Studio, so you pay attention when you use it. 
+:::
+
+::: {.callout-warning}
+These boxes highlight where you need to be cautious when using or interpreting something, as it might be easy to make an error. 
+:::
+
+::: {.callout-tip collapse="true"}
+#### Try this
+These boxes will invite you to try something yourself, like complete independent activities or answer questions. 
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+These boxes will include small hints or solutions to check your understanding
+:::
+
+Image example
+
+```{r load-tidyverse, echo=FALSE}
+#| label: fig-img-load-tidyverse
+#| fig.cap: "Example loading message from tidyverse."
+
+knitr::include_graphics("images/tidyverse-loading.png")
+
+```
+
+Multiple pane image example
+
+::: {#fig-img layout-ncol=2}
+
+![](images/Image1)
+
+![](images/Image2)
+
+Caption
+:::
+
+Pop out link
+
+[http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com){target="_blank"}
+
+Glossary
+
+**`r glossary("normal distribution", display = "Normal Distribution", def = "Definition")`**
+
+```{r}
+# code chunks
+paste("Applied", "Data", "Skills", 1, sep = " ")
+```
+
+
+```{r, eval=FALSE, verbatim='r setup, message = FALSE'}
+# code chunks with visible r headers
+library(tidyverse)
+```

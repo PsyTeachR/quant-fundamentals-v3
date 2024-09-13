@@ -1,0 +1,104 @@
+lang: en
+project:
+  type: book
+  output-dir: docs
+  resources: resources
+execute:
+  freeze: auto
+book:
+  title: Fundamentals of Quantitative Analysis
+  subtitle: ''
+  author:
+  - orcid: 0000-0002-4191-5245
+    name:
+      family: Bartlett
+      given: James
+  - orcid: 0000-0002-5688-9537
+    name:
+      family: Toivo
+      given: Wilhelmiina
+  doi: ''
+  license: CC-BY
+  description: Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology & Neuroscience.
+  cover-image: images/logos/logo.png
+  image: images/logos/logo.png
+  favicon: images/logos/logo.png
+  cookie-consent: false
+  google-analytics: ''
+  page-navigation: true
+  search: true
+  repo-url: https://github.com/PsyTeachR/quant-fundamentals-v3
+  repo-actions: [edit, issue, source]
+  sidebar:
+    title: ''
+    logo: ''
+    search: true
+    contents: ''
+    style: floating
+    background: light
+    foreground: dark
+    border: true
+    alignment: left
+    collapse-level: 3
+    pinned: true
+    header: ''
+    footer: ''
+  margin-header: ''
+  page-footer: CC-BY-SA-4.0 (2024) James Bartlett & Wilhelmiina Toivo
+  chapters:
+  - index.qmd
+  - 00-foreword.qmd
+  - 01-programming-basics.qmd
+  - 02-starting-with-data.qmd
+  - 03-intro-data-viz.qmd
+  - 04-wrangling-1.qmd
+  - 05-wrangling-2.qmd
+  - 06-wrangling-3.qmd
+  - 07-more-visualisation.qmd
+  - 08-lm-continuous.qmd
+  - 09-lm-categorical.qmd
+  - 10-power.qmd
+  - 11-screening-data.qmd
+  - 12-anova.qmd
+  - 13-factorial-anova.qmd
+  - 14-multiple-regression.qmd
+  - 16-analysis-journeys.qmd
+  - 17-analysis-journey-1.qmd
+  - 18-analysis-journey-2.qmd
+  - references.qmd
+  appendices:
+  - appendix-a2-additional-learning-resources.qmd
+  - appendix-a3-How-to-cite-R.qmd
+  - appendix-b-symbols.qmd
+  - appendix-d-probability.qmd
+  - appendix-y-license.qmd
+bibliography: include/book.bib
+csl: include/apa.csl
+format:
+  html:
+    theme:
+      light:
+      - flatly
+      - include/light.scss
+      dark:
+      - darkly
+      - include/dark.scss
+    css:
+    - https://use.fontawesome.com/releases/v5.13.0/css/all.css
+    - include/booktem.css
+    - include/webex.css
+    - include/glossary.css
+    - include/style.css
+    df-print: kable
+    html-table-processing: none
+    code-link: true
+    code-fold: false
+    code-line-numbers: true
+    code-overflow: wrap
+    code-copy: hover
+    highlight-style: a11y
+    mainfont: ''
+    monofont: ''
+    include-after-body:
+    - include/webex.js
+    - include/script.js

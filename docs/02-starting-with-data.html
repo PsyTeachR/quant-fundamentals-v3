@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 2&nbsp; Creating Reproducible Documents</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-intro-data-viz.html" rel="next">
+<link href="./01-programming-basics.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-starting-with-data.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to programming with R/R Studio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-starting-with-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-intro-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3: Pivots and Pipes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-more-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Scatterplots, boxplots, and violin-boxplots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-lm-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression with one continuous predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-lm-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regression with one categorical predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-screening-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-factorial-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multiple Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-analysis-journeys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Analysis Journeys</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-analysis-journey-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Analysis Journey 1: Data Wrangling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-analysis-journey-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a2-additional-learning-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Additional Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a3-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#02-projects" id="toc-02-projects" class="nav-link active" data-scroll-target="#02-projects"><span class="header-section-number">2.1</span> File structure, working directories, and R Projects</a>
+  <ul class="collapse">
+<li><a href="#intro-a1" id="toc-intro-a1" class="nav-link" data-scroll-target="#intro-a1"><span class="header-section-number">2.1.1</span> Activity 1: Create a folder for all your work</a></li>
+  <li><a href="#intro-a2" id="toc-intro-a2" class="nav-link" data-scroll-target="#intro-a2"><span class="header-section-number">2.1.2</span> Manually setting the working directory</a></li>
+  <li><a href="#activity-2---creating-an-r-project" id="toc-activity-2---creating-an-r-project" class="nav-link" data-scroll-target="#activity-2---creating-an-r-project"><span class="header-section-number">2.1.3</span> Activity 2 - Creating an R Project</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#creating-and-navigating-r-markdown-documents" id="toc-creating-and-navigating-r-markdown-documents" class="nav-link" data-scroll-target="#creating-and-navigating-r-markdown-documents"><span class="header-section-number">2.2</span> Creating and navigating R Markdown documents</a>
+  <ul class="collapse">
+<li><a href="#intro-a3" id="toc-intro-a3" class="nav-link" data-scroll-target="#intro-a3"><span class="header-section-number">2.2.1</span> Activity 3: Open, save, and knit a new R Markdown document</a></li>
+  <li><a href="#intro-a4" id="toc-intro-a4" class="nav-link" data-scroll-target="#intro-a4"><span class="header-section-number">2.2.2</span> Activity 4: Create a new code chunk</a></li>
+  <li><a href="#intro-a5" id="toc-intro-a5" class="nav-link" data-scroll-target="#intro-a5"><span class="header-section-number">2.2.3</span> Activity 5: Write some code</a></li>
+  <li><a href="#intro-a6" id="toc-intro-a6" class="nav-link" data-scroll-target="#intro-a6"><span class="header-section-number">2.2.4</span> Activity 6: Run your code</a></li>
+  <li><a href="#intro-a7" id="toc-intro-a7" class="nav-link" data-scroll-target="#intro-a7"><span class="header-section-number">2.2.5</span> Activity 7: Inline code</a></li>
+  <li><a href="#intro-a8" id="toc-intro-a8" class="nav-link" data-scroll-target="#intro-a8"><span class="header-section-number">2.2.6</span> Activity 8: Knitting your file</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#demonstrating-reproducibility" id="toc-demonstrating-reproducibility" class="nav-link" data-scroll-target="#demonstrating-reproducibility"><span class="header-section-number">2.3</span> Demonstrating reproducibility</a>
+  <ul class="collapse">
+<li><a href="#activity-9---knit-the-reproducibility-demonstration-document" id="toc-activity-9---knit-the-reproducibility-demonstration-document" class="nav-link" data-scroll-target="#activity-9---knit-the-reproducibility-demonstration-document"><span class="header-section-number">2.3.1</span> Activity 9 - Knit the reproducibility demonstration document</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">2.4</span> Test yourself</a>
+  <ul class="collapse">
+<li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">2.4.1</span> Knowledge check</a></li>
+  <li><a href="#error-mode-2" id="toc-error-mode-2" class="nav-link" data-scroll-target="#error-mode-2"><span class="header-section-number">2.4.2</span> Error mode</a></li>
+  </ul>
+</li>
+  <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">2.5</span> Words from this Chapter</a></li>
+  <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">2.6</span> End of chapter</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/02-starting-with-data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/02-starting-with-data.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="C02-repro-docs" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>In this chapter, we introduce you to using code to create <strong><a href="https://psyteachr.github.io/glossary/r#reproducible-research" target="_blank" class="glossary" title="Research that documents all of the steps between raw data and results in a way that can be verified.">reproducible research</a></strong>. Creating reproducible research means you will write text and code that completely and transparently performs an analysis from start to finish in a way that produces the same result for different people using the same software on different computers. We will cover things such as file structure and setting a working directory, using <strong><a href="https://psyteachr.github.io/glossary/r#r-markdown" target="_blank" class="glossary" title="The R-specific version of markdown: a way to specify formatting, such as headers, paragraphs, lists, bolding, and links, as well as code blocks and inline code.">R Markdown</a></strong> files, and writing code chunks.</p>
+<p>As well as improving transparency with others researchers, reproducible research benefits <strong>you</strong>. When you return to an analysis or task after days, weeks, or months, you will thank past you for doing things in a transparent, reproducible way, as you can easily pick up right where you left off.</p>
+<p><strong>Chapter Intended Learning Outcomes (ILOs)</strong></p>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li><p>Understand and set your working directory, either manually or through creating an R project.</p></li>
+<li><p>Create a knit an R Markdown file to create a reproducible document.</p></li>
+<li><p>Use inline code to combine text and code output in your reproducible documents.</p></li>
+<li><p>Identify and fix common errors in knitting R Markdown files.</p></li>
+</ul>
+<section id="02-projects" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="02-projects">
+<span class="header-section-number">2.1</span> File structure, working directories, and R Projects</h2>
+<p>In chapter 1, we never worked with files, so you did not have to worry about where you put things on your computer. Before we can start working with R Markdown files, we must explain what a <strong><a class="glossary" title="The filepath where R is currently loading files from and saving files to.">working directory</a></strong> is and how your computer knows where to find things.</p>
+<p>Your working directory is the folder where your computer starts to look for files. It would be able to access files from within that folder and within sub-folders in your working directory, but it would not be able to access folders outside your working directory.</p>
+<p>In this course, we are going to prescribe a way of working to support an organised file system, helping you to know where everything is and where R will try to save things on your computer and where it will try to save and load things. Once you become more comfortable working with files, you can work in a different way that makes sense to you, but we recommend following our instructions for at least RM1 as the first course.</p>
+<section id="intro-a1" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="intro-a1">
+<span class="header-section-number">2.1.1</span> Activity 1: Create a folder for all your work</h3>
+<p>In your documents or OneDrive, create a new folder called <code>ResearchMethods1_2</code>. This will be your highest level folder where you will save everything for Research Methods 1 and 2.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Top tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you are a student at the University of Glasgow, you have access to the full Microsoft suite of software. One of those is the cloud storage system OneDrive. We heavily recommend using this to save all your work in as it backs up your work online and you can access it from multiple devices.</p>
+</div>
+</div>
+<p>Within that folder, create two new folders called <code>Assessments</code> and <code>Quant_Fundamentals</code>. In <code>Assessments</code>, you can save all your assessments for RM1 and RM2 as you come to them. In <code>Quant_Fundamentals</code>, that is where you will save all your work as you progress through this book.</p>
+<p>Within <code>Quant_Fundamentals</code>, create a new folder called <code>Chapter_02_reproducible_docs</code>. As you work through the book, you will create a new chapter folder each time you start a new chapter and the sub-folders will always be the same. Within <code>Chapter_02_reproducible_docs</code>, create two new folders called <code>data</code> and <code>figures</code>. As a diagram, it should look like <a href="#fig-img-file-structure">Figure&nbsp;<span>2.1</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-file-structure" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/file-structure.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Prescribed file structure for RM 1 and RM 2.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to name files and folders
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You might notice in the folder names we avoided using spaces by adding things like underscores _ or capitalising different words. Historically, spaces in folder/file names could cause problems for code, but now it’s just slightly easier when file names and folder names do not have spaces in them.</p>
+<p>For naming files and folders, try and choose something sensible so you know what it refers to. You are trying to balance being as short as possible, while still being immediately identifiable. For example, instead of fundamentals of quantitative analysis, we called it <code>Quant_Fundamentals</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you create and name folders to use with R / RStudio, whatever you do, do not call the folder “R”. If you do this, sometimes R has an identity crisis and will not save or load your files properly. It can also really damage your setup and require you to reinstall everything as R tends to save all the packages in a folder called R. If there is another folder called R, then it gets confused and stops working properly.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+File management when using the online server
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If we support you to use the online University of Glasgow <strong>R Server</strong>, working with files is a little different. If you downloaded R / RStudio to your own computer or you are using one of the library/lab computers, please ignore this section.</p>
+<p>The main disadvantage to using the R server is that you will need create folders on the server and then upload and download any files you are working on to and from the server. Please be aware that <strong>there is no link between your computer and the R server</strong>. If you change files on the server, they will not appear on your computer until you download them from the server, and you need to be very careful when you submit your assessment files that you are submitting the right file. This is the main reason we recommend installing R / RStudio on your computer wherever possible.</p>
+<p>Going forward throughout this book, if you are using the server, you will need to follow an extra step where you also upload them to the sever. As an example:</p>
+<ol type="1">
+<li><p>Log on to the <strong>R server</strong> using the link we provided to you.</p></li>
+<li><p>In the file pane, click <code>New folder</code> and create the same structure we demonstrated above.</p></li>
+<li><p>Download <a href="data/ahi-cesd.csv" download=""><code>ahi-cesd.csv</code></a> and <a href="data/participant-info.csv"><code>participant-info.csv</code></a> into the <code>data</code> folder you created for chapter 2. To download a file from this book, right click the link and select “save link as”. Make sure that both files are saved as “.csv”. Do not open them on your machine as often other software like Excel can change setting and ruin the files.</p></li>
+<li><p>Now that the files are stored on your computer, go to RStudio on the server and click <code>Upload</code> then <code>Browse</code> and choose the folder for the chapter you are working on.</p></li>
+<li><p>Click <code>Choose file</code> and go and find the data you want to upload.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section><section id="intro-a2" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="intro-a2">
+<span class="header-section-number">2.1.2</span> Manually setting the working directory</h3>
+<p>Now that you have a folder structure that will keep everything nice and organised, we will demonstrate how you can manually <strong>set the working directory</strong>. If you open RStudio, you can check where the current working directory is by typing the function <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> into the console and pressing enter/return. That will show you the current file path R is using to navigate files. If you look at the Files window in the bottom right, this will also show you the files and folders available from your working directory.</p>
+<p>If you click on the top menu <strong><code>Session &gt;&gt; Set Working Directory &gt;&gt; Choose Directory...</code></strong>, (<a href="#fig-img-working-dir">Figure&nbsp;<span>2.2</span></a>) you can navigate through your documents or OneDrive until you can select <code>Chapter_02_reproducible_docs</code>. Click open and that will set the folder as your working directory. You can double check this worked by running <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> again in the console.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-working-dir" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/working-dir.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.2: Manually setting the working directory.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="activity-2---creating-an-r-project" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="activity-2---creating-an-r-project">
+<span class="header-section-number">2.1.3</span> Activity 2 - Creating an R Project</h3>
+<p>Knowing how to check and manually set your working directory is useful, but there is a more efficient way of setting your working directory alongside organised file management. You are going to create something called an <strong><a class="glossary" title="A project is simply a working directory designated with a .RProj file. When you open an R project, it automatically sets the working directory to the folder the project is located in.">R Project</a></strong>.</p>
+<p>To create a new project for the work you will do in this chapter (<a href="#fig-new-proj">Figure&nbsp;<span>2.3</span></a>):</p>
+<ol type="1">
+<li><p>Click on the top menu and navigate to <code>File &gt;&gt; New Project...</code>.</p></li>
+<li><p>You have the option to select from New Directory, Existing Directory, or Version Control. You already created a folder for <code>Chapter_02_reproducible_docs</code>, so select Existing Directory.</p></li>
+<li><p>Click Browse… next to Project working directory to select the folder you want to create the project in.</p></li>
+<li><p>When you have navigated to <code>Chapter_02_reproducible_docs</code> for this chapter, click Open and then Create Project.</p></li>
+</ol>
+<div id="fig-new-proj" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/project-pageone.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/project-pagetwo.png" class="img-fluid figure-img"></p>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.3: Starting a new project.</figcaption><p></p>
+</figure>
+</div>
+<p>RStudio will restart itself and open with this new project directory as the working directory. You should see something like <a href="#fig-img-project-screen">Figure&nbsp;<span>2.4</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-project-screen" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/new_project.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.4: RStudio screen in a new project in your chapter 2 folder.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>In the files tab in the bottom right window, you will see all the contents in your project directory. You can see your two sub-folders for data and figures and a file called <code>Chapter_02_reproducible_docs.Rproj</code>. This is a file that contains all of the project information. When you come back to this project after closing down RStudio, if you double click on the .Rproj file, it will open up your project and have your working directory all set up and ready to go.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In each chapter, we will repeat these instructions at the start to prescribe this file structure, but when you create your own folders and projects, do not ever save a new project <strong>inside</strong> another project. This can cause some hard to resolve problems. For example, it would be fine to create a new project within the <code>Quant_Fundamentals</code> folder as we will do for each new chapter, but should never create a new project within the <code>Chapter_02_reproducible_docs</code> folder.</p>
+</div>
+</div>
+</section></section><section id="creating-and-navigating-r-markdown-documents" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="creating-and-navigating-r-markdown-documents">
+<span class="header-section-number">2.2</span> Creating and navigating R Markdown documents</h2>
+<p>Now you know how to navigate files and folders on your computer, we can start working with R Markdown files.</p>
+<p>Throughout this data skills book and related assignments, you will use a file format called R Markdown (abbreviated as .Rmd) which is a great way to create dynamic documents combining regular text and embedded code chunks.</p>
+<p>R Markdown documents are self-contained and fully reproducible, meaning if you have the necessary data, you should be able to run someone else’s analyses. This is an important part of your open science training as one of the reasons we teach data skills this way is that it enables us to share open and reproducible information.</p>
+<p>Using these worksheets enables you to keep a record of all the code you write as you progress through this book (as well as any notes to help yourself), for data skills assessments we can give you a task to add required code, and in your research reports you can independently process, visualise, and analyse your data all from one file.</p>
+<p>For more information about R Markdown, feel free to have a look at their main webpage <a href="http://rmarkdown.rstudio.com" target="_blank">http://rmarkdown.rstudio.com</a>, but for now the key advantage to know about is that it allows you to write code into a document, along with regular text, and then <strong><a href="https://psyteachr.github.io/glossary/k#knit" target="_blank" class="glossary" title="To create an HTML, PDF, or Word document from an R Markdown (Rmd) document">knit</a></strong> it to create your document as either a webpage (<strong><a href="https://psyteachr.github.io/glossary/h#html" target="_blank" class="glossary" title="Hyper-Text Markup Language: A system for semantically tagging structure and information on web pages.">html</a></strong>), a PDF, or Word document (.docx).</p>
+<section id="intro-a3" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="intro-a3">
+<span class="header-section-number">2.2.1</span> Activity 3: Open, save, and knit a new R Markdown document</h3>
+<p>Open a new R Markdown document by clicking the ‘new item’ icon and then click ‘R Markdown’ like <a href="#fig-img-new-markdown">Figure&nbsp;<span>2.5</span></a>.</p>
+<div id="fig-img-new-markdown" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/Create_Rmd_menu.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/Create_Rmd_options.png" class="img-fluid figure-img"></p>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.5: Creating a new R Markdown document from the menu (left) and setting title, author, date, and output (right).</figcaption><p></p>
+</figure>
+</div>
+<p>After selecting R Markdown, there are different format options you can explore in time, but Select Document and there are four boxes to complete:</p>
+<ul>
+<li><p>Title: This is the title for the document which will appear at the top of the page. For this chapter, enter <code>02 Creating Reproducible Documents</code>.</p></li>
+<li><p>Author: This is where you can add your name or names for multiple people. For this chapter, enter your GUID as this will be good practice for the data skills assignments.</p></li>
+<li><p>Date: By default, it adds today’s date, so it will update every time you knit the document. Leave the default so you know when you completed the chapter, but if you untick, you can manually enter a static date.</p></li>
+<li><p>Default Output Format: You have the option to select from html, PDF, and Word. We will demonstrate how to change output format in a later chapter, so keep html for now as it’s the most flexible format.</p></li>
+</ul>
+<p>Once you click <strong>OK</strong>, this will open a new R Markdown document.</p>
+<p>Save this R Markdown document by clicking <strong><code>File &gt;&gt; Save as</code></strong> from the top menu, and name this file “<code>02_reproducible_docs</code>”. Note the document title and file name are separate, so you still have to name the file when you save it.</p>
+<p>If you have set the working directory correctly, you should now see this file appear in your Files window in the bottom right hand corner like <a href="#fig-img-file-dir">Figure&nbsp;<span>2.6</span></a>, alongside your .Rproj file and two folders.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-file-dir" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Files_newRmd.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.6: New .Rmd file in your working directory.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Now you have the default version of the R Markdown file, you have a bunch of text and code to show its capabilities (<a href="#fig-img-markdown-default">Figure&nbsp;<span>2.7</span></a>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-markdown-default" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Default_Rmd.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.7: Default text and code in a new R Markdown document.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>We will now demonstrate what it looks like to <strong><a href="https://psyteachr.github.io/glossary/k#knit" target="_blank" class="glossary" title="To create an HTML, PDF, or Word document from an R Markdown (Rmd) document">knit</a></strong> a document. This means that we are going to compile (i.e., turn) our code into a document that is more presentable. This way, you can check it knits and there are no errors. So, as we add changes in the following activities, you can identify if and when any errors appear and fix them quicker.</p>
+<p>At the top of your R Markdown window, you should see a Knit button next to a little ball of yarn (<a href="#fig-img-knit-document">Figure&nbsp;<span>2.8</span></a>). If you click that, the document will knit and produce a html file.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-knit-document" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/knit_document.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.8: Clicking the knit button on a .Rmd document.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>You will see a small version of the knitted document appear in the Viewer tab in the bottom right of your screen. You will also see it has created a new file in your working directory. It will have the same name as your R Markdown file, but with .html as the file ending. You can view the knitted document by clicking the “Show in new window” button or opening the file from your folder (<a href="#fig-img-knitted-default">Figure&nbsp;<span>2.9</span></a>). This should open the document in your default internet browser as websites are created in html.</p>
+<div id="fig-img-knitted-default" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/Knitted_default_files.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/Knitted_default_browser.png" class="img-fluid figure-img"></p>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.9: On the left, you can see a small version of the knitted document in the Viewer tab. On the right, you can see the full version open in your internet browser.</figcaption><p></p>
+</figure>
+</div>
+<p>Now everything is working and knitting, we can start editing the R Markdown file to add new content.</p>
+</section><section id="intro-a4" class="level3" data-number="2.2.2"><h3 data-number="2.2.2" class="anchored" data-anchor-id="intro-a4">
+<span class="header-section-number">2.2.2</span> Activity 4: Create a new code chunk</h3>
+<p>Let’s start using your new R Markdown document to combine code and text. Follow these steps:</p>
+<ol type="1">
+<li>Delete <strong>everything</strong> below line 10.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What does the {r setup} chunk do?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At the moment, you do not need to worry about the code chunk between lines 8 and 10. We are slowly introducing you to different features in R Markdown as it’s easier to understand by doing, rather than giving you a list of explanations.</p>
+<p>If you are really curious though, this setting forces R Markdown to show both the code and output for all code chunks. When we add code shortly, if you change it to <code>echo = FALSE</code>, it will only show the output and not the code.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>On line 12, type “## About me”.</p></li>
+<li><p>With your cursor on line 14, insert a blank code chunk by clicking on the top menu <strong><code>Code &gt;&gt; Insert Chunk</code></strong> or using the shortcut at the top of the R Markdown window that looks like a small green c and select R.</p></li>
+</ol>
+<p>Your document should now look something like <a href="#fig-img-new-chunk">Figure&nbsp;<span>2.10</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-new-chunk" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Rmd_blank_insert_chunk.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.10: Creating a new R chunk in your blank R Markdown document</figcaption></figure>
+</div>
+</div>
+</div>
+<p>What you have created is called a <strong><a href="https://psyteachr.github.io/glossary/c#chunk" target="_blank" class="glossary" title="A section of code in an R Markdown file">code chunk</a></strong>. R Markdown assumes anything written outside of a code chunk is just normal text, just like you would have in a text editor like Word. It assumes anything written inside the code chunk is R code. This makes it easy to combine both text and code in one document.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Error mode
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you create a new code chunk, you should notice that the grey box starts and ends with three back ticks (<code>```</code>), followed by the {r}, and then it ends with three back ticks again. This is the structure that creates a code chunk. You could actually just type this structure instead of using the <code>Insert</code> approach but we are introducing you to some shortcuts</p>
+<p>One common mistake is to accidentally delete one or more of these back ticks. A useful thing to notice is that code chunks tend to have a different color background - in the default appearance of RStudio a code chunk is grey and the normal text is white. You can use this to look for mistakes. If the colour of certain parts of your Markdown does not look right, check that you have not deleted the backticks.</p>
+<p>Remember it is backticks (i.e.&nbsp;this `) and not single quotes (i.e.&nbsp;not this ’).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Markdown language
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you typed “## About me”, you might notice the two hashes. You will see the effect of this shortly, but this is using <strong><a href="https://psyteachr.github.io/glossary/m#markdown" target="_blank" class="glossary" title="A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.">Markdown</a></strong> language to add document formatting. Markdown is a type of formatting language, so instead of using buttons to add features like you would in Word, you add symbols which will produce different features when you knit the document.</p>
+<p>The hashes create headers. One (#) creates a first level header (larger text), two (##) creates a second level header, and so on. Make sure there is a space between the text and hash or it will not knit properly.</p>
+<p>As we progress through the book, we will slowly introduce you to different Markdown features, but you can see the <a href="https://rmarkdown.rstudio.com/lesson-8.html" target="_blank">RStudio Markdown Basics page</a> if you are interested.</p>
+</div>
+</div>
+</section><section id="intro-a5" class="level3" data-number="2.2.3"><h3 data-number="2.2.3" class="anchored" data-anchor-id="intro-a5">
+<span class="header-section-number">2.2.3</span> Activity 5: Write some code</h3>
+<p>Now we are going to use the code examples you read about in Chapter 1 - <a href="01-programming-basics.html">Introduction to programming with R/R Studio</a> - to add some code to our R Markdown document.</p>
+<p>In your code chunk, write the code below but replace the values of name/age/birthday with your own details). Remember that the four lines of code should all be inside the code chunk.</p>
+<p><strong>Note:</strong> Text and dates need to be contained in quotation marks, e.g., “my name”. Numerical values are written without quotation marks, e.g., 45.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>name <span class="ot">&lt;-</span> <span class="st">"James"</span> </span>
+<span id="cb1-2"><a href="#cb1-2"></a>age <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb1-4"><a href="#cb1-4"></a>next_birthday <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2025-02-18"</span>) <span class="co"># Year, month, day format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Error mode
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Missing and/or unnecessary quotation marks are a common cause of code not working. For example, if you try and type <code>name &lt;- James</code>, R will try and look for an object called <code>James</code> and throw an error since there is not an object called that. When you add quotation marks, R recognises you are storing a character.</p>
+</div>
+</div>
+</section><section id="intro-a6" class="level3" data-number="2.2.4"><h3 data-number="2.2.4" class="anchored" data-anchor-id="intro-a6">
+<span class="header-section-number">2.2.4</span> Activity 6: Run your code</h3>
+<p>We now have code in our code chunk and now we are going to <strong>run</strong> the code. Running the code just means making it do what you told it, such as creating objects or using functions. Remember you need to write the code first, then tell RStudio to run the code.</p>
+<p>When you are working in an R Markdown document, there are several ways to run your lines of code.</p>
+<ol type="1">
+<li>One option is you can highlight the code you want to run and then click <strong><code>Run &gt;&gt; Run Selected Line(s)</code></strong> (<a href="#fig-img-run1">Figure&nbsp;<span>2.11</span></a>).</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-run1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/run1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.11: Slower method of running code by highlighting and clicking Run Selected Line(s).</figcaption></figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>You can press the green “play” button at the top-right of the code chunk and this will run <strong>all</strong> lines of code in that chunk (<a href="#fig-img-run2">Figure&nbsp;<span>2.12</span></a>).</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-run2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/run2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.12: Slightly faster method of running all code in a chunk by clicking the green “play” button.</figcaption></figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>There are keyboard shortcuts to run code which will be the fastest as you learn and use RStudio more frequently. For example, to run a single line of code, make sure that the cursor is in the line of code (it can be anywhere on the line) you want to run and press <code>ctrl + enter</code> (<code>command + return</code> on a Mac).</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Keyboard shortcuts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are loads of keyboard shortcuts, but you might only use a handful to speed up your day-to-day tasks. For a full list, look in the top menu <code>Help &gt;&gt; Keyboard shortcuts help</code>.</p>
+</div>
+</div>
+<p>Now run your code using one of the methods above. You should see the variables <code>name</code>, <code>age</code>, <code>today</code>, and <code>next_birthday</code> appear in the environment pane in the top right corner.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Clear out the <a href="01-programming-basics.html#look-env">environment using the broom handle approach</a> we saw in Chapter 1 and try a different method to see which works best for you.</p>
+</div>
+</div>
+</section><section id="intro-a7" class="level3" data-number="2.2.5"><h3 data-number="2.2.5" class="anchored" data-anchor-id="intro-a7">
+<span class="header-section-number">2.2.5</span> Activity 7: Inline code</h3>
+<p>Your code works and you now know how to run it, but one of the incredible benefits we said about R Markdown is that you can mix text and code. Even better is the ability to combine code with text to put specific outputs of your code, like a value, using <strong><a class="glossary" title="Directly inserting the result of code into the text of a .Rmd file.">inline code</a></strong>.</p>
+<p>Think about a time you have had to copy and paste a value or text from one file into another and you will know how easy it can be to make mistakes or find the origin of your mistake. Inline code avoids this. It is easier to show you what inline code does rather than to explain it so let us have a go.</p>
+<p>First, copy and paste this text exactly (do not change <em>anything</em>) to underneath and outside your code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>My name is <span class="st">`</span><span class="at">r name</span><span class="st">`</span> and I am <span class="st">`</span><span class="at">r age</span><span class="st">`</span> years old. </span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>It is <span class="st">`</span><span class="at">r next_birthday - today</span><span class="st">`</span> days until my birthday.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Your .Rmd should look like <a href="#fig-img-aboutme-rmd">Figure&nbsp;<span>2.13</span></a> but nothing will happen yet. Unlike code chunks, you cannot run inline code. You need to knit your document for it to do it’s magic.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-aboutme-rmd" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Rmd_about_me.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.13: Complete .Rmd file with your about me section and inline code.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How does inline code work?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Inline code has the following form:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="st">`</span><span class="at">r object</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="st">`</span><span class="at">r function(...)</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we are using the first version where we are referencing an object we already created. This is normally a good idea if you have a long function to run as it’s easier to spot mistakes in a code chunk than inline code.</p>
+<p>You will see it has the form of a backtick (<code>`</code>), <code>r</code> and a space, the object/function you want to reference, and a final backtick. When the R Markdown file knits, it sees the <code>r</code> and recognises it as inline code and uses the object or function.</p>
+<p>If you just write the two backticks without the <code>r</code>, it will just add code formatting and not produce inline code.</p>
+</div>
+</div>
+</div>
+</section><section id="intro-a8" class="level3" data-number="2.2.6"><h3 data-number="2.2.6" class="anchored" data-anchor-id="intro-a8">
+<span class="header-section-number">2.2.6</span> Activity 8: Knitting your file</h3>
+<p>As our final step in this part, we are going to knit our file again to see how it looks now. So, click the Knit button to regenerate your knitted .html version.</p>
+<p>If you look at the knitted .html document in the Viewer tab or in your browser, you should see the sentence we copied in from Activity 7. As if by magic, that slightly odd bit of text you copied and pasted now appears as a normal sentence with the values pulled in from the objects you created:</p>
+<p>My name is <strong>James</strong> and I am <strong>30</strong> years old. <br><br>It is <strong>202</strong> days until my birthday.</p>
+<p>R Markdown is an incredibly powerful and flexible format, we wrote this whole book using it! There are a few final things to note about knitting that will be useful going forward for your data skills learning and assessments:</p>
+<ul>
+<li><p>R Markdown will only knit if your code works. If you have an error, it will stop and tell you to fix the error before you can click knit and try again. This is a good way of checking whether you have written functioning code in your assessments.</p></li>
+<li><p>When you knit an R Markdown document, it runs the code from the start of the document to the end in order, and in a fresh session. This means it cannot access your environment, just the objects you create within that R Markdown. One common error can be writing and running code as you work on the document, but the code chunks are in the wrong order, or you created an object in the console but not in the code chunks. This means R Markdown would not know the object exists yet, or it does not have access to it at all.</p></li>
+<li><p>You can choose to knit to a Word document rather than HTML. This can be useful for sharing with others or adding further edits, but you might lose some functionality. By default, html looks good and is accessible, so that will be our default throughout this book, but look out for our instructions on what output format we want your assessments in.</p></li>
+<li><p>You can choose to knit to PDF, however, unless you are using the server this requires a <strong><a href="https://psyteachr.github.io/glossary/l#latex" target="_blank" class="glossary" title="A typesetting program needed to create PDF files from R Markdown documents.">LaTeX</a></strong> installation and can be quite complicated. If you do not already know what LaTeX is and how to use it, we do not recommend trying to knit to PDF just yet. If you do know how to use LaTeX, you probably do not need us to give you instructions!</p></li>
+</ul>
+<p>We will test some of these warnings in error mode in the test yourself section, but we have one final demonstration for how R Markdown files support reproducibility.</p>
+</section></section><section id="demonstrating-reproducibility" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="demonstrating-reproducibility">
+<span class="header-section-number">2.3</span> Demonstrating reproducibility</h2>
+<p>At the start of this chapter, we plugged the benefits of reproducible research as the ability to produce the same result for different people using the same software on different computers. We are going to end the chapter on a demonstration of this by giving you an R Markdown document and data. You should be able to click knit and see the results without editing anything. We do not expect you to understand the code included in it, we are previewing the skills you will develop over the next four chapters on visualisation and data wrangling.</p>
+<section id="activity-9---knit-the-reproducibility-demonstration-document" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="activity-9---knit-the-reproducibility-demonstration-document">
+<span class="header-section-number">2.3.1</span> Activity 9 - Knit the reproducibility demonstration document</h3>
+<p>Please follow these steps and you should be able to knit the document without editing anything. Make sure you are still in your <code>Chapter_02_reproducible_docs</code> folder. If you are coming back to this activity, remember to set your working directory by opening the .Rproj file.</p>
+<ol type="1">
+<li><p>If you are working on your own computer, make sure you installed the <code>tidyverse</code> package. Please refer to <a href="01-programming-basics.html#install-tidy">Chapter 1 - Activity 3</a> if you have not completed this step yet. If you are working on a university computer or the online server, you <strong>do not</strong> need to complete this step as <code>tidyverse</code> will already be installed.</p></li>
+<li><p>Download the R Markdown document through the following link: <a href="activity_files/02_reproducibility_demo.Rmd">02_reproducibility_demo.Rmd</a>. To download a file from this book, right click the link and select “save link as”, or just clicking the link will save the file to your Downloads. Save or copy the file to your <code>Chapter_02_reproducible_docs</code> folder.</p></li>
+<li><p>Download these two data files. Data file one: <a href="data/ahi-cesd.csv">ahi-cesd.csv</a>. Data file two: <a href="data/participant_info.csv">participant-info.csv</a>. Right click the links and select “save link as”, or clicking the links will save the files to your Downloads. Make sure that both files are saved as “.csv”. Do not open them on your machine as often other software like Excel can change setting and ruin the files. Save or copy the file to your <code>data/</code> folder within <code>Chapter_02_reproducible_docs</code>.</p></li>
+</ol>
+<p>At this point, you should have “<strong>02_reproducibility_demo.Rmd</strong>” within your <code>Chapter_02_reproducible_docs</code> folder. You should have “<strong>ahi-cesd.csv</strong>” and “<strong>participant_info.csv</strong>” in the <code>data/</code> folder within <code>Chapter_02_reproducible_docs</code>.</p>
+<p>If you open “02_reproducibility_demo.Rmd” and followed all the steps above, you should be able to click knit. This will turn the R Markdown file into a knitted html file, showing some data wrangling, summary statistics, and two graphs (<a href="#fig-img-repro-demo">Figure&nbsp;<span>2.14</span></a>). In the next chapter, you will learn how to write this code yourself, starting with creating graphs.</p>
+<div id="fig-img-repro-demo" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/repro_demo_Rmd.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/repro_demo_html.png" class="img-fluid figure-img"></p>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.14: You should see the reproducibility demonstration as the .Rmd (left) and be able to knit it into a html file (right).</figcaption><p></p>
+</figure>
+</div>
+<p>If you have any questions or problems about anything contained in this chapter, please remember you are always welcome to post on the course Teams channel, attend a GTA support session, or attend the office hours of one of the team.</p>
+</section></section><section id="test-yourself" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="test-yourself">
+<span class="header-section-number">2.4</span> Test yourself</h2>
+<p>To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. We then have some error mode tasks to see if you can find the solution to some common errors in the concepts we covered in this chapter.</p>
+<section id="knowledge-check" class="level3" data-number="2.4.1"><h3 data-number="2.4.1" class="anchored" data-anchor-id="knowledge-check">
+<span class="header-section-number">2.4.1</span> Knowledge check</h3>
+<strong>Question 1</strong>. One of the key first steps when we open RStudio is to:
+<div id="radio_ZSTHZWCXJK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZSTHZWCXJK" value="answer"><span>set your working directory/open a project</span></label><label><input type="radio" autocomplete="off" name="radio_ZSTHZWCXJK" value=""><span>put on some music as we will be here a while</span></label><label><input type="radio" autocomplete="off" name="radio_ZSTHZWCXJK" value=""><span>check out the news</span></label><label><input type="radio" autocomplete="off" name="radio_ZSTHZWCXJK" value=""><span>make a coffee</span></label>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>One of the most common issues we see where code does not work the first time is because people have forgotten to set the working directory. The working directory is the starting folder on your computer where you want to save any files, any output, or contains your data. R/RStudio needs to know where you want it to look, so you must either manually set your working directory, or open a .Rproj file.</p>
+</div>
+</div>
+</div>
+<p><strong>Question 2</strong>. When using the default environment color settings for RStudio, what color would the background of a code chunk be in R Markdown? <select class="webex-select"><option value="blank"></option>
+<option value="">white</option>
+<option value="">red</option>
+<option value="">green</option>
+<option value="answer">grey</option></select></p>
+<p><strong>Question 3</strong>. When using the default environment color settings for RStudio, what color would the background of normal text be in R Markdown? <select class="webex-select"><option value="blank"></option>
+<option value="answer">white</option>
+<option value="">red</option>
+<option value="">green</option>
+<option value="">grey</option></select></p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Assuming you have not changed any of the settings in RStudio, code chunks will tend to have a grey background and normal text will tend to have a white background. This is a good way to check that you have closed and opened code chunks correctly.</p>
+</div>
+</div>
+</div>
+<strong>Question 4</strong>. Code chunks start and end with:
+<div id="radio_XFEMXFEHYW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XFEMXFEHYW" value=""><span>three single quotes</span></label><label><input type="radio" autocomplete="off" name="radio_XFEMXFEHYW" value="answer"><span>three backticks</span></label><label><input type="radio" autocomplete="off" name="radio_XFEMXFEHYW" value=""><span>three double quotes</span></label><label><input type="radio" autocomplete="off" name="radio_XFEMXFEHYW" value=""><span>three single clefs</span></label>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Code chunks always take the same general format of three backticks followed by curly parentheses and a lower case r inside the parentheses (<code>{r}</code>). People often mistake these backticks for single quotes but that will not work. If you have set your code chunk correctly using backticks, the background color should change to grey from white</p>
+</div>
+</div>
+</div>
+<strong>Question 5</strong>. Inline code is:
+<div id="radio_AUYGTZYWQE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AUYGTZYWQE" value=""><span>where you nicely organise your code in a line.</span></label><label><input type="radio" autocomplete="off" name="radio_AUYGTZYWQE" value=""><span>where you make sure all the code is nicely indented from the side.</span></label><label><input type="radio" autocomplete="off" name="radio_AUYGTZYWQE" value=""><span>a fancy way of saying you have written good code.</span></label><label><input type="radio" autocomplete="off" name="radio_AUYGTZYWQE" value="answer"><span>an approach of integrating code and text in a sentence outside of a code chunk.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Inline coding is an incredibly useful approach for merging text and code in a sentence outside of a code chunk. It can be really useful for when you want to add values from your code directly into your text. If you copy and paste values, you can easily create errors, so it’s useful to add inline code where possible.</p>
+</div>
+</div>
+</div>
+</section><section id="error-mode-2" class="level3" data-number="2.4.2"><h3 data-number="2.4.2" class="anchored" data-anchor-id="error-mode-2">
+<span class="header-section-number">2.4.2</span> Error mode</h3>
+<p>The following questions are designed to introduce you to making and fixing errors. For this topic, we focus on R Markdown and potential errors in using code blocks and inline code. Remember to keep a note of what kind of error messages you receive and how you fixed them, so you have a bank of solutions when you tackle errors independently.</p>
+<p>Create and save a new R Markdown file by following the instructions in <a href="#intro-a3">activity 3</a> and <a href="#intro-a4">activity 4</a>. You should have a blank R Markdown file below line 10. Below, we have several variations of a code chunk and inline code errors. Copy and paste them into your R Markdown file, click knit, and look at the error message you receive. See if you can fix the error and get it working before checking the answer.</p>
+<p><strong>Question 5</strong>. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like <code>Error while opening file. No such file or directory</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a>city &lt;- "Glasgow"</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="in">```{r}</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="in">```</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="in">`r city`</span> is a city in Scotland. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here, we wrote <code>city &lt;- "Glasgow"</code> outside the code chunk. So, when we try and knit, it is not evaluated as code, and city does not exist as an object to be referenced in inline code. If you copy <code>city &lt;- "Glasgow"</code> into the code chunk and press knit, it should work.</p>
+</div>
+</div>
+</div>
+<p><strong>Question 6</strong>. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like <code>Error in parse(): ! attempt to use zero-length variable name</code> which is not very helpful for diagnosing the problem.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="in">```{r}</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>city <span class="ot">&lt;-</span> <span class="st">"Glasgow"</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">``</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">`</span><span class="at">r city</span><span class="st">`</span> is a city <span class="cf">in</span> Scotland. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here, we missed a final backtick in the code chunk. You might have noticed all the text had a grey background, so R Markdown thought everything was code. So, when it reached the inline code and text, it tried interpreting it as code and caused the error. If you add the final backtick to the code chunk, you should be able to click knit successfully.</p>
+</div>
+</div>
+</div>
+<p><strong>Question 7</strong>. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like <code>Error while opening file. No such file or directory</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="in">`r city`</span> is a city in Scotland. </span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="in">```{r}</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>city <span class="ot">&lt;-</span> <span class="st">"Glasgow"</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here, we tried using inline code before the code chunk. R Markdown runs the code from start to finish in a fresh environment. We tried referencing <code>city</code> in inline code, but R Markdown did not know it existed yet. To fix it, you need to move the inline code below the code chunk, so you create <code>city</code> before referencing it in inline code.</p>
+</div>
+</div>
+</div>
+<p><strong>Question 8</strong>. Copy the following text/code/code chunk into your R Markdown file and press knit. This…works?</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="in">```{r}</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>city <span class="ot">&lt;-</span> <span class="st">"Glasgow"</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="in">```</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="in">`city`</span> is a city in Scotland. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here, we have a sneaky kind of “error” where it knits, but it is not doing what we wanted it to do. In the inline code part, we only added code formatting <code>city</code>, we did not add the r to get R Markdown to interpret it as R code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="st">`</span><span class="at">r city</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you add the <code>r</code> after the first backtick, it should knit and add the city object in.</p>
+</div>
+</div>
+</div>
+</section></section><section id="words-from-this-chapter" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="words-from-this-chapter">
+<span class="header-section-number">2.5</span> Words from this Chapter</h2>
+<p>Below, you will find a list of words that we used in this chapter that might be new to you in case you need to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that numerous members of the team wrote entries in the Glossary and as such the entries may use slightly different terminology from what we used in the chapter.</p>
+<div class="cell" data-layout-align="center">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/c#chunk" class="glossary" target="_blank">chunk</a></td>
+<td style="text-align: left;">A section of code in an R Markdown file</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/h#html" class="glossary" target="_blank">html</a></td>
+<td style="text-align: left;">Hyper-Text Markup Language: A system for semantically tagging structure and information on web pages.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/i#inline-code" class="glossary" target="_blank">inline-code</a></td>
+<td style="text-align: left;">Directly inserting the result of code into the text of a .Rmd file.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/k#knit" class="glossary" target="_blank">knit</a></td>
+<td style="text-align: left;">To create an HTML, PDF, or Word document from an R Markdown (Rmd) document</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/l#latex" class="glossary" target="_blank">latex</a></td>
+<td style="text-align: left;">A typesetting program needed to create PDF files from R Markdown documents.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/m#markdown" class="glossary" target="_blank">markdown</a></td>
+<td style="text-align: left;">A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/r#r-markdown" class="glossary" target="_blank">r-markdown</a></td>
+<td style="text-align: left;">The R-specific version of markdown: a way to specify formatting, such as headers, paragraphs, lists, bolding, and links, as well as code blocks and inline code.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/r#r-project" class="glossary" target="_blank">r-project</a></td>
+<td style="text-align: left;">A project is simply a working directory designated with a .RProj file. When you open an R project, it automatically sets the working directory to the folder the project is located in.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/r#reproducible-research" class="glossary" target="_blank">reproducible-research</a></td>
+<td style="text-align: left;">Research that documents all of the steps between raw data and results in a way that can be verified.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/w#working-directory" class="glossary" target="_blank">working-directory</a></td>
+<td style="text-align: left;">The filepath where R is currently loading files from and saving files to.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="end-of-chapter" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="end-of-chapter">
+<span class="header-section-number">2.6</span> End of chapter</h2>
+<p>Well done on reaching the end of the second chapter! This was another long chapter as we had to cover a range of foundational skills to prepare you for learning more of the coding element in future chapters.</p>
+<p>The next chapter builds on all the skills you have developed so far in R programming and creating reproducible documents to focus on something more tangible: data visualisation in R to create plots of your data.</p>
+
+
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./01-programming-basics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to programming with R/R Studio</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-intro-data-viz.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,11 @@
+# Dissertation Preparation 
+
+Now you have completed all the chapters, you have developed a bunch of foundational skills for analysing quantitative data. As a conversion programme, there is only so much content we can fit in, and you might need additional techniques or analyses we have not covered before. So, in this chapter, we will outline some resources which might be useful to you as you tackle your independent research project. 
+
+1. Equivalence testing.
+
+2. Bayesian statistics. 
+
+3. Generalised linear models. 
+
+

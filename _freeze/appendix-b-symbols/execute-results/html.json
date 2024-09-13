@@ -1,0 +1,14 @@
+{
+  "hash": "10b46c3d4795df62a45f5c5f7fb88e8c",
+  "result": {
+    "markdown": "# Symbols {#symbols}\n\n| Symbol | psyTeachR Term    | Also Known As     |\n|:------:|:------------------|:------------------|\n| ()     | (round) brackets  | parentheses       |\n| []     | square brackets   | brackets          |\n| {}     | curly brackets    | squiggly brackets |\n| <>     | chevrons          | angled brackets / guillemets |\n| <      | less than         |                   |\n| >      | greater than      |                   |\n| &      | ampersand         | \"and\" symbol      |\n| #      | hash              | pound / octothorpe|\n| /      | slash             | forward slash     |\n| \\\\     | backslash         |                   |\n| -      | dash              | hyphen / minus    |\n| _      | underscore        |                   |\n| *      | asterisk          | star              |\n| ^      | caret             | power symbol      |\n| ~      | tilde             | twiddle / squiggle|\n| =      | equal sign        |                   |\n| ==     | double equal sign |                   |\n| .      | full stop         | period / point    |\n| !      | exclamation mark  | bang / not        |\n| ?      | question mark     |                   |\n| '      | single quote      | quote / apostrophe|\n| \"      | double quote      | quote             |\n| %>%    | pipe              | magrittr pipe     |\n| \\|     | vertical bar      | pipe              |\n| ,      | comma             |                   |\n| ;      | semi-colon        |                   |\n| :      | colon             |                   |\n| @      | \"at\" symbol       | [various hilarious regional terms](https://www.theguardian.com/notesandqueries/query/0,5753,-1773,00.html) |\n| ...    | `glossary(\"ellipsis\")`| dots     |\n\n\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![[Image by James Chapman/Soundimals](https://soundimals.tumblr.com/post/167354564886/chapmangamo-the-symbol-has-too-many-names)](images/soundimals_hash.png){fig-align='center' width=100%}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

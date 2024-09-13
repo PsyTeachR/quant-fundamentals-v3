@@ -1,0 +1,89 @@
+---
+title: "02 Reproducibility Demonstration"
+author: ""
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+In this document, we are going to demonstrate reproducibility where we can give you data and a file like this, and you can run all the code independently on your computer. We have not taught you about most of the concepts in this file, the idea is to showcase reproducibility and preview the skills you will develop over the next few chapters. 
+
+## Load `tidyverse` package
+
+In this chunk, we load the `tidyverse` series of packages you installed in Chapter 1. 
+
+```{r}
+library(tidyverse)
+```
+
+## Read data files
+
+In this chunk, we load two data files you saved to your chapter 02 data folder. 
+
+```{r}
+dat <- read_csv("data/ahi-cesd.csv")
+
+pinfo <- read_csv("data/participant-info.csv")
+```
+
+## Join data files
+
+In this chunk, we join the two data files together by a common column. 
+
+```{r}
+all_dat <- inner_join(x = dat, 
+                      y = pinfo, 
+                      by = c("id", "intervention"))
+```
+
+## Select a handful of columns
+
+In this chunk, we select 8 columns from the original 54. 
+
+```{r}
+summarydata <- select(.data = all_dat, 
+                      ahiTotal, 
+                      cesdTotal, 
+                      sex, 
+                      age, 
+                      educ, 
+                      income, 
+                      occasion,
+                      elapsed.days)
+```
+
+## Preview data
+
+In this chunk, we can get a brief range of summary statistics for our variables, such as the minimum and maxium value. 
+
+```{r}
+summary(summarydata)
+```
+
+## Visualise the data
+
+In these two chunks, we visualise two columns for the frequency of how participants respond to scales on happiness and depression. 
+
+### Authentic Happiness Inventory
+
+```{r}
+ggplot(summarydata, aes(x = ahiTotal)) + 
+  geom_histogram() + 
+  labs(x = "Authentic Happiness Inventory",
+       y = "Frequency")
+```
+
+### Center for Epidemiological Studies Depression Scale
+
+```{r}
+ggplot(summarydata, aes(x = cesdTotal)) + 
+  geom_histogram() + 
+  labs(x = "CES Depression Scale",
+       y = "Frequency")
+```
+

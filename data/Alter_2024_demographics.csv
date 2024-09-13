@@ -1,0 +1,182 @@
+StudentIDE,GenderE,RaceEthE,GradeE,StuStaE,GPAE,MajorE,AgeE
+1,1,1,1,4,2,4,24
+2,1,5,1,3,3,4,24
+3,1,3,B,Junior,2.5,Psychology,24
+4,1,1,A,Senior,3.5,Biology/health studies,25
+5,3,4,D,senior,2.5,Health Promotion,23
+6,2,4,B,Sophomore,2.5,Kinesiology,23
+7,1,2,3,4,2.5,4,21
+8,1,1,B,Junior,2.5,Psychology,22
+9,1,3,2,4,2.5,1,21
+10,2,3,A,Senior,3.5,Psychology,22
+11,1,3,B,Senior,3,Health Sciences,22
+12,1,3,A,senior,2.5,Pre-Med/Health Sciences,22
+13,1,3,1,3,3,1,20
+14,1,5,2,4,2.5,2,22
+15,2,3,1,4,,,
+16,2,2,A,Senior,3,Health Studies,21
+17,1,3,B,Senior,3,Health Studies,21
+18,1,3,B,Senior,3,Health Science,22
+19,1,3,1,3,3,1,20
+20,2,3,1,3,3.5,4,21
+21,1,4,3,4,2.5,7,22
+22,1,3,2,3,3,1,20
+23,1,5,A,Senior,3,Health Studies,21
+24,1,3,A,Senior,2.5,Psychology,21
+25,1,4,A,Senior,3,communicative disorders,22
+26,1,3,1,3,4,2,21
+27,1,3,A,Junior,2.5,health studies,21
+28,1,3,2,3,2.7,2,20
+29,1,3,2,3,3,1,21
+30,1,3,1,3,3,1,21
+31,1,3,3,4,3,8,
+32,1,3,1,3,2.5,3,20
+33,1,1,B,Senior,2,psych,21
+34,2,3,A,Senior,3,Health Studies,21
+35,2,3,2,3,2.5,1,20
+36,1,4,B,Junior,4,Human Development and Family Studies and Psychology,21
+37,1,3,2,3,3,4,20
+38,1,3,A,Junior,4,Sociology and Psychology,20
+39,1,3,A;B,Junior,3,Psychology,21
+40,1,1,3,2,2,4,19
+41,1,2,A,Junior,3,Health Studies,20
+42,2,3,1,2,4,5,19
+43,1,5,B,Junior,3.5,Health studies,20
+44,1,5,1,2,3,1,20
+45,1,3,1,2,3.6,4,20
+46,1,3,A,Junior,3.5,Gender and women's studies and psychology,20
+47,1,3,1,2,3.5,1,19
+48,1,5,1,2,3,4,20
+49,1,3,A,Junior,3,Health studies,21
+50,1,4,2,2,3,1,20
+51,1,3,1,2,3,1,20
+52,2,3,1,3,3,9,20
+53,1,3,B,Junior,3.5,PSY and HDF,20
+54,1,3,2,3,2.5,1,21
+55,1,3,B,Junior,2.5,Health Studies,20
+56,1,3,1,3,3,2,21
+57,1,3,A,Junior,3,Psychology/Computer Science,20
+58,1,3,A,Junior,3.5,Health Studies,21
+59,1,3,A,Junior,2.5,Health Studies,20
+60,1,3,A,Junior,3.5,Kinesiology,21
+61,1,3,2,2,3.5,1,20
+62,1,6,A,Junior,3.5,Psychology and music performance,20
+63,1,3,A,Junior,2.5;3.0,Health Studies,20
+64,1,3,A,Junior,3,Health Studies,21
+65,1,3,A,Junior,2.5,Health Studies,20
+66,2,3,1,2,3.5,4,20
+67,2,4,2,2,2.5,1,20
+68,2,3,2,2,3,1,20
+69,1,2,B,Junior,2.5,psy/hdf,20
+70,1,4,1,3,2.5,2,21
+71,1,3,A;B,Junior,3,Health Studies,20
+72,1,3,1,3,3.6,1,20
+73,2,3,A,Junior,3.5,Kinesiology,20
+74,1,3,1,2,2.5,1,19
+75,1,3,2,2,2.75,1,19
+76,1,3,2,3,3,2,21
+77,1,1,A,Junior,2.5,Psychology,21
+78,1,2,A,Junior,3,psychology and sociology,20
+79,1,3,2,3,3,1,21
+80,2,2,A,Junior,2,Health Studies,20
+81,1,5,A,Junior,2.5,Health Studies,21
+82,1,2,1,3,3,1,21
+83,,3,1,3,3.5,4,20
+84,1,3,A,Junior,3,health studies,21
+85,1,4,1,2,3,1,20
+86,1,3,1,3,3,4,20
+87,1,3,2,2,4,4,20
+88,2,1,2,2,2.5,4,20
+89,1,1,2,2,3,1,19
+90,1,3,4,2,2.5,1,20
+91,1,3,1,3,2.5,1,20
+92,2,3,2,3,1.95,1,21
+93,1,3,1,2,3.5,1,19
+94,1,3,1,3,3,1,31
+95,1,3,2,3,3.5,1,21
+96,1,3,A,Sophomore,3.5,psychology,20
+97,2,3,2,3,3,6,23
+98,1,2,B,Sophomore,3,"Psychology, hdf, Spanish ",20
+99,1,4,A,Sophomore,3.5,Biology and Chinese,19
+100,1,5,A,Senior,3,music and psychology,23
+101,1,3,1,2,3,1,19
+102,1,3,2,2,3,1,19
+103,1,5,A,Sophomore,3.5,Kinesiology and Psychology,20
+104,1,3,2,2,3,1,19
+105,1,3,1,2,4,4,19
+106,1,3,A,Sophomore,3,Psychology and Biology,19
+107,1,3,A,Junior,3,psychology,20
+108,1,3,A,Sophomore,2.5,psychology,19
+109,2,3,A,Junior,3,Psychology,20
+110,2,3,A,Sophomore,3.5,Psychology,20
+111,1,3,1,2,3.5,1,19
+112,1,3,1,2,3.5,1,19
+113,1,3,1,2,3.3,1,19
+114,1,3,1,2,3.5,4,19
+115,1,1,A;B,Sophomore,2.5,psychology,19
+116,1,3,2,2,3.5,1,19
+117,1,3,A,Sophomore,3.5,Psychology,19
+118,1,3,A,Sophomore,3.5,Elementary Ed & Psych,19
+119,1,3,A,Sophomore,4,Psychology,20
+120,2,3,A,Junior,3.5,Biology and psychology,20
+121,1,3,2,2,3,10,20
+122,1,3,2,2,3.5,1,19
+123,1,3,A,Sophomore,3,Psychology,20
+124,2,3,A,Junior,3.5,psychology,20
+125,1,3,A,Sophomore,3.5,psychology,19
+126,1,3,B,Junior,2,Psychology,20
+127,1,3,1,2,3,1,19
+128,1,3,2,2,2.5,1,19
+129,1,2,A,Sophomore,3.5,Psychology,20
+130,1,3,2,2,2.5,1,18
+131,1,3,B;C,Sophomore,3,Psychology & Art,20
+132,1,3,B,Sophomore,2.5,elementary ed and psychology,19
+133,1,3,1,2,3.5,1,19
+134,1,3,2,2,3,4,19
+135,1,3,B,Sophomore,3,psychology,20
+136,2,3,B,Senior,3,Health Studies,39
+137,1,3,A,Sophomore,3,Psychology and biology,19
+138,1,3,2,2,3.5,1,19
+139,1,1,A,Sophomore,3,Elementary Education and Psychology,19
+140,1,3,B,Sophomore,2.5,Psychology / Animal Science,20
+141,1,1,A,Sophomore,3.5,Political Science and Psychology,20
+142,1,3,A,Sophomore,4,Criminal Justice/Criminology and Psychology,19
+143,1,3,A,Junior,3.5,,20
+144,2,3,A,Sophomore,3,Kinesiology,20
+145,1,3,A,Sophomore,2.5,Psychology B.S.,20
+146,1,7,B,Sophomore,2.5,Psychology,20
+147,1,3,A,Sophomore,2,psych,19
+148,1,3,A,Sophomore,3.5,elementary education and psychology,20
+149,1,7,A,Sophomore,3.5,Double Major Psych/Soc,20
+150,2,1,B,Sophomore,2,Health Studies,19
+151,2,3,1,2,3,11,19
+152,,,,,3,health studies,21
+153,1,3,2,2,3,1,19
+154,1,3,A,Sophomore,3.5,Psychology,19
+155,1,3,A,Sophomore,3,psychology,20
+156,2,2,B,Sophomore,2,Psychology,19
+157,1,3,2,2,3.5,1,19
+158,1,4,1,2,3.5,4,19
+159,1,3,A,Sophomore,3.5,psychology,19
+160,1,3,1,2,4,1,19
+161,1,7,2,2,2,1,19
+162,2,3,B,Sophomore,3,Psychology and Sociology,19
+163,1,3,A,Sophomore,4,psychology,19
+164,1,6,1,2,3.8,1,20
+165,1,3,1,2,3,1,19
+166,1,3,3,2,3,1,19
+167,1,3,A,Freshman,4,Kiniseology,19
+168,1,3,A,Senior,4,Global & Emviormental Health,26
+169,2,3,1,3,4,1,23
+170,1,3,A,Sophomore,3.5,Psych and HDF,18
+171,1,3,A,Junior,3,Psychology,23
+172,1,3,A,Sophomore,3.5,psychology b.s,19
+173,1,3,A,Freshman,3.5,Psychology,18
+174,1,3,1,3,4,1,23
+175,1,3,A,Freshman,4,PharmD,19
+176,1,3,B,Senior,2.5,psychology,26
+177,1,3,B,Sophomore,2.5,Health Studies,20
+178,1,1,A,Sophomore,4,Psychology,22
+179,1,3,A,Junior,3,Psychology,23
+180,1,4,A,Junior,4,Psych B.S,25
+181,2,3,A,post-bac,4,n/a,36

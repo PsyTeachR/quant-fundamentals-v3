@@ -1,0 +1,179 @@
+participant_private_id,consent_given,age,cigarettes_per_week,smoke_everyday,past_four_weeks,age_started_smoking,country_of_origin,cpd,ethnicity,gender,last_cigarette,level_education,technical_issues,FTND_1,FTND_2,FTND_3,FTND_4,FTND_5,FTND_6,daily_smoker,FTND_sum,nonsmoking200,smoking200,nonsmoking500,smoking500
+631737,1,46,Yes,Yes,Yes,12,United Kingdom,6,White / Caucasian,Female,60,Graduated University / College,No,2,0,1,0,0,0,Daily Smoker,3,444.6274999,452.86750025000003,456.89,449.6650002
+631738,1,54,Yes,Yes,Yes,17,Germany,5,White / Caucasian,Female,780,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,638,703.5,700,725
+631741,1,23,Yes,Yes,Yes,17,Poland,10,Mixed / multiple ethnic groups,Male,90,Graduated Secondary school / High school / equivalent,No,0,0,1,1,0,0,Daily Smoker,2,410.825,433.3175,427.40999999999997,421.225
+631739,1,34,Yes,Yes,Yes,16,Australia,20,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,3,0,1,1,1,1,Daily Smoker,7,516.5374999999999,529.13,517.4775,514.505
+631749,1,38,Yes,Yes,Yes,15,Spain,10,White / Caucasian,Female,60,Some University / College,No,3,0,1,0,1,0,Daily Smoker,5,470.6175,469.475,475.9975,487.1675
+631746,1,19,Yes,Yes,Yes,16,Estonia,1,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,1,1,1,0,Daily Smoker,3,375.2725,367.365,363.195,355.77750000000003
+631750,1,25,Yes,Yes,Yes,22,Italy,6,White / Caucasian,Female,10,Graduated University / College,No,1,0,1,1,0,0,Daily Smoker,3,431.80015,426.15009999999995,433.7,439.8
+631748,1,21,Yes,Yes,Yes,11,United Kingdom,15,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,2,1,0,0,1,1,Daily Smoker,5,529.625,515.07,484.165,474.375
+631759,1,28,Yes,Yes,Yes,18,Mexico,12,Mixed / multiple ethnic groups,Male,30,Graduated University / College,No,1,0,1,0,1,1,Daily Smoker,4,422.495,418.245,430.39750000000004,432.1575
+631766,1,35,Yes,Yes,Yes,15,United Kingdom,20,White / Caucasian,Female,0,Graduated Secondary school / High school / equivalent,No,3,0,1,0,1,1,Daily Smoker,6,581.5,572,564,574
+631767,1,47,Yes,Yes,Yes,18,Estonia,20,White / Caucasian,Male,10,Graduated University / College,No,2,1,1,1,1,1,Daily Smoker,7,572.135,547.17,531.1175000000001,557.725
+631754,1,45,Yes,Yes,Yes,19,Spain,15,White / Caucasian,Male,30,Graduated Secondary school / High school / equivalent,No,2,1,0,1,0,1,Daily Smoker,5,495.25750000000005,443.94,462.4925,446.615
+631769,1,52,Yes,Yes,Yes,20,United Kingdom,20,White / Caucasian,Female,20,Less than Secondary school / High school / equivalent,No,2,0,1,1,1,1,Daily Smoker,6,489.585,507.515,515.9875,537.035
+631768,1,34,Yes,Yes,Yes,19,United Kingdom,5,White / Caucasian,Female,10,Graduated University / College,No,1,1,0,0,1,0,Daily Smoker,3,406.78499999999997,413,438.0525,444.475
+631770,1,44,Yes,Yes,Yes,12,United Kingdom,10,White / Caucasian,Female,60,Postgraduate (masters or doctorate),No,2,0,1,1,0,0,Daily Smoker,4,500.6675,523.79,482.6675,486.47249999999997
+631773,1,20,Yes,Yes,Yes,18,Hungary,3,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,0,0,0,1,0,0,Daily Smoker,1,440.68,428.985,436.1075,422.5925
+631802,1,29,Yes,Yes,Yes,18,United Kingdom,14,White / Caucasian,Female,60,Some University / College,No,1,0,1,1,1,1,Daily Smoker,5,369.845,365.4075,376.28,359.95
+631832,1,33,Yes,Yes,Yes,16,United Kingdom,25,White / Caucasian,Male,10,Some University / College,No,2,1,1,1,0,2,Daily Smoker,7,471.4,485.1475,452.17,475.72
+633890,1,31,Yes,Yes,Yes,15,United Kingdom,10,White / Caucasian,Female,20,Graduated Secondary school / High school / equivalent,No,2,0,0,0,0,0,Daily Smoker,2,412,400,398.5,413
+633898,1,26,Yes,Yes,Yes,20,Ireland,7,White / Caucasian,Female,30,Some University / College,No,1,0,0,0,1,0,Daily Smoker,2,455.695,449.36749999999995,469.525,459.015
+633910,1,26,Yes,Yes,Yes,19,Ireland,3,White / Caucasian,Male,660,Some University / College,No,0,0,1,0,1,0,Daily Smoker,2,577.03,574.9375,565.24,593.575
+633918,1,29,No,Yes,Yes,18,Spain,10,White / Caucasian,Female,60,Graduated University / College,No,1,0,0,0,0,0,Daily Smoker,1,446,450,452,449
+633915,1,49,No,Yes,Yes,14,Bulgaria,20,White / Caucasian,Female,120,Graduated University / College,No,3,1,0,0,0,1,Daily Smoker,5,502.8925,531.9025,477.88,503.035
+633920,1,24,Yes,Yes,Yes,22,Poland,5,White / Caucasian,Male,180,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0,Daily Smoker,1,386.01750000000004,375.445,382.12,408.375
+633928,1,31,Yes,Yes,Yes,22,Spanish,8,White / Caucasian,Male,90,Graduated University / College,No,1,0,0,1,1,0,Daily Smoker,3,513.89,485.57,459.81,507.7475
+633936,1,31,No,Yes,Yes,27,Portugal,4,White / Caucasian,Female,720,Graduated University / College,No,0,0,0,1,0,0,Daily Smoker,1,406.8975,413.16499999999996,382.89250000000004,374.2725
+633934,1,28,Yes,Yes,Yes,18,United Kingdom,15,White / Caucasian,Female,20,Some University / College,No,2,0,1,1,1,1,Daily Smoker,6,481.195,475.1725,391.97,421.115
+633940,1,29,Yes,No,Yes,25,Portugal,3,White / Caucasian,Female,1440,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,466,449,460,479.5
+633941,1,25,Yes,Yes,Yes,15,Italy,12,White / Caucasian,Female,5,Postgraduate (masters or doctorate),No,0,0,0,0,0,1,Daily Smoker,1,424.1325,422.595,424.01,424.005
+633947,1,41,Yes,Yes,Yes,25,Portugal,15,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,2,1,0,0,0,1,Daily Smoker,4,213,222.5,192,84
+633943,1,35,Yes,Yes,Yes,19,United Kingdom,6,White / Caucasian,Female,15,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Daily Smoker,0,497,472.5,481,500.5
+633950,1,33,Yes,No,Yes,17,Estonia,3,White / Caucasian,Male,300,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,433.4,415.85,419.35,419.9
+633946,1,28,Yes,Yes,Yes,16,Italy,4,White / Caucasian,Male,180,Graduated Secondary school / High school / equivalent,No,1,0,1,1,1,0,Daily Smoker,4,424.0525,424.0675,411.0625,403.075
+633945,1,58,Yes,Yes,Yes,14,Italy,15,White / Caucasian,Male,5,Graduated Secondary school / High school / equivalent,No,2,0,1,0,0,1,Daily Smoker,4,640.69,627.3375,643.715,628.3924999999999
+633942,1,43,Yes,Yes,Yes,14,United States,NA,White / Caucasian,Male,45,Graduated University / College,No,3,0,1,0,0,NA,Daily Smoker,NA,405.12,409.64750000000004,397.275,402.6325
+633949,1,21,Yes,Yes,Yes,16,Italy,20,White / Caucasian,Male,60,Some University / College,No,2,0,0,0,1,1,Daily Smoker,4,367.13,364.595,392.61,371.235
+633951,1,32,Yes,Yes,Yes,20,Poland,15,White / Caucasian,Female,45,Graduated Secondary school / High school / equivalent,No,2,1,1,1,0,1,Daily Smoker,6,434.8775,422.4375,417.135,442.9775
+633953,1,53,Yes,Yes,Yes,13,Italy,20,White / Caucasian,Male,3,Graduated Secondary school / High school / equivalent,No,3,1,0,0,0,1,Daily Smoker,5,533.2225,548.1700000000001,561.245,544.265
+633959,1,36,Yes,Yes,Yes,20,Greece,10,White / Caucasian,Male,30,Postgraduate (masters or doctorate),No,2,0,1,1,1,0,Daily Smoker,5,449.5,473.5,470,464.5
+633960,1,39,Yes,Yes,Yes,17,Poland,30,White / Caucasian,Male,10,Graduated Secondary school / High school / equivalent,No,3,1,1,1,1,2,Daily Smoker,9,850,832,715,750
+633948,1,34,Yes,Yes,Yes,15,Poland,20,White / Caucasian,Male,NA,Graduated University / College,No,2,1,1,1,1,1,Daily Smoker,7,549,554,510,513
+633944,1,42,Yes,Yes,Yes,15,Poland,10,White / Caucasian,Female,480,Graduated University / College,No,0,0,1,0,0,0,Daily Smoker,1,478.0625,492.005,500.5825,499.5425
+633954,1,28,Yes,Yes,Yes,18,Poland,10,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0,Daily Smoker,1,393.08000000000004,376.96000000000004,383.39,392.655
+633962,1,33,Yes,Yes,Yes,16,Poland,11,White / Caucasian,Female,15,Graduated University / College,No,2,1,1,0,1,1,Daily Smoker,6,430.5,431,463,476.5
+633955,1,25,Yes,Yes,Yes,20,Portugal,5,White / Caucasian,Male,NA,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,373.08,375.31,375.9175,385.2475
+633958,1,24,Yes,Yes,Yes,17,Hungary,9,White / Caucasian,Male,60,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Daily Smoker,0,467,455,501,506
+633965,1,52,Yes,Yes,Yes,25,Spain,20,White / Caucasian,Female,5,Graduated University / College,No,2,0,1,1,1,1,Daily Smoker,6,463.3,454.90004999999996,475.05010000000004,485.94995
+633957,1,39,Yes,Yes,Yes,29,Poland,20,White / Caucasian,Male,30,Some University / College,No,2,0,0,0,0,1,Daily Smoker,3,571.69,566.4175,579.07,554.0775000000001
+633967,1,31,Yes,Yes,Yes,16,United Kingdom,2,White / Caucasian,Female,660,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,433,411,421,427
+633969,1,40,Yes,Yes,Yes,20,Hungary,15,White / Caucasian,Male,5,Graduated University / College,No,1,1,1,0,0,1,Daily Smoker,4,440,443.5,409,428
+633964,1,37,Yes,Yes,Yes,19,Greece,5,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Daily Smoker,0,465,476,461.5,470
+634036,1,35,Yes,Yes,Yes,24,USA,5,White / Caucasian,Male,60,Graduated University / College,No,2,0,1,1,0,0,Daily Smoker,4,506.605,526.8299999999999,507.5375,503.275
+634047,1,50,Yes,Yes,Yes,14,United Kingdom,20,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,2,1,0,1,1,1,Daily Smoker,6,960,1108,927,945
+634066,1,40,Yes,Yes,Yes,15,United Kingdom,15,White / Caucasian,Female,37,Some University / College,No,1,0,1,1,0,1,Daily Smoker,4,417,419,428,412
+650581,1,44,Yes,Yes,Yes,20,Romania,15,White / Caucasian,Female,5,Graduated University / College,No,3,0,0,0,1,1,Daily Smoker,5,540,554.5,549,551
+650602,1,29,Yes,Yes,Yes,19,Canada,10,White / Caucasian,Female,30,Graduated University / College,No,2,0,1,0,0,0,Daily Smoker,3,443,449.5,461.5,467.5
+650611,1,34,Yes,Yes,Yes,18,USA,7,Black / African / Caribbean / Black British,Female,30,Some University / College,No,1,0,0,0,0,0,Daily Smoker,1,453.865,444.895,438.5175,431.495
+650608,1,32,Yes,Yes,Yes,16,United Kingdom,20,White / Caucasian,Male,1,Graduated Secondary school / High school / equivalent,No,0,0,0,1,1,1,Daily Smoker,3,481.055,472.595,469.15,475.2425
+650628,1,45,Yes,Yes,Yes,18,The Netherlands,3,White / Caucasian,Male,7,Graduated University / College,No,0,0,1,1,1,0,Daily Smoker,3,441.875,449.59000000000003,484.025,458.98
+650634,1,22,Yes,Yes,Yes,16,Portugal,6,White / Caucasian,Male,1290,Postgraduate (masters or doctorate),No,1,0,0,0,0,0,Daily Smoker,1,456.5,438,444,439
+650623,1,18,Yes,Yes,Yes,17,Czech Republic,5,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0,Daily Smoker,1,460.24,460.1325,442.3875,439.77
+650635,1,25,Yes,Yes,Yes,18,Portugal,10,White / Caucasian,Male,5,Some University / College,No,2,0,1,0,0,0,Daily Smoker,3,512.2225000000001,514.0725,525.9124999999999,512.0025
+650640,1,34,Yes,Yes,Yes,16,Poland,10,White / Caucasian,Male,60,Postgraduate (masters or doctorate),No,1,0,1,0,1,0,Daily Smoker,3,427.65,435.70000000000005,448.5,438.29999999999995
+650642,1,22,Yes,Yes,Yes,16,Poland,5,White / Caucasian,Female,60,Some University / College,No,2,0,1,0,1,0,Daily Smoker,4,471.745,469.0875,483.7,470.745
+650639,1,40,Yes,Yes,Yes,16,Bulgaria,25,White / Caucasian,Female,5,Graduated Secondary school / High school / equivalent,No,2,1,0,0,1,2,Daily Smoker,6,448.69995,458.35005,405.25030000000004,390.50025
+650641,1,29,Yes,Yes,Yes,22,Latvia,10,White / Caucasian,Male,5,Graduated University / College,No,0,0,1,1,0,0,Daily Smoker,2,413.745,417.845,458.38,458.805
+650645,1,23,Yes,Yes,Yes,19,Sweden,3,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,1,0,1,1,1,0,Daily Smoker,4,457.515,448.935,377.88,383.455
+650665,1,25,Yes,Yes,Yes,18,Portugal,6,White / Caucasian,Male,720,Some University / College,No,2,0,1,0,0,0,Daily Smoker,3,465,481,453,468
+650795,1,19,Yes,Yes,Yes,17,United Kingdom,2,White / Caucasian,Female,3060,Some University / College,No,0,0,0,0,0,0,Daily Smoker,0,872,778,777,715.5
+659312,1,27,Yes,No,Yes,15,United Kingdom,5,White / Caucasian,Female,10,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,453.67,453.605,456.63750000000005,456.1775
+659314,1,21,Yes,Yes,Yes,17,Poland,2,Mixed / multiple ethnic groups,Male,NA,Some University / College,No,0,0,0,0,0,0,Daily Smoker,0,384.875,378.48,405.25,389.265
+659313,1,42,No,No,Yes,20,Spain,1,White / Caucasian,Female,5040,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,510.67,511.0475,517.8775,525.2525
+659316,1,25,Yes,No,Yes,14,Denmark,0,White / Caucasian,Male,5040,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,404.48749999999995,404.89,431.625,418.6575
+659319,1,30,Yes,Yes,Yes,17,Israel,8,Other (please specify),Female,60,Graduated Secondary school / High school / equivalent,No,1,0,1,1,0,0,Daily Smoker,3,491,508,511,521.5
+659324,1,39,Yes,Yes,Yes,23,Poland,6,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,1,0,0,0,Daily Smoker,1,559.58,562.78,532.68,535.3675000000001
+659329,1,21,Yes,No,Yes,17,Portugal,1,White / Caucasian,Male,2880,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,445.985,438.575,444.55,450.1975
+659327,1,25,Yes,Yes,Yes,21,Turkey,1,Arab,Male,720,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,430.585,441.4975,435.5425,431.27
+659481,1,37,Yes,Yes,Yes,19,USA,5,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Daily Smoker,0,386.21,396.805,404.29,371.58
+659483,1,38,Yes,Yes,Yes,14,Italy,5,White / Caucasian,Male,30,Graduated Secondary school / High school / equivalent,No,2,0,1,0,0,0,Daily Smoker,3,465.97749999999996,459.08500000000004,459.125,448.4675
+659480,1,34,Yes,Yes,Yes,20,United Kingdom,4,White / Caucasian,Male,35,Graduated University / College,No,1,0,0,0,0,0,Daily Smoker,1,417.995,444.9975,407.52,413.6975
+659488,1,27,Yes,Yes,Yes,22,Hungary,2,White / Caucasian,Female,900,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,372.8325,389.34,402.1525,375.1325
+659484,1,30,Yes,No,Yes,16,Germany,1,White / Caucasian,Male,3600,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,433.395,443.67,447.795,447.385
+659489,1,19,Yes,No,Yes,18,Italy,1,White / Caucasian,Male,60,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,382.175,380.7125,352.855,370.5775
+659485,1,25,Yes,Yes,Yes,15,Italy,7,White / Caucasian,Male,10,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0,Daily Smoker,1,479.05499999999995,433.425,468,474.4275
+659486,1,52,Yes,Yes,Yes,16,United Kingdom,4,White / Caucasian,Female,450,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Daily Smoker,0,431.02250000000004,436.885,443.58,443.4075
+659479,1,36,Yes,Yes,Yes,16,Spain,2,Other (please specify),Female,980,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,779.465,772.705,709.99,707.49
+660554,1,27,Yes,Yes,Yes,16,Latvia,10,White / Caucasian,Male,5,Graduated University / College,No,1,0,0,0,0,0,Daily Smoker,1,441.31,453.6825,466.245,472.405
+660553,1,26,Yes,No,Yes,22,Estonia,1,White / Caucasian,Female,2160,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,406.22249999999997,397.455,388.17,397.8725
+660557,1,20,Yes,Yes,Yes,17,Poland,4,White / Caucasian,Male,660,Less than Secondary school / High school / equivalent,No,0,0,1,0,0,0,Daily Smoker,1,400.5,399,401,409
+660558,1,19,Yes,Yes,Yes,15,Italy,1,White / Caucasian,Male,1440,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Daily Smoker,0,537,513.5,507,503
+660559,1,20,Yes,Yes,Yes,19,Poland,15,White / Caucasian,Male,60,Less than Secondary school / High school / equivalent,No,1,0,0,0,0,1,Daily Smoker,2,351.8925,348.65250000000003,344.515,339.225
+660560,1,37,Yes,No,Yes,28,Finland,1,White / Caucasian,Male,720,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,466.9325,478.8725,507.5025,502.56
+660561,1,29,Yes,No,Yes,15,Greece,1,White / Caucasian,Female,900,Postgraduate (masters or doctorate),No,1,0,1,0,0,0,Non-daily Smoker,2,460.665,455.185,422.33,415.52250000000004
+660562,1,25,Yes,No,Yes,18,Italy,1,White / Caucasian,Male,10080,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,419.96,413.435,391.39,385.95
+660563,1,21,No,No,Yes,19,Switzerland,0,White / Caucasian,Male,4320,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,444.11,440.0375,401.15999999999997,420.42499999999995
+660564,1,49,Yes,Yes,Yes,16,Spain,8,White / Caucasian,Female,1440,Some University / College,No,0,0,1,1,0,0,Daily Smoker,2,456.1025,426.825,485.795,448.4
+660565,1,19,Yes,Yes,Yes,17,Portugal,5,White / Caucasian,Female,1560,Some University / College,No,0,0,1,0,0,0,Daily Smoker,1,462,465,472,467.5
+660567,1,24,Yes,Yes,Yes,23,Australia,1,White / Caucasian,Male,1440,Some University / College,No,0,1,1,1,1,0,Daily Smoker,4,453.69500000000005,464.905,438.6225,449.33
+660566,1,23,Yes,Yes,Yes,18,Greece,2,Mixed / multiple ethnic groups,Male,300,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,440.3,459.7,475.6,464.79999999999995
+660571,1,19,Yes,No,Yes,NA,Portugal,1,White / Caucasian,Male,2160,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,365.34,367.0775,387.82,371.0075
+660573,1,19,Yes,Yes,Yes,17,The Netherlands,1,White / Caucasian,Male,720,Some University / College,No,0,0,0,0,0,0,Daily Smoker,0,403.705,432.68,380.425,371.155
+660574,1,35,Yes,Yes,Yes,17,Hungary,20,White / Caucasian,Female,30,Graduated University / College,No,2,1,1,0,1,1,Daily Smoker,6,466,459,477,480
+660572,1,50,Yes,No,Yes,15,United Kingdom,1,White / Caucasian,Male,8640,Some University / College,No,0,0,0,1,0,0,Non-daily Smoker,1,534,538,521,518.5
+660579,1,23,Yes,No,Yes,17,United Kingdom,3,White / Caucasian,Female,60,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,467.5,468,435,439.5
+660583,1,39,Yes,No,Yes,28,United Kingdom,2,White / Caucasian,Male,2400,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,450.35,455.2,434.45000000000005,421.75
+660585,1,26,Yes,No,Yes,16,United Kingdom,1,White / Caucasian,Female,660,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,540.35,517.3,526.7,541.6
+660586,1,44,Yes,Yes,Yes,16,United Kingdom,8,White / Caucasian,Male,60,Graduated Secondary school / High school / equivalent,No,1,0,1,0,0,0,Daily Smoker,2,452.4,458.2925,452.015,449.315
+695000,1,23,Yes,Yes,Yes,13,Italy,10,White / Caucasian,Male,7200,Some University / College,No,2,0,1,0,0,0,Daily Smoker,3,515.44,535.2475,448.63,437.825
+695003,1,27,Yes,No,Yes,15,Italy,1,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,459.74,475.72,470.575,440.2125
+695006,1,27,Yes,No,Yes,22,Hungary,2,White / Caucasian,Female,1440,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,518.0999999999999,510.115,504.90250000000003,496.04499999999996
+695009,1,30,Yes,Yes,Yes,21,Greece,5,White / Caucasian,Male,10,Some University / College,No,0,0,1,0,0,0,Daily Smoker,1,564.0174999999999,549.67,527.69,546.8975
+695013,1,18,Yes,Yes,Yes,17,Portugal,2,Other (please specify),Male,120,Some University / College,No,0,0,0,0,0,0,Daily Smoker,0,438.255,436.195,397.475,399.7575
+695015,1,28,Yes,No,Yes,27,Poland,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,465.5,464,464.5,436.5
+695016,1,27,Yes,Yes,Yes,12,Italy,6,White / Caucasian,Female,180,Some University / College,No,0,1,1,1,0,0,Daily Smoker,3,514.5,497.5,501,502.5
+695018,1,32,Yes,Yes,Yes,16,Canada,3,White / Caucasian,Female,10,Postgraduate (masters or doctorate),No,1,1,1,1,1,0,Daily Smoker,5,531.15,487.35,452.5,492.1
+695017,1,29,Yes,Yes,Yes,20,Portugal,NA,White / Caucasian,Female,5760,Postgraduate (masters or doctorate),No,0,0,0,0,0,NA,Daily Smoker,NA,374.1225,377.97749999999996,385.995,379.965
+695021,1,31,Yes,Yes,Yes,17,Poland,6,White / Caucasian,Male,120,Postgraduate (masters or doctorate),No,0,0,1,1,1,0,Daily Smoker,3,383.2275,357.835,358.22,369.635
+695024,1,37,Yes,No,Yes,26,Hong Kong,1,Chinese,Female,9300,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,522.1775,536.12,436.57,447.57500000000005
+695029,1,26,Yes,No,Yes,16,Ireland,1,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,402.59000000000003,389.9275,395.1875,391.8375
+695028,1,37,Yes,Yes,Yes,35,Poland,3,White / Caucasian,Female,120,Postgraduate (masters or doctorate),No,1,0,0,1,0,0,Daily Smoker,2,591.39985,555.1501000000001,578.14975,497.6001
+695022,1,23,Yes,No,Yes,18,Portugal,2,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,515.5,516,455,482
+695035,1,22,Yes,Yes,Yes,14,Austria,3,White / Caucasian,Female,1440,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,503.5375,499.74,460.165,460.96500000000003
+695055,1,28,Yes,Yes,Yes,17,France,2,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,372.09,379.57,385.875,375.095
+695075,1,27,No,No,Yes,22,Belgium,3,White / Caucasian,Male,11520,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,497.135,510.285,525.215,523.265
+695091,1,38,Yes,No,Yes,20,United Kingdom,10,White / Caucasian,Male,720,Postgraduate (masters or doctorate),No,0,0,1,0,0,0,Non-daily Smoker,1,449.88,453.02,455.385,452.0625
+695092,1,23,Yes,No,Yes,19,United Kingdom,1,White / Caucasian,Male,2880,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,798.89,843.1675,762.545,757.625
+695096,1,33,Yes,Yes,Yes,22,Poland,7,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,479,452.5,449.5,457
+695102,1,26,Yes,Yes,Yes,21,United Kingdom,4,White / Caucasian,Female,5,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Daily Smoker,0,422.545,413.6675,406.665,420.2925
+695105,1,43,Yes,Yes,Yes,21,United Kingdom,1,White / Caucasian,Female,1440,Graduated University / College,No,1,1,1,1,0,0,Daily Smoker,4,519.5,494.5,468,483
+695486,1,21,Yes,Yes,Yes,16,United Kingdom,2,White / Caucasian,Female,10080,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,430.22749999999996,426.195,396.99,421.83000000000004
+730164,1,34,Yes,No,Yes,17,Poland,1,White / Caucasian,Female,4320,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,219.115,244.9625,174.4,182.195
+730172,1,29,Yes,Yes,Yes,18,Spain,6,White / Caucasian,Male,600,Some University / College,No,0,0,0,0,0,0,Daily Smoker,0,426.8,407.0325,395.105,419.225
+730179,1,24,Yes,No,Yes,19,Poland,1,White / Caucasian,Male,2880,Graduated Secondary school / High school / equivalent,No,0,1,0,0,0,0,Non-daily Smoker,1,450.26,425.57,438.5125,431.945
+730182,1,27,No,No,Yes,19,Poland,2,White / Caucasian,Male,5760,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,410,405,386,394.5
+730183,1,37,Yes,No,Yes,18,United Kingdom,2,White / Caucasian,Female,1380,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,459,474,451,465
+730186,1,27,Yes,No,Yes,18,United Kingdom,2,White / Caucasian,Female,180,Some University / College,No,0,0,1,1,0,0,Non-daily Smoker,2,512,504,494,494
+730191,1,29,Yes,No,Yes,17,United Kingdom,1,Mixed / multiple ethnic groups,Female,6480,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,398.74995,416.8002,389.5502,398.1499
+730190,1,28,No,No,Yes,19,Poland,2,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,0,1,0,0,0,Non-daily Smoker,1,524.4375,560.3875,557.615,549.745
+730189,1,50,Yes,No,Yes,24,Poland,4,White / Caucasian,Female,600,Graduated University / College,No,1,0,0,0,0,0,Non-daily Smoker,1,456.64,473.41,434.1,453.45500000000004
+730194,1,31,Yes,No,Yes,15,Italy,5,White / Caucasian,Male,1440,Postgraduate (masters or doctorate),No,0,0,1,0,1,0,Non-daily Smoker,2,452.185,444.605,429.79,443.2
+730198,1,24,Yes,No,Yes,19,United Kingdom,10,White / Caucasian,Male,2880,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,381.72249999999997,389.585,411.72,403.63
+730199,1,47,Yes,No,Yes,15,United Kingdom,2,White / Caucasian,Male,NA,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,434.14,430.2675,406.725,408.5575
+730201,1,43,No,No,Yes,16,Spain,2,White / Caucasian,Male,7200,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,486.25,511.895,454.385,453.255
+730206,1,26,Yes,No,Yes,18,United Kingdom,3,White / Caucasian,Female,1080,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,433.8001,456.80005,403.8999,402.8001
+730207,1,19,Yes,No,Yes,18,Poland,2,White / Caucasian,Male,60,Some University / College,No,2,0,1,1,0,0,Non-daily Smoker,4,486.5,494,543,497
+730209,1,26,Yes,Yes,Yes,25,United Kingdom,NA,White / Caucasian,Female,180,Graduated University / College,No,0,0,0,0,0,NA,Daily Smoker,NA,432.5,445,410,411
+730210,1,22,Yes,No,Yes,18,Greece,3,White / Caucasian,Male,7200,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,436.805,428.39,456.915,467.48
+730213,1,27,Yes,Yes,Yes,22,Portugal,5,White / Caucasian,Male,660,Graduated University / College,No,2,0,0,0,0,0,Daily Smoker,2,375.11,370.0075,355.32,363.705
+730221,1,18,Yes,No,Yes,17,USA,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,457.195,436.09,442.7875,452.775
+730217,1,33,Yes,No,Yes,18,Poland,2,White / Caucasian,Male,1440,Postgraduate (masters or doctorate),No,1,1,1,1,1,0,Non-daily Smoker,5,502.0875,480.02,463.5475,449.15
+730219,1,18,Yes,No,Yes,17,Poland,1,White / Caucasian,Male,4320,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,418,405.5,427,433
+730224,1,27,Yes,Yes,Yes,19,United Kingdom,3,White / Caucasian,Female,1440,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,436.165,440.595,416.9625,425.985
+730228,1,21,Yes,Yes,Yes,17,Portugal,10,White / Caucasian,Male,30,Some University / College,No,1,0,0,0,0,0,Daily Smoker,1,440.5,426.5,425.5,419
+730231,1,20,Yes,Yes,Yes,19,Spain,1,White / Caucasian,Male,48,Graduated University / College,No,0,1,0,0,0,0,Daily Smoker,1,420.92,433.24,403.8275,409.0475
+730306,1,23,Yes,No,Yes,15,United Kingdom,1,White / Caucasian,Male,7200,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,503.005,514.4775,469.1725,465.6925
+730307,1,40,Yes,Yes,Yes,18,United Kingdom,10,White / Caucasian,Male,NA,Some University / College,No,0,0,1,0,1,0,Daily Smoker,2,487.84000000000003,493.12,490.185,463.8275
+759207,1,21,Yes,Yes,Yes,17,Latvia,2,White / Caucasian,Male,120,Graduated Secondary school / High school / equivalent,No,0,1,1,1,1,0,Daily Smoker,4,398.83,394.9425,423.775,413.965
+759212,1,30,Yes,No,Yes,16,Mexico,1,Mixed / multiple ethnic groups,Male,5400,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,454.455,448.755,467.5075,469.46
+759219,1,25,Yes,No,Yes,16,Portugal,1,White / Caucasian,Female,1620,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,582.2125,596.705,555.9725,574.0250000000001
+759216,1,25,Yes,No,Yes,12,Estonia,17,White / Caucasian,Male,20,Graduated Secondary school / High school / equivalent,No,2,1,1,1,1,1,Non-daily Smoker,7,409.33,406.73,447.955,409.805
+759220,1,21,Yes,No,Yes,17,Slovenia,5,Other (please specify),Female,600,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,414.915,413.1175,443.145,437.095
+759225,1,29,Yes,Yes,Yes,14,Mexico,1,Other (please specify),Male,960,Graduated University / College,No,0,0,0,0,0,0,Daily Smoker,0,424.9075,432.38250000000005,424.22749999999996,421.98249999999996
+759229,1,30,Yes,No,Yes,26,Hungary,1,White / Caucasian,Male,10080,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,511.8375,496.775,512.7875,510.2075
+759227,1,56,Yes,Yes,Yes,20,Italy,8,White / Caucasian,Female,120,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Daily Smoker,0,640.995,584.29,666.525,593.485
+759230,1,23,Yes,No,Yes,16,Mexico,4,White / Caucasian,Male,840,Graduated University / College,No,0,0,1,0,0,0,Non-daily Smoker,1,453.66,442.83500000000004,472.2,472.05999999999995
+759233,1,44,Yes,Yes,Yes,14,United Kingdom,10,White / Caucasian,Female,10,Graduated Secondary school / High school / equivalent,No,3,1,0,1,0,0,Daily Smoker,5,603.5,599,519.5,539
+759243,1,30,Yes,No,Yes,19,Italy,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,475.675,490.0325,448.365,452.0825
+759245,1,19,Yes,No,Yes,18,United Kingdom,1,White / Caucasian,Female,2880,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,596,725,616.5,643.5
+759246,1,28,Yes,Yes,Yes,21,Poland,10,White / Caucasian,Male,5,Postgraduate (masters or doctorate),No,0,0,1,1,1,0,Daily Smoker,3,470,463.5,497.5,492.5
+759236,1,28,Yes,No,Yes,17,Poland,5,White / Caucasian,Male,14400,Less than Secondary school / High school / equivalent,No,2,0,0,1,0,0,Non-daily Smoker,3,450.505,446.91,443,434.95
+759247,1,48,Yes,No,Yes,16,USA,1,White / Caucasian,Female,5760,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,442.23249999999996,442.08,452.78,454.7675
+759345,1,29,Yes,No,Yes,22,United Kingdom,1,White / Caucasian,Male,4320,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,429.725,429.085,435.51,440.0625
+759353,1,24,Yes,No,Yes,17,United Kingdom,2,White / Caucasian,Male,8640,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,515.03,515.325,529.2625,542.6225
+759359,1,36,Yes,No,Yes,13,USA,3,White / Caucasian,Male,1440,Graduated University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,413.825,404.57500000000005,429.765,422.65
+759672,1,33,No,No,Yes,16,USA,0,Other (please specify),Male,NA,Some University / College,No,0,0,0,0,0,0,Non-daily Smoker,0,490.9925,498.2025,468.1825,465.7275
+759673,1,28,Yes,No,Yes,14,United Kingdom,1,White / Caucasian,Female,NA,Less than Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,444.6725,437.145,412.475,420.62
+759675,1,42,Yes,No,Yes,21,United Kingdom,1,White / Caucasian,Male,17880,Graduated Secondary school / High school / equivalent,No,0,0,0,0,0,0,Non-daily Smoker,0,434.90999999999997,428.3225,406.85,435.04499999999996
+759676,1,27,Yes,No,Yes,22,Italy,5,White / Caucasian,Male,7200,Postgraduate (masters or doctorate),No,0,0,0,0,0,0,Non-daily Smoker,0,464.435,449.8425,454.6,482.42499999999995

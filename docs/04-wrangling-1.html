@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
+<title>Fundamentals of Quantitative Analysis - 4&nbsp; Data wrangling 1: Join, select, and mutate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-wrangling-2.html" rel="next">
+<link href="./03-intro-data-viz.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-wrangling-1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Fundamentals of Quantitative Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-programming-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to programming with R/R Studio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-starting-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Reproducible Documents</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-intro-data-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-wrangling-1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-wrangling-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-wrangling-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3: Pivots and Pipes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-more-visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Scatterplots, boxplots, and violin-boxplots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-lm-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression with one continuous predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-lm-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regression with one categorical predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical Power and Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-screening-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-factorial-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Factorial ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multiple Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-analysis-journeys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Analysis Journeys</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-analysis-journey-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Analysis Journey 1: Data Wrangling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-analysis-journey-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Analysis Journey 2: Simple Linear Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a2-additional-learning-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Additional Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a3-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#chapter-preparation" id="toc-chapter-preparation" class="nav-link active" data-scroll-target="#chapter-preparation"><span class="header-section-number">4.1</span> Chapter preparation</a>
+  <ul class="collapse">
+<li><a href="#introduction-to-the-data-set" id="toc-introduction-to-the-data-set" class="nav-link" data-scroll-target="#introduction-to-the-data-set"><span class="header-section-number">4.1.1</span> Introduction to the data set</a></li>
+  <li><a href="#organising-your-files-and-project-for-the-chapter" id="toc-organising-your-files-and-project-for-the-chapter" class="nav-link" data-scroll-target="#organising-your-files-and-project-for-the-chapter"><span class="header-section-number">4.1.2</span> Organising your files and project for the chapter</a></li>
+  <li><a href="#activity-1---load-tidyverse-and-read-the-data-files" id="toc-activity-1---load-tidyverse-and-read-the-data-files" class="nav-link" data-scroll-target="#activity-1---load-tidyverse-and-read-the-data-files"><span class="header-section-number">4.1.3</span> Activity 1 - Load <pkg>tidyverse</pkg> and read the data files</a></li>
+  </ul>
+</li>
+  <li><a href="#tidyverse-and-the-dplyr-package" id="toc-tidyverse-and-the-dplyr-package" class="nav-link" data-scroll-target="#tidyverse-and-the-dplyr-package"><span class="header-section-number">4.2</span> Tidyverse and the dplyr package</a></li>
+  <li>
+<a href="#04-joins" id="toc-04-joins" class="nav-link" data-scroll-target="#04-joins"><span class="header-section-number">4.3</span> Joining two data frames with <code>*_join()</code> functions</a>
+  <ul class="collapse">
+<li><a href="#activity-2---join-the-files-together" id="toc-activity-2---join-the-files-together" class="nav-link" data-scroll-target="#activity-2---join-the-files-together"><span class="header-section-number">4.3.1</span> Activity 2 - Join the files together</a></li>
+  <li><a href="#activity-3---explore-your-data-objects" id="toc-activity-3---explore-your-data-objects" class="nav-link" data-scroll-target="#activity-3---explore-your-data-objects"><span class="header-section-number">4.3.2</span> Activity 3 - Explore your data objects</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#selecting-variables-of-interest-with-select" id="toc-selecting-variables-of-interest-with-select" class="nav-link" data-scroll-target="#selecting-variables-of-interest-with-select"><span class="header-section-number">4.4</span> Selecting variables of interest with <code>select()</code></a>
+  <ul class="collapse">
+<li><a href="#activity-4---selecting-variables-you-want-to-include" id="toc-activity-4---selecting-variables-you-want-to-include" class="nav-link" data-scroll-target="#activity-4---selecting-variables-you-want-to-include"><span class="header-section-number">4.4.1</span> Activity 4 - Selecting variables you want to include</a></li>
+  <li><a href="#activity-5---selecting-variables-you-want-to-ignore" id="toc-activity-5---selecting-variables-you-want-to-ignore" class="nav-link" data-scroll-target="#activity-5---selecting-variables-you-want-to-ignore"><span class="header-section-number">4.4.2</span> Activity 5 - Selecting variables you want to ignore</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#arranging-variables-of-interest-with-arrange" id="toc-arranging-variables-of-interest-with-arrange" class="nav-link" data-scroll-target="#arranging-variables-of-interest-with-arrange"><span class="header-section-number">4.5</span> Arranging variables of interest with <code>arrange()</code></a>
+  <ul class="collapse">
+<li><a href="#activity-6---arranging-in-ascending-order" id="toc-activity-6---arranging-in-ascending-order" class="nav-link" data-scroll-target="#activity-6---arranging-in-ascending-order"><span class="header-section-number">4.5.1</span> Activity 6 - Arranging in ascending order</a></li>
+  <li><a href="#activity-7---arranging-in-descending-order" id="toc-activity-7---arranging-in-descending-order" class="nav-link" data-scroll-target="#activity-7---arranging-in-descending-order"><span class="header-section-number">4.5.2</span> Activity 7 - Arranging in descending order</a></li>
+  <li><a href="#activity-8---sorting-by-multiple-columns" id="toc-activity-8---sorting-by-multiple-columns" class="nav-link" data-scroll-target="#activity-8---sorting-by-multiple-columns"><span class="header-section-number">4.5.3</span> Activity 8 - Sorting by multiple columns</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#modifying-or-creating-variables-with-mutate" id="toc-modifying-or-creating-variables-with-mutate" class="nav-link" data-scroll-target="#modifying-or-creating-variables-with-mutate"><span class="header-section-number">4.6</span> Modifying or creating variables with <code>mutate()</code></a>
+  <ul class="collapse">
+<li><a href="#activity-9---modifying-existing-variables" id="toc-activity-9---modifying-existing-variables" class="nav-link" data-scroll-target="#activity-9---modifying-existing-variables"><span class="header-section-number">4.6.1</span> Activity 9 - Modifying existing variables</a></li>
+  <li><a href="#activity-10---creating-new-variables" id="toc-activity-10---creating-new-variables" class="nav-link" data-scroll-target="#activity-10---creating-new-variables"><span class="header-section-number">4.6.2</span> Activity 10 - Creating new variables</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#ld-test" id="toc-ld-test" class="nav-link" data-scroll-target="#ld-test"><span class="header-section-number">4.7</span> Test yourself</a>
+  <ul class="collapse">
+<li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">4.7.1</span> Knowledge check</a></li>
+  <li><a href="#error-mode-1" id="toc-error-mode-1" class="nav-link" data-scroll-target="#error-mode-1"><span class="header-section-number">4.7.2</span> Error mode</a></li>
+  </ul>
+</li>
+  <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">4.8</span> Words from this Chapter</a></li>
+  <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">4.9</span> End of Chapter</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/04-wrangling-1.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/04-wrangling-1.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="04-wrangling-1" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>In this chapter, we start our exploration of <a href="https://psyteachr.github.io/glossary/d#data-wrangling" target="_blank" class="glossary" title="The process of preparing data for visualisation and statistical analysis.">data wrangling</a>. Some of you might have experience painstakingly copying and pasting values into new columns or trying to match up values from multiple spreadsheets. As well as taking a long time, there is so much room for error as you might repeat or miss values.</p>
+<p>We have mentioned a few times now the benefits of working with R/RStudio to develop reproducible research practices over the first few chapters. But, if you take nothing else away from these materials, developing your data wrangling skills is one of the primary benefits that will benefit you in many assessments and careers. Researchers actually spend far more of their time cleaning and preparing their data than they spend analysing it. <span class="citation" data-cites="dasu2003">Dasu &amp; Johnson (<a href="references.html#ref-dasu2003" role="doc-biblioref">2003</a>)</span> estimated that up to 80% of time spent on data analysis involves data preparation tasks! Although every data set presents unique challenges, there are some systematic principles that you will constantly use to make your analyses less error-prone and more efficient. Our mantra is: the data changes but the skills stay the same.</p>
+<p>Over the next three chapters, we are going to introduce you to a range of functions within the <pkg>tidyverse</pkg> for wrangling data. In this chapter, we will cover joining two data sets by a common identifier, selecting columns to simplify your data, arranging values within a data set, and mutating data to create new variables.</p>
+<p><strong>Chapter Intended Learning Outcomes (ILOs)</strong></p>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li><p>Join two data sets by matching one or more identifying columns in common.</p></li>
+<li><p>Select a range and reorder variables in your data set.</p></li>
+<li><p>Arrange values in numerical or alphabetical order.</p></li>
+<li><p>Modify or create variables, such as recoding values or creating new groups.</p></li>
+</ul>
+<section id="chapter-preparation" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="chapter-preparation">
+<span class="header-section-number">4.1</span> Chapter preparation</h2>
+<section id="introduction-to-the-data-set" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="introduction-to-the-data-set">
+<span class="header-section-number">4.1.1</span> Introduction to the data set</h3>
+<p>For this chapter, we are using open data from <span class="citation" data-cites="woodworth_data_2018">Woodworth et al. (<a href="references.html#ref-woodworth_data_2018" role="doc-biblioref">2018</a>)</span> one more time. In the last two chapters, we asked you to trust us and copy some code until we reached data wrangling, and now is the time to fill in those gaps. If you need a reminder, the abstract of their article is:</p>
+<blockquote class="blockquote">
+<p>We present two datasets. The first dataset comprises 992 point-in-time records of self-reported happiness and depression in 295 participants, each assigned to one of four intervention groups, in a study of the effect of web-based positive-psychology interventions. Each point-in-time measurement consists of a participant’s responses to the 24 items of the Authentic Happiness Inventory and to the 20 items of the Center for Epidemiological Studies Depression (CES-D) scale. Measurements were sought at the time of each participant’s enrolment in the study and on five subsequent occasions, the last being approximately 189 days after enrolment. The second dataset contains basic demographic information about each participant.</p>
+</blockquote>
+<p>In summary, we have one data set containing demographic information about participants and a second data set containing measurements of two scales on happiness and depression.</p>
+</section><section id="organising-your-files-and-project-for-the-chapter" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="organising-your-files-and-project-for-the-chapter">
+<span class="header-section-number">4.1.2</span> Organising your files and project for the chapter</h3>
+<p>Before we can get started, you need to organise your files and project for the chapter, so your working directory is in order.</p>
+<ol type="1">
+<li><p>In your folder for research methods and the book <code>ResearchMethods1_2/Quant_Fundamentals</code>, create a new folder called <code>Chapter_04_06_datawrangling</code>. As we are spending three chapters on data wrangling, we will work within one folder. Within <code>Chapter_04_06_datawrangling</code>, create two new folders called <code>data</code> and <code>figures</code>.</p></li>
+<li><p>Create an R Project for <code>Chapter_04_06_datawrangling</code> as an existing directory for your chapter folder. This should now be your working directory.</p></li>
+<li><p>We will work within one folder, but create a new R Markdown for each chapter. Create a new R Markdown document and give it a sensible title describing the chapter, such as <code>04 Data Wrangling 1</code>. Delete everything below line 10 so you have a blank file to work with and save the file in your <code>Chapter_04_06_datawrangling</code> folder.</p></li>
+<li><p>If you already have the two files from chapter 3, copy and paste them into the <code>data/</code> folder. If you need to download them again, the links are data file one (<a href="data/ahi-cesd.csv">ahi-cesd.csv</a>) and data file two (<a href="data/participant_info.csv">participant-info.csv</a>). Right click the links and select “save link as”, or clicking the links will save the files to your Downloads. Make sure that both files are saved as “.csv”. Save or copy the file to your <code>data/</code> folder within <code>Chapter_04_06_datawrangling</code>.</p></li>
+</ol>
+<p>You are now ready to start working on the chapter!</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reminder of file management if you use the online server
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If we support you to use the online University of Glasgow R Server, working with files is a little different. If you downloaded R / RStudio to your own computer or you are using one of the library/lab computers, please ignore this section.</p>
+<ol type="1">
+<li><p>Log on to the <strong>R server</strong> using the link we provided to you.</p></li>
+<li><p>In the file pane, click <code>New folder</code> and create the same structure we demonstrated above.</p></li>
+<li><p>Download these two data files which we used in Chapter 3. Data file one: <a href="data/ahi-cesd.csv">ahi-cesd.csv</a>. Data file two: <a href="data/participant_info.csv">participant-info.csv</a>. Save the two files into the <code>data</code> folder you created for chapter 3. To download a file from this book, right click the link and select “save link as”. Make sure that both files are saved as “.csv”. Do not open them on your machine as often other software like Excel can change setting and ruin the files.</p></li>
+<li><p>Now that the files are stored on your computer, go to RStudio on the server and click <code>Upload</code> then <code>Browse</code> and choose the folder for the chapter you are working on.</p></li>
+<li><p>Click <code>Choose file</code> and go and find the data you want to upload.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section><section id="activity-1---load-tidyverse-and-read-the-data-files" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="activity-1---load-tidyverse-and-read-the-data-files">
+<span class="header-section-number">4.1.3</span> Activity 1 - Load <pkg>tidyverse</pkg> and read the data files</h3>
+<p>As the first activity, try and test yourself by loading <pkg>tidyverse</pkg> and reading the two data files. As a prompt, save the data files to these two object names to be consistent with the activities below, but you can check your answer below if you are stuck.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load the tidyverse package below</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>?</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Load the two data files</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># This should be the ahi-cesd.csv file </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>dat <span class="ot">&lt;-</span> ?</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># This should be the participant-info.csv file</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>pinfo <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load the tidyverse package below</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Load the two data files</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># This should be the ahi-cesd.csv file </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ahi-cesd.csv"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># This should be the participant-info.csv file</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>pinfo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/participant-info.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="tidyverse-and-the-dplyr-package" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="tidyverse-and-the-dplyr-package">
+<span class="header-section-number">4.2</span> Tidyverse and the dplyr package</h2>
+<p>So far, we have loaded a <a href="https://psyteachr.github.io/glossary/p#package" target="_blank" class="glossary" title="A group of R functions.">package</a> called <pkg>tidyverse</pkg> in every chapter and it is going to be at the core of all the data skills you develop. The tidyverse (<a href="https://www.tidyverse.org/" target="_blank">https://www.tidyverse.org/</a>, <span class="citation" data-cites="tidyverse">Wickham (<a href="references.html#ref-tidyverse" role="doc-biblioref">2017</a>)</span> is an ecosystem containing six core packages: <pkg>dplyr</pkg>, <pkg>tidyr</pkg>, <pkg>readr</pkg>, <pkg>purrr</pkg>, <pkg>ggplot2</pkg>, and <pkg>tibble</pkg>. Within these six core packages, you have access to <a href="https://psyteachr.github.io/glossary/f#function" target="_blank" class="glossary" title="A named section of code that can be reused.">functions</a> that will pretty much cover everything you need to wrangle and visualise your data.</p>
+<p>In chapter 3, we introduced you to the package <pkg>ggplot2</pkg> for data visualisation. In this chapter, we focus on functions from the <a href="https://dplyr.tidyverse.org/" target="_blank"><pkg>dplyr</pkg></a> package, which the authors describe as a grammar of data manipulation (in the wrangling sense, not deviously making up data).</p>
+<p>The <pkg>dplyr</pkg> package contains several key functions based on common English verbs to help you understand what the code is doing. For an overview, we will introduce you to the following functions:</p>
+<table class="table">
+<thead><tr class="header">
+<th style="text-align: center;">Function</th>
+<th style="text-align: left;">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>*_join()</code></td>
+<td style="text-align: left;">Add columns from two data sets by matching observations</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>select()</code></td>
+<td style="text-align: left;">Include or exclude certain variables (columns)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>mutate()</code></td>
+<td style="text-align: left;">Create new variables (columns)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>arrange()</code></td>
+<td style="text-align: left;">Change the order of observations (rows)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code></td>
+<td style="text-align: left;">Include or exclude certain observations (rows)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>group_by()</code></td>
+<td style="text-align: left;">Organize the observations (rows) into groups</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>summarise()</code></td>
+<td style="text-align: left;">Create summary variables for groups of observations</td>
+</tr>
+</tbody>
+</table>
+<p>Just looking at the names gives you some idea of what the functions do. For example, <code>select()</code> selects columns and <code>arrange()</code> orders observations. You will be surprised by how far you can get with data wrangling using just these functions. There will always be unique problems to solve, but these functions cover the most common that apply to almost every data set.</p>
+<p>In this chapter, we focus on the <code>*_join()</code> series of functions, <code>select()</code>, <code>arrange()</code>, and <code>mutate()</code>.</p>
+</section><section id="04-joins" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="04-joins">
+<span class="header-section-number">4.3</span> Joining two data frames with <code>*_join()</code> functions</h2>
+<p>The first thing we will do is combine data files. We have two files, <code>dat</code> and <code>pinfo</code>, but what we really want is a single file that has both the happiness and depression scores and the demographic information about the participants as it makes it easier to work with the combined data.</p>
+<p>To do this, we are going to use the function <code>inner_join()</code>. So far, we have described these types of functions as <code>*_join()</code>. This is because there are a series of functions that join two data sets in slightly different ways. You do not need to memorise these, but it might be useful to refer back to later.</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: center;">Join function</th>
+<th style="text-align: left;">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>inner_join()</code></td>
+<td style="text-align: left;">Keep observations in data set x that has a matching key in data set y</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>left_join()</code></td>
+<td style="text-align: left;">Keep all observations in data set x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>right_join()</code></td>
+<td style="text-align: left;">Keep all observations in data set y</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>full_join()</code></td>
+<td style="text-align: left;">Keep all observations in both data set x and y</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As these functions join data sets in different ways, they will produce different sample sizes depending on the presence of missing data in one or both data sets. For example, <code>inner_join()</code> will be the strictest as you must have matching observations in each data set. On the other hand, <code>full_join()</code> will be the least strict, as you retain observations that may not exist in one data set or the other.</p>
+</div>
+</div>
+<section id="activity-2---join-the-files-together" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="activity-2---join-the-files-together">
+<span class="header-section-number">4.3.1</span> Activity 2 - Join the files together</h3>
+<p>We are going to join <code>dat</code> and <code>pinfo</code> by common identifiers. When we use <code>inner_join()</code>, this means we want to keep all the observations in <code>dat</code> that also has a corresponding identifier in <code>pinfo</code>. This is known as an <strong><a href="https://psyteachr.github.io/glossary/i#inner-join" target="_blank" class="glossary" title="A mutating join that returns all the rows that have a match in the other table.">inner-join</a></strong>, where you would exclude participants if they did not have a matching observation in one of the data sets.</p>
+<p>The code below will create a new object, called <code>all_dat</code>, that combines the data from both <code>dat</code> and <code>pinfo</code> using the columns <code>id</code> and <code>intervention</code> to match the participants’ data across the two sets of data. <code>id</code> is a code or number for each unique participant and will be the most common approach you see for creating an identifier. <code>intervention</code> is the group the participant was placed in for the study by <span class="citation" data-cites="woodworth_data_2018">Woodworth et al. (<a href="references.html#ref-woodworth_data_2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Type and run the code in a new code chunk to inner join the two sets of data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>all_dat <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(<span class="at">x =</span> dat, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>                      <span class="at">y =</span> pinfo, </span>
+<span id="cb3-3"><a href="#cb3-3"></a>                      <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"intervention"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down what this code is doing:</p>
+<ul>
+<li><p><code>all_dat</code> is the new object you created with the joined data.</p></li>
+<li><p><code>x</code> is the first argument and it should be the first data set / object you want to combine.</p></li>
+<li><p><code>y</code> is the second argument and it should be the second data set / object you want to combine.</p></li>
+<li><p><code>by</code> is the third argument and it lists the identifier as the name(s) of the column(s) you want to combine the data by in quote marks. In this scenario, there are two identifiers common to each data set. They both contain columns called “id” and “intervention”. We have to wrap them in <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> to say that there is more than one column to combine by. If there was only one common identifier, you would write <code>by = "id"</code>.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why does my data include .x and .y columns?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If your data sets have more than one common column, you must enter them all in the <code>by</code> argument. This tells R there are matching columns and values across the data sets. If you do not enter all the common columns, then R will add on a .x and .y when it adds them together, to label which come from each data set.</p>
+<p>For example, try and run this code and look at the columns in <code>all_dat2</code>. You will see it has an extra column compared to <code>all_dat</code> as there is both “intervention.x” and “intervention.y”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>all_dat2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(<span class="at">x =</span> dat, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>                      <span class="at">y =</span> pinfo, </span>
+<span id="cb4-3"><a href="#cb4-3"></a>                      <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section><section id="activity-3---explore-your-data-objects" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="activity-3---explore-your-data-objects">
+<span class="header-section-number">4.3.2</span> Activity 3 - Explore your data objects</h3>
+<p>Once you have run this code, you should now see the new <code>all_dat</code> object in the environment pane. Remember to get into the habit of exploring your data and objects as you make changes, to check your wrangling is working as intended.</p>
+<p>There are two main ways you can do this:</p>
+<ol type="1">
+<li>Click on the data object in the Environment pane. This will open it up as a tab in RStudio, and you will be able to scroll through the rows and columns (<a href="#fig-img-preview-alldat">Figure&nbsp;<span>4.1</span></a>).</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why do I not see all my columns?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>One common source of confusion is not seeing all your columns when you open up a data object as a tab. This is because RStudio shows you a maximum of 50 columns at a time. If you have more than 50 columns, to see more, you must use the arrows at the top of the tab where it says “Cols:”. For example in <code>all_dat</code>, it will say 1-50, if you click the right arrow, it will then say 5-54 so you can see the final 4 columns.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-img-preview-alldat" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/alldat_previewdata.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.1: Exploring a data object in RStudio by opening it as a tab. You can navigate around the columns and rows without opening it up in something like Excel. If there are more than 50 columns, you can click the arrows next to Cols.</figcaption></figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Use the <code>glimpse()</code> function to see an overview of the data objects.</li>
+</ol>
+<p>We explored this in chapter 3, but <code>glimpse()</code> tells you how many rows and columns your data have, plus an overview of responses per column. Note: you will see a preview of all 54 columns, but we have shortened the preview to 10 columns to take up less space in the book.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">glimpse</span>(all_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 992
+Columns: 10
+$ id           &lt;dbl&gt; 12, 162, 162, 267, 126, 289, 113, 8, 185, 185, 246, 185, …
+$ occasion     &lt;dbl&gt; 5, 2, 3, 0, 5, 0, 2, 2, 2, 4, 4, 0, 4, 0, 1, 4, 0, 5, 4, …
+$ elapsed.days &lt;dbl&gt; 182.025139, 14.191806, 33.033831, 0.000000, 202.096887, 0…
+$ intervention &lt;dbl&gt; 2, 3, 3, 4, 2, 1, 1, 2, 3, 3, 3, 3, 1, 2, 2, 2, 3, 2, 2, …
+$ ahi01        &lt;dbl&gt; 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, …
+$ ahi02        &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, …
+$ ahi03        &lt;dbl&gt; 2, 1, 1, 2, 2, 4, 1, 1, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 3, …
+$ ahi04        &lt;dbl&gt; 1, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 1, 2, 2, 2, 1, 2, 2, 1, …
+$ ahi05        &lt;dbl&gt; 1, 2, 2, 2, 2, 1, 1, 1, 3, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ ahi06        &lt;dbl&gt; 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, …</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now you have explored <code>all_dat</code>, try and use one or both of these methods to explore the original <code>dat</code> and <code>pinfo</code> objects to see how they changed. Notice how the number of rows/observations and columns change from the original objects to when you join them.</p>
+</div>
+</div>
+</section></section><section id="selecting-variables-of-interest-with-select" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="selecting-variables-of-interest-with-select">
+<span class="header-section-number">4.4</span> Selecting variables of interest with <code>select()</code>
+</h2>
+<p>Data sets often have a lot of variables we do not need and it can be easier to focus on just the columns we do need. In <code>all_dat</code>, we have 54 variables which takes ages to scroll through and it can be harder to find what you are looking for.</p>
+<p>For the two scales on happiness and depression, we have all their items, as well as their total scores. We can create a data set that only includes the key variables and ignores all the individual items using the <a class="glossary" title="Select, reorder, or rename variables in your data set.">select()</a> function. There are two ways you can use select: by selecting the variables you want to include, or by selecting the variables you want to ignore.</p>
+<section id="activity-4---selecting-variables-you-want-to-include" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="activity-4---selecting-variables-you-want-to-include">
+<span class="header-section-number">4.4.1</span> Activity 4 - Selecting variables you want to include</h3>
+<p>If there are a smaller number of variables you want to include, then it will be more efficient to specify which variables you want to <strong>include</strong>. Returning to the data wrangling from chapter 3, we can select the columns from <code>all_dat</code> that we want to keep.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> all_dat, <span class="co"># First argument as the data object</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>                      id, <span class="co"># Stating variables we want to include</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>                      occasion, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>                      elapsed.days,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                      intervention,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                      ahiTotal, </span>
+<span id="cb7-7"><a href="#cb7-7"></a>                      cesdTotal, </span>
+<span id="cb7-8"><a href="#cb7-8"></a>                      sex, </span>
+<span id="cb7-9"><a href="#cb7-9"></a>                      age, </span>
+<span id="cb7-10"><a href="#cb7-10"></a>                      educ, </span>
+<span id="cb7-11"><a href="#cb7-11"></a>                      income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down this code:</p>
+<ul>
+<li><p>We are creating a new object called <code>summarydata</code>.</p></li>
+<li><p>From <code>all_dat</code>, we are selecting 10 columns we want to keep, which we list one by one.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this example, the variables are in the same order as they were <code>all_dat</code>, but they do not need to be. You can use <code>select()</code> to create a new variable order if that helps you see all the important variables first. You can also rename variables as you select or reorder them, using the form <code>new_name = old_name</code>.</p>
+</div>
+</div>
+<p>Keep in mind it is important you select variables and assign them to a new object, or overwrite the old object. Both work, but think about if you need the original object later in your analysis and you do not want to go back and rerun code to recreate it. If you just use the select function on it’s own, it does not do anything to the object, R just shows you the variables you selected:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">select</span>(<span class="at">.data =</span> all_dat, <span class="co"># First argument as the data object</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>       id, <span class="co"># Stating variables we want to include</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>       occasion, </span>
+<span id="cb8-4"><a href="#cb8-4"></a>       elapsed.days,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>       intervention,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>       ahiTotal, </span>
+<span id="cb8-7"><a href="#cb8-7"></a>       cesdTotal, </span>
+<span id="cb8-8"><a href="#cb8-8"></a>       sex, </span>
+<span id="cb8-9"><a href="#cb8-9"></a>       age, </span>
+<span id="cb8-10"><a href="#cb8-10"></a>       educ, </span>
+<span id="cb8-11"><a href="#cb8-11"></a>       income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you have several variables in order that you want to select, you can use a shortcut to avoid typing out every single name. When you select variables, you can use the format <code>firstcolumn:lastcolumn</code> to select all the variables from the first column you specify until the last column.</p>
+<p>For example, if we wanted to isolate the individual items, we could use the following code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>scaleitems <span class="ot">&lt;-</span> <span class="fu">select</span>(all_dat, <span class="co"># First argument as the data object</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>                     ahi01<span class="sc">:</span>cesd20) <span class="co"># Range of variables to select</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also pair this with individual variable selection:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>scaleitems <span class="ot">&lt;-</span> <span class="fu">select</span>(all_dat, <span class="co"># First argument as the data object</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>                     id, <span class="co"># Individual variable to include</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>                     ahi01<span class="sc">:</span>cesd20) <span class="co"># Range of variables to select</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you wanted to select all the variables from <code>id</code> to <code>intervention</code>, plus all the variables from <code>ahiTotal</code> to <code>income</code>, how could you use this shortcut format? Try and complete the following code to recreate <code>summarydata</code>. Check your answer below when you have tried on your own.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>summarydata2 <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Instead of typing all 10 variables, you can select them using two ranges to ignore the scale items in the middle:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>summarydata2 <span class="ot">&lt;-</span> <span class="fu">select</span>(all_dat, <span class="co"># First argument as the data object</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>                      id<span class="sc">:</span>intervention, <span class="co"># variable range 1</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>                      ahiTotal<span class="sc">:</span>income) <span class="co"># variable range 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-5---selecting-variables-you-want-to-ignore" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="activity-5---selecting-variables-you-want-to-ignore">
+<span class="header-section-number">4.4.2</span> Activity 5 - Selecting variables you want to ignore</h3>
+<p>Alternatively, you can also state which variables you do not want to keep. This is really handy if you want to keep many columns and only remove one or two.</p>
+<p>For example, if we wanted to remove two variables, you add a dash (-) before the variable name:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>all_dat_reduced2 <span class="ot">&lt;-</span> <span class="fu">select</span>(all_dat, </span>
+<span id="cb13-2"><a href="#cb13-2"></a>                           <span class="sc">-</span>occasion, <span class="co"># Remove occasion</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>                           <span class="sc">-</span>elapsed.days) <span class="co"># Remove elapsed.days</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This also works using the range method, but you must add the dash before the first and last column in the range you want to remove. For example, we can recreate <code>summarydata</code> one more time by removing the scale items in the middle:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>summarydata3 <span class="ot">&lt;-</span> <span class="fu">select</span>(all_dat, <span class="co"># </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>                       <span class="sc">-</span>ahi01<span class="sc">:-</span>cesd20) <span class="co"># Remove range of variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can see there were at least three different ways of creating <code>summarydata</code> to keep the 10 variables we want to focus on. This is an important lesson as there is often not just one unique way of completing a task in R.</p>
+<p>When you first start coding, you might begin with the long way that makes sense to you. As you practice more, you recognise ways to simplify your code.</p>
+</div>
+</div>
+</section></section><section id="arranging-variables-of-interest-with-arrange" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="arranging-variables-of-interest-with-arrange">
+<span class="header-section-number">4.5</span> Arranging variables of interest with <code>arrange()</code>
+</h2>
+<p>Another handy skill is being able to change the order of observations within columns in your data set. The function <a class="glossary" title="Order the rows of a data set by the values of one or more columns.">arrange()</a> will sort the rows/observations by one or more columns. This can be useful for exploring your data set and answering basic questions, such as: who was the youngest or oldest participant?</p>
+<section id="activity-6---arranging-in-ascending-order" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="activity-6---arranging-in-ascending-order">
+<span class="header-section-number">4.5.1</span> Activity 6 - Arranging in ascending order</h3>
+<p>Using <code>summarydata</code>, we can order the participants’ ages in ascending order:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>age_ascend <span class="ot">&lt;-</span> <span class="fu">arrange</span>(summarydata,</span>
+<span id="cb15-2"><a href="#cb15-2"></a>                    age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down the code,</p>
+<ul>
+<li><p>We create a new object called <code>age_ascend</code>.</p></li>
+<li><p>We apply the function <code>arrange()</code> to the <code>summarydata</code> object.</p></li>
+<li><p>We order the observations by <code>age</code>, which is by default in ascending order from smallest to largest.</p></li>
+</ul>
+<p>If you look in <code>age_ascend</code>, we organised the data in ascending order based on age and can see the youngest participant was 18 years old.</p>
+</section><section id="activity-7---arranging-in-descending-order" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="activity-7---arranging-in-descending-order">
+<span class="header-section-number">4.5.2</span> Activity 7 - Arranging in descending order</h3>
+<p>By default, <code>arrange()</code> sorts observations in ascending order from the smallest to largest value, or alphabetical order from A to Z. If you want to arrange observations in descending order, you can wrap the name of the variable in the <code>desc()</code> function.</p>
+<p>For example, we can order participants from oldest to youngest:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>age_descend <span class="ot">&lt;-</span> <span class="fu">arrange</span>(summarydata, </span>
+<span id="cb16-2"><a href="#cb16-2"></a>                     <span class="fu">desc</span>(age)) <span class="co"># descending order of age</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This time, we can see the oldest participant was 83 years old.</p>
+</section><section id="activity-8---sorting-by-multiple-columns" class="level3" data-number="4.5.3"><h3 data-number="4.5.3" class="anchored" data-anchor-id="activity-8---sorting-by-multiple-columns">
+<span class="header-section-number">4.5.3</span> Activity 8 - Sorting by multiple columns</h3>
+<p>Finally, you can also sort by more than one column and a combination of ascending and descending columns. Unlike <code>select()</code>, you might not need to save your sorted observations as a new object, you could use <code>arrange()</code> more as a tool to explore your data.</p>
+<p>For example, we could look for the oldest female participant. Note: your code will show all 992 observations you could scroll through, but we show the first 10 to save space.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">arrange</span>(summarydata, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>        sex, <span class="co"># order by sex first</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>        <span class="fu">desc</span>(age)) <span class="co"># then descending age</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 8%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">occasion</th>
+<th style="text-align: right;">elapsed.days</th>
+<th style="text-align: right;">intervention</th>
+<th style="text-align: right;">ahiTotal</th>
+<th style="text-align: right;">cesdTotal</th>
+<th style="text-align: right;">sex</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">educ</th>
+<th style="text-align: right;">income</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">94.905451</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">32.644595</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15.764178</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">185.852778</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.238877</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">16.900289</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">31.251377</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using <code>summarydata</code> and <code>arrange()</code>, sort the data to answer the following questions:</p>
+<ol type="1">
+<li><p>How old is the participant with the highest total happiness score (<code>ahiTotal</code>)? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;25&quot;]"></p></li>
+<li><p>What is the highest total depression score (<code>cesdTotal</code>) in a female participant (remember 1 = female, 2 = male)? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;55&quot;]"></p></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>We only need to arrange by <code>ahiTotal</code> in descending order to find the highest value, then look at the age column.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">arrange</span>(summarydata, </span>
+<span id="cb18-2"><a href="#cb18-2"></a>        <span class="fu">desc</span>(ahiTotal)) <span class="co"># descending ahiTotal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>We first order by <code>sex</code> in ascending order so 1s are first, then descending order of <code>cesdTotal</code> for the highest value.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">arrange</span>(summarydata, </span>
+<span id="cb19-2"><a href="#cb19-2"></a>        sex, <span class="co"># order by sex first</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>        <span class="fu">desc</span>(cesdTotal)) <span class="co"># Descending depression total</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="modifying-or-creating-variables-with-mutate" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="modifying-or-creating-variables-with-mutate">
+<span class="header-section-number">4.6</span> Modifying or creating variables with <code>mutate()</code>
+</h2>
+<p>In the final data wrangling function for this chapter, we can use the function <a class="glossary" title="You can create new columns that are functions of existing variables. You can also modify variables if the name is the same as an existing column.">mutate()</a> to modify existing variables or create new variables. This is an extremely powerful and flexible function. We will not be able to cover everything you can do with it in this chapter but we will introduce you to some common tasks you might want to apply.</p>
+<section id="activity-9---modifying-existing-variables" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="activity-9---modifying-existing-variables">
+<span class="header-section-number">4.6.1</span> Activity 9 - Modifying existing variables</h3>
+<p>If you remember back to chapter 3, we had a problem where R interpreted variables like <code>sex</code>, <code>educ</code>, and <code>income</code> as numeric, but ideally we wanted to treat them as distinct categories or factors. We used <code>mutate()</code> to convert the three columns to factors:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Overwrite summary data </span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata, <span class="co"># mutate to change columns </span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>         <span class="at">sex =</span> <span class="fu">as.factor</span>(sex), <span class="co"># save sex as a factor</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>         <span class="at">educ =</span> <span class="fu">as.factor</span>(educ),</span>
+<span id="cb20-5"><a href="#cb20-5"></a>         <span class="at">income =</span> <span class="fu">as.factor</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down the code:</p>
+<ul>
+<li><p>We overwrite <code>summarydata</code> by assigning the function to an existing object name.</p></li>
+<li><p>We use the <code>mutate()</code> function on the old <code>summarydata</code> data by using it as the first argument.</p></li>
+<li><p>We can add one or more arguments to modify or create variables. Here, we modify an existing variable <code>sex</code>, use an equals sign (=), then how we want to modify the variable. In this example, we convert sex to a factor by using the function <code>as.factor(sex)</code>.</p></li>
+</ul>
+<p>You might not just want to turn a variable into a factor, you might want to completely recode what it’s values represent. For this, there is a function called <a class="glossary" title="You can switch values from old to new. Statements are evaluated sequentially, meaning the old value is replaced with the first new value it matches.">case_match()</a> which you can use within <code>mutate()</code>. For example, if we wanted to make <code>sex</code> easier to interpret, we could overwrite it’s values from 1 and 2:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>sex_recode <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>                     <span class="at">sex =</span> <span class="fu">case_match</span>(sex, <span class="co"># overwrite existing</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>                                      <span class="st">"1"</span> <span class="sc">~</span> <span class="st">"Female"</span>, <span class="co"># old to new</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>                                      <span class="st">"2"</span> <span class="sc">~</span> <span class="st">"Male"</span>)) <span class="co"># old to new</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down this code,</p>
+<ul>
+<li><p>We create a new object <code>sex_recode</code> by mutating the <code>summarydata</code> object.</p></li>
+<li><p>We modify an existing variable <code>sex</code> by applying <code>case_match()</code> to <code>sex</code>.</p></li>
+<li><p>Within <code>case_match()</code>, the value on the left is the existing value in the data you want to recode. The value on the right is the new value you want to overwrite it to. So, we want to change all the 1s in the data to Female. We then add a new line for every old value we want to change.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Error mode
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the previous exercise, we already converted sex to a factor. So, we had to add quote marks around the old values (<code>"1"</code>) as they are no longer considered numeric. If you do not add the quote marks, you will get an error like <code>Can't convert "..1 (left)" &lt;double&gt; to &lt;factor&gt;</code>.</p>
+<p>If you applied this step <em>before</em> converting <code>sex</code> to a factor, then <code>1 ~ "Female"</code> would work. This shows why it is important to keep data types in mind as R might not know what you mean if you state one data type when it is expecting another.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using what you just learnt about using <code>mutate</code> and <code>case_match()</code>, recode the variable <code>income</code> and complete the code below. These are what the numeric values mean as labels:</p>
+<p>1 = Below average</p>
+<p>2 = Average</p>
+<p>3 = Above average</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>income_recode <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb22-2"><a href="#cb22-2"></a>                     <span class="at">income =</span> ?</span>
+<span id="cb22-3"><a href="#cb22-3"></a>                       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check your code against the solution when you have attempted yourself first.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Following the same format as <code>sex</code>, we add a new label for each of the three levels of income.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>income_recode <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb23-2"><a href="#cb23-2"></a>                     <span class="at">income =</span> <span class="fu">case_match</span>(income, <span class="co"># overwrite existing</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>                                      <span class="st">"1"</span> <span class="sc">~</span> <span class="st">"Below average"</span>, <span class="co"># old to new</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>                                      <span class="st">"2"</span> <span class="sc">~</span> <span class="st">"Average"</span>, <span class="co"># old to new</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>                                      <span class="st">"3"</span> <span class="sc">~</span> <span class="st">"Above average"</span>)) <span class="co"># old to new</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-10---creating-new-variables" class="level3" data-number="4.6.2"><h3 data-number="4.6.2" class="anchored" data-anchor-id="activity-10---creating-new-variables">
+<span class="header-section-number">4.6.2</span> Activity 10 - Creating new variables</h3>
+<p>You can also create new variables using <code>mutate()</code>. There are many possibilities here, so we will demonstrate a few key principles for inspiration and you will learn how to tackle unique problems as you come to them.</p>
+<p>In it’s simplest application, you can use <code>mutate()</code> to add a single value to all rows. For example, you might want to label a data set before joining with another data set so you can identify their origin. Instead of overwriting an existing variable, we specify a new variable name and the value we want to assign:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb24-2"><a href="#cb24-2"></a>                      <span class="at">study =</span> <span class="st">"Woodworth et al. (2018)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using a similar kind of logic to <code>case_match()</code> we introduced you to earlier, there is an extremely flexible function called <a class="glossary" title="An if else statement to check old values against a set of criteria. Statements are evaluated sequentially, meaning each observation is checked against the criteria, and it receives the first match it passes.">case_when()</a> to help create new variables. Before we explain how it works, we will jump straight into an example to give you something concrete to work with.</p>
+<p><span class="citation" data-cites="woodworth_data_2018">Woodworth et al. (<a href="references.html#ref-woodworth_data_2018" role="doc-biblioref">2018</a>)</span> includes scores from the Center for Epidemiological Studies Depression (CES-D) scale. Scores range from 0 to 60, with scores of 16 or more considered a cut-off for being at risk of clinical depression. We have the scores, so we can use <code>case_when()</code> to label whether participants are at risk or not.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb25-2"><a href="#cb25-2"></a>                      <span class="at">depression_risk =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-3"><a href="#cb25-3"></a>                        cesdTotal <span class="sc">&lt;</span> <span class="dv">16</span> <span class="sc">~</span> <span class="st">"Not at risk"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4"></a>                        cesdTotal <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"At risk"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To break down the code:</p>
+<ul>
+<li><p>We overwrite <code>summarydata</code> by mutating the existing <code>summarydata</code> object.</p></li>
+<li><p>We create a new variable called <code>depression_risk</code> by applying the <code>case_when()</code> function to the variable <code>cesdTotal</code>.</p></li>
+<li><p>We apply two comparisons to label responses as either “Not at risk” or “At risk”. If <code>cesdTotal</code> is less than 16 (i.e., 15 or smaller), then it receives the value “Not at risk”. If <code>cesdTotal</code> is more than 15 (i.e., 16 or higher), then it receives the value “At risk”.</p></li>
+</ul>
+<p>The function <code>case_when()</code> applies these criteria <strong>line by line</strong> as it works through your rows. Depending on which criteria your observation meet, it receives the label “Not at risk” or “At risk”. You can also set the argument <code>.default</code> to assign one value for anything that does not pass any criteria you give it.</p>
+<p>The comparisons use something called a <a class="glossary" title="A logical statement in programming to evaluate a condition and return a Boolean value, which can be TRUE or FALSE.">Boolean expression</a>. These are logical expressions which can return the values of TRUE or FALSE. To demonstrate the idea, imagine we were applying the logic manually to scores in the data. The first value is 50, so we could apply our criteria to see which one it meets:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="dv">50</span> <span class="sc">&lt;</span> <span class="dv">16</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="dv">50</span> <span class="sc">&gt;</span> <span class="dv">15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE
+[1] TRUE</code></pre>
+</div>
+</div>
+<p>R evaluates the first comparison as FALSE as 50 is not smaller than 16, but it evaluates the second comparison as TRUE as 50 is larger than 15. So, <code>case_when()</code> would apply the label “At risk” as the second statement evaluates to TRUE.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try and pick a few more <code>cesdTotal</code> scores from the data and apply the criteria to see if they are evaluated as TRUE OR FALSE. It can be tricky moving from imagining what you want to do to being able to express it in code, so the more practice the better.</p>
+</div>
+</div>
+<p>We have only used less than or greater than, but there are several options for expressing Boolean logic, the most common of which are:</p>
+<table class="table">
+<thead><tr class="header">
+<th>Operator</th>
+<th>Name</th>
+<th>is TRUE if and only if</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>A &lt; B</td>
+<td>less than</td>
+<td>A is less than B</td>
+</tr>
+<tr class="even">
+<td>A &lt;= B</td>
+<td>less than or equal</td>
+<td>A is less than or equal to B</td>
+</tr>
+<tr class="odd">
+<td>A &gt; B</td>
+<td>greater than</td>
+<td>A is greater than B</td>
+</tr>
+<tr class="even">
+<td>A &gt;= B</td>
+<td>greater than or equal</td>
+<td>A is greater than or equal to B</td>
+</tr>
+<tr class="odd">
+<td>A == B</td>
+<td>equivalence</td>
+<td>A exactly equals B</td>
+</tr>
+<tr class="even">
+<td>A != B</td>
+<td>not equal</td>
+<td>A does not exactly equal B</td>
+</tr>
+<tr class="odd">
+<td>A %in% B</td>
+<td>in</td>
+<td>A is an element of vector B</td>
+</tr>
+</tbody>
+</table>
+<p>Boolean expressions will come up again in chapter 5 when it comes to <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>, so there will be plenty more practice as you apply your understanding to different data sets and use cases.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using what you just learnt about using <code>mutate</code> and <code>case_when()</code>, create a new variable called <code>happy</code> using the <code>ahiTotal</code> variable and complete the code below.</p>
+<p>The Authentic Happiness Inventory (AHI) does not have official cutoffs, but let us pretend scores of <strong>65 or more</strong> are “happy” and scores of <strong>less than 65</strong> are “unhappy”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb28-2"><a href="#cb28-2"></a>                     <span class="at">happy =</span> ?</span>
+<span id="cb28-3"><a href="#cb28-3"></a>                       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check your code against the solution when you have attempted it yourself first.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Following the same format as <code>depression_risk</code> and <code>cesdTotal</code>, we add a new comparison for each criterion we want to use as a Boolean expression:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb29-2"><a href="#cb29-2"></a>                      <span class="at">happy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-3"><a href="#cb29-3"></a>                        ahiTotal <span class="sc">&lt;</span> <span class="dv">65</span> <span class="sc">~</span> <span class="st">"Unhappy"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4"></a>                        ahiTotal <span class="sc">&gt;</span> <span class="dv">64</span> <span class="sc">~</span> <span class="st">"Happy"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you looked at the table of Boolean operators, you could also express 65 or more as:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>summarydata <span class="ot">&lt;-</span> <span class="fu">mutate</span>(summarydata,</span>
+<span id="cb30-2"><a href="#cb30-2"></a>                      <span class="at">happy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-3"><a href="#cb30-3"></a>                        ahiTotal <span class="sc">&lt;</span> <span class="dv">65</span> <span class="sc">~</span> <span class="st">"Unhappy"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4"></a>                        ahiTotal <span class="sc">&gt;=</span> <span class="dv">65</span> <span class="sc">~</span> <span class="st">"Happy"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="ld-test" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="ld-test">
+<span class="header-section-number">4.7</span> Test yourself</h2>
+<p>To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. We then have some error mode tasks to see if you can find the solution to some common errors in the concepts we covered in this chapter.</p>
+<section id="knowledge-check" class="level3" data-number="4.7.1"><h3 data-number="4.7.1" class="anchored" data-anchor-id="knowledge-check">
+<span class="header-section-number">4.7.1</span> Knowledge check</h3>
+<strong>Question 1</strong>. Which of the following functions would you use if you wanted to keep only certain columns?
+<div id="radio_NZTPWILRBJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NZTPWILRBJ" value="answer"><span>select()</span></label><label><input type="radio" autocomplete="off" name="radio_NZTPWILRBJ" value=""><span>arrange()</span></label><label><input type="radio" autocomplete="off" name="radio_NZTPWILRBJ" value=""><span>mutate()</span></label><label><input type="radio" autocomplete="off" name="radio_NZTPWILRBJ" value=""><span>inner_join()</span></label>
+</div>
+<strong>Question 2</strong>. Which of the following functions would you use if you wanted to join two data sets by their shared identifier?
+<div id="radio_WCBNBZMWYC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WCBNBZMWYC" value=""><span>select()</span></label><label><input type="radio" autocomplete="off" name="radio_WCBNBZMWYC" value=""><span>arrange()</span></label><label><input type="radio" autocomplete="off" name="radio_WCBNBZMWYC" value=""><span>mutate()</span></label><label><input type="radio" autocomplete="off" name="radio_WCBNBZMWYC" value="answer"><span>inner_join()</span></label>
+</div>
+<strong>Question 3</strong>. Which of the following functions would you use if you wanted to add or modify a column?
+<div id="radio_VHWKFRPMTQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VHWKFRPMTQ" value=""><span>select()</span></label><label><input type="radio" autocomplete="off" name="radio_VHWKFRPMTQ" value=""><span>arrange()</span></label><label><input type="radio" autocomplete="off" name="radio_VHWKFRPMTQ" value="answer"><span>mutate()</span></label><label><input type="radio" autocomplete="off" name="radio_VHWKFRPMTQ" value=""><span>inner_join()</span></label>
+</div>
+<strong>Question 4</strong>. When you use mutate(), which additional function could you use to recode an existing variable?
+<div id="radio_DCZMXMXOMO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_DCZMXMXOMO" value=""><span>arrange()</span></label><label><input type="radio" autocomplete="off" name="radio_DCZMXMXOMO" value=""><span>case_when()</span></label><label><input type="radio" autocomplete="off" name="radio_DCZMXMXOMO" value="answer"><span>case_match()</span></label><label><input type="radio" autocomplete="off" name="radio_DCZMXMXOMO" value=""><span>filter()</span></label>
+</div>
+<strong>Question 5</strong>. When you use mutate(), which additional function could you use to create a new variable depending on specific criteria you set?
+<div id="radio_HURAMNSJSA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HURAMNSJSA" value=""><span>arrange()</span></label><label><input type="radio" autocomplete="off" name="radio_HURAMNSJSA" value="answer"><span>case_when()</span></label><label><input type="radio" autocomplete="off" name="radio_HURAMNSJSA" value=""><span>case_match()</span></label><label><input type="radio" autocomplete="off" name="radio_HURAMNSJSA" value=""><span>filter()</span></label>
+</div>
+</section><section id="error-mode-1" class="level3" data-number="4.7.2"><h3 data-number="4.7.2" class="anchored" data-anchor-id="error-mode-1">
+<span class="header-section-number">4.7.2</span> Error mode</h3>
+<p>The following questions are designed to introduce you to making and fixing errors. For this topic, we focus on data wrangling using the functions <code>inner_join()</code>, <code>select()</code>, and <code>mutate()</code>. Remember to keep a note of what kind of error messages you receive and how you fixed them, so you have a bank of solutions when you tackle errors independently.</p>
+<p>Create and save a new R Markdown file for these activities. Delete the example code, so your file is blank from line 10. Create a new code chunk to load <code>tidyverse</code> and the two data files:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Load the tidyverse package</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb31-3"><a href="#cb31-3"></a></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Load the two data files</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ahi-cesd.csv"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6"></a>pinfo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/participant-info.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below, we have several variations of a code chunk error or misspecification. Copy and paste them into your R Markdown file below the code chunk to load <code>tidyverse</code> and the data. Once you have copied the activities, click knit and look at the error message you receive. See if you can fix the error and get it working before checking the answer.</p>
+<p><strong>Question 6</strong>. Copy the following code chunk into your R Markdown file and press knit. This…works, but we want 54 columns rather than 55 columns. Some of the columns do not look quite right?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1"></a><span class="in">```{r}</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>all_dat <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(<span class="at">x =</span> dat, </span>
+<span id="cb32-3"><a href="#cb32-3"></a>                      <span class="at">y =</span> pinfo, </span>
+<span id="cb32-4"><a href="#cb32-4"></a>                      <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>))</span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This was a prompt to look out for duplicate columns when we do not specify all the common columns between the data sets you want to join. You join by “id” which works, but because you did not also add “intervention”, you get .x and .y appended to two “intervention” columns.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>all_dat <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(<span class="at">x =</span> dat, </span>
+<span id="cb33-2"><a href="#cb33-2"></a>                      <span class="at">y =</span> pinfo, </span>
+<span id="cb33-3"><a href="#cb33-3"></a>                      <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"intervention"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Question 7</strong>. Copy the following code chunk into your R Markdown file and press knit. You should receive an error like <code>! Can't subset columns that don't exist. x Column "interventnion" doesnt exist.</code></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>select_data <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> pinfo,</span>
+<span id="cb34-3"><a href="#cb34-3"></a>                      id,</span>
+<span id="cb34-4"><a href="#cb34-4"></a>                      intervetnion,</span>
+<span id="cb34-5"><a href="#cb34-5"></a>                      sex, </span>
+<span id="cb34-6"><a href="#cb34-6"></a>                      age, </span>
+<span id="cb34-7"><a href="#cb34-7"></a>                      educ, </span>
+<span id="cb34-8"><a href="#cb34-8"></a>                      income)</span>
+<span id="cb34-9"><a href="#cb34-9"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is an example of a sneaky typo causing an error. R is case and spelling sensitive, so it does not know what you mean when you asked it to select the column “intervetnion” rather than “intervention”. To fix the error, you just need to fix the typo:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>select_data <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> pinfo,</span>
+<span id="cb35-2"><a href="#cb35-2"></a>                      id,</span>
+<span id="cb35-3"><a href="#cb35-3"></a>                      intervention,</span>
+<span id="cb35-4"><a href="#cb35-4"></a>                      sex, </span>
+<span id="cb35-5"><a href="#cb35-5"></a>                      age, </span>
+<span id="cb35-6"><a href="#cb35-6"></a>                      educ, </span>
+<span id="cb35-7"><a href="#cb35-7"></a>                      income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Question 8</strong>. Copy the following code chunk into your R Markdown file and press knit. You should receive an error like <code>! Cant convert "..1 (left)" &lt;character&gt; to &lt;double&gt;.</code></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>recode_variable <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pinfo,</span>
+<span id="cb36-3"><a href="#cb36-3"></a>                          <span class="at">sex =</span> <span class="fu">case_match</span>(sex,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>                                           <span class="st">"1"</span> <span class="sc">~</span> <span class="st">"Female"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5"></a>                                           <span class="st">"2"</span> <span class="sc">~</span> <span class="st">"Male"</span>))</span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is the opposite problem to what we warned about in the <code>case_match</code> section. You need to honour data types and we have not converted sex to a factor or character in this example. So, R does not know how to match the character “1” against the number/double 1 in the data. To fix the error, you need to remove the double quotes to give R a number/double like it can see in the data:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>recode_variable <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pinfo,</span>
+<span id="cb37-2"><a href="#cb37-2"></a>                          <span class="at">sex =</span> <span class="fu">case_match</span>(sex,</span>
+<span id="cb37-3"><a href="#cb37-3"></a>                                           <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Female"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4"></a>                                           <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Male"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Question 9</strong>. Copy the following code chunk into your R Markdown file and press knit. We want to create two groups depending on if we consider a participant a teenager if they are younger than 20, or not a teenger if they are 20 years or older. The code below…works? This is a sneaky one, so think about the criteria we want vs the criteria we set.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>age_groups <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pinfo,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>                      <span class="at">age_groups =</span> <span class="fu">case_when</span>(</span>
+<span id="cb38-4"><a href="#cb38-4"></a>                        age <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Teenager"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5"></a>                        age <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Not a teenager"</span>))</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is a really sneaky one as it does not actually affect a participant in the data, but there is a small mismatch between the criteria we want and the criteria we set.</p>
+<p>In our “teenager” group, this is accurate as we want to classify them if they are younger than 20. However, in the “not a teenager” group we currently set the criterion if they are older than 20, i.e., 21 or older. This would mean 20 year old participants are stuck in the middle with no group.</p>
+<p>We see this kind of mistake a lot, so think carefully about your Boolean expression and check examples in the console if you are unsure. To fix, you could use:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>age_groups <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pinfo,</span>
+<span id="cb39-2"><a href="#cb39-2"></a>                      <span class="at">age_groups =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-3"><a href="#cb39-3"></a>                        age <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Teenager"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4"></a>                        age <span class="sc">&gt;</span> <span class="dv">19</span> <span class="sc">~</span> <span class="st">"Not a teenager"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>age_groups <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pinfo,</span>
+<span id="cb40-2"><a href="#cb40-2"></a>                      <span class="at">age_groups =</span> <span class="fu">case_when</span>(</span>
+<span id="cb40-3"><a href="#cb40-3"></a>                        age <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Teenager"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4"></a>                        age <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Not a teenager"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="words-from-this-chapter" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="words-from-this-chapter">
+<span class="header-section-number">4.8</span> Words from this Chapter</h2>
+<p>Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/a#arrange()" class="glossary" target="_blank">arrange()</a></td>
+<td style="text-align: left;">Order the rows of a data set by the values of one or more columns.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/b#boolean-expression" class="glossary" target="_blank">boolean-expression</a></td>
+<td style="text-align: left;">A logical statement in programming to evaluate a condition and return a Boolean value, which can be TRUE or FALSE.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/c#case_match()" class="glossary" target="_blank">case_match()</a></td>
+<td style="text-align: left;">You can switch values from old to new. Statements are evaluated sequentially, meaning the old value is replaced with the first new value it matches.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/c#case_when()" class="glossary" target="_blank">case_when()</a></td>
+<td style="text-align: left;">An if else statement to check old values against a set of criteria. Statements are evaluated sequentially, meaning each observation is checked against the criteria, and it receives the first match it passes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/d#data-wrangling" class="glossary" target="_blank">data-wrangling</a></td>
+<td style="text-align: left;">The process of preparing data for visualisation and statistical analysis.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/f#function" class="glossary" target="_blank">function</a></td>
+<td style="text-align: left;">A named section of code that can be reused.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/i#inner-join" class="glossary" target="_blank">inner-join</a></td>
+<td style="text-align: left;">A mutating join that returns all the rows that have a match in the other table.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/m#mutate()" class="glossary" target="_blank">mutate()</a></td>
+<td style="text-align: left;">You can create new columns that are functions of existing variables. You can also modify variables if the name is the same as an existing column.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/p#package" class="glossary" target="_blank">package</a></td>
+<td style="text-align: left;">A group of R functions.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/s#select()" class="glossary" target="_blank">select()</a></td>
+<td style="text-align: left;">Select, reorder, or rename variables in your data set.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="end-of-chapter" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="end-of-chapter">
+<span class="header-section-number">4.9</span> End of Chapter</h2>
+<p>Excellent work so far! Data wrangling is a critical skill and being able to clean and prepare your data using code will save you time in the long run. Manually tidying data might seem quicker now when you are unfamilar with these functions, but it is open to errors which may not have a paper trail as you edit files. By reproducibly wrangling your data, you can still make mistakes, but they are reproducible mistakes you can fix.</p>
+<p>In the next chapter, we start by recapping the key functions from this chapter on a new data set, then introduce you to more data wrangling functions from <pkg>dplyr</pkg> to expand your toolkit.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-dasu2003" class="csl-entry" role="listitem">
+Dasu, T., &amp; Johnson, T. (2003). <em>Exploratory data mining and data cleaning</em>. Wiley-Interscience.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, H. (2017). <em>Tidyverse: Easily install and load the ’tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>
+</div>
+<div id="ref-woodworth_data_2018" class="csl-entry" role="listitem">
+Woodworth, R. J., O’Brien-Malone, A., Diamond, M. R., &amp; Schüz, B. (2018). Data from, <span>“<span>Web</span>-based <span>Positive</span> <span>Psychology</span> <span>Interventions</span>: <span>A</span> <span>Reexamination</span> of <span>Effectiveness</span>.”</span> <em>Journal of Open Psychology Data</em>, <em>6</em>(1), 1. <a href="https://doi.org/10.5334/jopd.35">https://doi.org/10.5334/jopd.35</a>
+</div>
+</div>
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./03-intro-data-viz.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Data Visualisation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-wrangling-2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>
