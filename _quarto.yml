@@ -24,7 +24,7 @@ book:
   image: images/logos/logo.png
   favicon: images/logos/logo.png
   cookie-consent: false
-  google-analytics: ''
+  google-analytics: "G-6NP3MF25W3"
   page-navigation: true
   search: true
   repo-url: https://github.com/PsyTeachR/quant-fundamentals-v3
