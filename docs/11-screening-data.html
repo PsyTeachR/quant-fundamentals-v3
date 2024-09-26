@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
-<title>Fundamentals of Quantitative Analysis - 11&nbsp; Screening Data</title>
+<title>Fundamentals of Quantitative Analysis - 11&nbsp; Missing data, outliers, and checking assumptions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -52,7 +52,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -92,8 +111,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -106,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-screening-data.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-screening-data.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Missing data, outliers, and checking assumptions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -118,31 +142,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Fundamentals of Quantitative Analysis</a> 
-        <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-bi-twitter pe-1"></i>
-            Twitter
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-bi-facebook pe-1"></i>
-            Facebook
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-bi-linkedin pe-1"></i>
-            LinkedIn
-            </a>
-          </li>
-      </ul>
-</div>
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PsyTeachR/quant-fundamentals-v3" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -229,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-screening-data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Missing data, outliers, and checking assumptions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -323,28 +324,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#the-set-up-and-the-data" id="toc-the-set-up-and-the-data" class="nav-link active" data-scroll-target="#the-set-up-and-the-data"><span class="header-section-number">11.1</span> The Set-Up and the Data</a></li>
-  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">11.2</span> Missing data</a></li>
-  <li><a href="#listwise-deletion" id="toc-listwise-deletion" class="nav-link" data-scroll-target="#listwise-deletion"><span class="header-section-number">11.3</span> Listwise Deletion</a></li>
-  <li><a href="#pairwise-deletion" id="toc-pairwise-deletion" class="nav-link" data-scroll-target="#pairwise-deletion"><span class="header-section-number">11.4</span> Pairwise Deletion</a></li>
-  <li><a href="#summarising-data-with-missing-values" id="toc-summarising-data-with-missing-values" class="nav-link" data-scroll-target="#summarising-data-with-missing-values"><span class="header-section-number">11.5</span> Summarising data with missing values</a></li>
-  <li><a href="#implausible-values" id="toc-implausible-values" class="nav-link" data-scroll-target="#implausible-values"><span class="header-section-number">11.6</span> Implausible values</a></li>
-  <li><a href="#dealing-with-implausible-values-or-missing-data" id="toc-dealing-with-implausible-values-or-missing-data" class="nav-link" data-scroll-target="#dealing-with-implausible-values-or-missing-data"><span class="header-section-number">11.7</span> Dealing with implausible values or missing data</a></li>
-  <li><a href="#alternative-function-for-descriptive-statistics" id="toc-alternative-function-for-descriptive-statistics" class="nav-link" data-scroll-target="#alternative-function-for-descriptive-statistics"><span class="header-section-number">11.8</span> Alternative function for descriptive statistics</a></li>
-  <li><a href="#screening-fin" id="toc-screening-fin" class="nav-link" data-scroll-target="#screening-fin"><span class="header-section-number">11.9</span> Finished!</a></li>
-  <li>
-<a href="#screening-sols" id="toc-screening-sols" class="nav-link" data-scroll-target="#screening-sols"><span class="header-section-number">11.10</span> Activity solutions</a>
+<li>
+<a href="#chapter-preparation" id="toc-chapter-preparation" class="nav-link active" data-scroll-target="#chapter-preparation"><span class="header-section-number">11.1</span> Chapter preparation</a>
   <ul class="collapse">
-<li><a href="#screening-a1sol" id="toc-screening-a1sol" class="nav-link" data-scroll-target="#screening-a1sol"><span class="header-section-number">11.10.1</span> Activity 1</a></li>
+<li><a href="#organising-your-files-and-project-for-the-chapter" id="toc-organising-your-files-and-project-for-the-chapter" class="nav-link" data-scroll-target="#organising-your-files-and-project-for-the-chapter"><span class="header-section-number">11.1.1</span> Organising your files and project for the chapter</a></li>
+  <li><a href="#activity-1---read-and-wrangle-the-data" id="toc-activity-1---read-and-wrangle-the-data" class="nav-link" data-scroll-target="#activity-1---read-and-wrangle-the-data"><span class="header-section-number">11.1.2</span> Activity 1 - Read and wrangle the data</a></li>
   </ul>
 </li>
-  <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">11.11</span> Words from this Chapter</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/11-screening-data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/11-screening-data.qmd" class="toc-action">View source</a></p></div></div></nav>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">11.2</span> Missing data</a></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">11.3</span> Outliers</a></li>
+  <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.4</span> Checking assumptions</a></li>
+  <li>
+<a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">11.5</span> Test yourself</a>
+  <ul class="collapse">
+<li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check"><span class="header-section-number">11.5.1</span> Knowledge check</a></li>
+  <li><a href="#error-mode" id="toc-error-mode" class="nav-link" data-scroll-target="#error-mode"><span class="header-section-number">11.5.2</span> Error mode</a></li>
+  </ul>
+</li>
+  <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">11.6</span> Words from this Chapter</a></li>
+  <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">11.7</span> End of Chapter</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/edit/main/11-screening-data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/blob/main/11-screening-data.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Screening Data</span>
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Missing data, outliers, and checking assumptions</span>
 </h1>
 </div>
 
@@ -358,841 +362,131 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><p>In this chapter we’re going to focus on how to screen datasets for potential issues and to reinforce the concept of tidy data. So far, we’ve given you complete datasets to work with, however, you will find that real data is often much messier than this, for example, participants may not answer some items in your questionnaire or there may be errors or implausible values in your dataset. We’re also going to show you a different function to make calculating descriptive statistics easier.</p>
-<section id="the-set-up-and-the-data" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="the-set-up-and-the-data">
-<span class="header-section-number">11.1</span> The Set-Up and the Data</h2>
-<p>As always we first need to start with setting up our working environment, bringing in our data and looking at it.</p>
-<section id="screening-a1" class="level4" data-number="11.1.0.1"><h4 data-number="11.1.0.1" class="anchored" data-anchor-id="screening-a1">
-<span class="header-section-number">11.1.0.1</span> Activity 1: Set-up</h4>
+</header><p>In this chapter…</p>
+<p><strong>Chapter Intended Learning Outcomes (ILOs)</strong></p>
+<p>By the end of this chapter, you will be able to:</p>
 <ul>
-<li>Open RStudio and set the working directory to your chapter folder. Ensure the environment is clear.
-<ul>
-<li>If you’re using the Rserver, avoid a number of issues by restarting the session - click <code>Session</code> - <code>Restart R</code>
-</li>
+<li>ILO1.</li>
 </ul>
-</li>
-<li>Open a new R Markdown document and save it in your working directory. Call the file “screeningdata”.<br>
-</li>
-<li>Download <a href="messy.csv" download="">messy.csv</a> and save it in your Screening Data folder. Make sure that you do not change the file name at all.
-<ul>
-<li>If you prefer you can download the data in a <a href="data/chpt12/PsyTeachR_FQA_Chpt12-data.zip" target="_blank">zip folder by clicking here</a>
-</li>
-<li>Remember not to change the file names at all and that <code>data.csv</code> is not the same as <code>data (1).csv</code>.</li>
-</ul>
-</li>
-<li>Delete the default R Markdown welcome text and insert a new code chunk that loads the following packages, in this specific order, using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. Remember the solutions if needed.
-<ul>
-<li>Load the packages in this order, <code>psych</code> then <code>tidyverse</code>
-</li>
-<li>again we have not used some of these packages so you will likely need to install some of them using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. Remember though that you should only do this on your own machine and only in the console window. If you are using the RServer you will not need to install them.</li>
-</ul>
-</li>
-<li>Finally, load the data held in <code>messy.csv</code> as a tibble into an object named <code>messy</code> using <code>read_csv()</code>. If unsure, have a look at the solution at the end of the chapter</li>
-</ul></section><section id="screening-a2" class="level4" data-number="11.1.0.2"><h4 data-number="11.1.0.2" class="anchored" data-anchor-id="screening-a2">
-<span class="header-section-number">11.1.0.2</span> Activity 2: Look at the data</h4>
-<p><code>messy</code> is simulated data for an experiment looking at the effect of note-taking on test performance and whether this is affected by being first language English. Participants are first given a pre-test to judge their baseline knowledge, then they watch a lecture and take notes. Immediately after the lecture is finished they take another test. Finally, they are tested after a week’s delay. The maximum score for any test is 30. Participants lose marks for incorrect answers so minus scores are also possible. The dataset has six variables:</p>
-<ul>
-<li>
-<code>id</code> showing the participant ID number</li>
-<li>
-<code>age</code> showing the age of the participant</li>
-<li>
-<code>speaker</code>showing if the participant are first language English or not<br>
-</li>
-<li>
-<code>gender</code> showing if the participant is male, female, or non-binary<br>
-</li>
-<li>
-<code>pre</code> showing pre-test score before any notes were taken<br>
-</li>
-<li>
-<code>post</code> showing post-test score immediately after the lecture<br>
-</li>
-<li>
-<code>delay</code> showing test score after one week delay</li>
-</ul></section></section><section id="missing-data" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="missing-data">
-<span class="header-section-number">11.2</span> Missing data</h2>
-<p>The first issue we will cover is missing data. There is a whole host of reasons that your data could have missing values. For example:</p>
-<ul>
-<li>Data can be missing because your participants accidentally didn’t fill in a question.</li>
-<li>Data can be missing because participants intentionally didn’t want to answer a question.</li>
-<li>Data can be missing because participants didn’t turn up to a final testing session.</li>
-<li>Data can be missing because you did something wrong whilst setting up your questionnaire/experiment and it didn’t save.</li>
-</ul>
-<p>In truth, real data frequently contains missing values and it’s important that you know how to identify missing data and what you can do with it. Which is what we want to show you a little of in this chapter.</p>
-<section id="screening-a3" class="level4" data-number="11.2.0.1"><h4 data-number="11.2.0.1" class="anchored" data-anchor-id="screening-a3">
-<span class="header-section-number">11.2.0.1</span> Activity 3: <code>summary()</code> and <code>is.na()</code>
-</h4>
-<p>Missing data is normally shown in your tibbles and objects as <code>NA</code> - usually taken to mean something like “Not Available”. We have already seen a couple of approaches to find NAs in our data and we will quickly recap them.</p>
-<p>The first approach is to use a pipeline of functions we have used before including <code>summarise()</code>, <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, and <code>pluck()</code>. For instance:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>messy_na <span class="ot">&lt;-</span> messy <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">summarise</span>(<span class="at">find_nas =</span> <span class="fu">is.na</span>(speaker)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">summarise</span>(<span class="at">count_nas =</span> <span class="fu">sum</span>(find_nas)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">pluck</span>(<span class="st">"count_nas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-dplyr 1.1.0.
-ℹ Please use `reframe()` instead.
-ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-  always returns an ungrouped data frame and adjust accordingly.</code></pre>
-</div>
-</div>
-<p>Which reads as use <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> to find all the NAs in messy (i.e the first <code>summarise()</code>) and then count up all those NAs (i.e.&nbsp;the second <code>summarise()</code> - which works because NAs are either TRUE, summed as 1, or FALSE, summed as 0), and then pluck out that number (i.e.&nbsp;the <code>pluck()</code>). And if you look at <code>messy_na</code> you see there are 20 NAs in <code>speaker</code>. That code looks quite long but it could actually be written as below if you prefer and you can follow the pipe inside the <code>summarise()</code>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>messy_na <span class="ot">&lt;-</span> messy <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">summarise</span>(<span class="at">count_nas =</span> <span class="fu">is.na</span>(speaker) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">pluck</span>(<span class="st">"count_nas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This approach, using <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code>, is a good approach if you are only interested in one column or maybe a couple of columns, but if you want a snapshot of all your columns then we can use <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> which we have seen previously. First, however, because <code>speaker</code> and <code>gender</code> are character/text rather than numerical, in order to see how many values are missing we first need to convert these two columns into factors using the below code</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>messy <span class="ot">&lt;-</span> messy <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">mutate</span>(<span class="at">speaker =</span> <span class="fu">as.factor</span>(speaker), </span>
-<span id="cb4-3"><a href="#cb4-3"></a>         <span class="at">gender =</span> <span class="fu">as.factor</span>(gender))</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">summary</span>(messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>If you run the code, you can see, there are 20 data points missing (NAs) in each of <code>speaker</code>, <code>gender</code>, and <code>delay</code>. However, and the important part if you look at the actual data, the missing data is not in the same 20 participants and that gives us some issues about how to deal with these different participants. Fortunately, there are several different approaches to dealing with missing data and we will cover a few here.</p>
-</section></section><section id="listwise-deletion" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="listwise-deletion">
-<span class="header-section-number">11.3</span> Listwise Deletion</h2>
-<p>One method for dealing with missing data is <a class="glossary">listwise<span class="def"></span></a>. This approach removes any participant who have a missing value (i.e.&nbsp;a NA) in <strong>any</strong> variable. So if there is missing data in any of the columns in the dataset, that participant will be removed and you will only be left with participants with complete datasets. For example the below participants would be removed along with all others with a similar profile:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: center;">id</th>
-<th style="text-align: center;">age</th>
-<th style="text-align: center;">speaker</th>
-<th style="text-align: center;">gender</th>
-<th style="text-align: center;">pre</th>
-<th style="text-align: center;">post</th>
-<th style="text-align: center;">delay</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">S008</td>
-<td style="text-align: center;">48</td>
-<td style="text-align: center;">english</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">12</td>
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">17</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S009</td>
-<td style="text-align: center;">22</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">male</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">18</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">S010</td>
-<td style="text-align: center;">31</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">female</td>
-<td style="text-align: center;">13</td>
-<td style="text-align: center;">35</td>
-<td style="text-align: center;">17</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S011</td>
-<td style="text-align: center;">26</td>
-<td style="text-align: center;">english</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">18</td>
-<td style="text-align: center;">19</td>
-<td style="text-align: center;">16</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>We can achieve this using the <code>drop_na()</code> function from the <strong><code>tidyr</code></strong> package that comes in as part of <code>tidyverse</code>.</p>
-<section id="screening-a4" class="level4" data-number="11.3.0.1"><h4 data-number="11.3.0.1" class="anchored" data-anchor-id="screening-a4">
-<span class="header-section-number">11.3.0.1</span> Activity 4: Listwise deletion</h4>
-<ul>
-<li>Run the below code and then view the tibble in the object called <code>messy_listwise</code>.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>messy_listwise <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>As you can see <code>messy_listwise</code> now only contains data from participants with a complete set of data - i.e.&nbsp;responses in each column.</p>
-<p>Now, however, whilst this might seem like a good thing, and sometimes it is the most appropriate option, there are a couple of important points to consider.</p>
+<section id="chapter-preparation" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="chapter-preparation">
+<span class="header-section-number">11.1</span> Chapter preparation</h2>
+<section id="organising-your-files-and-project-for-the-chapter" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="organising-your-files-and-project-for-the-chapter">
+<span class="header-section-number">11.1.1</span> Organising your files and project for the chapter</h3>
+<p>For this chapter, we are going to revisit the data sets you worked with in Chapters 8 <span class="citation" data-cites="dawtry_why_2015">(<a href="references.html#ref-dawtry_why_2015" role="doc-biblioref">Dawtry et al., 2015</a>)</span> and 9 <span class="citation" data-cites="lopez_visual_2023">(<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">Lopez et al., 2023</a>)</span>. They each presented some useful examples for checking statistical assumptions and the decisions that go into data analysis. We might not use both data sets for each topic we cover, but they will be useful to demonstrate some of the problems and decisions we highlighted in previous chapters, but did not explore solutions.</p>
+<p>Before we can get started, you need to organise your files and project for the chapter, so your working directory is in order.</p>
 <ol type="1">
-<li>First, <code>gender</code> might not be part of our experiment; it might just be there as demographic information. So whilst we might not include <code>gender</code> in any of our analyses, because of the listwise deletion approach we have deleted experimental data if the participant was missing <code>gender</code> which means we are removing participants we could actual use.</li>
-<li>Relatedly, using a listwise deletion approach may result in the loss of a lot of data. Compare <code>messy</code> to <code>messy_listwise</code>. The original dataset had 200 participants. After using <code>drop_na()</code> we only have 143 participants meaning that we have lost over 25% of our data with this approach which is a lot of data.</li>
+<li><p>In your folder for research methods and the book <code>ResearchMethods1_2/Quant_Fundamentals</code>, create a new folder called <code>Chapter_11_screening_data</code>. Within <code>CChapter_11_screening_data</code>, create two new folders called <code>data</code> and <code>figures</code>.</p></li>
+<li><p>Create an R Project for <code>Chapter_11_screening_data</code> as an existing directory for your chapter folder. This should now be your working directory.</p></li>
+<li><p>Create a new R Markdown document and give it a sensible title describing the chapter, such as <code>11 Missing Data, Outliers, and Assumptions</code>. Delete everything below line 10 so you have a blank file to work with and save the file in your <code>Chapter_11_screening_data</code> folder.</p></li>
+<li><p>The <span class="citation" data-cites="dawtry_why_2015">Dawtry et al. (<a href="references.html#ref-dawtry_why_2015" role="doc-biblioref">2015</a>)</span> data wrangling steps were quite long, so please save this clean version of the data to focus on screening data in this chapter: <a href="data/Dawtry_2015_clean.csv">Dawtry_2015_clean.csv</a>. You will also need to save the data from <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span> if you have not downloaded it yet: <a href="data/Lopez_2023.csv">Lopez_2023.csv</a>. Right click the link and select “save link as”, or clicking the link will save the files to your Downloads. Make sure that you save the files as “.csv”. Save or copy the files to your <code>data/</code> folder within <code>Chapter_11_screening_data</code>.</p></li>
 </ol>
-<ul>
+<p>You are now ready to start working on the chapter!</p>
+</section><section id="activity-1---read-and-wrangle-the-data" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="activity-1---read-and-wrangle-the-data">
+<span class="header-section-number">11.1.2</span> Activity 1 - Read and wrangle the data</h3>
+<p>As the first activity, try and test yourself by completing the following task list to read and wrangle the two data files. There is nothing extra to do with this version of the Dawtry data and one small step for the Lopez data.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To read and wrangle the data, complete the following tasks:</p>
+<ol type="1">
 <li>
-<strong>Note:</strong> It is worth mentioning that if you do use a listwise approach you should check that the missing values are not coming from one particular group (i.e., non-random attrition).</li>
-</ul>
-<p>To counter these issues, one option is to amend the use of <code>drop_na()</code> so that it doesn’t include <code>gender</code>, or any column for that matter that we don’t want to exclude people based on. We can do this using a similar approach to what we have seen when using <code>select()</code>. For example, run the below code, have a look at the output and then answer the question:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>messy_listwise2 <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(messy, <span class="sc">-</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Load the following packages:</p>
 <ul>
-<li>How many observations does <code>messy_listwise2</code> have? <input class="webex-solveme nospaces" size="3" data-answer="[&quot;161&quot;]">
+<li><p><pkg>performance</pkg></p></li>
+<li><p><pkg>tidyverse</pkg></p></li>
+</ul>
 </li>
-</ul>
-<p>So that approach says “remove participants with NAs from <code>messy</code> based on all columns <strong>except</strong> gender”. Alternatively, you could do “remove participants with NAs from <code>messy</code> based on only the columns of speaker and delay” as follows:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>messy_listwise3 <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(messy, speaker, delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>So you actually have a lot of control with <code>drop_na()</code> as long as you plan your approach in advance.</p>
-</section></section><section id="pairwise-deletion" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="pairwise-deletion">
-<span class="header-section-number">11.4</span> Pairwise Deletion</h2>
-<p>The alternative to listwise deletion is <a class="glossary">pairwise<span class="def"></span></a>. This is when cases are removed depending upon the analysis. For example, if we were to calculate the correlations between <code>pre</code>, <code>post</code>, and <code>delay</code> without first removing participants with missing data, we would basically just use different numbers of participants in each correlation depending on missing data. For example, if you compare the degrees of freedom for the following two correlations:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">cor.test</span>(messy<span class="sc">$</span>pre, messy<span class="sc">$</span>post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  messy$pre and messy$post
-t = 7.0493, df = 198, p-value = 2.924e-11
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.3296550 0.5523276
-sample estimates:
-      cor 
-0.4479101 </code></pre>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">cor.test</span>(messy<span class="sc">$</span>pre, messy<span class="sc">$</span>delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  messy$pre and messy$delay
-t = 7.9619, df = 178, p-value = 1.927e-13
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.3958642 0.6127887
-sample estimates:
-      cor 
-0.5124561 </code></pre>
-</div>
-</div>
-<p>You can see that the correlation of <code>pre</code> versus <code>post</code> has df = 198 whereas <code>pre</code> versus <code>delay</code> has df = 178. Meaning that the correlation is by default run only on the participants who have data in both columns - pairwise deletion. The problem here is remembering to write up the output accordingly as the dfs are changing and they may be different from the number of participants you stated in your methods section. Again it is about looking at your data!</p>
-</section><section id="summarising-data-with-missing-values" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="summarising-data-with-missing-values">
-<span class="header-section-number">11.5</span> Summarising data with missing values</h2>
-<p>So when running inferential tests like correlations, the analysis will usually know when to ignore missing values. However, if you’re calculating descriptive statistics or if you want to calculate the average score of a number of different items, you need to explicitly state to ignore the missing values. We can do this through <code>na.rm = TRUE</code></p>
-<section id="screening-a5" class="level4" data-number="11.5.0.1"><h4 data-number="11.5.0.1" class="anchored" data-anchor-id="screening-a5">
-<span class="header-section-number">11.5.0.1</span> Activity 5: <code>na.rm = TRUE</code>
-</h4>
+<li><p>Read the data file <code>data/Dawtry_2015_clean.csv</code> to the object name <code>dawtry_clean</code>.</p></li>
+<li><p>Read the data file <code>data/Lopez_2023.csv</code> to the object name <code>lopez_data</code>.</p></li>
+<li>
+<p>Create a new object called <code>lopez_clean</code> based on <code>lopez_data</code>:</p>
 <ul>
-<li>Run the below code to calculate the mean score for each testing condition.</li>
+<li>Create a new variable called <code>Condition_label</code> by recoding <code>Condition</code>. “0” is the “Control” group and “1” is the “Experimental” group.</li>
 </ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">summarise</span>(messy, </span>
-<span id="cb12-2"><a href="#cb12-2"></a>          <span class="at">pre_mean =</span> <span class="fu">mean</span>(pre),</span>
-<span id="cb12-3"><a href="#cb12-3"></a>          <span class="at">post_mean =</span> <span class="fu">mean</span>(post),</span>
-<span id="cb12-4"><a href="#cb12-4"></a>          <span class="at">delay_mean =</span> <span class="fu">mean</span>(delay)</span>
-<span id="cb12-5"><a href="#cb12-5"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This gives a table similar to below. We have rounded all the values to two decimal places but yours might have more decimal places.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: center;">pre_mean</th>
-<th style="text-align: center;">post_mean</th>
-<th style="text-align: center;">delay_mean</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: center;">10.02</td>
-<td style="text-align: center;">17.27</td>
-<td style="text-align: center;">NA</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>As you can see, the mean score for <code>delay</code> shows as <code>NA</code>. This is because we are trying to calculate an average of a variable that has missing data and that just isn’t doable. As such we need to calculate the mean but ignoring the missing values by adding <code>na.rm = TRUE</code> - which you can read this as “remove the NAs? Yes”.</p>
-<ul>
-<li>Run the below code and then answer the question.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">summarise</span>(messy, </span>
-<span id="cb13-2"><a href="#cb13-2"></a>          <span class="at">pre_mean =</span> <span class="fu">mean</span>(pre),</span>
-<span id="cb13-3"><a href="#cb13-3"></a>          <span class="at">post_mean =</span> <span class="fu">mean</span>(post),</span>
-<span id="cb13-4"><a href="#cb13-4"></a>          <span class="at">delay_mean =</span> <span class="fu">mean</span>(delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-5"><a href="#cb13-5"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>What is the mean score for the <code>delay</code> condition to 2 decimal places? <input class="webex-solveme nospaces" size="5" data-answer="[&quot;13.60&quot;]">
 </li>
-</ul>
-<div class="cell" data-layout-align="center" type="danger">
-<div class="danger">
-<p>
-It’s really important that you think about whether you want to calculate your descriptives from participants that have missing data. For example, if you are calculating the average reaction time from hundreds of trials, a few missing data points won’t affect the validity of the mean. However, if you are using a standardised questionnaire that has been validated using complete responses but your participants didn’t answer 3/10 questions, it may not be appropriate to calculate a mean score from the remaining data.
-</p>
+</ol>
 </div>
 </div>
-</section></section><section id="implausible-values" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="implausible-values">
-<span class="header-section-number">11.6</span> Implausible values</h2>
-<p>Along with looking for missing values, an additional crucial step of data screening is checking for implausible values - values that should not exist in your data. What is implausible depends on the data you’ve collected!</p>
-<section id="screening-a6" class="level4" data-number="11.6.0.1"><h4 data-number="11.6.0.1" class="anchored" data-anchor-id="screening-a6">
-<span class="header-section-number">11.6.0.1</span> Activity 6: Implausible values</h4>
-<p>Additional functions we can put inside a <code>summarise()</code> function are <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>.</p>
-<ul>
-<li>Run the below code and look at the output and answer the questions below:</li>
-</ul>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show me the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>messy <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">summarise</span>(<span class="at">max_age =</span> <span class="fu">max</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-3"><a href="#cb14-3"></a>            <span class="at">min_age =</span> <span class="fu">min</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-4"><a href="#cb14-4"></a>            <span class="at">max_pre =</span> <span class="fu">max</span>(pre, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-5"><a href="#cb14-5"></a>            <span class="at">min_pre =</span> <span class="fu">min</span>(pre, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-6"><a href="#cb14-6"></a>            <span class="at">max_post =</span> <span class="fu">max</span>(post, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-7"><a href="#cb14-7"></a>            <span class="at">min_post =</span> <span class="fu">min</span>(post, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-8"><a href="#cb14-8"></a>            <span class="at">max_delay =</span> <span class="fu">max</span>(delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-9"><a href="#cb14-9"></a>            <span class="at">min_delay =</span> <span class="fu">min</span>(delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: right;">max_age</th>
-<th style="text-align: right;">min_age</th>
-<th style="text-align: right;">max_pre</th>
-<th style="text-align: right;">min_pre</th>
-<th style="text-align: right;">max_post</th>
-<th style="text-align: right;">min_post</th>
-<th style="text-align: right;">max_delay</th>
-<th style="text-align: right;">min_delay</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">470</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">-3</td>
-</tr></tbody>
-</table>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load the relevant packages</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Read the Dawtry_2015_clean.csv file </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>dawtry_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Dawtry_2015_clean.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Read the Lopez_2023.csv file </span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>lopez_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Lopez_2023.csv"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># recode condition</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>lopez_clean <span class="ot">&lt;-</span> lopez_data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13"></a>  <span class="fu">mutate</span>(<span class="at">Condition_label =</span> <span class="fu">case_match</span>(Condition,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>                                      <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Control"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>                                      <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Experimental"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<ul>
-<li>Does the max value of <code>age</code> look plausible? <select class="webex-select"><option value="blank"></option>
-<option value="">Yes</option>
-<option value="answer">No</option></select>
-</li>
-<li>Does the max value of <code>pre</code> look plausible? <select class="webex-select"><option value="blank"></option>
-<option value="answer">Yes</option>
-<option value="">No</option></select>
-</li>
-<li>Do the max value of <code>post</code> look plausible? <select class="webex-select"><option value="blank"></option>
-<option value="">Yes</option>
-<option value="answer">No</option></select>
-</li>
-<li>Do the min value of <code>delay</code> look plausible? <select class="webex-select"><option value="blank"></option>
-<option value="">No</option>
-<option value="answer">Yes</option></select>
-</li>
-</ul>
-<div class="webex-solution">
-<button>
-Explain these answers
-</button>
-<div class="cell" data-layout-align="center">
-<p>The maximum value for age is 470, this is unlikely to be correct!</p>
-<p>The maximum value for pre, post, and delay should be 30, as we described at the start of the chapter. However, for post, the maximum value is 40 so something is wrong. This is a very important check to do on your data, not just for the raw data but if you’ve calculated a total score.</p>
-<p>The min value for delay is plausible, given the explanation at the start of the chapter. Remember that participants can be deducted points for incorrect answers, so negative values are possible.</p>
 </div>
-</div>
-<p>That code above does look a bit long and could be written quicker as below. We won’t go into detail as to how this works but see if you can figure it out by comparing the output to the version above:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>messy <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">summarise_at</span>(<span class="fu">c</span>(<span class="st">"age"</span>,<span class="st">"pre"</span>,<span class="st">"post"</span>,<span class="st">"delay"</span>),</span>
-<span id="cb15-3"><a href="#cb15-3"></a>               <span class="fu">c</span>(max, min),</span>
-<span id="cb15-4"><a href="#cb15-4"></a>               <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 12%">
-<col style="width: 14%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: right;">age_fn1</th>
-<th style="text-align: right;">pre_fn1</th>
-<th style="text-align: right;">post_fn1</th>
-<th style="text-align: right;">delay_fn1</th>
-<th style="text-align: right;">age_fn2</th>
-<th style="text-align: right;">pre_fn2</th>
-<th style="text-align: right;">post_fn2</th>
-<th style="text-align: right;">delay_fn2</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">470</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">-3</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-</div>
-<p>And there is always <code>summary(messy)</code> if you prefer. But the main point is that we should always check our values to make sure they are allowed in our data. But whilst looking at the values is useful, it can be easier to visualise the data.</p>
-</section><section id="screening-a7" class="level4" data-number="11.6.0.2"><h4 data-number="11.6.0.2" class="anchored" data-anchor-id="screening-a7">
-<span class="header-section-number">11.6.0.2</span> Activity 7: Visualising implausible values</h4>
-<p>There are a number of different ways to visualise the data as you know and this depends on the data, and your preferences. You could produce violin-boxplots with the data points on top to check the distributions as follows:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>messy <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"pre"</span>, <span class="st">"post"</span>, <span class="st">"delay"</span>), </span>
-<span id="cb16-3"><a href="#cb16-3"></a>               <span class="at">names_to =</span> <span class="st">"test"</span>, </span>
-<span id="cb16-4"><a href="#cb16-4"></a>               <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> test, <span class="at">y =</span> score)) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-screening-data_files/figure-html/fig1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Data screening plots</figcaption></figure>
-</div>
-</div>
-</div>
-<p>And if it helped, you could add some max and min lines to help spot issues using <code>geom_hline()</code> as follows:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>messy <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"pre"</span>, <span class="st">"post"</span>, <span class="st">"delay"</span>), </span>
-<span id="cb17-3"><a href="#cb17-3"></a>               <span class="at">names_to =</span> <span class="st">"test"</span>, </span>
-<span id="cb17-4"><a href="#cb17-4"></a>               <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> test, <span class="at">y =</span> score)) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">30</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-screening-data_files/figure-html/fig1a-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Data screening plots</figcaption></figure>
-</div>
-</div>
-</div>
-<p>Alternatively you could also use a histogram to spot an outlier:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(messy, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-screening-data_files/figure-html/fig2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Histogram of age for data screening</figcaption></figure>
-</div>
-</div>
-</div>
-<p>And we can make use of <code>facet_wrap()</code> which we have seen before to help split figures based on different conditions:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>messy <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"pre"</span>, <span class="st">"post"</span>, <span class="st">"delay"</span>), </span>
-<span id="cb19-3"><a href="#cb19-3"></a>               <span class="at">names_to =</span> <span class="st">"test"</span>, </span>
-<span id="cb19-4"><a href="#cb19-4"></a>               <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-screening-data_files/figure-html/fig3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Histogram of the DVs for data screening</figcaption></figure>
-</div>
-</div>
-</div>
-<p>Whatever method you choose, make sure that you look at your data before trying to work with it and that you know in advance what range your values should take (for example, if your Likert scale is 1-7, you shouldn’t have a score of 8, for reaction times, 50ms is unlikely to reflect a real response).</p>
-</section></section><section id="dealing-with-implausible-values-or-missing-data" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="dealing-with-implausible-values-or-missing-data">
-<span class="header-section-number">11.7</span> Dealing with implausible values or missing data</h2>
-<p>Once we have spotted some implausible or missing values we then need to decide what to do with them. However, there is no hard and fast rule about what to do with missing data. You should review the missing data to see if there are any patterns, for example, is all the missing data from one condition? A pattern may indicate a problem with your design. Alternatively, does a single participant have a lot of missing data and should they be removed? This might indicate they were not paying attention.</p>
-<p>One way of dealing with implausible values is to use the <code><a href="https://rdrr.io/r/base/replace.html">replace()</a></code> and <code>mutate()</code> functions to change such values to Na.</p>
-<ul>
-<li>For <code>age</code>, we know that we have one very specific data point that is implausible, an age of 470 so we can specify just to replace this one value with NA.</li>
-<li>For <code>post</code>, there are multiple missing values so we specify to replace any data point that is over the maximum plausible value (30) with NA.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>messy_screen <span class="ot">&lt;-</span>  messy <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">replace</span>(age, age <span class="sc">==</span> <span class="dv">470</span>, <span class="cn">NA</span>),</span>
-<span id="cb20-3"><a href="#cb20-3"></a>         <span class="at">post =</span> <span class="fu">replace</span>(post, post <span class="sc">&gt;</span> <span class="dv">30</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>An alternative method for dealing with implausible data is to <a class="glossary">impute<span class="def"></span></a> the data, i.e., to replace missing data with substituted values. There are many methods of doing this, for example, you can replace missing values with the mean value of the distribution. We won’t go into which method you should choose this in this chapter but there’s <a href="https://www.theanalysisfactor.com/seven-ways-to-make-up-data-common-methods-to-imputing-missing-data/">more information available</a> online about the various options if you’re interested. The code for imputing missing data is relatively simple and uses <code>mutate()</code> and <code>replace_na()</code>.</p>
-<ul>
-<li>You can read the below code as “create a new variable named <code>post_impute</code> that replaces the values of <code>post</code> if they’re <code>NA</code> with the mean of the values in <code>post</code>.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>messy_impute <span class="ot">&lt;-</span> messy_screen <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">mutate</span>(<span class="at">post_impute =</span> <span class="fu">replace_na</span>(post, </span>
-<span id="cb21-3"><a href="#cb21-3"></a>                                  <span class="fu">mean</span>(post, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And if we look at a participant who had a NA for <code>post</code> we can see the change:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: right;">age</th>
-<th style="text-align: left;">speaker</th>
-<th style="text-align: left;">gender</th>
-<th style="text-align: right;">pre</th>
-<th style="text-align: right;">post</th>
-<th style="text-align: right;">delay</th>
-<th style="text-align: right;">post_impute</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: left;">S016</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: left;">english</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">21</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">16.71134</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>So you can see that they have been given the value of the mean of the distribution in this new variable and then can be used in different analyses!</p>
-</section><section id="alternative-function-for-descriptive-statistics" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="alternative-function-for-descriptive-statistics">
-<span class="header-section-number">11.8</span> Alternative function for descriptive statistics</h2>
-<p>And before we end this chapter we wanted to just add a small section on an alternative function for calculating some useful descriptives that you can use to check your data. So far in this book, we’ve calculated descriptive statistics using <code>summarise()</code> from the <strong><code>tidyverse</code></strong>. There’s a good reason we’ve done this - the output of <code>summarise()</code> works well with <code>ggplot()</code> and the code is very flexible. However, it can be hard to calculate descriptives such as skew and kurtosis within <code>summarise()</code> and it can be useful to know of other functions that help create these descriptives. For example, the <code>psych</code> package contains many functions that are useful for psychology research. One of the functions of <code>psych</code> is <code>describe()</code>.</p>
-<ul>
-<li>Run the below code and look at the output as shown below.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>descriptives <span class="ot">&lt;-</span> <span class="fu">describe</span>(messy)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>descriptives</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 7%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 5%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 8%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">vars</th>
-<th style="text-align: right;">n</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-<th style="text-align: right;">median</th>
-<th style="text-align: right;">trimmed</th>
-<th style="text-align: right;">mad</th>
-<th style="text-align: right;">min</th>
-<th style="text-align: right;">max</th>
-<th style="text-align: right;">range</th>
-<th style="text-align: right;">skew</th>
-<th style="text-align: right;">kurtosis</th>
-<th style="text-align: right;">se</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id*</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">100.500000</td>
-<td style="text-align: right;">57.8791845</td>
-<td style="text-align: right;">100.5</td>
-<td style="text-align: right;">100.500000</td>
-<td style="text-align: right;">74.1300</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">199</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">-1.2180144</td>
-<td style="text-align: right;">4.0926764</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">age</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">36.075000</td>
-<td style="text-align: right;">32.3102015</td>
-<td style="text-align: right;">34.0</td>
-<td style="text-align: right;">33.931250</td>
-<td style="text-align: right;">13.3434</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">470</td>
-<td style="text-align: right;">452</td>
-<td style="text-align: right;">12.0951922</td>
-<td style="text-align: right;">159.6718805</td>
-<td style="text-align: right;">2.2846763</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">speaker*</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">1.511111</td>
-<td style="text-align: right;">0.5012709</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">1.513889</td>
-<td style="text-align: right;">0.0000</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">-0.0440855</td>
-<td style="text-align: right;">-2.0091259</td>
-<td style="text-align: right;">0.0373625</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">gender*</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">1.688889</td>
-<td style="text-align: right;">0.7268889</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">1.611111</td>
-<td style="text-align: right;">1.4826</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.5452331</td>
-<td style="text-align: right;">-0.9643153</td>
-<td style="text-align: right;">0.0541791</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pre</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">10.015000</td>
-<td style="text-align: right;">5.0039959</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">9.987500</td>
-<td style="text-align: right;">4.4478</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">0.0555773</td>
-<td style="text-align: right;">0.2559528</td>
-<td style="text-align: right;">0.3538359</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">post</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">17.270000</td>
-<td style="text-align: right;">6.3386110</td>
-<td style="text-align: right;">17.0</td>
-<td style="text-align: right;">16.968750</td>
-<td style="text-align: right;">5.9304</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0.5802699</td>
-<td style="text-align: right;">0.7133158</td>
-<td style="text-align: right;">0.4482075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">delay</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">13.600000</td>
-<td style="text-align: right;">5.1563271</td>
-<td style="text-align: right;">14.0</td>
-<td style="text-align: right;">13.645833</td>
-<td style="text-align: right;">4.4478</td>
-<td style="text-align: right;">-3</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">-0.0462551</td>
-<td style="text-align: right;">0.4985955</td>
-<td style="text-align: right;">0.3843299</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>As you can see <code>describe()</code> produces a full set of descriptive statistics, including skew, kurtosis and standard error for the entire dataset! Run <code>?describe</code> to see a full explanation of all the statistics it calculates.</p>
-<p>You may notice that <code>id</code>, <code>speaker</code> and <code>gender</code> all have a star next to their name. This star signifies that these variables are factors, and so it is not really appropriate to calculate these statistics, but we asked it to apply <code>describe()</code> to the entire dataset so it’s done what you asked. However, we could <code>describe()</code>with <code>select()</code> to remove these variables and just get the data we want:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>descriptives2 <span class="ot">&lt;-</span> messy <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>speaker, <span class="sc">-</span>gender) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">describe</span>()</span>
-<span id="cb23-4"><a href="#cb23-4"></a></span>
-<span id="cb23-5"><a href="#cb23-5"></a>descriptives2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 7%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 5%">
-<col style="width: 10%">
-<col style="width: 11%">
-<col style="width: 9%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">vars</th>
-<th style="text-align: right;">n</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-<th style="text-align: right;">median</th>
-<th style="text-align: right;">trimmed</th>
-<th style="text-align: right;">mad</th>
-<th style="text-align: right;">min</th>
-<th style="text-align: right;">max</th>
-<th style="text-align: right;">range</th>
-<th style="text-align: right;">skew</th>
-<th style="text-align: right;">kurtosis</th>
-<th style="text-align: right;">se</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">age</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">36.075</td>
-<td style="text-align: right;">32.310201</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">33.93125</td>
-<td style="text-align: right;">13.3434</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">470</td>
-<td style="text-align: right;">452</td>
-<td style="text-align: right;">12.0951922</td>
-<td style="text-align: right;">159.6718805</td>
-<td style="text-align: right;">2.2846763</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pre</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">10.015</td>
-<td style="text-align: right;">5.003996</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">9.98750</td>
-<td style="text-align: right;">4.4478</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">0.0555773</td>
-<td style="text-align: right;">0.2559528</td>
-<td style="text-align: right;">0.3538359</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">post</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">17.270</td>
-<td style="text-align: right;">6.338611</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">16.96875</td>
-<td style="text-align: right;">5.9304</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0.5802699</td>
-<td style="text-align: right;">0.7133158</td>
-<td style="text-align: right;">0.4482075</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">delay</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">13.600</td>
-<td style="text-align: right;">5.156327</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">13.64583</td>
-<td style="text-align: right;">4.4478</td>
-<td style="text-align: right;">-3</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">-0.0462551</td>
-<td style="text-align: right;">0.4985955</td>
-<td style="text-align: right;">0.3843299</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The output of <code>describe()</code> is a little harder to work with in terms of manipulating the table and using the data in subsequent plots and analyses, so we still strongly recommend that you use <code>summarise()</code> and <code>group_by()</code> for these operations, however, for getting a comprehensive overview of your data, <code>describe()</code> is a good function to know about.</p>
-</section><section id="screening-fin" class="level2" data-number="11.9"><h2 data-number="11.9" class="anchored" data-anchor-id="screening-fin">
-<span class="header-section-number">11.9</span> Finished!</h2>
-<p>And you’re done! Excellent work today! This isn’t a comprehensive tutorial on every type of dataset you will come across and the concept of tidy data will take practice but hopefully this should give you a good starting point for when you have your own real, messy data.</p>
-</section><section id="screening-sols" class="level2" data-number="11.10"><h2 data-number="11.10" class="anchored" data-anchor-id="screening-sols">
-<span class="header-section-number">11.10</span> Activity solutions</h2>
-<section id="screening-a1sol" class="level3" data-number="11.10.1"><h3 data-number="11.10.1" class="anchored" data-anchor-id="screening-a1sol">
-<span class="header-section-number">11.10.1</span> Activity 1</h3>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb24-3"><a href="#cb24-3"></a>messy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"messy.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section></section><section id="words-from-this-chapter" class="level2" data-number="11.11"><h2 data-number="11.11" class="anchored" data-anchor-id="words-from-this-chapter">
-<span class="header-section-number">11.11</span> Words from this Chapter</h2>
+</section></section><section id="missing-data" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="missing-data">
+<span class="header-section-number">11.2</span> Missing data</h2>
+</section><section id="outliers" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="outliers">
+<span class="header-section-number">11.3</span> Outliers</h2>
+</section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
+<span class="header-section-number">11.4</span> Checking assumptions</h2>
+</section><section id="test-yourself" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="test-yourself">
+<span class="header-section-number">11.5</span> Test yourself</h2>
+<p>To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. We then have some error mode tasks to see if you can find the solution to some common errors in the concepts we covered in this chapter.</p>
+<section id="knowledge-check" class="level3" data-number="11.5.1"><h3 data-number="11.5.1" class="anchored" data-anchor-id="knowledge-check">
+<span class="header-section-number">11.5.1</span> Knowledge check</h3>
+<p><strong>Question 1</strong>.</p>
+</section><section id="error-mode" class="level3" data-number="11.5.2"><h3 data-number="11.5.2" class="anchored" data-anchor-id="error-mode">
+<span class="header-section-number">11.5.2</span> Error mode</h3>
+<p>The following questions are designed to introduce you to making and fixing errors. For this topic, we focus on the new types of data visualisation. Remember to keep a note of what kind of error messages you receive and how you fixed them, so you have a bank of solutions when you tackle errors independently.</p>
+<p>Create and save a new R Markdown file for these activities. Delete the example code, so your file is blank from line 10.</p>
+<p>…</p>
+</section></section><section id="words-from-this-chapter" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="words-from-this-chapter">
+<span class="header-section-number">11.6</span> Words from this Chapter</h2>
 <p>Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead><tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">impute</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">listwise</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pairwise</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
+<div class="kable-table">
+
 </div>
 </div>
-<p>That is end of this chapter. Be sure to look again at anything you were unsure about and make some notes to help develop your own knowledge and skills. It would be good to write yourself some questions about what you are unsure of and see if you can answer them later or speak to someone about them. Good work today!</p>
+</div>
+</section><section id="end-of-chapter" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="end-of-chapter">
+<span class="header-section-number">11.7</span> End of Chapter</h2>
+<p>That is the final chapter you will complete for Research Methods 1.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-dawtry_why_2015" class="csl-entry" role="listitem">
+Dawtry, R. J., Sutton, R. M., &amp; Sibley, C. G. (2015). Why <span>Wealthier</span> <span>People</span> <span>Think</span> <span>People</span> <span>Are</span> <span>Wealthier</span>, and <span>Why</span> <span>It</span> <span>Matters</span>: <span>From</span> <span>Social</span> <span>Sampling</span> to <span>Attitudes</span> to <span>Redistribution</span>. <em>Psychological Science</em>, <em>26</em>(9), 1389–1400. <a href="https://doi.org/10.1177/0956797615586560">https://doi.org/10.1177/0956797615586560</a>
+</div>
+<div id="ref-lopez_visual_2023" class="csl-entry" role="listitem">
+Lopez, A., Choi, A. K., Dellawar, N. C., Cullen, B. C., Avila Contreras, S., Rosenfeld, D. L., &amp; Tomiyama, A. J. (2023). Visual cues and food intake: <span>A</span> preregistered replication of <span>Wansink</span> et al (2005). <em>Journal of Experimental Psychology: General</em>. <a href="https://doi.org/10.1037/xge0001503.supp">https://doi.org/10.1037/xge0001503.supp</a>
+</div>
+</div>
 </section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
@@ -1788,7 +1082,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-center">CC-BY-SA-4.0 (2024) James Bartlett &amp; Wilhelmiina Toivo</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
