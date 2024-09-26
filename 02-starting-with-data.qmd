@@ -407,7 +407,7 @@ Please follow these steps and you should be able to knit the document without ed
 
 2. Download the R Markdown document through the following link: [02_reproducibility_demo.Rmd](activity_files/02_reproducibility_demo.Rmd). To download a file from this book, right click the link and select "save link as", or just clicking the link will save the file to your Downloads. Save or copy the file to your `Chapter_02_reproducible_docs` folder. 
 
-3. Download these two data files. Data file one: [ahi-cesd.csv](data/ahi-cesd.csv). Data file two: [participant-info.csv](data/participant_info.csv). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Do not open them on your machine as often other software like Excel can change setting and ruin the files. Save or copy the file to your `data/` folder within `Chapter_02_reproducible_docs`.
+3. Download these two data files. Data file one: [ahi-cesd.csv](data/ahi-cesd.csv). Data file two: [participant-info.csv](data/participant-info.csv). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Do not open them on your machine as often other software like Excel can change setting and ruin the files. Save or copy the file to your `data/` folder within `Chapter_02_reproducible_docs`.
 
 At this point, you should have "**02_reproducibility_demo.Rmd**" within your `Chapter_02_reproducible_docs` folder. You should have "**ahi-cesd.csv**" and "**participant_info.csv**" in the `data/` folder within `Chapter_02_reproducible_docs`. 
 
