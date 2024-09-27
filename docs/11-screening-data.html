@@ -331,7 +331,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#activity-1---read-and-wrangle-the-data" id="toc-activity-1---read-and-wrangle-the-data" class="nav-link" data-scroll-target="#activity-1---read-and-wrangle-the-data"><span class="header-section-number">11.1.2</span> Activity 1 - Read and wrangle the data</a></li>
   </ul>
 </li>
-  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">11.2</span> Missing data</a></li>
+  <li>
+<a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">11.2</span> Missing data</a>
+  <ul class="collapse">
+<li><a href="#identifying-missing-data" id="toc-identifying-missing-data" class="nav-link" data-scroll-target="#identifying-missing-data"><span class="header-section-number">11.2.1</span> Identifying missing data</a></li>
+  <li><a href="#removing-missing-data" id="toc-removing-missing-data" class="nav-link" data-scroll-target="#removing-missing-data"><span class="header-section-number">11.2.2</span> Removing missing data</a></li>
+  </ul>
+</li>
   <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">11.3</span> Outliers</a></li>
   <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.4</span> Checking assumptions</a></li>
   <li>
@@ -449,8 +455,154 @@ Show me the solution
 </div>
 </section></section><section id="missing-data" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="missing-data">
 <span class="header-section-number">11.2</span> Missing data</h2>
-</section><section id="outliers" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="outliers">
+<p>Checking whether data are missing are relatively straight forward. Missing values in a spreadsheet will be recorded as NA and there are a few ways of identifying them. The much more difficult part of missing data is considering <em>why</em> they are missing in the first place. For example, it might be because:</p>
+<ul>
+<li><p>Your participants accidentally missed a question.</p></li>
+<li><p>You made a mistake while setting up your questionnaire/experiment and some responses did not save.</p></li>
+<li><p>Your participants intentionally did not want to answer a question.</p></li>
+<li><p>Your participants did not turn up to a final testing session.</p></li>
+</ul>
+<p>For the first two reasons, it is not ideal as we are losing data but there is no systematic pattern to why the data is missing. For the latter two reasons, there might be a relationship between a key variable and whether the data are missing. This is where it is particularly important to consider the role of missing data. We are focusing on data skills here rather than the conceptual understanding, but missing data are commonly categorised as:</p>
+<ul>
+<li><p>Missing completely at random.</p></li>
+<li><p>Missing at random.</p></li>
+<li><p>Missing not at random.</p></li>
+</ul>
+<p>For this introductory course, we do not have time to investigate strategies to address missing data apart from focusing on complete cases and ignoring missing data, but you might find <span class="citation" data-cites="jakobsen_when_2017">Jakobsen et al. (<a href="references.html#ref-jakobsen_when_2017" role="doc-biblioref">2017</a>)</span> useful if you want to explore options like data imputation.</p>
+<section id="identifying-missing-data" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="identifying-missing-data">
+<span class="header-section-number">11.2.1</span> Identifying missing data</h3>
+<p>Returning to data skills, the simplest way of getting an overview of whether any data are missing is using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function. For this part, we will focus on <span class="citation" data-cites="dawtry_why_2015">Dawtry et al. (<a href="references.html#ref-dawtry_why_2015" role="doc-biblioref">2015</a>)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">summary</span>(dawtry_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       PS      Household_Income Political_Preference      age      
+ Min.   :  1   Min.   :    20   Min.   :1.000        Min.   :19.0  
+ 1st Qu.: 77   1st Qu.: 25000   1st Qu.:3.000        1st Qu.:28.0  
+ Median :153   Median : 42000   Median :4.000        Median :33.5  
+ Mean   :153   Mean   : 54732   Mean   :4.465        Mean   :37.4  
+ 3rd Qu.:229   3rd Qu.: 75000   3rd Qu.:6.000        3rd Qu.:46.0  
+ Max.   :305   Max.   :350000   Max.   :9.000        Max.   :69.0  
+               NA's   :4        NA's   :4            NA's   :1     
+     gender     Population_Inequality_Gini_Index Population_Mean_Income
+ Min.   :1.00   Min.   :14.26                    Min.   : 14205        
+ 1st Qu.:1.00   1st Qu.:31.10                    1st Qu.: 47250        
+ Median :1.00   Median :35.66                    Median : 58650        
+ Mean   :1.48   Mean   :35.51                    Mean   : 58605        
+ 3rd Qu.:2.00   3rd Qu.:40.73                    3rd Qu.: 67875        
+ Max.   :2.00   Max.   :57.45                    Max.   :138645        
+ NA's   :3                                                             
+ Social_Circle_Inequality_Gini_Index Social_Circle_Mean_Income
+ Min.   : 2.00                       Min.   : 12000           
+ 1st Qu.:19.79                       1st Qu.: 36000           
+ Median :25.59                       Median : 51060           
+ Mean   :26.35                       Mean   : 54294           
+ 3rd Qu.:33.27                       3rd Qu.: 66375           
+ Max.   :61.36                       Max.   :148500           
+                                                              
+ fairness_satisfaction redistribution
+ Min.   :1.000         Min.   :1.00  
+ 1st Qu.:2.000         1st Qu.:3.25  
+ Median :3.000         Median :4.00  
+ Mean   :3.539         Mean   :3.91  
+ 3rd Qu.:5.000         3rd Qu.:4.75  
+ Max.   :9.000         Max.   :6.00  
+                                     </code></pre>
+</div>
+</div>
+<p>We get a range of summary statistics for each variable but importantly for our purposes here, the final entry is <code>NA's</code> where relevant. We can see there are 4 missing values for household income, 4 for political preference, 1 for age, and 3 for gender.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you explore <code>lopez_clean</code> from <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span>, do we have any missing data to worry about? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes, it looks like there is also a small amount of missing data here. There is 1 for sex, 2 for estimated ounces, and 3 for estimates calories.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">summary</span>(lopez_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> ParticipantID       Sex              Age          Ethnicity    
+ Min.   :1001   Min.   :0.0000   Min.   :18.00   Min.   :1.000  
+ 1st Qu.:1202   1st Qu.:1.0000   1st Qu.:19.00   1st Qu.:3.000  
+ Median :1462   Median :1.0000   Median :20.00   Median :3.000  
+ Mean   :1456   Mean   :0.8099   Mean   :20.47   Mean   :3.261  
+ 3rd Qu.:1704   3rd Qu.:1.0000   3rd Qu.:21.00   3rd Qu.:4.000  
+ Max.   :1928   Max.   :3.0000   Max.   :54.00   Max.   :8.000  
+                NA's   :1                                       
+   OzEstimate       CalEstimate      M_postsoup     F_CaloriesConsumed
+ Min.   :  0.010   Min.   :  1.0   Min.   : 0.600   Min.   :  13.31   
+ 1st Qu.:  2.000   1st Qu.: 50.0   1st Qu.: 5.575   1st Qu.: 123.65   
+ Median :  4.000   Median : 90.0   Median : 8.700   Median : 192.97   
+ Mean   :  6.252   Mean   :124.6   Mean   :10.203   Mean   : 226.30   
+ 3rd Qu.:  8.000   3rd Qu.:160.0   3rd Qu.:13.125   3rd Qu.: 291.11   
+ Max.   :100.000   Max.   :800.0   Max.   :46.200   Max.   :1024.72   
+ NA's   :2         NA's   :3                                          
+   Condition      Condition_label   
+ Min.   :0.0000   Length:464        
+ 1st Qu.:0.0000   Class :character  
+ Median :0.0000   Mode  :character  
+ Mean   :0.4698                     
+ 3rd Qu.:1.0000                     
+ Max.   :1.0000                     
+                                    </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="removing-missing-data" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="removing-missing-data">
+<span class="header-section-number">11.2.2</span> Removing missing data</h3>
+<p>Once we know whether missing data are present, we must consider what to do with them. For this chapter, we are only going to control removing participants, but you could apply a data imputation technique at this point.</p>
+<p>For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing yourself so you have a note of how many participants you remove.</p>
+<p>For <code>dawtry_clean</code>, the <pkg>tidyverse</pkg> function <code>drop_na()</code> is the easiest way of removing missing data, either participants with any missing data or by specifying individual variables.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dawtry_all_missing <span class="ot">&lt;-</span> dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>dawtry_income_missing <span class="ot">&lt;-</span> dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">drop_na</span>(Household_Income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can compare the number of participants by using the <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> function to count how many rows are in each object.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># How many rows in the full data? </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">nrow</span>(dawtry_clean)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># How many rows when we remove missing data in one variable? </span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">nrow</span>(dawtry_income_missing)</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># How many rows when we remove any missing value?</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">nrow</span>(dawtry_all_missing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 305
+[1] 301
+[1] 294</code></pre>
+</div>
+</div>
+<p>Like most data skills and statistics concepts, the key skill here comes in decision making; documenting and justifying the approach that you take.</p>
+</section></section><section id="outliers" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="outliers">
 <span class="header-section-number">11.3</span> Outliers</h2>
+<p>The next data screening concept revolves around identifying potential outliers. <span class="citation" data-cites="leys_how_2019">Leys et al. (<a href="references.html#ref-leys_how_2019" role="doc-biblioref">2019</a>)</span> mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making.</p>
+<p>Remember this is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed.</p>
 </section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
 <span class="header-section-number">11.4</span> Checking assumptions</h2>
 </section><section id="test-yourself" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="test-yourself">
@@ -482,6 +634,12 @@ Show me the solution
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-dawtry_why_2015" class="csl-entry" role="listitem">
 Dawtry, R. J., Sutton, R. M., &amp; Sibley, C. G. (2015). Why <span>Wealthier</span> <span>People</span> <span>Think</span> <span>People</span> <span>Are</span> <span>Wealthier</span>, and <span>Why</span> <span>It</span> <span>Matters</span>: <span>From</span> <span>Social</span> <span>Sampling</span> to <span>Attitudes</span> to <span>Redistribution</span>. <em>Psychological Science</em>, <em>26</em>(9), 1389–1400. <a href="https://doi.org/10.1177/0956797615586560">https://doi.org/10.1177/0956797615586560</a>
+</div>
+<div id="ref-jakobsen_when_2017" class="csl-entry" role="listitem">
+Jakobsen, J. C., Gluud, C., Wetterslev, J., &amp; Winkel, P. (2017). When and how should multiple imputation be used for handling missing data in randomised clinical trials – a practical guide with flowcharts. <em>BMC Medical Research Methodology</em>, <em>17</em>(1), 162. <a href="https://doi.org/10.1186/s12874-017-0442-1">https://doi.org/10.1186/s12874-017-0442-1</a>
+</div>
+<div id="ref-leys_how_2019" class="csl-entry" role="listitem">
+Leys, C., Delacre, M., Mora, Y. L., Lakens, D., &amp; Ley, C. (2019). How to <span>Classify</span>, <span>Detect</span>, and <span>Manage</span> <span>Univariate</span> and <span>Multivariate</span> <span>Outliers</span>, <span>With</span> <span>Emphasis</span> on <span>Pre</span>-<span>Registration</span>. <em>International Review of Social Psychology</em>, <em>32</em>(1), 5. <a href="https://doi.org/10.5334/irsp.289">https://doi.org/10.5334/irsp.289</a>
 </div>
 <div id="ref-lopez_visual_2023" class="csl-entry" role="listitem">
 Lopez, A., Choi, A. K., Dellawar, N. C., Cullen, B. C., Avila Contreras, S., Rosenfeld, D. L., &amp; Tomiyama, A. J. (2023). Visual cues and food intake: <span>A</span> preregistered replication of <span>Wansink</span> et al (2005). <em>Journal of Experimental Psychology: General</em>. <a href="https://doi.org/10.1037/xge0001503.supp">https://doi.org/10.1037/xge0001503.supp</a>
