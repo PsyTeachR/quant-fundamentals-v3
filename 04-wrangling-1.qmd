@@ -49,7 +49,7 @@ Before we can get started, you need to organise your files and project for the c
 
 3. We will work within one folder, but create a new R Markdown for each chapter. Create a new R Markdown document and give it a sensible title describing the chapter, such as `04 Data Wrangling 1`. Delete everything below line 10 so you have a blank file to work with and save the file in your `Chapter_04_06_datawrangling` folder. 
 
-4. If you already have the two files from chapter 3, copy and paste them into the `data/` folder. If you need to download them again, the links are data file one ([ahi-cesd.csv](data/ahi-cesd.csv)) and data file two ([participant-info.csv](data/participant_info.csv)). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Save or copy the file to your `data/` folder within `Chapter_04_06_datawrangling`.
+4. If you already have the two files from chapter 3, copy and paste them into the `data/` folder. If you need to download them again, the links are data file one ([ahi-cesd.csv](data/ahi-cesd.csv)) and data file two ([participant-info.csv](data/participant-info.csv)). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Save or copy the file to your `data/` folder within `Chapter_04_06_datawrangling`.
 
 You are now ready to start working on the chapter! 
 

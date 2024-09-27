@@ -93,7 +93,7 @@ Before we can get started, you need to organise your files and project for the c
 
 3. Create a new R Markdown document and give it a sensible title describing the chapter, such as `03 Introduction to Data Visualisation`. Delete everything below line 10 so you have a blank file to work with and save the file in your `Chapter_03_intro_data_viz` folder. 
 
-4. Download these two data files which we used at the end of Chapter 2. Data file one: [ahi-cesd.csv](data/ahi-cesd.csv). Data file two: [participant-info.csv](data/participant_info.csv). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Do not open them on your machine as often other software like Excel can change setting and ruin the files. Save or copy the file to your `data/` folder within `Chapter_03_intro_data_viz`.
+4. Download these two data files which we used at the end of Chapter 2. Data file one: [ahi-cesd.csv](data/ahi-cesd.csv). Data file two: [participant-info.csv](data/participant-info.csv). Right click the links and select "save link as", or clicking the links will save the files to your Downloads. Make sure that both files are saved as ".csv". Do not open them on your machine as often other software like Excel can change setting and ruin the files. Save or copy the file to your `data/` folder within `Chapter_03_intro_data_viz`.
 
 You are now ready to start working on the chapter! 
 
