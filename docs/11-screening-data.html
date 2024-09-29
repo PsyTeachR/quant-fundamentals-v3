@@ -338,7 +338,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#removing-missing-data" id="toc-removing-missing-data" class="nav-link" data-scroll-target="#removing-missing-data"><span class="header-section-number">11.2.2</span> Removing missing data</a></li>
   </ul>
 </li>
-  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">11.3</span> Outliers</a></li>
+  <li>
+<a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">11.3</span> Outliers</a>
+  <ul class="collapse">
+<li><a href="#identifying-error-outliers" id="toc-identifying-error-outliers" class="nav-link" data-scroll-target="#identifying-error-outliers"><span class="header-section-number">11.3.1</span> Identifying error outliers</a></li>
+  <li><a href="#identifying-interesting-or-random-outliers" id="toc-identifying-interesting-or-random-outliers" class="nav-link" data-scroll-target="#identifying-interesting-or-random-outliers"><span class="header-section-number">11.3.2</span> Identifying interesting or random outliers</a></li>
+  </ul>
+</li>
   <li><a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.4</span> Checking assumptions</a></li>
   <li>
 <a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">11.5</span> Test yourself</a>
@@ -601,9 +607,114 @@ Solution
 <p>Like most data skills and statistics concepts, the key skill here comes in decision making; documenting and justifying the approach that you take.</p>
 </section></section><section id="outliers" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="outliers">
 <span class="header-section-number">11.3</span> Outliers</h2>
-<p>The next data screening concept revolves around identifying potential outliers. <span class="citation" data-cites="leys_how_2019">Leys et al. (<a href="references.html#ref-leys_how_2019" role="doc-biblioref">2019</a>)</span> mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making.</p>
+<p>The next data screening concept revolves around identifying potential outliers. Like missing data, the difficulty here comes in first deciding what an outlier is and then deciding on what to do with it. <span class="citation" data-cites="leys_how_2019">Leys et al. (<a href="references.html#ref-leys_how_2019" role="doc-biblioref">2019</a>)</span> mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making. Leys et al.&nbsp;categorise outliers into three types:</p>
+<ol type="1">
+<li><p>Error outliers - a mistake or impossible value.</p></li>
+<li><p>Interesting outliers - values that looks extreme until you take a moderator into account.</p></li>
+<li><p>Random outliers - values that are extreme compared to the majority of data points. Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place.</p></li>
+</ol>
+<p>Interesting and random outliers would be legitimate as they are not clear mistakes or errors; they are just different to the majority of values in the data. In most cases, it is not a good idea to remove these kind of values as they potentially tell you something interesting, but you might need to approach the data analysis in a different way to ensure the results are robust to extreme values.</p>
+<section id="identifying-error-outliers" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="identifying-error-outliers">
+<span class="header-section-number">11.3.1</span> Identifying error outliers</h3>
+<p>Unless you can specifically identify values or participants you know contain errors, the main way to check is by ensuring the values are within known limits.</p>
+<p>We can look at <code>dawtry_clean</code> and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values numerically and via a plot. For example, we can isolate the variable and apply the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(fairness_satisfaction) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> fairness_satisfaction
+ Min.   :1.000        
+ 1st Qu.:2.000        
+ Median :3.000        
+ Mean   :3.539        
+ 3rd Qu.:5.000        
+ Max.   :9.000        </code></pre>
+</div>
+</div>
+<p>The minimum and maximum values are nice and consistent with what we expect.</p>
+<p>For a visual check, we can also plot the minimum and maximum possible values on a boxplot. This is just a check for you, so you do not need to worry so much about the presentation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> fairness_satisfaction, <span class="at">x =</span> <span class="st">""</span>)) <span class="sc">+</span> <span class="co"># make x blank </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>), </span>
+<span id="cb11-5"><a href="#cb11-5"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>), <span class="co"># min and max values</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>             <span class="at">linetype =</span> <span class="dv">2</span>) <span class="co"># create dashed line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="11-screening-data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you explore <code>redistribution</code> from <code>dawtry_clean</code>, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No, it looks like all values are within the expected 1-6 range.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">select</span>(redistribution) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> redistribution
+ Min.   :1.00  
+ 1st Qu.:3.25  
+ Median :4.00  
+ Mean   :3.91  
+ 3rd Qu.:4.75  
+ Max.   :6.00  </code></pre>
+</div>
+</div>
+<p>We can also confirm this with a visual check.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> redistribution, <span class="at">x =</span> <span class="st">""</span>)) <span class="sc">+</span> <span class="co"># make x blank </span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>), </span>
+<span id="cb14-5"><a href="#cb14-5"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>), <span class="co"># min and max values</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>             <span class="at">linetype =</span> <span class="dv">2</span>) <span class="co"># create dashed line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="11-screening-data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If you did identify error outliers to remove, then you could use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> (Chapter 5) to directly remove values outside your known range, or you could first use <code>case_when()</code> to code observations as outliers or not (Chapter 4), before deciding to filter them out.</p>
+</section><section id="identifying-interesting-or-random-outliers" class="level3" data-number="11.3.2"><h3 data-number="11.3.2" class="anchored" data-anchor-id="identifying-interesting-or-random-outliers">
+<span class="header-section-number">11.3.2</span> Identifying interesting or random outliers</h3>
 <p>Remember this is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed.</p>
-</section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
+</section></section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
 <span class="header-section-number">11.4</span> Checking assumptions</h2>
 </section><section id="test-yourself" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="test-yourself">
 <span class="header-section-number">11.5</span> Test yourself</h2>

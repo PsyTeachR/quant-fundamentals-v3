@@ -163,7 +163,76 @@ Like most data skills and statistics concepts, the key skill here comes in decis
 
 ## Outliers
 
-The next data screening concept revolves around identifying potential outliers. @leys_how_2019 mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making. 
+The next data screening concept revolves around identifying potential outliers. Like missing data, the difficulty here comes in first deciding what an outlier is and then deciding on what to do with it. @leys_how_2019 mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making. Leys et al. categorise outliers into three types: 
+
+1. Error outliers - a mistake or impossible value. 
+
+2. Interesting outliers - values that looks extreme until you take a moderator into account. 
+
+3. Random outliers - values that are extreme compared to the majority of data points. 
+Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place. 
+
+Interesting and random outliers would be legitimate as they are not clear mistakes or errors; they are just different to the majority of values in the data. In most cases, it is not a good idea to remove these kind of values as they potentially tell you something interesting, but you might need to approach the data analysis in a different way to ensure the results are robust to extreme values. 
+
+### Identifying error outliers
+
+Unless you can specifically identify values or participants you know contain errors, the main way to check is by ensuring the values are within known limits. 
+
+We can look at `dawtry_clean` and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values numerically and via a plot. For example, we can isolate the variable and apply the `summary()` function. 
+
+```{r}
+dawtry_clean %>% 
+  select(fairness_satisfaction) %>% 
+  summary()
+```
+
+The minimum and maximum values are nice and consistent with what we expect. 
+
+For a visual check, we can also plot the minimum and maximum possible values on a boxplot. This is just a check for you, so you do not need to worry so much about the presentation.  
+
+```{r}
+dawtry_clean %>% 
+  ggplot(aes(y = fairness_satisfaction, x = "")) + # make x blank 
+  geom_boxplot() + 
+  scale_y_continuous(limits = c(1, 9), 
+                     breaks = seq(1, 9, 1)) + 
+  geom_hline(yintercept = c(1, 9), # min and max values
+             linetype = 2) # create dashed line
+```
+
+::: {.callout-tip}
+#### Try this
+If you explore `redistribution` from `dawtry_clean`, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? `r mcq(c("Yes", answer = "No"))`. 
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+No, it looks like all values are within the expected 1-6 range. 
+
+```{r}
+dawtry_clean %>% 
+  select(redistribution) %>% 
+  summary()
+```
+
+We can also confirm this with a visual check. 
+
+```{r}
+dawtry_clean %>% 
+  ggplot(aes(y = redistribution, x = "")) + # make x blank 
+  geom_boxplot() + 
+  scale_y_continuous(limits = c(1, 6), 
+                     breaks = seq(1, 6, 1)) + 
+  geom_hline(yintercept = c(1, 6), # min and max values
+             linetype = 2) # create dashed line
+```
+
+:::
+
+If you did identify error outliers to remove, then you could use `filter()` (Chapter 5) to directly remove values outside your known range, or you could first use `case_when()` to code observations as outliers or not (Chapter 4), before deciding to filter them out. 
+
+### Identifying interesting or random outliers
 
 Remember this is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. 
 
