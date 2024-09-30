@@ -713,7 +713,136 @@ Solution
 <p>If you did identify error outliers to remove, then you could use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> (Chapter 5) to directly remove values outside your known range, or you could first use <code>case_when()</code> to code observations as outliers or not (Chapter 4), before deciding to filter them out.</p>
 </section><section id="identifying-interesting-or-random-outliers" class="level3" data-number="11.3.2"><h3 data-number="11.3.2" class="anchored" data-anchor-id="identifying-interesting-or-random-outliers">
 <span class="header-section-number">11.3.2</span> Identifying interesting or random outliers</h3>
-<p>Remember this is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed.</p>
+<p>Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook’s distance values. In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research.</p>
+<p>We focus here on setting boundaries using the median absolute deviation as recommended by <span class="citation" data-cites="leys_how_2019">Leys et al. (<a href="references.html#ref-leys_how_2019" role="doc-biblioref">2019</a>)</span>. You will see other approaches in the literature, but this method is useful as it’s influenced less by the very outliers it is trying to identify. We will use <code>lopez_clean</code> from <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span> for this section.</p>
+<p>There are two main steps to this process because we have two groups and each group will have different boundaries. If you only have individual variables, then you could just <code>mutate()</code> your data, without the initial <code>group_by()</code> and <code>summarise()</code> step.</p>
+<p>First, we group by the condition to get one value per group. We then calculate a few values for the median ounces of soup, 3 times the MAD in line with Leys et al., then calculating the upper and lower bound using these objects.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># create a new object with values per group</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>mad_bounds <span class="ot">&lt;-</span> lopez_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">group_by</span>(Condition_label) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">summarise</span>(<span class="at">oz_median =</span> <span class="fu">median</span>(M_postsoup), <span class="co"># median of soup in oz</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>            <span class="at">oz_MAD =</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">mad</span>(M_postsoup), <span class="co"># 3 times the MAD</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>            <span class="at">lower =</span> oz_median <span class="sc">-</span> oz_MAD, <span class="co"># lower bound </span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>            <span class="at">upper =</span> oz_median <span class="sc">+</span> oz_MAD) <span class="co"># upper bound</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a>mad_bounds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Condition_label</th>
+<th style="text-align: right;">oz_median</th>
+<th style="text-align: right;">oz_MAD</th>
+<th style="text-align: right;">lower</th>
+<th style="text-align: right;">upper</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">7.8</td>
+<td style="text-align: right;">14.67774</td>
+<td style="text-align: right;">-6.87774</td>
+<td style="text-align: right;">22.47774</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental</td>
+<td style="text-align: right;">10.6</td>
+<td style="text-align: right;">17.56881</td>
+<td style="text-align: right;">-6.96881</td>
+<td style="text-align: right;">28.16881</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In this example, the lower bound is lower than 0 as the smallest possible value. The upper bounds are then between 22 and 28 depending on the group.</p>
+<p>Second, we must add these values to the other information we have available. We join the data sets using <code>Condition_label</code>. This adds the relevant values to each group. We then use <code>mutate()</code> and <code>case_when()</code> to label values as outliers or not. If they are smaller or larger than the lower and upper bounds, they are labelled as “outliers”. If they are larger or smaller than the lower and upper bounds, they are labelled as “no outliers”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>lopez_mad <span class="ot">&lt;-</span> lopez_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">inner_join</span>(mad_bounds, <span class="at">by =</span> <span class="st">"Condition_label"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">mutate</span>(<span class="at">oz_outlier =</span> <span class="fu">case_when</span>(M_postsoup <span class="sc">&lt;</span> lower <span class="sc">|</span> M_postsoup <span class="sc">&gt;</span> upper <span class="sc">~</span> <span class="st">"Outlier"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>                                M_postsoup <span class="sc">&gt;=</span> lower <span class="sc">|</span> M_postsoup <span class="sc">&lt;=</span> upper <span class="sc">~</span> <span class="st">"No Outlier"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>lopez_mad <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Condition_label, <span class="at">y =</span> M_postsoup)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oz_outlier)) <span class="co"># needs to be within aes to set dynamic values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="11-screening-data_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>lopez_remove <span class="ot">&lt;-</span> lopez_mad <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">filter</span>(oz_outlier <span class="sc">==</span> <span class="st">"No Outlier"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try this
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you switch to <code>dawtry_clean</code> from <span class="citation" data-cites="dawtry_why_2015">Dawtry et al. (<a href="references.html#ref-dawtry_why_2015" role="doc-biblioref">2015</a>)</span>, apply the MAD procedure to the variable <code>fairness_satisfaction</code>. Does it look like there are any outliers using this criterion? <select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No, none of the values are outside the MAD thresholds. The thresholds are well beyond the minimum and maximum possible values of 1-9 for this variable.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>dawtry_mad <span class="ot">&lt;-</span> dawtry_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">mutate</span>(<span class="at">fs_median =</span> <span class="fu">median</span>(fairness_satisfaction), <span class="co"># median of fairness/satisfaction</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>         <span class="at">fs_MAD =</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">mad</span>(fairness_satisfaction), <span class="co"># 3 times the MAD</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>         <span class="at">lower =</span> fs_median <span class="sc">-</span> fs_MAD, <span class="co"># lower bound </span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>         <span class="at">upper =</span> fs_median <span class="sc">+</span> fs_MAD,  <span class="co"># upper bound</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>         <span class="at">fs_outlier =</span> <span class="fu">case_when</span>(fairness_satisfaction <span class="sc">&lt;</span> lower <span class="sc">|</span> fairness_satisfaction <span class="sc">&gt;</span> upper <span class="sc">~</span> <span class="st">"Outlier"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7"></a>                                fairness_satisfaction <span class="sc">&gt;=</span> lower <span class="sc">|</span> fairness_satisfaction <span class="sc">&lt;=</span> upper <span class="sc">~</span> <span class="st">"No Outlier"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For this variable and it’s bounded scale, no value is above or below the thresholds. You can see this in the data, or add horizontal lines in a plot since we are only plotting one variable. The dashed lines are the MAD thresholds and the solid lines are the minimum and maximum possible values.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>dawtry_mad <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> fairness_satisfaction, <span class="at">x =</span> <span class="st">""</span>)) <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> lower), </span>
+<span id="cb20-5"><a href="#cb20-5"></a>             <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># dashed line</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)) <span class="sc">+</span> </span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> upper), </span>
+<span id="cb20-8"><a href="#cb20-8"></a>             <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb20-9"><a href="#cb20-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">10</span>), </span>
+<span id="cb20-10"><a href="#cb20-10"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="11-screening-data_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Remember identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision.</p>
 </section></section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
 <span class="header-section-number">11.4</span> Checking assumptions</h2>
 </section><section id="test-yourself" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="test-yourself">

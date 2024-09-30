@@ -234,7 +234,92 @@ If you did identify error outliers to remove, then you could use `filter()` (Cha
 
 ### Identifying interesting or random outliers
 
-Remember this is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. 
+Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook's distance values. In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research. 
+
+We focus here on setting boundaries using the median absolute deviation as recommended by @leys_how_2019. You will see other approaches in the literature, but this method is useful as it's influenced less by the very outliers it is trying to identify. We will use `lopez_clean` from @lopez_visual_2023 for this section. 
+
+There are two main steps to this process because we have two groups and each group will have different boundaries. If you only have individual variables, then you could just `mutate()` your data, without the initial `group_by()` and `summarise()` step.
+
+First, we group by the condition to get one value per group. We then calculate a few values for the median ounces of soup, 3 times the MAD in line with Leys et al., then calculating the upper and lower bound using these objects. 
+
+```{r}
+# create a new object with values per group
+mad_bounds <- lopez_clean %>% 
+  group_by(Condition_label) %>% 
+  summarise(oz_median = median(M_postsoup), # median of soup in oz
+            oz_MAD = 3 * mad(M_postsoup), # 3 times the MAD
+            lower = oz_median - oz_MAD, # lower bound 
+            upper = oz_median + oz_MAD) # upper bound
+
+mad_bounds
+```
+
+In this example, the lower bound is lower than 0 as the smallest possible value. The upper bounds are then between 22 and 28 depending on the group. 
+
+Second, we must add these values to the other information we have available. We join the data sets using `Condition_label`. This adds the relevant values to each group. We then use `mutate()` and `case_when()` to label values as outliers or not. If they are smaller or larger than the lower and upper bounds, they are labelled as "outliers". If they are larger or smaller than the lower and upper bounds, they are labelled as "no outliers". 
+
+```{r}
+lopez_mad <- lopez_clean %>% 
+  inner_join(mad_bounds, by = "Condition_label") %>% 
+  mutate(oz_outlier = case_when(M_postsoup < lower | M_postsoup > upper ~ "Outlier",
+                                M_postsoup >= lower | M_postsoup <= upper ~ "No Outlier"))
+```
+
+We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points. 
+
+```{r}
+lopez_mad %>% 
+  ggplot(aes(x = Condition_label, y = M_postsoup)) + 
+  geom_boxplot() + 
+  geom_point(aes(colour = oz_outlier)) # needs to be within aes to set dynamic values
+```
+
+We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them. 
+
+```{r}
+lopez_remove <- lopez_mad %>% 
+  filter(oz_outlier == "No Outlier")
+```
+
+::: {.callout-tip}
+#### Try this
+If you switch to `dawtry_clean` from @dawtry_why_2015, apply the MAD procedure to the variable `fairness_satisfaction`. Does it look like there are any outliers using this criterion? `r mcq(c("Yes", answer = "No"))`.
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+No, none of the values are outside the MAD thresholds. The thresholds are well beyond the minimum and maximum possible values of 1-9 for this variable.
+
+```{r}
+dawtry_mad <- dawtry_clean %>% 
+  mutate(fs_median = median(fairness_satisfaction), # median of fairness/satisfaction
+         fs_MAD = 3 * mad(fairness_satisfaction), # 3 times the MAD
+         lower = fs_median - fs_MAD, # lower bound 
+         upper = fs_median + fs_MAD,  # upper bound
+         fs_outlier = case_when(fairness_satisfaction < lower | fairness_satisfaction > upper ~ "Outlier",
+                                fairness_satisfaction >= lower | fairness_satisfaction <= upper ~ "No Outlier"))
+```
+
+For this variable and it's bounded scale, no value is above or below the thresholds. You can see this in the data, or add horizontal lines in a plot since we are only plotting one variable. The dashed lines are the MAD thresholds and the solid lines are the minimum and maximum possible values.
+
+```{r}
+dawtry_mad %>% 
+  ggplot(aes(y = fairness_satisfaction, x = "")) + 
+  geom_boxplot() + 
+  geom_hline(aes(yintercept = lower), 
+             linetype = 2) + # dashed line
+  geom_hline(yintercept = c(1, 9)) + 
+  geom_hline(aes(yintercept = upper), 
+             linetype = 2) + 
+  scale_y_continuous(limits = c(-4, 10), 
+                     breaks = seq(-4, 10, 2))
+```
+
+
+:::
+
+Remember identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision. 
 
 ## Checking assumptions
 
