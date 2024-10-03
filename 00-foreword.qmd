@@ -73,5 +73,8 @@ By the end of the courses associated with this book, you will be able to:
 
 - Conduct and interpret a core set of statistical tests from the general linear model (regression, ANOVA).
 
+## Acknowledgements
 
+We put a lot of effort into creating the resources in this book, but occasionally typos or broken links will slip through. When a student helps us and highlights an error or makes a suggestion, we like to acknowledge it. We would like to thank the following students for helping us:
 
+Ria Manwar. 
