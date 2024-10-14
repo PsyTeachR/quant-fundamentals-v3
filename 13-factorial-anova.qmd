@@ -177,7 +177,7 @@ zhang_long %>%
 
 :::
 
-## Factorial ANOVA {#factorial-a5}
+## Factorial ANOVA {#factorial-anova}
 
 To run the factorial ANOVA, we will be using the <pkg>afex</pkg> package again. Remember that you must specify both IVs, one of which is between-subjects and the other is within-subjects. Look up the help documentation for `aov_ez` if you need further information. 
 

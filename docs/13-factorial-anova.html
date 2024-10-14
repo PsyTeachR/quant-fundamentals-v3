@@ -111,7 +111,13 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -136,31 +142,8 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Fundamentals of Quantitative Analysis</a> 
-        <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/BartlettJE/quant-fun-v3/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-bi-twitter pe-1"></i>
-            Twitter
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-bi-facebook pe-1"></i>
-            Facebook
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-bi-linkedin pe-1"></i>
-            LinkedIn
-            </a>
-          </li>
-      </ul>
-</div>
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PsyTeachR/quant-fundamentals-v3" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -352,7 +335,7 @@ div.csl-indent {
   </ul>
 </li>
   <li>
-<a href="#factorial-a5" id="toc-factorial-a5" class="nav-link" data-scroll-target="#factorial-a5"><span class="header-section-number">13.2</span> Factorial ANOVA</a>
+<a href="#factorial-anova" id="toc-factorial-anova" class="nav-link" data-scroll-target="#factorial-anova"><span class="header-section-number">13.2</span> Factorial ANOVA</a>
   <ul class="collapse">
 <li><a href="#activity-4---using-the-aov_ez-function." id="toc-activity-4---using-the-aov_ez-function." class="nav-link" data-scroll-target="#activity-4---using-the-aov_ez-function."><span class="header-section-number">13.2.1</span> Activity 4 - Using the <code>aov_ez()</code> function.</a></li>
   <li><a href="#factorial-a5" id="toc-factorial-a5" class="nav-link" data-scroll-target="#factorial-a5"><span class="header-section-number">13.2.2</span> Activity 5 - Checking assumptions for factorial ANOVA</a></li>
@@ -362,7 +345,7 @@ div.csl-indent {
 </li>
   <li><a href="#factorial-a8" id="toc-factorial-a8" class="nav-link" data-scroll-target="#factorial-a8"><span class="header-section-number">13.3</span> Reporting the results of your factorial ANOVA</a></li>
   <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">13.4</span> End of Chapter</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/BartlettJE/quant-fun-v3/edit/main/13-factorial-anova.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/BartlettJE/quant-fun-v3/blob/main/13-factorial-anova.qmd" class="toc-action">View source</a></p></div></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/edit/main/13-factorial-anova.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/blob/main/13-factorial-anova.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -596,7 +579,7 @@ Show me the solution
 </div>
 </div>
 </div>
-</section></section><section id="factorial-a5" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="factorial-a5">
+</section></section><section id="factorial-anova" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="factorial-anova">
 <span class="header-section-number">13.2</span> Factorial ANOVA</h2>
 <p>To run the factorial ANOVA, we will be using the <pkg>afex</pkg> package again. Remember that you must specify both IVs, one of which is between-subjects and the other is within-subjects. Look up the help documentation for <code>aov_ez</code> if you need further information.</p>
 <section id="activity-4---using-the-aov_ez-function." class="level3" data-number="13.2.1"><h3 data-number="13.2.1" class="anchored" data-anchor-id="activity-4---using-the-aov_ez-function.">
@@ -1783,7 +1766,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">CC-BY (2024) James Bartlett &amp; Wil Toivo</div>
+    <div class="nav-footer-center">CC-BY-SA-4.0 (2024) James Bartlett &amp; Wilhelmiina Toivo</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
