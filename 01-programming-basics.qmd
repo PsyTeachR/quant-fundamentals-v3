@@ -158,7 +158,7 @@ Over time, you start to remember which arguments you need within functions you c
 
 ::: {.callout-important}
 #### Error mode
-One thing that can be intimidating at first is making **`r glossary("error", display = "errors")`**. They have little red marks and produce sometimes vague messages to try and explain what went wrong. You will make many errors as you learn and over time, you do not stop making errors, but you get faster at working out what went wrong and how you can fix it. So, we will introduce you to common errors as we work through the book to help with problem solving.  
+One thing that can be intimidating at first is making errors. They have little red marks and produce sometimes vague messages to try and explain what went wrong. You will make many errors as you learn and over time, you do not stop making errors, but you get faster at working out what went wrong and how you can fix it. So, we will introduce you to common errors as we work through the book to help with problem solving.  
 
 Try and run the following code in the console: 
 
