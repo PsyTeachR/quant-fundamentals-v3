@@ -469,7 +469,7 @@ The following questions are designed to introduce you to making and fixing error
 
 Create and save a new R Markdown file by following the instructions in [activity 3](#intro-a3) and [activity 4](#intro-a4). You should have a blank R Markdown file below line 10. Below, we have several variations of a code chunk and inline code errors. Copy and paste them into your R Markdown file, click knit, and look at the error message you receive. See if you can fix the error and get it working before checking the answer.
 
-**Question 5**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error while opening file. No such file or directory`. 
+**Question 6**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error while opening file. No such file or directory`. 
 
 ````{verbatim, lang = "markdown"}
 city <- "Glasgow"
@@ -486,7 +486,7 @@ city <- "Glasgow"
 Here, we wrote `city <- "Glasgow"` outside the code chunk. So, when we try and knit, it is not evaluated as code, and city does not exist as an object to be referenced in inline code. If you copy `city <- "Glasgow"` into the code chunk and press knit, it should work. 
 :::
 
-**Question 6**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error in parse(): ! attempt to use zero-length variable name` which is not very helpful for diagnosing the problem. 
+**Question 7**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error in parse(): ! attempt to use zero-length variable name` which is not very helpful for diagnosing the problem. 
 
 ````{verbatim, lang = "markdown"}
 
@@ -503,7 +503,7 @@ city <- "Glasgow"
 Here, we missed a final backtick in the code chunk. You might have noticed all the text had a grey background, so R Markdown thought everything was code. So, when it reached the inline code and text, it tried interpreting it as code and caused the error. If you add the final backtick to the code chunk, you should be able to click knit successfully. 
 :::
 
-**Question 7**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error while opening file. No such file or directory`. 
+**Question 8**. Copy the following text/code/code chunk into your R Markdown file and press knit. You should receive an error like `Error while opening file. No such file or directory`. 
 
 ````{verbatim, lang = "markdown"}
 
@@ -521,7 +521,7 @@ city <- "Glasgow"
 Here, we tried using inline code before the code chunk. R Markdown runs the code from start to finish in a fresh environment. We tried referencing `city` in inline code, but R Markdown did not know it existed yet. To fix it, you need to move the inline code below the code chunk, so you create `city` before referencing it in inline code. 
 :::
 
-**Question 8**. Copy the following text/code/code chunk into your R Markdown file and press knit. This...works? 
+**Question 9**. Copy the following text/code/code chunk into your R Markdown file and press knit. This...works? 
 
 ````{verbatim, lang = "markdown"}
 

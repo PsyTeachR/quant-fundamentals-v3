@@ -586,11 +586,11 @@ To end the chapter, we have some knowledge check questions to test your understa
 
 ### Knowledge check
 
-1. Which of these is the appropriate order of functions to create a barplot? 
+**Question 1.** Which of these is the appropriate order of functions to create a barplot? 
 
 `r longmcq(sample(c(answer = "ggplot() + geom_bar()", "ggplot() %>% geom_bar()", "geom_bar() + ggplot()", "geom_plot() + geom_boxplot()")))`
 
-2. Why would this line of code not create a barplot, assuming you already loaded all data and libraries and you spelt the data and column names correctly?
+**Question 2.** Why would this line of code not create a barplot, assuming you already loaded all data and libraries and you spelt the data and column names correctly?
 
 ```{r, eval = FALSE}
 ggplot(summarydata, aes(x = sex)) +
@@ -599,7 +599,7 @@ ggplot(summarydata, aes(x = sex)) +
 
 `r longmcq(sample(c(answer = "because there is no geom_barplot() and it should be geom_bar()","because you have piped the barplot and not added it","because you have not included a y axis","because this would create a histogram")))`
 
-3. If I wanted precisely 5 bars in my histogram, what argument would I use? 
+**Question 3.** If I wanted precisely 5 bars in my histogram, what argument would I use? 
 
 `r longmcq(sample(c(answer = "ggplot() + geom_histogram(bins = 5)","ggplot() + geom_histogram(bars = 5)", "ggplot() + geom_histogram(binwidth = 5)", "ggplot() + geom_histogram()")))`
 
@@ -651,7 +651,7 @@ pinfo <- read_csv("participant-info.csv")
 You had tidyverse loaded this time, but it is not pointing to the right folder. Your working directory should be the main chapter folder, where `participant-info.csv` does not exist. You will need to edit it to `data/participant-info.csv` to work. 
 :::
 
-**Question 7**. Copy the following code chunk into your R Markdown file and press knit. You should receive a long error where the problem is buried in the first five lines: 
+**Question 6**. Copy the following code chunk into your R Markdown file and press knit. You should receive a long error where the problem is buried in the first five lines: 
 
 > `Error in geom_histogram()`
 

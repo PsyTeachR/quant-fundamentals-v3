@@ -1013,27 +1013,21 @@ Warning
 <p>To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. We then have some error mode tasks to see if you can find the solution to some common errors in the concepts we covered in this chapter.</p>
 <section id="knowledge-check" class="level3" data-number="3.7.1"><h3 data-number="3.7.1" class="anchored" data-anchor-id="knowledge-check">
 <span class="header-section-number">3.7.1</span> Knowledge check</h3>
-<ol type="1">
-<li>Which of these is the appropriate order of functions to create a barplot?</li>
-</ol>
-<div id="radio_GKGBUZLITT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_GKGBUZLITT" value=""><span>ggplot() %&gt;% geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_GKGBUZLITT" value=""><span>geom_plot() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_GKGBUZLITT" value="answer"><span>ggplot() + geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_GKGBUZLITT" value=""><span>geom_bar() + ggplot()</span></label>
+<p><strong>Question 1.</strong> Which of these is the appropriate order of functions to create a barplot?</p>
+<div id="radio_WSWKCJNBMD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WSWKCJNBMD" value=""><span>geom_bar() + ggplot()</span></label><label><input type="radio" autocomplete="off" name="radio_WSWKCJNBMD" value=""><span>geom_plot() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_WSWKCJNBMD" value="answer"><span>ggplot() + geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_WSWKCJNBMD" value=""><span>ggplot() %&gt;% geom_bar()</span></label>
 </div>
-<ol start="2" type="1">
-<li>Why would this line of code not create a barplot, assuming you already loaded all data and libraries and you spelt the data and column names correctly?</li>
-</ol>
+<p><strong>Question 2.</strong> Why would this line of code not create a barplot, assuming you already loaded all data and libraries and you spelt the data and column names correctly?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ggplot</span>(summarydata, <span class="fu">aes</span>(<span class="at">x =</span> sex)) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">geom_barplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="radio_HGUQNEIPAR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HGUQNEIPAR" value="answer"><span>because there is no geom_barplot() and it should be geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_HGUQNEIPAR" value=""><span>because this would create a histogram</span></label><label><input type="radio" autocomplete="off" name="radio_HGUQNEIPAR" value=""><span>because you have not included a y axis</span></label><label><input type="radio" autocomplete="off" name="radio_HGUQNEIPAR" value=""><span>because you have piped the barplot and not added it</span></label>
+<div id="radio_MKBYNEKZWD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MKBYNEKZWD" value=""><span>because this would create a histogram</span></label><label><input type="radio" autocomplete="off" name="radio_MKBYNEKZWD" value=""><span>because you have piped the barplot and not added it</span></label><label><input type="radio" autocomplete="off" name="radio_MKBYNEKZWD" value="answer"><span>because there is no geom_barplot() and it should be geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_MKBYNEKZWD" value=""><span>because you have not included a y axis</span></label>
 </div>
-<ol start="3" type="1">
-<li>If I wanted precisely 5 bars in my histogram, what argument would I use?</li>
-</ol>
-<div id="radio_CZSLBSHBVO" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_CZSLBSHBVO" value=""><span>ggplot() + geom_histogram(binwidth = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_CZSLBSHBVO" value=""><span>ggplot() + geom_histogram(bars = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_CZSLBSHBVO" value="answer"><span>ggplot() + geom_histogram(bins = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_CZSLBSHBVO" value=""><span>ggplot() + geom_histogram()</span></label>
+<p><strong>Question 3.</strong> If I wanted precisely 5 bars in my histogram, what argument would I use?</p>
+<div id="radio_JAANDADZNF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_JAANDADZNF" value="answer"><span>ggplot() + geom_histogram(bins = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_JAANDADZNF" value=""><span>ggplot() + geom_histogram()</span></label><label><input type="radio" autocomplete="off" name="radio_JAANDADZNF" value=""><span>ggplot() + geom_histogram(binwidth = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_JAANDADZNF" value=""><span>ggplot() + geom_histogram(bars = 5)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
@@ -1102,7 +1096,7 @@ Explain the solution
 </div>
 </div>
 </div>
-<p><strong>Question 7</strong>. Copy the following code chunk into your R Markdown file and press knit. You should receive a long error where the problem is buried in the first five lines:</p>
+<p><strong>Question 6</strong>. Copy the following code chunk into your R Markdown file and press knit. You should receive a long error where the problem is buried in the first five lines:</p>
 <blockquote class="blockquote">
 <p><code>Error in geom_histogram()</code></p>
 </blockquote>
@@ -1215,6 +1209,7 @@ Explain the solution
 <span class="header-section-number">3.8</span> Words from this Chapter</h2>
 <p>Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.</p>
 <div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">term</th>
@@ -1287,6 +1282,7 @@ Explain the solution
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </section><section id="end-of-chapter" class="level2" data-number="3.9"><h2 data-number="3.9" class="anchored" data-anchor-id="end-of-chapter">
 <span class="header-section-number">3.9</span> End of chapter</h2>
