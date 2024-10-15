@@ -193,7 +193,7 @@ rnorm(sd = 1,
 When you are first learning R, we recommend writing out the argument names every time as it can help you remember and understand what each part of the function is doing. However, as your skills progress you may find it quicker to omit the argument names and you will also see examples of code online that do not use argument names. In this course, we will always write out the argument names the first time we use each function, but afterwards, we may omit them.
 
 ::: {.callout-warning}
-If you do omit argument names, it is important to check the values you use for arguments are the ones you intended to you. The sneakiest errors are the ones that "work" in that they do not produce an error, but they are doing something different to what you expect. For example, if you wanted five numbers with a mean of 1 and *SD* of 2, `rnorm(5, 2, 1)` would work, but we accidentally entered the mean and SD the wrong way around. 
+If you do omit argument names, it is important to check the values you use for arguments are the ones you intended to use. The sneakiest errors are the ones that "work" in that they do not produce an error, but they are doing something different to what you expect. For example, if you wanted five numbers with a mean of 1 and *SD* of 2, `rnorm(5, 2, 1)` would work, but we accidentally entered the mean and SD the wrong way around. 
 :::
 
 ### Tab auto-complete
