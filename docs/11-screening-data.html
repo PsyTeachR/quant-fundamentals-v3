@@ -528,7 +528,7 @@ Try this
 <div class="callout-body-container callout-body">
 <p>If you explore <code>lopez_clean</code> from <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span>, do we have any missing data to worry about? <select class="webex-select"><option value="blank"></option>
 <option value="answer">Yes</option>
-<option value="">No</option></select>.</p>
+<option value="">No</option></select></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -579,7 +579,7 @@ Solution
 </section><section id="removing-missing-data" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="removing-missing-data">
 <span class="header-section-number">11.2.2</span> Removing missing data</h3>
 <p>Once we know whether missing data are present, we must consider what to do with them. For this chapter, we are only going to control removing participants, but you could apply a data imputation technique at this point.</p>
-<p>For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing yourself so you have a note of how many participants you remove.</p>
+<p>For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing data yourself so you have a note of how many participants you remove.</p>
 <p>For <code>dawtry_clean</code>, the <pkg>tidyverse</pkg> function <code>drop_na()</code> is the easiest way of removing missing data, either participants with any missing data or by specifying individual variables.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dawtry_all_missing <span class="ot">&lt;-</span> dawtry_clean <span class="sc">%&gt;%</span> </span>
@@ -611,13 +611,14 @@ Solution
 <ol type="1">
 <li><p>Error outliers - a mistake or impossible value.</p></li>
 <li><p>Interesting outliers - values that looks extreme until you take a moderator into account.</p></li>
-<li><p>Random outliers - values that are extreme compared to the majority of data points. Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place.</p></li>
+<li><p>Random outliers - values that are extreme compared to the majority of data points.</p></li>
 </ol>
+<p>Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place.</p>
 <p>Interesting and random outliers would be legitimate as they are not clear mistakes or errors; they are just different to the majority of values in the data. In most cases, it is not a good idea to remove these kind of values as they potentially tell you something interesting, but you might need to approach the data analysis in a different way to ensure the results are robust to extreme values.</p>
 <section id="identifying-error-outliers" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="identifying-error-outliers">
 <span class="header-section-number">11.3.1</span> Identifying error outliers</h3>
 <p>Unless you can specifically identify values or participants you know contain errors, the main way to check is by ensuring the values are within known limits.</p>
-<p>We can look at <code>dawtry_clean</code> and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values numerically and via a plot. For example, we can isolate the variable and apply the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
+<p>We can look at <code>dawtry_clean</code> and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values and create a plot. For example, we can isolate the variable and apply the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dawtry_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(fairness_satisfaction) <span class="sc">%&gt;%</span> </span>
@@ -661,7 +662,7 @@ Try this
 <div class="callout-body-container callout-body">
 <p>If you explore <code>redistribution</code> from <code>dawtry_clean</code>, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? <select class="webex-select"><option value="blank"></option>
 <option value="">Yes</option>
-<option value="answer">No</option></select>.</p>
+<option value="answer">No</option></select></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -713,7 +714,8 @@ Solution
 <p>If you did identify error outliers to remove, then you could use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> (Chapter 5) to directly remove values outside your known range, or you could first use <code>case_when()</code> to code observations as outliers or not (Chapter 4), before deciding to filter them out.</p>
 </section><section id="identifying-interesting-or-random-outliers" class="level3" data-number="11.3.2"><h3 data-number="11.3.2" class="anchored" data-anchor-id="identifying-interesting-or-random-outliers">
 <span class="header-section-number">11.3.2</span> Identifying interesting or random outliers</h3>
-<p>Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook’s distance values. In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research.</p>
+<p>Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook’s distance values.</p>
+<p>In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research.</p>
 <p>We focus here on setting boundaries using the median absolute deviation as recommended by <span class="citation" data-cites="leys_how_2019">Leys et al. (<a href="references.html#ref-leys_how_2019" role="doc-biblioref">2019</a>)</span>. You will see other approaches in the literature, but this method is useful as it’s influenced less by the very outliers it is trying to identify. We will use <code>lopez_clean</code> from <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span> for this section.</p>
 <p>There are two main steps to this process because we have two groups and each group will have different boundaries. If you only have individual variables, then you could just <code>mutate()</code> your data, without the initial <code>group_by()</code> and <code>summarise()</code> step.</p>
 <p>First, we group by the condition to get one value per group. We then calculate a few values for the median ounces of soup, 3 times the MAD in line with Leys et al., then calculating the upper and lower bound using these objects.</p>
@@ -758,14 +760,14 @@ Solution
 </div>
 </div>
 <p>In this example, the lower bound is lower than 0 as the smallest possible value. The upper bounds are then between 22 and 28 depending on the group.</p>
-<p>Second, we must add these values to the other information we have available. We join the data sets using <code>Condition_label</code>. This adds the relevant values to each group. We then use <code>mutate()</code> and <code>case_when()</code> to label values as outliers or not. If they are smaller or larger than the lower and upper bounds, they are labelled as “outliers”. If they are larger or smaller than the lower and upper bounds, they are labelled as “no outliers”.</p>
+<p>Second, we must add these values to the other information we have available. We join the data sets using <code>Condition_label</code>. This adds the relevant values to each group. We then use <code>mutate()</code> and <code>case_when()</code> to label values as outliers or not. If they are outside the lower and upper bounds, they are labelled as “outliers”. If they are inside the lower and upper bounds, they are labelled as “no outliers”.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>lopez_mad <span class="ot">&lt;-</span> lopez_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">inner_join</span>(mad_bounds, <span class="at">by =</span> <span class="st">"Condition_label"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">mutate</span>(<span class="at">oz_outlier =</span> <span class="fu">case_when</span>(M_postsoup <span class="sc">&lt;</span> lower <span class="sc">|</span> M_postsoup <span class="sc">&gt;</span> upper <span class="sc">~</span> <span class="st">"Outlier"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4"></a>                                M_postsoup <span class="sc">&gt;=</span> lower <span class="sc">|</span> M_postsoup <span class="sc">&lt;=</span> upper <span class="sc">~</span> <span class="st">"No Outlier"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points.</p>
+<p>We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points. These are checks for you again, so you do not need to worry about the plot formatting.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>lopez_mad <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Condition_label, <span class="at">y =</span> M_postsoup)) <span class="sc">+</span> </span>
@@ -778,7 +780,7 @@ Solution
 </div>
 </div>
 </div>
-<p>We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them.</p>
+<p>We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>lopez_remove <span class="ot">&lt;-</span> lopez_mad <span class="sc">%&gt;%</span> </span>
 <span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">filter</span>(oz_outlier <span class="sc">==</span> <span class="st">"No Outlier"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -842,9 +844,82 @@ Solution
 </div>
 </div>
 </div>
-<p>Remember identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision.</p>
+<p>Remember: identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision now you know how to identify outliers in the data.</p>
 </section></section><section id="checking-assumptions" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="checking-assumptions">
 <span class="header-section-number">11.4</span> Checking assumptions</h2>
+<p>The final section here revisits checking assumptions from Chapter 8 and 9. In those chapters, we introduced the concepts and stuck with the output regardless of whether we were happy with the assumptions or not. In this chapter, we will introduce potential solutions.</p>
+<p>As a reminder, the assumptions for simple linear regression are:</p>
+<ol type="1">
+<li><p>The outcome is interval/ratio level data.</p></li>
+<li><p>The predictor variable is interval/ratio or categorical (with two levels at a time).</p></li>
+<li><p>All values of the outcome variable are independent (i.e., each score should come from a different participant/observation).</p></li>
+<li><p>The predictors have non-zero variance.</p></li>
+<li><p>The relationship between the outcome and predictor is linear.</p></li>
+<li><p>The residuals should be normally distributed.</p></li>
+<li><p>There should be homoscedasticity.</p></li>
+</ol>
+<p>Assumptions 1-4 are pretty straight forward as they relate to your understanding of the design or a simple check on the data. On the other hand, assumptions 5-7 require diagnostic checks.</p>
+<p>For this part, we focus on <span class="citation" data-cites="lopez_visual_2023">Lopez et al. (<a href="references.html#ref-lopez_visual_2023" role="doc-biblioref">2023</a>)</span> as the assumptions did not look quite right in Chapter 9. As a reminder, we can get a quick diagnostic check by running <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> on the model object:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Condition as a factor containing 0 and 1</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>lm_cals_numbers <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> F_CaloriesConsumed <span class="sc">~</span> Condition, </span>
+<span id="cb21-3"><a href="#cb21-3"></a>                      <span class="at">data =</span> lopez_clean)</span>
+<span id="cb21-4"><a href="#cb21-4"></a></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="co"># Change the panel layout to 2 x 2</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb21-7"><a href="#cb21-7"></a></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co"># plot the diagnostic plots </span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="fu">plot</span>(lm_cals_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="11-screening-data_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Condition_label as numbers</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>lm_cals_ranks <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> <span class="fu">rank</span>(F_CaloriesConsumed) <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Condition, </span>
+<span id="cb22-3"><a href="#cb22-3"></a>                     <span class="at">data =</span> lopez_clean)</span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="fu">summary</span>(lm_cals_ranks)</span>
+<span id="cb22-6"><a href="#cb22-6"></a></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="fu">wilcox.test</span>(<span class="at">formula =</span> F_CaloriesConsumed <span class="sc">~</span> Condition_label, </span>
+<span id="cb22-8"><a href="#cb22-8"></a>             <span class="at">data =</span> lopez_clean, </span>
+<span id="cb22-9"><a href="#cb22-9"></a>            <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = rank(F_CaloriesConsumed) ~ 1 + Condition, data = lopez_clean)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-261.138 -110.361    1.862  111.467  263.967 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   200.03       8.27  24.188  &lt; 2e-16 ***
+Condition      69.11      12.06   5.728 1.84e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 129.7 on 462 degrees of freedom
+Multiple R-squared:  0.0663,    Adjusted R-squared:  0.06428 
+F-statistic: 32.81 on 1 and 462 DF,  p-value: 1.836e-08
+
+
+    Wilcoxon rank sum test with continuity correction
+
+data:  F_CaloriesConsumed by Condition_label
+W = 18827, p-value = 3.021e-08
+alternative hypothesis: true location shift is not equal to 0
+95 percent confidence interval:
+ -82.06643 -39.92418
+sample estimates:
+difference in location 
+             -59.88637 </code></pre>
+</div>
+</div>
 </section><section id="test-yourself" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="test-yourself">
 <span class="header-section-number">11.5</span> Test yourself</h2>
 <p>To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. We then have some error mode tasks to see if you can find the solution to some common errors in the concepts we covered in this chapter.</p>

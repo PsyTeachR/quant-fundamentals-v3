@@ -116,7 +116,7 @@ We get a range of summary statistics for each variable but importantly for our p
 
 ::: {.callout-tip}
 #### Try this
-If you explore `lopez_clean` from @lopez_visual_2023, do we have any missing data to worry about? `r mcq(c(answer = "Yes", "No"))`. 
+If you explore `lopez_clean` from @lopez_visual_2023, do we have any missing data to worry about? `r mcq(c(answer = "Yes", "No"))` 
 :::
 
 ::: {.callout-caution collapse="true"} 
@@ -134,7 +134,7 @@ summary(lopez_clean)
 
 Once we know whether missing data are present, we must consider what to do with them. For this chapter, we are only going to control removing participants, but you could apply a data imputation technique at this point. 
 
-For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing yourself so you have a note of how many participants you remove. 
+For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing data yourself so you have a note of how many participants you remove. 
 
 For `dawtry_clean`, the <pkg>tidyverse</pkg> function `drop_na()` is the easiest way of removing missing data, either participants with any missing data or by specifying individual variables. 
 
@@ -170,6 +170,7 @@ The next data screening concept revolves around identifying potential outliers. 
 2. Interesting outliers - values that looks extreme until you take a moderator into account. 
 
 3. Random outliers - values that are extreme compared to the majority of data points. 
+
 Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place. 
 
 Interesting and random outliers would be legitimate as they are not clear mistakes or errors; they are just different to the majority of values in the data. In most cases, it is not a good idea to remove these kind of values as they potentially tell you something interesting, but you might need to approach the data analysis in a different way to ensure the results are robust to extreme values. 
@@ -178,7 +179,7 @@ Interesting and random outliers would be legitimate as they are not clear mistak
 
 Unless you can specifically identify values or participants you know contain errors, the main way to check is by ensuring the values are within known limits. 
 
-We can look at `dawtry_clean` and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values numerically and via a plot. For example, we can isolate the variable and apply the `summary()` function. 
+We can look at `dawtry_clean` and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values and create a plot. For example, we can isolate the variable and apply the `summary()` function. 
 
 ```{r}
 dawtry_clean %>% 
@@ -202,7 +203,7 @@ dawtry_clean %>%
 
 ::: {.callout-tip}
 #### Try this
-If you explore `redistribution` from `dawtry_clean`, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? `r mcq(c("Yes", answer = "No"))`. 
+If you explore `redistribution` from `dawtry_clean`, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? `r mcq(c("Yes", answer = "No"))`
 :::
 
 ::: {.callout-caution collapse="true"} 
@@ -234,7 +235,9 @@ If you did identify error outliers to remove, then you could use `filter()` (Cha
 
 ### Identifying interesting or random outliers
 
-Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook's distance values. In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research. 
+Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook's distance values. 
+
+In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research. 
 
 We focus here on setting boundaries using the median absolute deviation as recommended by @leys_how_2019. You will see other approaches in the literature, but this method is useful as it's influenced less by the very outliers it is trying to identify. We will use `lopez_clean` from @lopez_visual_2023 for this section. 
 
@@ -256,7 +259,7 @@ mad_bounds
 
 In this example, the lower bound is lower than 0 as the smallest possible value. The upper bounds are then between 22 and 28 depending on the group. 
 
-Second, we must add these values to the other information we have available. We join the data sets using `Condition_label`. This adds the relevant values to each group. We then use `mutate()` and `case_when()` to label values as outliers or not. If they are smaller or larger than the lower and upper bounds, they are labelled as "outliers". If they are larger or smaller than the lower and upper bounds, they are labelled as "no outliers". 
+Second, we must add these values to the other information we have available. We join the data sets using `Condition_label`. This adds the relevant values to each group. We then use `mutate()` and `case_when()` to label values as outliers or not. If they are outside the lower and upper bounds, they are labelled as "outliers". If they are inside the lower and upper bounds, they are labelled as "no outliers". 
 
 ```{r}
 lopez_mad <- lopez_clean %>% 
@@ -265,7 +268,7 @@ lopez_mad <- lopez_clean %>%
                                 M_postsoup >= lower | M_postsoup <= upper ~ "No Outlier"))
 ```
 
-We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points. 
+We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points. These are checks for you again, so you do not need to worry about the plot formatting. 
 
 ```{r}
 lopez_mad %>% 
@@ -274,7 +277,7 @@ lopez_mad %>%
   geom_point(aes(colour = oz_outlier)) # needs to be within aes to set dynamic values
 ```
 
-We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them. 
+We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them: 
 
 ```{r}
 lopez_remove <- lopez_mad %>% 
@@ -319,9 +322,56 @@ dawtry_mad %>%
 
 :::
 
-Remember identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision. 
+Remember: identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision now you know how to identify outliers in the data. 
 
 ## Checking assumptions
+
+The final section here revisits checking assumptions from Chapter 8 and 9. In those chapters, we introduced the concepts and stuck with the output regardless of whether we were happy with the assumptions or not. In this chapter, we will introduce potential solutions. 
+
+As a reminder, the assumptions for simple linear regression are:
+
+1. The outcome is interval/ratio level data.
+
+2. The predictor variable is interval/ratio or categorical (with two levels at a time).
+
+3. All values of the outcome variable are independent (i.e., each score should come from a different participant/observation).
+
+4. The predictors have non-zero variance.
+
+5. The relationship between the outcome and predictor is linear.
+
+6. The residuals should be normally distributed.
+
+7. There should be homoscedasticity.
+
+Assumptions 1-4 are pretty straight forward as they relate to your understanding of the design or a simple check on the data. On the other hand, assumptions 5-7 require diagnostic checks. 
+
+For this part, we focus on @lopez_visual_2023 as the assumptions did not look quite right in Chapter 9. As a reminder, we can get a quick diagnostic check by running `plot()` on the model object: 
+
+```{r}
+# Condition as a factor containing 0 and 1
+lm_cals_numbers <- lm(formula = F_CaloriesConsumed ~ Condition, 
+                      data = lopez_clean)
+
+# Change the panel layout to 2 x 2
+par(mfrow = c(2,2))
+
+# plot the diagnostic plots 
+plot(lm_cals_numbers)
+```
+
+```{r}
+# Condition_label as numbers
+lm_cals_ranks <- lm(formula = rank(F_CaloriesConsumed) ~ 1 + Condition, 
+                     data = lopez_clean)
+
+summary(lm_cals_ranks)
+
+wilcox.test(formula = F_CaloriesConsumed ~ Condition_label, 
+             data = lopez_clean, 
+            conf.int = TRUE)
+```
+
 
 ## Test yourself
 
