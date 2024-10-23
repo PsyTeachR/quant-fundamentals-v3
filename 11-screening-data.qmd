@@ -326,7 +326,7 @@ Remember: identifying outliers is a crucial researcher degree of freedom, so pre
 
 ## Checking assumptions
 
-The final section here revisits checking assumptions from Chapter 8 and 9. In those chapters, we introduced the concepts and stuck with the output regardless of whether we were happy with the assumptions or not. In this chapter, we will introduce potential solutions. 
+The final section revisits checking assumptions from Chapter 8 and 9. In those chapters, we introduced the concepts and stuck with the output regardless of whether we were happy with the assumptions or not. In this chapter, we will introduce potential solutions. 
 
 As a reminder, the assumptions for simple linear regression are:
 
@@ -360,6 +360,33 @@ par(mfrow = c(2,2))
 plot(lm_cals_numbers)
 ```
 
+All of the checks look good apart from normality. We have a clear deviation from the line to curve around at lower and higher values along the x-axis. In Chapter 9, we said we would stick with it as it was consistent with the original article's analyses, but now we will outline options. 
+
+### Do nothing, parametric tests are robust 
+
+One get out jail free card is doing nothing as the parametric tests are robust to violations of assumptions. You will often see this brought up and it is largely true under certain conditions. @knief_violating_2021 report a simulation study where they explore how violating assumptions like linearity, normality, and outliers affect the results of parametric statistical tests like simple linear regression. They found the tests were robust to violations - particularly normality - apart from when there were extreme outliers which could bias the results. 
+
+In the Lopez et al. example, we identified a few outliers using the 3 times the MAD criterion and the strictest Cook's distance cut-off in Chapter 9, but normality was the only notable problem in the diagnostic checks. One option would be to feel reassured the results are robust to minor violations and explain that in your report. 
+
+The second option would be checking the results are robust to the presence of outliers. Remember, we advise excluding outliers as a last resort if you consider them legitimate, but it provides a robustness check to see if you get similar conclusions with and without the outliers. For example, we can exclude outliers using the MAD criterion and check the results:  
+
+```{r}
+# remove outliers under 3 * MAD 
+
+lm_cals_outliers <- lm(formula = F_CaloriesConsumed ~ Condition, 
+                      data = filter(lopez_mad, 
+                                    oz_outlier == "No Outlier"))
+
+summary(lm_cals_outliers)
+
+```
+
+The conclusions are very similar. The difference is still statistically significant and instead of a 63 calorie difference for the slope, we get a 67 calorie difference. So, we can stick with the original results and feel reassured that the results are robust to the presence of outliers, given the criterion we used. You would explain to the reader you checked the robustness of the results and what your final conclusion was.  
+
+### Treat the data as non-parametric
+
+
+
 ```{r}
 # Condition_label as numbers
 lm_cals_ranks <- lm(formula = rank(F_CaloriesConsumed) ~ 1 + Condition, 
@@ -372,6 +399,7 @@ wilcox.test(formula = F_CaloriesConsumed ~ Condition_label,
             conf.int = TRUE)
 ```
 
+### Use an alternative model 
 
 ## Test yourself
 
