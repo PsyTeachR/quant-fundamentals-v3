@@ -16,14 +16,16 @@ all_dat <- inner_join(dat,
                       by= c("id", "intervention"))
 
 summarydata <- select(.data = all_dat, 
+                      id,
+                      occasion, 
+                      elapsed.days,
+                      intervention,
                       ahiTotal, 
                       cesdTotal, 
                       sex, 
                       age, 
                       educ, 
-                      income, 
-                      occasion, 
-                      elapsed.days)
+                      income)
 ```
 
 In this chapter, we introduce you to `r glossary("data visualisation", def = "A graphical representation of your data set.")`. Visualising our data and the relationships between our variables is an incredibly useful and important skill. 
@@ -399,7 +401,7 @@ In the next section, we are going to cover making barplots - potentially the mos
 
 You will see people use them to represent continuous outcomes, such as showing the mean on the y-axis, but there is good reason to never use bar plots to communicate continuous data we will cover in the course materials [see @weissgerber_reveal_2019 if you are interested]. We will cover more advanced plots for continuous data in [Chapter 7 - Building your data visualisation skills](#07-more-viz). 
 
-### Activity 6 - Covert to factors {#introviz-a2}
+### Activity 6 - Convert to factors {#introviz-a2}
 
 Earlier, we highlighted that all the variables were processed as numbers. This was fine for most of the variables, but  `sex`, `educ`, and `income` should be categories or what we call **`r glossary("factor data type", display = "factors")`**. 
 
