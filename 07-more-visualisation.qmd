@@ -409,7 +409,7 @@ zhang_data_long %>%
                      breaks = c(1:7)) + 
   scale_fill_viridis_d(option = "E", 
                        alpha = 0.6) + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 ::: {.callout-tip}
@@ -432,7 +432,7 @@ zhang_data_long %>%
                      breaks = c(1:7)) + 
   scale_fill_viridis_d(option = "E", 
                        alpha = 0.6) + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 :::
@@ -454,7 +454,7 @@ zhang_data_long %>%
                      breaks = c(1:7)) + 
   scale_fill_viridis_d(option = "E", 
                        alpha = 0.6) + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 
@@ -549,7 +549,7 @@ zhang_data_long %>%
   scale_fill_viridis_d(option = "E") + 
   scale_y_continuous(name = "Interest score (1-7)", 
                      breaks = c(1:7)) + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 The boxplot uses the median for the centre line, but in your report you might be presenting means per category which will be slightly different. One further variation is removing the centre median line, and replacing it with the mean and 95% confidence interval (more on that in the lectures and Chapter 8). This way, you get three layers: the violin plot for the density, the boxplot for distribution summary statistics, and the mean and 95% confidence interval. 
@@ -572,7 +572,7 @@ zhang_data_long %>%
   scale_fill_viridis_d(option = "E") + 
   scale_y_continuous(name = "Interest score (1-7)", 
                      breaks = c(1:7)) + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 
 ```
 
@@ -600,7 +600,7 @@ zhang_data_long %>%
   scale_y_continuous(name = "Interest score (1-7)", 
                      breaks = c(1:7)) + 
   theme_minimal() + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 :::
@@ -624,7 +624,7 @@ zhang_data_long %>%
   scale_y_continuous(name = "Interest score (1-7)", 
                      breaks = c(1:7)) + 
   theme_minimal() + 
-  guides(fill = FALSE)
+  guides(fill = "none")
 ```
 
 :::

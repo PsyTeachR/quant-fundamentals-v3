@@ -620,7 +620,8 @@ Error mode
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Age"</span>,</span>
 <span id="cb4-5"><a href="#cb4-5"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">40</span>)) <span class="co"># in steps of 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 124 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 124 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -952,7 +953,7 @@ Error mode
 <span id="cb18-6"><a href="#cb18-6"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
 <span id="cb18-7"><a href="#cb18-7"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>, </span>
 <span id="cb18-8"><a href="#cb18-8"></a>                       <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb18-9"><a href="#cb18-9"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-9"><a href="#cb18-9"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="07-more-visualisation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -998,7 +999,7 @@ Show me the solution
 <span id="cb19-5"><a href="#cb19-5"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
 <span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>, </span>
 <span id="cb19-7"><a href="#cb19-7"></a>                       <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="07-more-visualisation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1024,7 +1025,7 @@ Show me the solution
 <span id="cb20-8"><a href="#cb20-8"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
 <span id="cb20-9"><a href="#cb20-9"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>, </span>
 <span id="cb20-10"><a href="#cb20-10"></a>                       <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb20-11"><a href="#cb20-11"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-11"><a href="#cb20-11"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="07-more-visualisation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1148,7 +1149,7 @@ Important
 <span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>) <span class="sc">+</span> </span>
 <span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Interest score (1-7)"</span>, </span>
 <span id="cb26-8"><a href="#cb26-8"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
-<span id="cb26-9"><a href="#cb26-9"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-9"><a href="#cb26-9"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="07-more-visualisation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1173,7 +1174,7 @@ Important
 <span id="cb27-12"><a href="#cb27-12"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"E"</span>) <span class="sc">+</span> </span>
 <span id="cb27-13"><a href="#cb27-13"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Interest score (1-7)"</span>, </span>
 <span id="cb27-14"><a href="#cb27-14"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
-<span id="cb27-15"><a href="#cb27-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-15"><a href="#cb27-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="07-more-visualisation_files/figure-html/vbp1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1243,7 +1244,7 @@ Show me the solution
 <span id="cb28-12"><a href="#cb28-12"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Interest score (1-7)"</span>, </span>
 <span id="cb28-13"><a href="#cb28-13"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">+</span> </span>
 <span id="cb28-14"><a href="#cb28-14"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb28-15"><a href="#cb28-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-15"><a href="#cb28-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1339,16 +1340,16 @@ Show me the solution
 <section id="knowledge-check" class="level3" data-number="7.5.1"><h3 data-number="7.5.1" class="anchored" data-anchor-id="knowledge-check">
 <span class="header-section-number">7.5.1</span> Knowledge check</h3>
 <p><strong>Question 1</strong>. You want to plot several summary statistics including the median for your outcome, which <pkg>ggplot2</pkg> layer could you use?</p>
-<div id="radio_OIBVQWXFJM" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_OIBVQWXFJM" value="answer"><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_OIBVQWXFJM" value=""><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_OIBVQWXFJM" value=""><span>geom_violin()</span></label>
+<div id="radio_IBJAUOAHVW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IBJAUOAHVW" value=""><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_IBJAUOAHVW" value="answer"><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_IBJAUOAHVW" value=""><span>geom_violin()</span></label>
 </div>
 <p><strong>Question 2</strong>. You want to create a scatterplot to show the correlation between two continuous variables, which <pkg>ggplot2</pkg> layer could you use?</p>
-<div id="radio_BNGWCSYLJA" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_BNGWCSYLJA" value="answer"><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_BNGWCSYLJA" value=""><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_BNGWCSYLJA" value=""><span>geom_violin()</span></label>
+<div id="radio_EKPFRYEZHO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_EKPFRYEZHO" value="answer"><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_EKPFRYEZHO" value=""><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_EKPFRYEZHO" value=""><span>geom_violin()</span></label>
 </div>
 <p><strong>Question 3</strong>. You want to show the density of values in your outcome, which <pkg>ggplot2</pkg> layer could you use?</p>
-<div id="radio_HULBTIDABA" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HULBTIDABA" value=""><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_HULBTIDABA" value=""><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_HULBTIDABA" value="answer"><span>geom_violin()</span></label>
+<div id="radio_RPCXUZLIWE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RPCXUZLIWE" value=""><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_RPCXUZLIWE" value=""><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_RPCXUZLIWE" value="answer"><span>geom_violin()</span></label>
 </div>
 <p><strong>Question 4</strong>. To separate a scatterplot into different groups, you could specify a grouping variable using the <code>fill</code> argument to change the colour of the points? <select class="webex-select"><option value="blank"></option>
 <option value="">TRUE</option>
@@ -1370,8 +1371,8 @@ Explain this answer
 </div>
 </div>
 <p><strong>Question 5</strong>. The order of layers is important in <pkg>ggplot2</pkg>. Which order of layers would show individual data points on top of a boxplot?</p>
-<div id="radio_QHGPPMYXQS" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_QHGPPMYXQS" value=""><span>data + ggplot() + geom_boxplot() + geom_jitter()</span></label><label><input type="radio" autocomplete="off" name="radio_QHGPPMYXQS" value=""><span>data %&gt;% ggplot() + geom_jitter() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_QHGPPMYXQS" value=""><span>data + ggplot() + geom_jitter() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_QHGPPMYXQS" value="answer"><span>data %&gt;% ggplot() + geom_boxplot() + geom_jitter()</span></label>
+<div id="radio_ZKFMNYBTXS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZKFMNYBTXS" value=""><span>data + ggplot() + geom_boxplot() + geom_jitter()</span></label><label><input type="radio" autocomplete="off" name="radio_ZKFMNYBTXS" value=""><span>data + ggplot() + geom_jitter() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_ZKFMNYBTXS" value=""><span>data %&gt;% ggplot() + geom_jitter() + geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_ZKFMNYBTXS" value="answer"><span>data %&gt;% ggplot() + geom_boxplot() + geom_jitter()</span></label>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
