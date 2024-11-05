@@ -77,4 +77,4 @@ By the end of the courses associated with this book, you will be able to:
 
 We put a lot of effort into creating the resources in this book, but occasionally typos or broken links will slip through. When a student helps us and highlights an error or makes a suggestion, we like to acknowledge it. We would like to thank the following students for helping us:
 
-Andrés Rajiv Arora, John Gleeson, Ria Manwar. 
+Andrés Rajiv Arora, John Gleeson, Ria Manwar, Yee Lam So. 

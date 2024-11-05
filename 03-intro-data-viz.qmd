@@ -548,7 +548,7 @@ Type and run the following code to overwrite the image file with new dimensions.
 One final tip, by default, the plot has a transparent background which you do not notice on a white document, but looks odd on anything else. So, you can set a specific background colour through the argument `bg`. 
 
 ```{r, eval = FALSE}
- ggsave("figures/participant_sex_barplot", 
+ ggsave("figures/participant_sex_barplot.png", 
         width = 10, # 10 inches wide
         height = 8, # 8 inches high
         units = "in", 
