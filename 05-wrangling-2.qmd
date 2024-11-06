@@ -367,7 +367,7 @@ You can also add two or more expressions including multiple variables by adding 
 ```{r}
 pong_fast_BallSpeed <- filter(pong_data_filter, 
                          JudgedSpeedLabel == "Fast", 
-                         BallSpeed %in% c("2", "4", "5", "7"))
+                         BallSpeed %in% c(2, 4, 5, 7))
 ```
 
 In the first expression, we only want to keep observations/rows which have a `JudgedSpeedLabel` of "Fast". In the second expression, we only want to keep observations/rows which have a BallSpeed of 2, 4, 5, or 7. In other words, retain "Fast" observations AND those with a ball speed of 2, 4, 5, or 7. Adding more expressions makes your criteria more selective as rows must pass both conditions to be retained in the data. 
