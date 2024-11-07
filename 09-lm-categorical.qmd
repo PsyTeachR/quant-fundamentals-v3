@@ -15,7 +15,7 @@ library(tidyverse)
 
 In Chapter 8, you finally started working on inferential statistics. We spent so long on data wrangling and visualisation that it now feels so much closer to being able to address your research questions. We covered linear regression and the concept of correlation for investigating the relationship between two continuous variables. 
 
-In this chapter, we focus on simple linear regression for testing research questions and hypotheses for the difference between two groups on one outcome. Like Chapter 8, we reinforce the idea that common statistical tests you come across are specific applications of the general linear model ([Lindeløv, 2019]([R for Data Science](https://r4ds.had.co.nz/){target="_blank"}){target="_blank"}). In this chapter, we explore the concepts of t-tests as those specific applications compared to recreating them using linear regression. We also have a bonus section on expressing a one-sample and paired-samples design as linear models. 
+In this chapter, we focus on simple linear regression for testing research questions and hypotheses for the difference between two groups on one outcome. Like Chapter 8, we reinforce the idea that common statistical tests you come across are specific applications of the general linear model ([Lindeløv, 2019](https://lindeloev.github.io/tests-as-linear/){target="_blank"}). In this chapter, we explore the concepts of t-tests as those specific applications compared to recreating them using linear regression. We also have a bonus section on expressing a one-sample and paired-samples design as linear models. 
 
 **Chapter Intended Learning Outcomes (ILOs)**
 
