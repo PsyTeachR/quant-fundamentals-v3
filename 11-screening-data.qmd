@@ -1,381 +1,566 @@
-# Screening Data 
+# Missing data, outliers, and checking assumptions
 
-In this chapter we're going to focus on how to screen datasets for potential issues and to reinforce the concept of tidy data. So far, we've given you complete datasets to work with, however, you will find that real data is often much messier than this, for example, participants may not answer some items in your questionnaire or there may be errors or implausible values in your dataset. We're also going to show you a different function to make calculating descriptive statistics easier. 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE, 
+                      echo = TRUE)
 
-## The Set-Up and the Data
-
-As always we first need to start with setting up our working environment, bringing in our data and looking at it.
-
-#### Activity 1: Set-up {#screening-a1}
-
-* Open RStudio and set the working directory to your chapter folder. Ensure the environment is clear.
-    * If you're using the Rserver, avoid a number of issues by restarting the session - click `Session` - `Restart R`
-* Open a new R Markdown document and save it in your working directory. Call the file "screeningdata".   
-* Download <a href="messy.csv" download>messy.csv</a> and save it in your Screening Data folder. Make sure that you do not change the file name at all. 
-  * If you prefer you can download the data in a [zip folder by clicking here](data/chpt12/PsyTeachR_FQA_Chpt12-data.zip){target="_blank"}
-  * Remember not to change the file names at all and that `data.csv` is not the same as `data (1).csv`.
-* Delete the default R Markdown welcome text and insert a new code chunk that loads the following packages, in this specific order, using the `library()` function. Remember the solutions if needed. 
-    * Load the packages in this order, `psych` then `tidyverse`
-  * again we have not used some of these packages so you will likely need to install some of them using `install.packages()`. Remember though that you should only do this on your own machine and only in the console window. If you are using the RServer you will not need to install them.
-* Finally, load the data held in `messy.csv` as a tibble into an object named `messy` using `read_csv()`. If unsure, have a look at the solution at the end of the chapter
-
-```{r setup, echo = FALSE, message=FALSE, warning=FALSE}
-library(psych)
-library(tidyverse)
-messy <- read_csv("messy.csv")
 ```
 
-#### Activity 2: Look at the data {#screening-a2}
+In this chapter, you will work on decisions that come up in data analysis. In Chapters 8 and 9, you learnt about different inferential statistics and checking assumptions, but not what your options are once you experience different problems. In this final chapter for the Research Methods 1 content, you will learn about identifying and excluding missing data, different strategies for identifying and excluding extreme values or outliers, and your options when checking modelling assumptions. 
 
-`messy` is simulated data for an experiment looking at the effect of note-taking on test performance and whether this is affected by being first language English. Participants are first given a pre-test to judge their baseline knowledge, then they watch a lecture and take notes. Immediately after the lecture is finished they take another test. Finally, they are tested after a week's delay. The maximum score for any test is 30. Participants lose marks for incorrect answers so minus scores are also possible. The dataset has six variables:
+**Chapter Intended Learning Outcomes (ILOs)**
 
-  * `id` showing the participant ID number
-  * `age` showing the age of the participant
-  * `speaker`showing if the participant are first language English or not  
-  * `gender` showing if the participant is male, female, or non-binary  
-  * `pre` showing pre-test score before any notes were taken  
-  * `post` showing post-test score immediately after the lecture  
-  * `delay` showing test score after one week delay
+By the end of this chapter, you will be able to: 
+
+- Identify missing data and justify your strategy for excluding missing data.  
+
+- Identify extreme values or outliers and justify your strategy for handling them. 
+
+- Justify your choice of statistical test or modelling approach given assumption checks. 
+
+## Chapter preparation
+
+### Organising your files and project for the chapter
+
+For this chapter, we are going to revisit the data sets you worked with in Chapters 8 [@dawtry_why_2015] and 9 [@lopez_visual_2023]. They each presented some useful examples for checking modelling assumptions and the decisions that go into data analysis. We might not use both data sets for each topic we cover, but they will be useful to demonstrate some of the problems and decisions we highlighted in previous chapters, but did not explore solutions.
+
+Before we can get started, you need to organise your files and project for the chapter, so your working directory is in order.
+
+1. In your folder for research methods and the book `ResearchMethods1_2/Quant_Fundamentals`, create a new folder called `Chapter_11_screening_data`. Within `CChapter_11_screening_data`, create two new folders called `data` and `figures`.
+
+2. Create an R Project for `Chapter_11_screening_data` as an existing directory for your chapter folder. This should now be your working directory.
+
+3. Create a new R Markdown document and give it a sensible title describing the chapter, such as `11 Missing Data, Outliers, and Assumptions`. Delete everything below line 10 so you have a blank file to work with and save the file in your `Chapter_11_screening_data` folder. 
+
+4. The @dawtry_why_2015 data wrangling steps were quite long, so please save this clean version of the data to focus on screening data in this chapter: [Dawtry_2015_clean.csv](data/Dawtry_2015_clean.csv). You will also need to save the data from @lopez_visual_2023 if you have not downloaded it yet: [Lopez_2023.csv](data/Lopez_2023.csv). Right click the link and select "save link as", or clicking the link will save the files to your Downloads. Make sure that you save the files as ".csv". Save or copy the files to your `data/` folder within `Chapter_11_screening_data`.
+
+You are now ready to start working on the chapter! 
+
+### Activity 1 - Read and wrangle the data
+
+As the first activity, try and test yourself by completing the following task list to read and wrangle the two data files. There is nothing extra to do with this version of the Dawtry data and one small step for the Lopez data. 
+
+::: {.callout-tip}
+#### Try this
+
+To read and wrangle the data, complete the following tasks: 
+
+1. Load the following packages:
+
+    - <pkg>performance</pkg>
+    
+    - <pkg>tidyverse</pkg>
+
+2. Read the data file `data/Dawtry_2015_clean.csv` to the object name `dawtry_clean`.
+
+2. Read the data file `data/Lopez_2023.csv` to the object name `lopez_data`.
+
+3. Create a new object called `lopez_clean` based on `lopez_data`:
+
+    - Create a new variable called `Condition_label` by recoding `Condition`. "0" is the "Control" group and "1" is the "Experimental" group. 
+
+:::
+
+::: {.callout-caution collapse="true"}
+#### Show me the solution
+You should have the following in a code chunk: 
+
+```{r}
+# load the relevant packages
+library(performance)
+library(tidyverse)
+
+# Read the Dawtry_2015_clean.csv file 
+dawtry_clean <- read_csv("data/Dawtry_2015_clean.csv")
+
+# Read the Lopez_2023.csv file 
+lopez_data <- read_csv("data/Lopez_2023.csv")
+
+# recode condition
+lopez_clean <- lopez_data %>% 
+  mutate(Condition_label = case_match(Condition,
+                                      0 ~ "Control",
+                                      1 ~ "Experimental"))
+```
+
+:::
 
 ## Missing data
 
-The first issue we will cover is missing data. There is a whole host of reasons that your data could have missing values. For example:
+Checking whether data are missing are relatively straight forward. **`r glossary(term = "Missing data", display = "Missing values", def = "If a participant or observation contains no data for one or more cells, they have missing data.")`** in a spreadsheet will be recorded as NA and there are a few ways of identifying them. The much more difficult part of missing data is considering *why* they are missing in the first place. For example, it might be because: 
 
-* Data can be missing because your participants accidentally didn't fill in a question.
-* Data can be missing because participants intentionally didn't want to answer a question. 
-* Data can be missing because participants didn't turn up to a final testing session. 
-* Data can be missing because you did something wrong whilst setting up your questionnaire/experiment and it didn't save. 
+- Your participants accidentally missed a question.
 
-In truth, real data frequently contains missing values and it's important that you know how to identify missing data and what you can do with it. Which is what we want to show you a little of in this chapter.
+- You made a mistake while setting up your questionnaire/experiment and some responses did not save.
 
-#### Activity 3: `summary()` and `is.na()` {#screening-a3}
+- Your participants intentionally did not want to answer a question.
 
-Missing data is normally shown in your tibbles and objects as `NA` - usually taken to mean something like "Not Available". We have already seen a couple of approaches to find NAs in our data and we will quickly recap them.
+- Your participants did not turn up to a final testing session.
 
-The first approach is to use a pipeline of functions we have used before including `summarise()`, `is.na()`, `sum()`, and `pluck()`. For instance:
+For the first two reasons, it is not ideal as we are losing data but there is no systematic pattern to why the data is missing. For the latter two reasons, there might be a relationship between a key variable and whether the data are missing. This is where it is particularly important to consider the role of missing data. We are focusing on data skills here rather than the conceptual understanding, but missing data are commonly categorised as: 
 
-```{r isna}
-messy_na <- messy %>% 
-  summarise(find_nas = is.na(speaker)) %>%
-  summarise(count_nas = sum(find_nas)) %>%
-  pluck("count_nas")
-```
+- **`r glossary(term = "Missing completely at random", def = "Whether the data are missing or not is completely unrelated to other variables in the data.")`**.
 
-Which reads as use `is.na()` to find all the NAs in messy (i.e the first `summarise()`) and then count up all those NAs (i.e. the second `summarise()` - which works because NAs are either TRUE, summed as 1, or FALSE, summed as 0), and then pluck out that number (i.e. the `pluck()`). And if you look at `messy_na` you see there are `r messy_na` NAs in `speaker`. That code looks quite long but it could actually be written as below if you prefer and you can follow the pipe inside the `summarise()`.
+- **`r glossary(term = "Missing at random", def = "We can predict the missing value using other variables in the data.")`**. 
 
-```{r isna2}
-messy_na <- messy %>% 
-  summarise(count_nas = is.na(speaker) %>% sum()) %>% 
-  pluck("count_nas")
-```
+- **`r glossary(term = "Missing not at random", def = "Whether the data are missing or not is causally related to one or more other variables in the data.")`**. 
 
-This approach, using `is.na()`, is a good approach if you are only interested in one column or maybe a couple of columns, but if you want a snapshot of all your columns then we can use `summary()` which we have seen previously. First, however, because `speaker` and `gender` are character/text rather than numerical, in order to see how many values are missing we first need to convert these two columns into factors using the below code
+For this introductory course, we do not have time to investigate strategies to address missing data apart from focusing on complete cases and ignoring missing data, but you might find @jakobsen_when_2017 useful if you want to explore options like data imputation. 
 
-```{r summary, results='hide'}
-messy <- messy %>%
-  mutate(speaker = as.factor(speaker), 
-         gender = as.factor(gender))
+### Activity 2 - Identifying missing data
 
-summary(messy)
-```
-
-If you run the code, you can see, there are 20 data points missing (NAs) in each of `speaker`, `gender`, and `delay`. However, and the important part if you look at the actual data, the missing data is not in the same 20 participants and that gives us some issues about how to deal with these different participants. Fortunately, there are several different approaches to dealing with missing data and we will cover a few here.
-
-## Listwise Deletion
-
-One method for dealing with missing data is `r glossary("listwise")`. This approach removes any participant who have a missing value (i.e. a NA) in **any** variable. So if there is missing data in any of the columns in the dataset, that participant will be removed and you will only be left with participants with complete datasets. For example the below participants would be removed along with all others with a similar profile:
-
-```{r removes, echo = FALSE}
-messy %>%
-  filter(is.na(gender) |is.na(speaker)) %>%
-  slice(1:4) %>%
-  knitr::kable(align = "c")
-```
-
-We can achieve this using the `drop_na()` function from the **`tidyr`** package that comes in as part of `tidyverse`.
-
-#### Activity 4: Listwise deletion {#screening-a4}
-
-* Run the below code and then view the tibble in the object called `messy_listwise`.  
-
-```{r drop_na}
-messy_listwise <- drop_na(messy)
-```
-
-As you can see `messy_listwise` now only contains data from participants with a complete set of data - i.e. responses in each column. 
-
-Now, however, whilst this might seem like a good thing, and sometimes it is the most appropriate option, there are a couple of important points to consider. 
-
-1. First, `gender` might not be part of our experiment; it might just be there as demographic information. So whilst we might not include `gender` in any of our analyses, because of the listwise deletion approach we have deleted experimental data if the participant was missing `gender` which means we are removing participants we could actual use. 
-2. Relatedly, using a listwise deletion approach may result in the loss of a lot of data. Compare `messy` to `messy_listwise`. The original dataset had 200 participants. After using `drop_na()` we only have 143 participants meaning that we have lost over 25% of our data with this approach which is a lot of data. 
-* **Note:** It is worth mentioning that if you do use a listwise approach you should check that the missing values are not coming from one particular group (i.e., non-random attrition).
-
-To counter these issues, one option is to amend the use of `drop_na()` so that it doesn't include `gender`, or any column for that matter that we don't want to exclude people based on. We can do this using a similar approach to what we have seen when using `select()`. For example, run the below code, have a look at the output and then answer the question:
-
-```{r drop_na2}
-messy_listwise2 <- drop_na(messy, -gender)
-```
-
-* How many observations does `messy_listwise2` have? `r fitb("161")`
-
-So that approach says "remove participants with NAs from `messy` based on all columns **except** gender". Alternatively, you could do "remove participants with NAs from `messy` based on only the columns of speaker and delay" as follows:
-
-```{r drop_na3}
-messy_listwise3 <- drop_na(messy, speaker, delay)
-```
-
-So you actually have a lot of control with `drop_na()` as long as you plan your approach in advance.
-
-## Pairwise Deletion
-
-The alternative to listwise deletion is `r glossary("pairwise")`. This is when cases are removed depending upon the analysis. For example, if we were to calculate the correlations between `pre`, `post`, and `delay` without first removing participants with missing data, we would basically just use different numbers of participants in each correlation depending on missing data. For example, if you compare the degrees of freedom for the following two correlations:
-
-```{r corr1}
-cor.test(messy$pre, messy$post)
-```
-
-```{r corr2}
-cor.test(messy$pre, messy$delay)
-```
- 
-```{r corr3, echo=FALSE}
-df1 <- cor.test(messy$pre, messy$post) %>% broom::tidy() %>% pluck("parameter")
-df2 <- cor.test(messy$pre, messy$delay) %>% broom::tidy() %>% pluck("parameter")
-``` 
-
-You can see that the correlation of `pre` versus `post` has df = `r df1` whereas `pre` versus `delay` has df = `r df2`. Meaning that the correlation is by default run only on the participants who have data in both columns - pairwise deletion. The problem here is remembering to write up the output accordingly as the dfs are changing and they may be different from the number of participants you stated in your methods section. Again it is about looking at your data!
-
-## Summarising data with missing values 
-
-So when running inferential tests like correlations, the analysis will usually know when to ignore missing values. However, if you're calculating descriptive statistics or if you want to calculate the average score of a number of different items, you need to explicitly state to ignore the missing values. We can do this through `na.rm = TRUE`
-
-#### Activity 5: `na.rm = TRUE` {#screening-a5}
-
-* Run the below code to calculate the mean score for each testing condition.
-
-```{r na.rm, eval=FALSE}
-summarise(messy, 
-          pre_mean = mean(pre),
-          post_mean = mean(post),
-          delay_mean = mean(delay)
-          )
-```
-
-This gives a table similar to below. We have rounded all the values to two decimal places but yours might have more decimal places.
-
-```{r na.rm2, echo=FALSE}
-summarise(messy, 
-          pre_mean = mean(pre),
-          post_mean = mean(post),
-          delay_mean = mean(delay)
-          ) %>%
-  knitr::kable(digits = 2, align = "c")
-```
-
-As you can see, the mean score for `delay` shows as `NA`. This is because we are trying to calculate an average of a variable that has missing data and that just isn't doable. As such we need to calculate the mean but ignoring the missing values by adding `na.rm = TRUE` - which you can read this as "remove the NAs? Yes".
-
-* Run the below code and then answer the question. 
-
-```{r na.rm3, eval=FALSE}
-summarise(messy, 
-          pre_mean = mean(pre),
-          post_mean = mean(post),
-          delay_mean = mean(delay, na.rm = TRUE)
-          )
-```
-
-* What is the mean score for the `delay` condition to 2 decimal places? `r fitb("13.60")`
-
-```{block, type = "danger"}
-
-It's really important that you think about whether you want to calculate your descriptives from participants that have missing data. For example, if you are calculating the average reaction time from hundreds of trials, a few missing data points won't affect the validity of the mean. However, if you are using a standardised questionnaire that has been validated using complete responses but your participants didn't answer 3/10 questions, it may not be appropriate to calculate a mean score from the remaining data.
-```
-
-## Implausible values
-
-Along with looking for missing values, an additional crucial step of data screening is checking for implausible values - values that should not exist in your data. What is implausible depends on the data you've collected!
-
-#### Activity 6: Implausible values {#screening-a6}
-
-Additional functions we can put inside a `summarise()` function are `min()` and `max()`. 
-
-* Run the below code and look at the output and answer the questions below:
-
-```{r imps1}
-messy %>%
-  summarise(max_age = max(age, na.rm = TRUE),
-            min_age = min(age, na.rm = TRUE),
-            max_pre = max(pre, na.rm = TRUE),
-            min_pre = min(pre, na.rm = TRUE),
-            max_post = max(post, na.rm = TRUE),
-            min_post = min(post, na.rm = TRUE),
-            max_delay = max(delay, na.rm = TRUE),
-            min_delay = min(delay, na.rm = TRUE))
-```
-
-* Does the max value of `age` look plausible? `r mcq(c("Yes", answer = "No"))`
-* Does the max value of `pre` look plausible? `r mcq(c(answer = "Yes", "No"))`
-* Do the max value of `post` look plausible? `r mcq(c("Yes", answer = "No"))`
-* Do the min value of `delay` look plausible? `r mcq(c("No", answer = "Yes"))`
-
-`r hide("Explain these answers")`
-```{block}
-The maximum value for age is 470, this is unlikely to be correct!
-  
-The maximum value for pre, post, and delay should be 30, as we described at the start of the chapter. However, for post, the maximum value is 40 so something is wrong. This is a very important check to do on your data, not just for the raw data but if you've calculated a total score.
-
-The min value for delay is plausible, given the explanation at the start of the chapter. Remember that participants can be deducted points for incorrect answers, so negative values are possible.
-```
-`r unhide()`
-
-That code above does look a bit long and could be written quicker as below. We won't go into detail as to how this works but see if you can figure it out by comparing the output to the version above:
-
-```{r imps2}
-messy %>% 
-  summarise_at(c("age","pre","post","delay"),
-               c(max, min),
-               na.rm = TRUE)
-```
-
-And there is always `summary(messy)` if you prefer. But the main point is that we should always check our values to make sure they are allowed in our data. But whilst looking at the values is useful, it can be easier to visualise the data.
-
-#### Activity 7: Visualising implausible values {#screening-a7}
-
-There are a number of different ways to visualise the data as you know and this depends on the data, and your preferences. You could produce violin-boxplots with the data points on top to check the distributions as follows:
-
-```{r fig1, fig.cap="Data screening plots", warning = FALSE, message = FALSE}
-messy %>%
-  pivot_longer(cols = c("pre", "post", "delay"), 
-               names_to = "test", 
-               values_to = "score") %>%
-  ggplot(aes(x = test, y = score)) +
-  geom_violin() +
-  geom_boxplot() +
-  geom_jitter(width = .2)
-```
-
-And if it helped, you could add some max and min lines to help spot issues using `geom_hline()` as follows:
-
-```{r fig1a, fig.cap="Data screening plots", warning = FALSE, message = FALSE}
-messy %>%
-  pivot_longer(cols = c("pre", "post", "delay"), 
-               names_to = "test", 
-               values_to = "score") %>%
-  ggplot(aes(x = test, y = score)) +
-  geom_violin() +
-  geom_boxplot() +
-  geom_jitter(width = .2) +
-  geom_hline(yintercept = c(0,30), color = "red", linetype = 2)
-```
-
-Alternatively you could also use a histogram to spot an outlier:
-
-```{r fig2, fig.cap="Histogram of age for data screening", warning = FALSE, message = FALSE}
-ggplot(messy, aes(x = age)) +
-  geom_histogram()
-```
-
-And we can make use of `facet_wrap()` which we have seen before to help split figures based on different conditions:
-
-```{r fig3, fig.cap="Histogram of the DVs for data screening", warning = FALSE, message = FALSE}
-messy %>%
-  pivot_longer(cols = c("pre", "post", "delay"), 
-               names_to = "test", 
-               values_to = "score") %>%
-  ggplot(aes(x = score)) +
-  geom_histogram(binwidth = 1) +
-  facet_wrap(~test)
-```
-
-Whatever method you choose, make sure that you look at your data before trying to work with it and that you know in advance what range your values should take (for example, if your Likert scale is 1-7, you shouldn't have a score of 8, for reaction times, 50ms is unlikely to reflect a real response). 
-
-## Dealing with implausible values or missing data
-
-Once we have spotted some implausible or missing values we then need to decide what to do with them. However, there is no hard and fast rule about what to do with missing data. You should review the missing data to see if there are any patterns, for example, is all the missing data from one condition? A pattern may indicate a problem with your design. Alternatively, does a single participant have a lot of missing data and should they be removed? This might indicate they were not paying attention.
-
-One way of dealing with implausible values is to use the `replace()` and `mutate()` functions to change such values to Na.
-
-* For `age`, we know that we have one very specific data point that is implausible, an age of 470 so we can specify just to replace this one value with NA.
-* For `post`, there are multiple missing values so we specify to replace any data point that is over the maximum plausible value (30) with NA.
+Returning to data skills, the simplest way of getting an overview of whether any data are missing is using the `summary()` function. For this part, we will focus on `dawtry_clean` from @dawtry_why_2015.  
 
 ```{r}
-messy_screen <-  messy %>% 
-  mutate(age = replace(age, age == 470, NA),
-         post = replace(post, post > 30, NA))
+summary(dawtry_clean)
 ```
 
-An alternative method for dealing with implausible data is to `r glossary("impute")` the data, i.e., to replace missing data with substituted values. There are many methods of doing this, for example, you can replace missing values with the mean value of the distribution. We won't go into which method you should choose this in this chapter but there's [more information available](https://www.theanalysisfactor.com/seven-ways-to-make-up-data-common-methods-to-imputing-missing-data/) online about the various options if you're interested. The code for imputing missing data is relatively simple and uses `mutate()` and `replace_na()`.
+We get a range of summary statistics for each variable but importantly for our purposes here, the final entry is `NA's`, where relevant. We can see there are 4 missing values for household income, 4 for political preference, 1 for age, and 3 for gender. 
 
-* You can read the below code as "create a new variable named `post_impute` that replaces the values of `post` if they're `NA` with the mean of the values in `post`.
+::: {.callout-tip}
+#### Try this
+If you explore `lopez_clean` from @lopez_visual_2023, do we have any missing data to worry about? `r mcq(c(answer = "Yes", "No"))` 
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+Yes, it looks like there is also a small amount of missing data here. There is 1 for sex, 2 for estimated ounces, and 3 for estimates calories. 
 
 ```{r}
-messy_impute <- messy_screen %>%
-  mutate(post_impute = replace_na(post, 
-                                  mean(post, na.rm = TRUE)))
+summary(lopez_clean)
 ```
 
-And if we look at a participant who had a NA for `post` we can see the change:
+:::
 
-```{r, echo = FALSE}
-messy_impute %>% 
-  filter(id == "S016") %>%
-  knitr::kable()
+### Activity 3 - Removing missing data
+
+Once we know whether missing data are present, we must consider what to do with them. For this chapter, we are only going to control removing participants, but you could apply a data imputation technique at this point if appropriate. 
+
+For all the modelling techniques we apply in this book, the functions will remove participants who have one or more missing values from any variable involved in the analysis. The functions will give you a warning to highlight when this happens, but it is normally a good idea to remove participants with missing data yourself so you have a note of how many participants you remove. 
+
+For `dawtry_clean`, the <pkg>tidyverse</pkg> function `drop_na()` is the easiest way of removing missing data, either participants with any missing data or by specifying individual variables. 
+
+```{r}
+dawtry_all_missing <- dawtry_clean %>% 
+  drop_na()
+
+dawtry_income_missing <- dawtry_clean %>% 
+  drop_na(Household_Income)
 ```
 
-So you can see that they have been given the value of the mean of the distribution in this new variable and then can be used in different analyses!
+We can compare the number of participants by using the `nrow()` function to count how many rows are in each object. 
 
-## Alternative function for descriptive statistics
+```{r}
+# How many rows in the full data? 
+nrow(dawtry_clean)
 
-And before we end this chapter we wanted to just add a small section on an alternative function for calculating some useful descriptives that you can use to check your data. So far in this book, we've calculated descriptive statistics using `summarise()` from the **`tidyverse`**. There's a good reason we've done this - the output of `summarise()` works well with `ggplot()` and the code is very flexible. However, it can be hard to calculate descriptives such as skew and kurtosis within `summarise()` and it can be useful to know of other functions that help create these descriptives. For example, the `psych` package contains many functions that are useful for psychology research. One of the functions of `psych` is `describe()`.
+# How many rows when we remove missing data in one variable? 
+nrow(dawtry_income_missing)
 
-* Run the below code and look at the output as shown below.
-
-```{r, eval = FALSE}
-descriptives <- describe(messy)
-descriptives
+# How many rows when we remove any missing value?
+nrow(dawtry_all_missing)
 ```
 
-```{r, echo = FALSE, warning = FALSE}
-describe(messy) %>%
-  kableExtra::kable()
+Like most data skills and statistics concepts, the key skill here comes in decision making; documenting and justifying the approach that you take. 
+
+## Outliers
+
+The next data screening concept revolves around identifying potential outliers. Like missing data, the difficulty here comes in first deciding what an outlier is and then deciding on what to do with it. @leys_how_2019 mention one study found 14 definitions and 39 unique ways of identifying outliers, so this is our second key area of decision making. Leys et al. categorise outliers into three types: 
+
+1. **`r glossary(term = "Error outliers", def = "A mistake or impossible value in your data.")`**. 
+
+2. **`r glossary(term = "Interesting outliers", def = "Values in your data that looks extreme until you take another variable or moderator into account.")`**. 
+
+3. **`r glossary(term = "Random outliers", def = "Values in your data that are extreme compared to the majority of data points.")`**.
+
+Even simpler, we can consider values as legitimate or not legitimate. Error outliers would be not legitimate as they represent a mistake or error, so they would potentially provide misleading results. These are values you can justify removing or correcting as they should not be there in the first place. 
+
+Interesting and random outliers would be legitimate as they are not clear mistakes or errors; they are just different to the majority of values in the data. In most cases, it is not a good idea to remove these kind of values as they potentially tell you something interesting, but you might need to approach the data analysis in a different way to ensure the results are robust to extreme values. 
+
+### Activity 4- Identifying error outliers
+
+Unless you can specifically identify values or participants you know contain errors, the main way to check is by ensuring the values are within known limits. 
+
+We can look at `dawtry_clean` and the key variables we explored in Chapter 8. Fairness and satisfaction was on a 1-9 scale, so we can check the minimum and maximum values and create a plot. For example, we can isolate the variable and apply the `summary()` function. 
+
+```{r}
+dawtry_clean %>% 
+  select(fairness_satisfaction) %>% 
+  summary()
 ```
 
-As you can see `describe()` produces a full set of descriptive statistics, including skew, kurtosis and standard error for the entire dataset! Run `?describe` to see a full explanation of all the statistics it calculates.
+The minimum and maximum values are nice and consistent with what we expect. 
 
-You may notice that `id`, `speaker` and `gender` all have a star next to their name. This star signifies that these variables are factors, and so it is not really appropriate to calculate these statistics, but we asked it to apply `describe()` to the entire dataset so it's done what you asked. However, we could `describe()`with `select()` to remove these variables and just get the data we want:
+For a visual check, we can also plot the minimum and maximum possible values on a boxplot. This is just a check for you, so you do not need to worry so much about the presentation.  
 
-```{r, eval = FALSE}
-descriptives2 <- messy %>%
-  select(-id, -speaker, -gender) %>%
-  describe()
-
-descriptives2
+```{r}
+dawtry_clean %>% 
+  ggplot(aes(y = fairness_satisfaction, x = "")) + # make x blank 
+  geom_boxplot() + 
+  scale_y_continuous(limits = c(1, 9), 
+                     breaks = seq(1, 9, 1)) + 
+  geom_hline(yintercept = c(1, 9), # min and max values
+             linetype = 2) # create dashed line
 ```
 
-```{r, echo = FALSE}
-descriptives2 <- messy %>%
-  select(-id, -speaker, -gender) %>%
-  describe()
+::: {.callout-tip}
+#### Try this
+If you explore `redistribution` from `dawtry_clean`, the minimum and maximum values are 1-6. Does it look like there are any problematic looking values? `r mcq(c("Yes", answer = "No"))`
+:::
 
-descriptives2 %>%
-  kableExtra::kable()
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+No, it looks like all values are within the expected 1-6 range. 
+
+```{r}
+dawtry_clean %>% 
+  select(redistribution) %>% 
+  summary()
 ```
 
-The output of `describe()` is a little harder to work with in terms of manipulating the table and using the data in subsequent plots and analyses, so we still strongly recommend that you use `summarise()` and `group_by()` for these operations, however, for getting a comprehensive overview of your data, `describe()` is a good function to know about.
+We can also confirm this with a visual check. 
 
-## Finished! {#screening-fin}
-
-And you're done! Excellent work today! This isn't a comprehensive tutorial on every type of dataset you will come across and the concept of tidy data will take practice but hopefully this should give you a good starting point for when you have your own real, messy data.
-
-## Activity solutions {#screening-sols}
-
-### Activity 1 {#screening-a1sol}
-
-```{r eval=FALSE}
-library(psych)
-library(tidyverse)
-messy <- read_csv("messy.csv")
+```{r}
+dawtry_clean %>% 
+  ggplot(aes(y = redistribution, x = "")) + # make x blank 
+  geom_boxplot() + 
+  scale_y_continuous(limits = c(1, 6), 
+                     breaks = seq(1, 6, 1)) + 
+  geom_hline(yintercept = c(1, 6), # min and max values
+             linetype = 2) # create dashed line
 ```
+
+:::
+
+If you did identify error outliers to remove, then you could use `filter()` (Chapter 5) to directly remove values outside your known range, or you could first use `case_when()` to code observations as outliers or not (Chapter 4), before deciding to filter them out. 
+
+### Activity 5- Identifying interesting or random outliers
+
+Identifying error outliers relies on manually setting known minimum and maximum values, whereas identifying interesting or random outliers relies on data driven boundaries. For this example, we focus on univariate outliers, where we focus on one variable at a time. When we return to checking assumptions of regression models, you can identify interesting or random outliers through observations with large leverage / Cook's distance values. 
+
+In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research. 
+
+We focus here on setting boundaries using the median absolute deviation as recommended by @leys_how_2019. You will see other approaches in the literature, but this method is useful as it's influenced less by the very outliers it is trying to identify. We will use `lopez_clean` from @lopez_visual_2023 for this section. 
+
+There are two main steps to this process because we have two groups and each group will have different boundaries. If you only have individual variables, then you could just `mutate()` your data, without the initial `group_by()` and `summarise()` step.
+
+First, we group by the condition to get one value per group. We then calculate a few values for the median ounces of soup, 3 times the MAD in line with Leys et al., then calculating the upper and lower bound using these objects. 
+
+```{r}
+# create a new object with values per group
+mad_bounds <- lopez_clean %>% 
+  group_by(Condition_label) %>% 
+  summarise(oz_median = median(M_postsoup), # median of soup in oz
+            oz_MAD = 3 * mad(M_postsoup), # 3 times the MAD
+            lower = oz_median - oz_MAD, # lower bound 
+            upper = oz_median + oz_MAD) # upper bound
+
+mad_bounds
+```
+
+In this example, the lower bound is lower than 0 as the smallest possible value. The upper bounds are then between 22 and 28 depending on the group. 
+
+Second, we must add these values to the other information we have available. We join the data sets using `Condition_label`. This adds the relevant values to each group. We then use `mutate()` and `case_when()` to label values as outliers or not. If they are outside the lower and upper bounds, they are labelled as "outlier". If they are inside the lower and upper bounds, they are labelled as "no outlier". 
+
+```{r}
+lopez_mad <- lopez_clean %>% 
+  inner_join(mad_bounds, by = "Condition_label") %>% 
+  mutate(oz_outlier = case_when(M_postsoup < lower | M_postsoup > upper ~ "Outlier",
+                                M_postsoup >= lower | M_postsoup <= upper ~ "No Outlier"))
+```
+
+We can use these in one of two ways. First, we can visualise the presence of outliers by adding coloured points. These are checks for you again, so you do not need to worry about the plot formatting. 
+
+```{r}
+lopez_mad %>% 
+  ggplot(aes(x = Condition_label, y = M_postsoup)) + 
+  geom_boxplot() + 
+  geom_point(aes(colour = oz_outlier)) # needs to be within aes to set dynamic values
+```
+
+We can see a few values per group flagged as outliers using this criterion. If you did decide to remove outliers, then you could use filter to remove them: 
+
+```{r}
+lopez_remove <- lopez_mad %>% 
+  filter(oz_outlier == "No Outlier")
+```
+
+::: {.callout-tip}
+#### Try this
+If you switch to `dawtry_clean` from @dawtry_why_2015, apply the MAD procedure to the variable `fairness_satisfaction`. Does it look like there are any outliers using this criterion? `r mcq(c("Yes", answer = "No"))`.
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+No, none of the values are outside the MAD thresholds. The thresholds are well beyond the minimum and maximum possible values of 1-9 for this variable.
+
+```{r}
+dawtry_mad <- dawtry_clean %>% 
+  mutate(fs_median = median(fairness_satisfaction), # median of fairness/satisfaction
+         fs_MAD = 3 * mad(fairness_satisfaction), # 3 times the MAD
+         lower = fs_median - fs_MAD, # lower bound 
+         upper = fs_median + fs_MAD,  # upper bound
+         fs_outlier = case_when(fairness_satisfaction < lower | fairness_satisfaction > upper ~ "Outlier",
+                                fairness_satisfaction >= lower | fairness_satisfaction <= upper ~ "No Outlier"))
+```
+
+For this variable and it's bounded scale, no value is above or below the thresholds. You can see this in the data, or add horizontal lines in a plot since we are only plotting one variable. The dashed lines are the MAD thresholds and the solid lines are the minimum and maximum possible values.
+
+```{r}
+dawtry_mad %>% 
+  ggplot(aes(y = fairness_satisfaction, x = "")) + 
+  geom_boxplot() + 
+  geom_hline(aes(yintercept = lower), 
+             linetype = 2) + # dashed line
+  geom_hline(yintercept = c(1, 9)) + 
+  geom_hline(aes(yintercept = upper), 
+             linetype = 2) + 
+  scale_y_continuous(limits = c(-4, 10), 
+                     breaks = seq(-4, 10, 2))
+```
+
+
+:::
+
+Remember: identifying outliers is a crucial researcher degree of freedom, so pre-register your choice of outlier detection wherever possible, and document how many outliers you removed. We still recommend favouring a more robust model, but you can make an informed decision now you know how to identify outliers in the data. 
+
+## Checking assumptions
+
+The final section revisits checking assumptions from Chapter 8 and 9. In those chapters, we introduced the concepts and stuck with the output regardless of whether we were happy with the assumptions or not. In this chapter, we will introduce potential solutions. 
+
+As a reminder, the assumptions for simple linear regression are:
+
+1. The outcome is interval/ratio level data.
+
+2. The predictor variable is interval/ratio or categorical (with two levels at a time).
+
+3. All values of the outcome variable are independent (i.e., each score should come from a different participant/observation).
+
+4. The predictors have non-zero variance.
+
+5. The relationship between the outcome and predictor is linear.
+
+6. The residuals should be normally distributed.
+
+7. There should be homoscedasticity.
+
+Assumptions 1-4 are pretty straight forward as they relate to your understanding of the design or a simple check on the data. On the other hand, assumptions 5-7 require diagnostic checks. 
+
+For this part, we focus on @lopez_visual_2023 as the assumptions did not look quite right in Chapter 9. As a reminder, we can get a quick diagnostic check by running `plot()` on the model object: 
+
+```{r}
+# Condition as a factor containing 0 and 1
+lm_cals_numbers <- lm(formula = F_CaloriesConsumed ~ Condition, 
+                      data = lopez_clean)
+
+# Change the panel layout to 2 x 2
+par(mfrow = c(2,2))
+
+# plot the diagnostic plots 
+plot(lm_cals_numbers)
+```
+
+All of the checks look good apart from normality. We have a clear deviation from the line to curve around at lower and higher values along the x-axis. In Chapter 9, we said we would stick with it as it was consistent with the original article's analyses, but now we will outline options available to you: 
+
+1. Parametric tests are robust. 
+
+2. Treat the data as non-parametric. 
+
+3. Use an alternative model.
+
+### Activity 6 - Parametric tests are robust 
+
+One get out jail free card is doing nothing as the parametric tests are robust to violations of assumptions. You will often hear this and it is largely true under certain conditions. @knief_violating_2021 report a simulation study where they explore how violating assumptions like linearity, normality, and outliers affect the results of parametric statistical tests like simple linear regression. They found the tests were robust to violations - particularly normality - apart from when there were extreme outliers which could bias the results. 
+
+In the Lopez et al. example, we identified a few outliers using the 3 times the MAD criterion and the strictest Cook's distance cut-off in Chapter 9, but normality was the only notable problem in the diagnostic checks. One option would be to feel reassured the results are robust to minor violations and explain that in your report. 
+
+The second option would be checking the results are robust to the presence of outliers. Remember, we advise excluding outliers as a last resort if you consider them legitimate, but it provides a robustness check to see if you get similar conclusions with and without the outliers. For example, we can exclude outliers using the MAD criterion and check the results:  
+
+```{r}
+# remove outliers under 3 * MAD 
+
+lm_cals_outliers <- lm(formula = F_CaloriesConsumed ~ Condition, 
+                      data = filter(lopez_mad, 
+                                    oz_outlier == "No Outlier"))
+
+summary(lm_cals_outliers)
+
+```
+
+The conclusions are very similar. The difference is still statistically significant and instead of a 63 calorie difference for the slope, we get a 67 calorie difference. So, we can stick with the original results and feel reassured that the results are robust to the presence of outliers, given the criterion we used. You would explain to the reader you checked the robustness of the results and what your final conclusion was.  
+
+### Activity 7 - Treat the data as non-parametric
+
+The second option is switching to a non-parametric statistical test which makes fewer assumptions about the data. In Chapter 8, we introduced the Spearman correlation as the non-parametric equivalent. In Chapter 9, we could have introduced the Mann-Whitney U test as the non-parametric equivalent, but we are starting to double every statistical test with it's non-parametric equivalent. Instead, we can apply a similar principle to linear regression and recreate non-parametric equivalents. 
+
+In the demonstration by [Lindeløv, 2019](https://lindeloev.github.io/tests-as-linear/){target="_blank"}, common statistical tests you come across are specific applications of the general linear model. Likewise, you can recreate non-parametric tests by converting continuous variables to ranks and using those in the regression model. 
+
+For example, instead of a Mann-Whitney U test, you can run wrap the number of calories (`F_CaloriesConsumed`) in the `rank()` function: 
+
+```{r}
+# Condition_label as numbers
+lm_cals_ranks <- lm(formula = rank(F_CaloriesConsumed) ~ Condition, 
+                     data = lopez_clean)
+
+summary(lm_cals_ranks)
+```
+
+This means instead of comparing the raw number of calories between groups, you compare the ranks between groups. The logic here is you reduce the impact of extreme values as they become ranks instead of raw numbers, so like using the median over the mean, the difference between the 99th and 100th number would be one position, instead of a huge difference in actual value. For example, if you had the collection of numbers 1, 2, 3, 4, and 100, there is a difference in raw and ranked values:
+
+```{r}
+c(1, 2, 3, 4, 100)
+
+rank(c(1, 2, 3, 4, 100))
+```
+
+In the write-up, just note you still report the model and null hypothesis significance testing elements like the *p*-value, but the slope is less interpretable as an effect size. It is now a difference in ranks, so it will be more useful to calculate the difference in medians to present the reader. 
+
+::: {.callout-tip}
+#### Try this
+If you switch to `dawtry_clean` from @dawtry_why_2015, apply the same logic to a correlational design. Is there a significant association between `fairness_satisfaction` and `redistribution` if you convert both variables to ranks in a regression model? `r mcq(c(answer = "Yes", "No"))`.
+:::
+
+::: {.callout-caution collapse="true"} 
+#### Solution
+
+Yes, you get a similar finding to the original model where you predict raw values of redistribution from fairness and satisfaction. This time, you are looking at the association in ranks instead. There is still a statistically significant negative relationship and this recreates the process behind the Spearman correlation.
+
+```{r}
+# Variables as ranks
+lm_dawtry_ranks <- lm(formula = rank(redistribution) ~ rank(fairness_satisfaction), 
+                     data = dawtry_clean)
+
+summary(lm_dawtry_ranks)
+```
+
+For further reinforcement of how this is the same process underlying Spearman's correlation, take the square root of the $R^2$ value in this model and compare it to the value of $r_s$ from Chapter 8. 
+:::
+
+### Use an alternative model 
+
+The third and final option is considering whether a parametric test is the right choice in the first place. The default assumption in psychology research is assuming everything is linear and normal as it is convenient and applies to many scenarios, but there are some outcomes and models which will always be inappropriate to model as linear and normal. For example, if your outcome is dichotomous (0 or 1; correct or incorrect), then you must assume a **`r glossary(term = "binomial distribution", def = "Instead of the parameters mean and standard deviation in a normal distribution, you have *N* trials with *n* number of successes.")`** and use something like a **`r glossary(term = "logistic regression", def = "Modelling the log-odds of a dichotomous outcome as a linear combination of one or more predictors.")`** model.  
+
+However, these models are beyond the scope of this introductory course. If you are interested, a PsyTeachR book from another one of our courses has a [chapter on generalised linear regression](https://psyteachr.github.io/statsres-v1/introduction-to-generalised-linear-models.html){target="_blank"} for modelling different distributions, but we do not expect you to learn this for RM1 or RM2. As long as you show awareness of checking modelling assumptions and consider the first and second options above, that is all we ask of you. 
+
+## Test yourself
+
+To end the chapter, we have some knowledge check questions to test your understanding of the concepts we covered in the chapter. There are no error mode questions in this chapter as we have focused more on decision making around past concepts rather potential errors in new concepts.  
+
+### Knowledge check
+
+For this chapter’s knowledge check section, instead of purely conceptual questions about functions, we have an example model and output and we would like you to consider the presence of missing data, outliers, and modelling assumptions. 
+
+We have a simulated study where our research question is "Are scientists perceived to be more objective than highly-educated lay people"? Participants were randomly allocated to rate the characteristics of scientists or highly-educated lay people. The outcome was a 0-10 scale made up of 10 items of how objective they perceive the target to be, from not very objective to very objective. 
+
+```{r echo=FALSE}
+library(faux)
+
+set.seed(81124)
+
+between <- list(group = c(scientists = "Scientists",
+                          lay = "Highly Educated Lay People"))
+
+mu <- data.frame(
+  scientists = 4.5,
+  lay = 4
+)
+
+df <- sim_design(between = between, 
+                 n = 300, 
+                 mu = mu,
+                 sd = 1, 
+                 plot = FALSE) %>% 
+  rename(objectivity = y) %>% 
+  mutate(group = factor(group, levels = c("lay", "scientists")))
+
+missing_y <- sample(df$id, 9)
+
+df$objectivity[df$id %in% missing_y] <- NA
+
+```
+
+**Question 1**. Based on the description of the study, the mostly likely design is: `r mcq(sample(c(answer = "Between-subjects", "Within-subjects", "Correlational", "One-sample")))`
+
+**Question 2**. Look at the following summary table of the data we are working with. Is there any missing data present? `r mcq(sample(c(answer = "Yes", "No")))`
+
+```{r echo=FALSE}
+summary(df)
+```
+
+**Question 3**. Look at the following boxplot of the data we are working with. We have applied the criterion 3 times the MAD to highlight potential extreme values. 
+
+- Looking at the highly-educated group, are there any potential extreme values? `r mcq(sample(c("Yes", answer = "No")))` 
+
+- Looking at the scientist group, are there any potential extreme values? `r mcq(sample(c(answer = "Yes", "No")))` 
+
+```{r echo=FALSE}
+
+# create a new object with values per group
+mad_bounds <- df %>% 
+  group_by(group) %>% 
+  summarise(obj_median = median(objectivity, na.rm = TRUE), 
+            obj_MAD = 3 * mad(objectivity, na.rm = TRUE),
+            lower = obj_median - obj_MAD, # lower bound 
+            upper = obj_median + obj_MAD) # upper bound
+
+df <- df %>% 
+  inner_join(mad_bounds, by = "group") %>% 
+  mutate(obj_outlier = case_when(objectivity < lower | objectivity > upper ~ "Outlier",
+                                objectivity >= lower | objectivity <= upper ~ "No Outlier"))
+
+df %>% 
+  drop_na() %>% 
+  ggplot(aes(x = group, y = objectivity)) + 
+  geom_boxplot() + 
+  geom_point(aes(color = obj_outlier), alpha = 0.5, width = 0.2)  + 
+  scale_y_continuous(name = "Perceived Objectivity",
+                     breaks = seq(0, 10, 2), 
+                     limits = c(0, 10)) + 
+  scale_x_discrete(name = "Target Group", labels = c("Highly-Education Lay People", "Scientists")) + 
+  scale_color_discrete(name = "MAD Outliers") + 
+  theme_classic()
+```
+
+**Question 4**. If we fit a linear regression model, the effect of group is `r mcq(sample(c(answer = "statistically significant", "not statistically significant")))` and the `r mcq(sample(c(answer = "scientist", "highly-educated lay person")))` scored higher on objectivity. 
+
+```{r echo=FALSE}
+lm_objectivity <- lm(objectivity ~ group, data = df)
+
+summary(lm_objectivity)
+```
+
+**Question 5**. If we check the modelling assumptions and focus on normality and homoscedasticity, does it look like we meet the assumptions for linear regression? `r mcq(sample(c(answer = "Yes", "No")))`
+
+```{r echo=FALSE}
+#par(mfrow = c(2,1))
+plot(lm_objectivity, which = c(2,3))
+```
+
+::: {.callout-caution collapse="true"} 
+#### Explain this answer
+For normality in the first plot, it does not look like there is a significant deviation in expected values against observed values. We have a few data points highlighted at the top and bottom of the points, but there is not a consistent deviation to the pattern. 
+
+Likewise, for homoscedasticity in the second plot, the red line is horizontal and there does not appear to be a noticeable difference in the variance between each group. 
+:::
+
+**Question 6**. If you were concerned about the presence of potential outliers from question 3, are the regression results robust if we remove those outliers? `r mcq(sample(c(answer = "Yes", "No")))`
+
+```{r echo=FALSE}
+lm_outliers <- lm(objectivity ~ group, 
+                  data = filter(df, 
+                                obj_outlier == "No Outlier"))
+
+summary(lm_outliers)
+```
+
+::: {.callout-caution collapse="true"} 
+#### Explain this answer
+Yes, there is very little difference in the two results, so you would confident the potential outliers are not driving the results. They are both statistically significant and there is very little different in the main effect size of interest, where the slope changes from 0.499 in question 4 to 0.491 here. 
+:::
 
 ## Words from this Chapter
 
@@ -385,5 +570,11 @@ Below you will find a list of words that were used in this chapter that might be
 glossary_table()
 ```
 
-That is end of this chapter. Be sure to look again at anything you were unsure about and make some notes to help develop your own knowledge and skills. It would be good to write yourself some questions about what you are unsure of and see if you can answer them later or speak to someone about them. Good work today!
+## End of Chapter
+
+That is the final chapter you will complete for the Research Methods 1 component of the course! 
+
+We hope you take a moment to think about everything you have achieved so far. Think back to how you felt when you were completing Chapters 1 and 2 and learning what a function is. We must get through a huge amount of content in a short space of time on the MSc conversion programmes, so we hope you are all very proud in how far you have come. We cannot guarantee everyone will come out of the course loving R and data skills, but we hope you all recognise you *can* do this. 
+
+The next few chapters you will cover in Research Methods 2, so make sure you refresh your memory of the RM1 content prior to starting as the topics build on what you already know around data skills and statistics. 
 

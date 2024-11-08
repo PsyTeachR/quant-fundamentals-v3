@@ -66,12 +66,12 @@ book:
   - 17-analysis-journey-1.qmd
   - 18-analysis-journey-2.qmd
   - references.qmd
+  - appendix-y-license.qmd
   appendices:
   - appendix-a2-additional-learning-resources.qmd
   - appendix-a3-How-to-cite-R.qmd
   - appendix-b-symbols.qmd
   - appendix-d-probability.qmd
-  - appendix-y-license.qmd
 bibliography: include/book.bib
 csl: include/apa.csl
 format:
