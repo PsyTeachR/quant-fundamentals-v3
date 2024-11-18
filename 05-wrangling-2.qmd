@@ -111,6 +111,11 @@ Double and integer can both be referred to as `r glossary("numeric")` data, and 
 
 Somewhat confusingly, double data might not have decimal places in it. For instance, the value of 1 could be double as well as integer. However, the value of 1.1 could only be double and never integer. Integers cannot have decimal places. The more you work with data the more this will make sense, but it highlights the importance of looking at your data and checking what type it is as the type determines what you can do with the data.
 
+::: {.callout-note}
+#### Functions to convert variables 
+Until now, we have used the function `as.factor()` which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as `as.character()`, `as.numeric()`, and `as.Date()`. Each variable in a data frame must be the same data type, so you can use them to convert a whole variable to another data type. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning. 
+:::
+
 In `pong_data`, each row (observation) represents one trial per participant and there are 288 trials for each of the 16 participants. Most of the data is a double (i.e., numbers) and one column is a character (i.e., text). The columns (variables) we have in the data set are:
 
 | Variable       |       Type                       |           Description          |

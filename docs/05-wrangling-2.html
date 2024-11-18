@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
-<title>Fundamentals of Quantitative Analysis - 5&nbsp; Data wrangling 2: Filter and summarise</title>
+<title>5&nbsp; Data wrangling 2: Filter and summarise – Fundamentals of Quantitative Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -56,6 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -98,7 +99,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -107,6 +114,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -127,23 +135,23 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-wrangling-2.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-wrangling-2.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Fundamentals of Quantitative Analysis</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/PsyTeachR/quant-fundamentals-v3" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/PsyTeachR/quant-fundamentals-v3" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -283,9 +291,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,7 +326,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -373,7 +381,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
   <li><a href="#words-from-this-chapter" id="toc-words-from-this-chapter" class="nav-link" data-scroll-target="#words-from-this-chapter"><span class="header-section-number">5.7</span> Words from this Chapter</a></li>
   <li><a href="#end-of-chapter" id="toc-end-of-chapter" class="nav-link" data-scroll-target="#end-of-chapter"><span class="header-section-number">5.8</span> End of chapter</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/edit/main/05-wrangling-2.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/blob/main/05-wrangling-2.qmd" class="toc-action">View source</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/edit/main/05-wrangling-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/blob/main/05-wrangling-2.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -389,6 +397,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     
   </div>
   
+
 
 </header><p>One of the key aspects in a researcher’s toolbox is the knowledge and skill to work with data regardless of how it comes to you. When you run a study, you might get lots of different data types in various different files. For instance, some experimental software creates a new file for every participant, and each participant’s file might contain columns and rows of different data types, only some of which are important. Being able to wrangle that data, manipulate it into different layouts, extract the parts you need, and summarise it, is one of the most important skills we will help you learn throughout this book.</p>
 <p>In the last chapter, we introduced you to several one-table <a href="https://psyteachr.github.io/glossary/f#function" target="_blank" class="glossary" title="A named section of code that can be reused.">functions</a> from <pkg>dplyr</pkg> which we use to wrangle data. Over the course of this book, we will reinforce these functions and skills across different data sets to give you a wide range of exposure to what psychology is about, and to reiterate that the same skills apply across different data sets. Always remember: <strong>while the data changes, the skills stay the same!</strong></p>
@@ -481,7 +490,7 @@ $ BlockNumber     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 <span class="header-section-number">5.2.3</span> Data types in R</h3>
 <p>We try and balance developing your data skills in a practical way while slowly introducing some of the underlying technical points. In the last chapter, we warned about honoring data types so R knew how to handle numbers/doubles vs factors. Now we have explored a few data sets, it is time to clarify some key differences between data types in R.</p>
 <p>We often store data in two-dimensional tables, either called <a href="https://psyteachr.github.io/glossary/d#data-frame" target="_blank" class="glossary" title="A container data type for storing tabular data.">data frames</a>, tables, or <a href="https://psyteachr.github.io/glossary/t#tibble" target="_blank" class="glossary" title="A container for tabular data with some different properties to a data frame">tibbles</a>. There are other ways of storing data that you will discover in time but in this book, we will be using data frame or tibbles (a special type of data frame in the tidyverse). A data frame is really just a table of data with columns and rows of information. Within the cells of the data frame - a cell being where a row and a column meet - you get different types of data, including <a href="https://psyteachr.github.io/glossary/d#double" target="_blank" class="glossary" title="A data type representing a real decimal number">double</a>, <a href="https://psyteachr.github.io/glossary/i#integer" target="_blank" class="glossary" title="A data type representing whole numbers.">integer</a>, <a href="https://psyteachr.github.io/glossary/c#character" target="_blank" class="glossary" title="A data type representing strings of text.">character</a> and <a href="https://psyteachr.github.io/glossary/f#factor" target="_blank" class="glossary" title="A data type where a specific set of values are stored with labels; An explanatory variable manipulated by the experimenter">factor</a>. To summarise:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 17%">
 <col style="width: 82%">
@@ -511,8 +520,21 @@ $ BlockNumber     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 </table>
 <p>Double and integer can both be referred to as <a href="https://psyteachr.github.io/glossary/n#numeric" target="_blank" class="glossary" title="A data type representing a real decimal number or integer.">numeric</a> data, and you will see this word from time to time. For clarity, we will use double as a term for any number that can take a decimal (e.g.&nbsp;3.14) and integer as a term for any whole number (no decimal, e.g.&nbsp;3).</p>
 <p>Somewhat confusingly, double data might not have decimal places in it. For instance, the value of 1 could be double as well as integer. However, the value of 1.1 could only be double and never integer. Integers cannot have decimal places. The more you work with data the more this will make sense, but it highlights the importance of looking at your data and checking what type it is as the type determines what you can do with the data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Functions to convert variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Until now, we have used the function <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>, and <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code>. Each variable in a data frame must be the same data type, so you can use them to convert a whole variable to another data type. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning.</p>
+</div>
+</div>
 <p>In <code>pong_data</code>, each row (observation) represents one trial per participant and there are 288 trials for each of the 16 participants. Most of the data is a double (i.e., numbers) and one column is a character (i.e., text). The columns (variables) we have in the data set are:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 19%">
 <col style="width: 41%">
@@ -580,7 +602,7 @@ $ BlockNumber     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 <span id="cb5-2"><a href="#cb5-2"></a>select_dat <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -589,7 +611,7 @@ Show me the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
@@ -622,7 +644,7 @@ Show me the solution
 <span id="cb8-2"><a href="#cb8-2"></a>reorder_dat <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -631,7 +653,7 @@ Show me the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
@@ -660,7 +682,7 @@ Show me the solution
 <li><p>What is the background colour (<code>BackgroundColor</code>) in the 10th row? <input class="webex-solveme nospaces" size="4" data-answer="[&quot;blue&quot;]"></p></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -669,7 +691,7 @@ Show me the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You needed to include <code>desc()</code> to change it from running smallest-to-largest to largest-to-smallest as the values are 0 and 1. You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
@@ -693,7 +715,7 @@ Show me the solution
 <span id="cb12-2"><a href="#cb12-2"></a>pong_data <span class="ot">&lt;-</span> ?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -702,7 +724,7 @@ Show me the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
@@ -743,7 +765,7 @@ Show me the solution
 </div>
 <p>1 is not larger than 1, so it’s evaluated to FALSE and would be ignored. 2 is larger than 2, so it’s evaluated to TRUE and would be retained. Explore the two data sets <code>pong_data</code> and <code>pong_data_filter</code> and the number of rows they have to see the effects of applying the function.</p>
 <p>As a reminder from Chapter 4, the most common Boolean expressions are:</p>
-<table class="table">
+<table class="caption-top table">
 <thead><tr class="header">
 <th>Operator</th>
 <th>Name</th>
@@ -807,7 +829,7 @@ Try this
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -816,7 +838,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You were looking for the equivalence Boolean operator (==) to retain responses which were equal to “Fast” or 1. If you used <code>JudgedSpeedLabel</code>, you should have:</p>
 <div class="cell" data-layout-align="center">
@@ -894,7 +916,7 @@ Try this
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -903,7 +925,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You should have the following in a code chunk:</p>
 <div class="cell" data-layout-align="center">
@@ -928,7 +950,7 @@ Solution
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">count</span>(pong_data_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">n</th>
 </tr></thead>
@@ -949,7 +971,7 @@ Solution
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">BackgroundColor</th>
 <th style="text-align: right;">n</th>
@@ -998,7 +1020,7 @@ Try this
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1007,7 +1029,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To answer question 1, we only need to add <code>Participant</code> as an argument after the data <code>pong_data_filter</code>.</p>
 <div class="cell" data-layout-align="center">
@@ -1045,7 +1067,7 @@ Solution
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">N_observations</th>
 </tr></thead>
@@ -1065,7 +1087,7 @@ Solution
 <span id="cb33-4"><a href="#cb33-4"></a>                                <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">N_observations</th>
 <th style="text-align: right;">hit_proportion</th>
@@ -1114,7 +1136,7 @@ Try this
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1123,7 +1145,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You only needed to add one argument to calculate the mean of the <code>JudgedSpeed</code> variable. We called the new variable <code>fast_proportion</code>, but this was not important for the answer. Just make sure you call your variables something sensible, so you could understand what it means later.</p>
 <div class="cell" data-layout-align="center">
@@ -1186,7 +1208,7 @@ Solution
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>hits_by_judgedspeed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">JudgedSpeedLabel</th>
 <th style="text-align: right;">sum_hits</th>
@@ -1235,7 +1257,7 @@ Try this
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1244,7 +1266,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are two steps here to follow the previous example. The main difference is using <code>BackgroundColor</code> in <code>group_by()</code>, and then the <code>summarise()</code> element is largely the same.</p>
 <div class="cell" data-layout-align="center">
@@ -1277,12 +1299,16 @@ R Markdown tip of the chapter: Create pretty tables
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(hits_by_judgedspeed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You will need to knit your document to see what it looks like, but it should look similar to <a href="#fig-img-kable-demo">Figure&nbsp;<span>5.1</span></a>. The row labels are fine, but you would need to tidy up the headers and round <code>prop_hits</code> to three decimals (see the function <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>).</p>
+<p>You will need to knit your document to see what it looks like, but it should look similar to <a href="#fig-img-kable-demo" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. The row labels are fine, but you would need to tidy up the headers and round <code>prop_hits</code> to three decimals (see the function <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-img-kable-demo" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/kable_demo.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;5.1: Example of using kable() to create tables in R Markdown.</figcaption></figure>
+<div id="fig-img-kable-demo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-img-kable-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/kable_demo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-img-kable-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Example of using kable() to create tables in R Markdown.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1306,20 +1332,20 @@ R Markdown tip of the chapter: Create pretty tables
 <p><strong>Question 1</strong>. What type of data would these most likely be:</p>
 <ul>
 <li><p>Male = <select class="webex-select"><option value="blank"></option>
-<option value="">Double</option>
 <option value="">Integer</option>
-<option value="answer">Character</option></select></p></li>
+<option value="answer">Character</option>
+<option value="">Double</option></select></p></li>
 <li><p>7.15 = <select class="webex-select"><option value="blank"></option>
-<option value="">Character</option>
+<option value="">Integer</option>
 <option value="answer">Double</option>
-<option value="">Integer</option></select></p></li>
+<option value="">Character</option></select></p></li>
 <li><p>137 = <select class="webex-select"><option value="blank"></option>
 <option value="answer">Integer</option>
-<option value="">Character</option>
-<option value="">Double</option></select></p></li>
+<option value="">Double</option>
+<option value="">Character</option></select></p></li>
 </ul>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1328,7 +1354,7 @@ Explain this answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are several different types of data as well as different levels of measurement and it takes a while to recognise the nuanced differences. It is important to try to remember which is which because you can only do certain types of analyses on certain types of data and certain types of measurements. For instance, you cannot take the average of characters or categorical data. Likewise, you can do any maths on double data, just like you can on interval and ratio data. Integer data is funny in that sometimes it is ordinal and sometimes it is interval, sometimes you should take the median, sometimes you should take the mean. The main point is to always know what type of data you are using and to think about what you can and cannot do with them.</p>
 <p>Note: in the last answer, 137 could also be double as it is not clear if it could take a decimal or not.</p>
@@ -1336,20 +1362,20 @@ Explain this answer
 </div>
 </div>
 <strong>Question 2</strong>. Which of the <pkg>dplyr</pkg> functions would you use to count the number of observations in your data set or variables?
-<div id="radio_VTHCPOBPOR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VTHCPOBPOR" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_VTHCPOBPOR" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_VTHCPOBPOR" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_VTHCPOBPOR" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_VTHCPOBPOR" value="answer"><span>count</span></label>
+<div id="radio_BCHKJZQPCD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value="answer"><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>filter</span></label>
 </div>
 <strong>Question 3</strong>. Which of the <pkg>dplyr</pkg> functions would you use to calculate the mean of a column?
-<div id="radio_CWDSTVIIOU" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_CWDSTVIIOU" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_CWDSTVIIOU" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_CWDSTVIIOU" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_CWDSTVIIOU" value="answer"><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_CWDSTVIIOU" value=""><span>select</span></label>
+<div id="radio_UJIDZFMULD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value="answer"><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>mutate</span></label>
 </div>
 <strong>Question 4</strong>. Which of the <pkg>dplyr</pkg> functions would you use to remove certain observations (e.g., remove all males)?
-<div id="radio_TOPSKKYVCK" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value="answer"><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_TOPSKKYVCK" value=""><span>group_by</span></label>
+<div id="radio_ZTGXOJDUBP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value="answer"><span>filter</span></label>
 </div>
 <strong>Question 5</strong>. Which of the <pkg>dplyr</pkg> functions would you use to subset summary statistics by?
-<div id="radio_HKGVCYIAJN" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value="answer"><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_HKGVCYIAJN" value=""><span>count</span></label>
+<div id="radio_LLNSVHXDBB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value="answer"><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>mutate</span></label>
 </div>
 </section><section id="error-mode" class="level3" data-number="5.6.2"><h3 data-number="5.6.2" class="anchored" data-anchor-id="error-mode">
 <span class="header-section-number">5.6.2</span> Error mode</h3>
@@ -1366,12 +1392,12 @@ Explain this answer
 <p><strong>Question 6</strong>. Copy the following code chunk into your R Markdown file and press knit. We want to filter data to only include a paddle length of 50. You should receive the error starting with <code>Error in "filter()" ! We detected a named input</code>.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1"></a></span>
 <span id="cb46-2"><a href="#cb46-2"></a><span class="in">```{r}</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="co"># filter pong_data to retain PaddleLength of 50</span></span>
-<span id="cb46-4"><a href="#cb46-4"></a>pong_data_filter <span class="ot">&lt;-</span> <span class="fu">filter</span>(pong_data,</span>
-<span id="cb46-5"><a href="#cb46-5"></a>                           <span class="at">PaddleLength =</span> <span class="dv">50</span>)</span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="in"># filter pong_data to retain PaddleLength of 50</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="in">pong_data_filter &lt;- filter(pong_data,</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="in">                           PaddleLength = 50)</span></span>
 <span id="cb46-6"><a href="#cb46-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1380,7 +1406,7 @@ Explain the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In the code, we use a single equals sign (<code>=</code>) rather than the Boolean operator a double equals sign (<code>==</code>). With a single equals, R is interpreting this as “PaddleLength is equal to 50” like you were saving an object or setting an argument. The error message below line two tries to help and suggests you might need to include <code>==</code> instead.</p>
 <div class="cell" data-layout-align="center">
@@ -1393,12 +1419,12 @@ Explain the solution
 </div>
 <p><strong>Question 7</strong>. Copy the following code chunk into your R Markdown file and press knit. We want to count the number of trials per block (<code>BlockNumber</code>). This…works, but if you look at the output, have we counted the number of trials?</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="co"># Count block numbers from pong_data</span></span>
-<span id="cb48-3"><a href="#cb48-3"></a>count_blocknumbers <span class="ot">&lt;-</span> <span class="fu">summarise</span>(pong_data,</span>
-<span id="cb48-4"><a href="#cb48-4"></a>                                <span class="at">N_blocks =</span> <span class="fu">sum</span>(BlockNumber))</span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="in"># Count block numbers from pong_data</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="in">count_blocknumbers &lt;- summarise(pong_data,</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a><span class="in">                                N_blocks = sum(BlockNumber))</span></span>
 <span id="cb48-5"><a href="#cb48-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1407,7 +1433,7 @@ Explain the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The mistake is using <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> to count the number of trials per block. <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> would only work when you have 0s and 1s. Here, it just adds up all the numbers, totalling 29952. There are two options here. In every other scenario, you need to either <code>count()</code>:</p>
 <div class="cell" data-layout-align="center">
@@ -1429,12 +1455,12 @@ Explain the solution
 </div>
 <p><strong>Question 8</strong>. Copy the following code chunk into your R Markdown file and press knit. Here, we want the proportion of fast judgements per paddle length by taking the mean of <code>JudgedSpeed</code>. This code… works, but do we have a proportion of fast judgements per paddle length?</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a><span class="co"># Mean judged speed for the proportion of fast judgements</span></span>
-<span id="cb51-3"><a href="#cb51-3"></a>hits_by_background <span class="ot">&lt;-</span> <span class="fu">summarise</span>(pong_data,</span>
-<span id="cb51-4"><a href="#cb51-4"></a>                                <span class="at">prop_fast =</span> <span class="fu">mean</span>(JudgedSpeed))</span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="in"># Mean judged speed for the proportion of fast judgements</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a><span class="in">hits_by_background &lt;- summarise(pong_data,</span></span>
+<span id="cb51-4"><a href="#cb51-4"></a><span class="in">                                prop_fast = mean(JudgedSpeed))</span></span>
 <span id="cb51-5"><a href="#cb51-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1443,7 +1469,7 @@ Explain the solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We wanted the mean proportion of fast judgements, but we forgot to add a group by! We only got one value, so we need to add an initial step to group the responses by <code>PaddleLength</code> first, before we then calculate the mean proportion.</p>
 <div class="cell" data-layout-align="center">
@@ -1462,8 +1488,7 @@ Explain the solution
 <span class="header-section-number">5.7</span> Words from this Chapter</h2>
 <p>Below you will find a list of words that were used in this chapter that might be new to you in case it helps to have somewhere to refer back to what they mean. The links in this table take you to the entry for the words in the <a href="https://psyteachr.github.io/glossary/" target="_blank">PsyTeachR Glossary</a>. Note that the Glossary is written by numerous members of the team and as such may use slightly different terminology from that shown in the chapter.</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">term</th>
 <th style="text-align: left;">definition</th>
@@ -1524,14 +1549,13 @@ Explain the solution
 </tbody>
 </table>
 </div>
-</div>
 </section><section id="end-of-chapter" class="level2" data-number="5.8"><h2 data-number="5.8" class="anchored" data-anchor-id="end-of-chapter">
 <span class="header-section-number">5.8</span> End of chapter</h2>
 <p>Brilliant work again! You have another handful of functions added to your data wrangling toolkit and we are almost ready to tackle more advanced plotting techniques and inferential statistics.</p>
 <p>In the next chapter, we finish the key data wrangling functions. For example, showing you how you can pipe together multiple functions to streamline your code. We will also demonstrate how to pivot your data wider from long form where there are multiple observations per participant to wide form where there is one row per participant, and vice versa.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-witt2018" class="csl-entry" role="listitem">
 Witt, J. K., Tenhundfeld, N. L., &amp; Tymoski, M. J. (2018). Is there a chastity belt on perception? <em>Psychological Science</em>, <em>29</em>(1), 139–146.
 </div>
@@ -1811,6 +1835,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -1877,13 +1928,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1918,18 +1971,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1961,11 +2003,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1975,8 +2056,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1988,7 +2078,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2032,6 +2245,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2057,6 +2271,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2116,12 +2356,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./04-wrangling-1.html" class="pagination-link">
+      <a href="./04-wrangling-1.html" class="pagination-link" aria-label="Data wrangling 1: Join, select, and mutate">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data wrangling 1: Join, select, and mutate</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06-wrangling-3.html" class="pagination-link">
+      <a href="./06-wrangling-3.html" class="pagination-link" aria-label="Data Wrangling 3: Pivots and Pipes">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling 3: Pivots and Pipes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2131,7 +2371,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">CC-BY-SA-4.0 (2024) James Bartlett &amp; Wilhelmiina Toivo</div>
+    <div class="nav-footer-center">
+<p>CC-BY-SA-4.0 (2024) James Bartlett &amp; Wilhelmiina Toivo</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/edit/main/05-wrangling-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/PsyTeachR/quant-fundamentals-v3/blob/main/05-wrangling-2.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
