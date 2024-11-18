@@ -569,7 +569,9 @@ A > B 	  |greater than 	       |A is greater than B
 A >= B 	  |greater than or equal |A is greater than or equal to B
 A == B 	  |equivalence 	         |A exactly equals B
 A != B 	  |not equal 	           |A does not exactly equal B
-A %in% B 	|in 	                 |A is an element of vector B
+A %in% B 	|in 	                 |A is an element of vector* B 
+
+* More on vectors later, but essentially a vector is a group of elements of the same type 
 
 Boolean expressions will come up again in chapter 5 when it comes to `filter()`, so there will be plenty more practice as you apply your understanding to different data sets and use cases. 
 
