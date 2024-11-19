@@ -11,8 +11,8 @@
   #TOC, #quarto-sidebar .sidebar-menu-container ul.mt-1 {
     width: 49%;
     padding:0;
-    float: none;
-    display: inline-block;
+    float: left;
+    display: contents;
     vertical-align: text-top;
   }
 }
