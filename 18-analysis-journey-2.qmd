@@ -444,7 +444,7 @@ For wellbeing and ill-being measures, we will recreate some values from Table 2 
     
     - Which group has the lowest post-test loneliness value? `r mcq(sample(c("Control", "Indirect", answer = "Direct")))`
     
-    - Which group has the lowest post-test social connectedness value? `r mcq(sample(c("Control", answer = "Indirect", "Direct")))`
+    - Which group has the lowest post-test social connectedness value? `r mcq(sample(c(answer = "Control", "Indirect", "Direct")))`
 
 ::: {.callout-caution collapse="true"} 
 #### Show me the solution
