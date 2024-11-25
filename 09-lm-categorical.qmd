@@ -282,7 +282,23 @@ t.test(formula = F_CaloriesConsumed ~ Condition_label,
 
 The difference here is specifying the `alternative` argument. You can use "less" or "greater" depending if you predict a negative (group A < group B) or positive difference (group A > group B). 
 
-### Activity 5 - Calculating Cohen's d 
+### Activity 5 - Analysing ranks with the Mann-Whitney U test
+
+As a final type of test variation here, like the Spearman is a non-parametric version of correlation, the Mann-Whitney U test is a non-parametric version of a t-test. Instead of using the raw values, this test compares ranks between each group. You can use it when there are concerns with normality, outliers, or you are analysing a strictly ordinal outcome (more in Chapter 11).
+
+The format is the same as for the t-test, but instead of the `t.test()` function, you have the `wilcox.test()` function (it also goes by the name Wilcoxon rank sum test). 
+
+```{r}
+wilcox.test(formula = F_CaloriesConsumed ~ Condition_label, 
+            data = lopez_clean,
+            conf.int = TRUE)
+```
+
+The output is similar to the t-test, but adapted to analysing ranks in a non-parametric test. By setting the argument `conf.int` to TRUE, you get the unstandardised effect size and it's confidence interval. Instead of the mean difference, you get the "difference in location". This represents - to quote the documentation as it is a little awkward - "the median of the difference between a sample from x and a sample from y". This means it is like a difference in medians, but the median difference in samples from each group rather than the median of the whole group. 
+
+To summarise: A Mann-Whitney U test showed participants in the experimental group ate significantly more calories of soup than participants in the control group, *W* = 18827, *p* < .001. For the difference in location, those in the experimental group ate 59.89 (95% CI = [39.92, 82.07]) more calories than those in the control group.
+
+### Activity 6 - Calculating Cohen's d 
 
 Raw/unstandardised effect sizes are great for putting results in context, particularly when the units are comparable across studies. For our outcome in this study, differences in calories are easy to put in context. 
 
@@ -357,7 +373,7 @@ cohens_d(CalEstimate ~ Condition_label,
 
 Now you know how to calculate a t-test in R, we can turn to simple linear regression as a more flexible tool for modelling the difference between two groups. As a reminder, there is a chapter in the Handy Workbook ([McAleer, 2023](https://psyteachr.github.io/handyworkbook/simple-linear-regression.html){target="_blank"}) dedicated to manually calculating simple linear regression if you want to work through what the functions are doing behind the scenes.  
 
-### Activity 6 - Descriptive statistics
+### Activity 7 - Descriptive statistics
 
 For all the information we want to include in a report, calculating descriptive statistics is helpful for the reader to show the context behind the results you present. Here, we can report the mean and standard deviation of our outcome per group.
 
@@ -372,7 +388,7 @@ lopez_clean %>%
 If you want some reinforcement of how these skills apply to published research, look at Table 1 in @lopez_visual_2023. The means and standard deviations here (and Cohen's d from Activity 5) exactly reproduce the values they report, apart from the *SD* for the control group (maybe there is a typo in their article).
 :::
 
-### Activity 7 - Using the `lm()` function
+### Activity 8 - Using the `lm()` function
 
 For our research question of "is there a difference in actual calories consumed between the control and experimental group?", we can address it with simple linear regression. In this study, we can make causal conclusions as it was an experiment to randomly allocate people into one of two groups, but you can also use regression to compare two self-selecting groups when you cannot make a causal conclusion in isolation. Think carefully about what you can conclude from your design.
 
@@ -433,7 +449,7 @@ You can see the process is identical by comparing the key values from the regres
 So, when you have a single categorical predictor, it is the exact same process as the Student t-test, just expressed slightly different. The only downside to this procedure is it is much more difficult to recreate the Welch t-test. 
 :::
 
-### Activity 8 - Calculating confidence intervals
+### Activity 9 - Calculating confidence intervals
 
 The only thing we are missing is our confidence intervals around the estimates which we can calculate through the `confint()` function. 
 
@@ -482,7 +498,7 @@ confint(lm_cal_est)
 
 :::
 
-### Activity 9 - Standardising predictors
+### Activity 10 - Standardising predictors
 
 For simple linear regression with two levels of a categorical predictor, centering the variable does not help, but we can standardise our outcome to express the estimate in standard deviations rather than the raw units. This is analogous to calculating Cohen's d as we express the standardised mean difference. In contrast to continuous predictors, we only need to standardise the outcome, rather than both the outcome and predictor(s). We then use the standardised variable as our outcome. 
 
@@ -513,7 +529,7 @@ standardize_parameters(lm_cals_numbers)
 
 For the inferential statistics to work as intended, the model makes certain assumptions about the data you are putting into it and the accuracy of the inferences depends on how sensible these assumption are.
 
-### Activity 10 - Diagnostic plots for linear regression
+### Activity 11 - Diagnostic plots for linear regression
 
 We have the same assumptions for simple linear regression now we have a categorical predictor:
 

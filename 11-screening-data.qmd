@@ -395,7 +395,7 @@ The conclusions are very similar. The difference is still statistically signific
 
 ### Activity 7 - Treat the data as non-parametric
 
-The second option is switching to a non-parametric statistical test which makes fewer assumptions about the data. In Chapter 8, we introduced the Spearman correlation as the non-parametric equivalent. In Chapter 9, we could have introduced the Mann-Whitney U test as the non-parametric equivalent, but we are starting to double every statistical test with it's non-parametric equivalent. Instead, we can apply a similar principle to linear regression and recreate non-parametric equivalents. 
+The second option is switching to a non-parametric statistical test which makes fewer assumptions about the data. In Chapter 8, we introduced the Spearman correlation and in Chapter 9 the Mann-Whitney U as the non-parametric equivalents. For both, instead of doubling the number of non-parametric tests you need to learn, we can apply a similar principle to linear regression and recreate non-parametric equivalents. 
 
 In the demonstration by [Lindeløv, 2019](https://lindeloev.github.io/tests-as-linear/){target="_blank"}, common statistical tests you come across are specific applications of the general linear model. Likewise, you can recreate non-parametric tests by converting continuous variables to ranks and using those in the regression model. 
 
