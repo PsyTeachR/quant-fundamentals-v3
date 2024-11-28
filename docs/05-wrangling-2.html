@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Materials for the MSc Conversion Research Methods 1 and 2 courses at the University of Glasgow School of Psychology &amp; Neuroscience.">
-<title>5&nbsp; Data wrangling 2: Filter and summarise – Fundamentals of Quantitative Analysis</title>
+<title>Fundamentals of Quantitative Analysis - 5&nbsp; Data wrangling 2: Filter and summarise</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -135,13 +135,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-wrangling-2.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data wrangling 2: Filter and summarise</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -291,9 +291,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -530,7 +530,7 @@ Functions to convert variables
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Until now, we have used the function <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>, and <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code>. Each variable in a data frame must be the same data type, so you can use them to convert a whole variable to another data type. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning.</p>
+<p>Until now, we have used the function <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>, and <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code>. In a data frame, each variable can only be one data type. For example, a variable like age would only be numeric/double for age in years, while a variable like occupation would be character or a factor for distinct groups. You can use these conversion functions to convert a whole variable to another data type where possible. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning.</p>
 </div>
 </div>
 <p>In <code>pong_data</code>, each row (observation) represents one trial per participant and there are 288 trials for each of the 16 participants. Most of the data is a double (i.e., numbers) and one column is a character (i.e., text). The columns (variables) we have in the data set are:</p>
@@ -1302,7 +1302,7 @@ R Markdown tip of the chapter: Create pretty tables
 <p>You will need to knit your document to see what it looks like, but it should look similar to <a href="#fig-img-kable-demo" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. The row labels are fine, but you would need to tidy up the headers and round <code>prop_hits</code> to three decimals (see the function <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-img-kable-demo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-img-kable-demo" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-img-kable-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/kable_demo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -1332,16 +1332,16 @@ Figure&nbsp;5.1: Example of using kable() to create tables in R Markdown.
 <p><strong>Question 1</strong>. What type of data would these most likely be:</p>
 <ul>
 <li><p>Male = <select class="webex-select"><option value="blank"></option>
-<option value="">Integer</option>
 <option value="answer">Character</option>
-<option value="">Double</option></select></p></li>
-<li><p>7.15 = <select class="webex-select"><option value="blank"></option>
-<option value="">Integer</option>
-<option value="answer">Double</option>
-<option value="">Character</option></select></p></li>
-<li><p>137 = <select class="webex-select"><option value="blank"></option>
-<option value="answer">Integer</option>
 <option value="">Double</option>
+<option value="">Integer</option></select></p></li>
+<li><p>7.15 = <select class="webex-select"><option value="blank"></option>
+<option value="">Character</option>
+<option value="">Integer</option>
+<option value="answer">Double</option></select></p></li>
+<li><p>137 = <select class="webex-select"><option value="blank"></option>
+<option value="">Double</option>
+<option value="answer">Integer</option>
 <option value="">Character</option></select></p></li>
 </ul>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -1362,20 +1362,20 @@ Explain this answer
 </div>
 </div>
 <strong>Question 2</strong>. Which of the <pkg>dplyr</pkg> functions would you use to count the number of observations in your data set or variables?
-<div id="radio_BCHKJZQPCD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value="answer"><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_BCHKJZQPCD" value=""><span>filter</span></label>
+<div id="radio_SCINDAZVVO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_SCINDAZVVO" value="answer"><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_SCINDAZVVO" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_SCINDAZVVO" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_SCINDAZVVO" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_SCINDAZVVO" value=""><span>group_by</span></label>
 </div>
 <strong>Question 3</strong>. Which of the <pkg>dplyr</pkg> functions would you use to calculate the mean of a column?
-<div id="radio_UJIDZFMULD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value="answer"><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_UJIDZFMULD" value=""><span>mutate</span></label>
+<div id="radio_UZECKKQQMS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_UZECKKQQMS" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_UZECKKQQMS" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_UZECKKQQMS" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_UZECKKQQMS" value="answer"><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_UZECKKQQMS" value=""><span>mutate</span></label>
 </div>
 <strong>Question 4</strong>. Which of the <pkg>dplyr</pkg> functions would you use to remove certain observations (e.g., remove all males)?
-<div id="radio_ZTGXOJDUBP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_ZTGXOJDUBP" value="answer"><span>filter</span></label>
+<div id="radio_NAUICJCWZL" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value="answer"><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value=""><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_NAUICJCWZL" value=""><span>summarise</span></label>
 </div>
 <strong>Question 5</strong>. Which of the <pkg>dplyr</pkg> functions would you use to subset summary statistics by?
-<div id="radio_LLNSVHXDBB" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value="answer"><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>select</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_LLNSVHXDBB" value=""><span>mutate</span></label>
+<div id="radio_ZPHLJQOGPO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value=""><span>filter</span></label><label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value=""><span>summarise</span></label><label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value=""><span>count</span></label><label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value="answer"><span>group_by</span></label><label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value=""><span>mutate</span></label><label><input type="radio" autocomplete="off" name="radio_ZPHLJQOGPO" value=""><span>select</span></label>
 </div>
 </section><section id="error-mode" class="level3" data-number="5.6.2"><h3 data-number="5.6.2" class="anchored" data-anchor-id="error-mode">
 <span class="header-section-number">5.6.2</span> Error mode</h3>
@@ -1971,7 +1971,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2003,29 +2014,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -2033,7 +2022,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

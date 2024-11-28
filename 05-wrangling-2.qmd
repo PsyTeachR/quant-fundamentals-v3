@@ -113,7 +113,7 @@ Somewhat confusingly, double data might not have decimal places in it. For insta
 
 ::: {.callout-note}
 #### Functions to convert variables 
-Until now, we have used the function `as.factor()` which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as `as.character()`, `as.numeric()`, and `as.Date()`. Each variable in a data frame must be the same data type, so you can use them to convert a whole variable to another data type. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning. 
+Until now, we have used the function `as.factor()` which takes an existing variable and converts it to a factor where possible. There are functions which convert variables to each data type, such as `as.character()`, `as.numeric()`, and `as.Date()`. In a data frame, each variable can only be one data type. For example, a variable like age would only be numeric/double for age in years, while a variable like occupation would be character or a factor for distinct groups. You can use these conversion functions to convert a whole variable to another data type where possible. If there is an errant data entry and it is not possible to convert it to the desired data type, it will replace it with an NA and give you a warning. 
 :::
 
 In `pong_data`, each row (observation) represents one trial per participant and there are 288 trials for each of the 16 participants. Most of the data is a double (i.e., numbers) and one column is a character (i.e., text). The columns (variables) we have in the data set are:
