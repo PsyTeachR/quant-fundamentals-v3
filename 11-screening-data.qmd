@@ -243,7 +243,7 @@ Identifying error outliers relies on manually setting known minimum and maximum 
 
 In general, we recommend not removing outliers providing you are confident they are not errors. It is better to focus on modelling your outcome in a more robust way. However, it is also important you know how to identify errors for strategies you will come across in published research. 
 
-We focus here on setting boundaries using the median absolute deviation as recommended by @leys_how_2019. You will see other approaches in the literature, but this method is useful as it's influenced less by the very outliers it is trying to identify. We will use `lopez_clean` from @lopez_visual_2023 for this section. 
+We focus here on setting boundaries using the median absolute deviation (MAD) as recommended by @leys_how_2019. You will see other approaches in the literature, but this method is useful as it's influenced less by the very outliers it is trying to identify. We will use `lopez_clean` from @lopez_visual_2023 for this section. 
 
 There are two main steps to this process because we have two groups and each group will have different boundaries. If you only have individual variables, then you could just `mutate()` your data, without the initial `group_by()` and `summarise()` step.
 
